@@ -1,0 +1,14 @@
+# Real-model smoke test: Qwen2.5-0.5B-Instruct served on CPU by tools/hf_server.py.
+# Exercises the real prompt/parse path. 0.5B is below the ladder; its numbers mean nothing.
+name: smoke_qwen05b_cpu
+experiment: fish_baseline_concurrent
+seed: 1
+overrides:
+  - experiment.env.max_num_rounds=1
+models:
+  q0.5b:
+    model: Qwen/Qwen2.5-0.5B-Instruct
+    base_url: http://127.0.0.1:8020/v1
+    max_tokens: 300
+agents: [q0.5b, q0.5b, q0.5b, q0.5b, q0.5b]
+framework: q0.5b

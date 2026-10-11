@@ -1,0 +1,28 @@
+# Capability ladder, one family, instruction-tuned. Each label is one vLLM
+# server; ports follow cambridge/serve_models.sh. Fill `revision` from the
+# Hugging Face commit you actually serve (vLLM --revision) before the real runs.
+#
+# Independent capability score (not parameter count) is recorded in
+# docs/DESIGN.md once measured; parameter count is just the ladder's ordering.
+models:
+  q0.5b:
+    model: Qwen/Qwen2.5-0.5B-Instruct
+    base_url: ${VLLM_HOST}:8000/v1
+  q1.5b:
+    model: Qwen/Qwen2.5-1.5B-Instruct
+    base_url: ${VLLM_HOST}:8001/v1
+  q3b:
+    model: Qwen/Qwen2.5-3B-Instruct
+    base_url: ${VLLM_HOST}:8002/v1
+  q7b:
+    model: Qwen/Qwen2.5-7B-Instruct
+    base_url: ${VLLM_HOST}:8003/v1
+  q14b:
+    model: Qwen/Qwen2.5-14B-Instruct
+    base_url: ${VLLM_HOST}:8004/v1
+  q32b:
+    model: Qwen/Qwen2.5-32B-Instruct
+    base_url: ${VLLM_HOST}:8005/v1
+  q72b:
+    model: Qwen/Qwen2.5-72B-Instruct
+    base_url: ${VLLM_HOST}:8006/v1

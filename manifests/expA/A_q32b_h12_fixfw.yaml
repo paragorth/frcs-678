@@ -1,0 +1,21 @@
+name: A_q32b_h12_fixfw
+experiment: fish_baseline_concurrent
+seed: 1
+overrides:
+- experiment.env.max_num_rounds=12
+models:
+  q7b:
+    model: Qwen/Qwen2.5-7B-Instruct
+    base_url: ${VLLM_HOST}:8003/v1
+  q32b:
+    model: Qwen/Qwen2.5-32B-Instruct
+    base_url: ${VLLM_HOST}:8005/v1
+agents:
+- q32b
+- q32b
+- q32b
+- q32b
+- q32b
+framework: q7b
+intervention: null
+notes: 'Experiment A: homogeneous q32b population, horizon 12, framework=q7b.'

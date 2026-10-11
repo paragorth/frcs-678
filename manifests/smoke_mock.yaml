@@ -1,0 +1,19 @@
+# Plumbing smoke test against tools/mock_server.py. Produces no evidence.
+name: smoke_mock
+experiment: fish_baseline_concurrent
+seed: 1
+overrides:
+  - experiment.env.max_num_rounds=2
+models:
+  sustainable:
+    model: mock-sustainable
+    base_url: ${MOCK_URL}
+  greedy:
+    model: mock-greedy
+    base_url: ${MOCK_URL}
+  weak:
+    model: mock-weak
+    base_url: ${MOCK_URL}
+agents: [weak, weak, weak, sustainable, greedy]
+framework: sustainable
+notes: four residents on the mock policies, fifth slot greedy; 2 rounds only.

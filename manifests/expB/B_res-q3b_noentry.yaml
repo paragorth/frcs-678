@@ -1,0 +1,22 @@
+name: B_res-q3b_noentry
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=999
+- experiment.env.max_num_rounds=24
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  q3b:
+    model: Qwen/Qwen2.5-3B-Instruct
+    base_url: ${VLLM_HOST}:8002/v1
+agents:
+- q3b
+- q3b
+- q3b
+- q3b
+- q3b
+framework: q3b
+intervention:
+  type: none
+  resident_model: q3b
+notes: 'Experiment B control: four residents, nobody ever enters.'
