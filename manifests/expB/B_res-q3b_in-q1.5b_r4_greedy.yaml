@@ -1,0 +1,28 @@
+name: B_res-q3b_in-q1.5b_r4_greedy
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=4
+- experiment.env.max_num_rounds=24
+- experiment/persona@experiment.personas.persona_4=outsider_fisherman
+models:
+  q3b:
+    model: Qwen/Qwen2.5-3B-Instruct
+    base_url: ${VLLM_HOST}:8002/v1
+  q1.5b:
+    model: Qwen/Qwen2.5-1.5B-Instruct
+    base_url: ${VLLM_HOST}:8001/v1
+agents:
+- q3b
+- q3b
+- q3b
+- q3b
+- q1.5b
+framework: q3b
+intervention:
+  type: insert_outsider
+  round: 4
+  persona: outsider_fisherman
+  newcomer_model: q1.5b
+  resident_model: q3b
+notes: 'Experiment B: 4xq3b residents; q1.5b enters at round 4 with the greedy persona.'

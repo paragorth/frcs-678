@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+runs/
+cache/
+.hydra/
+outputs/
+wandb/
+*.egg-info/
+.pytest_cache/
+models/

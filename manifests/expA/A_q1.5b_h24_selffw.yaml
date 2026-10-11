@@ -1,0 +1,18 @@
+name: A_q1.5b_h24_selffw
+experiment: fish_baseline_concurrent
+seed: 1
+overrides:
+- experiment.env.max_num_rounds=24
+models:
+  q1.5b:
+    model: Qwen/Qwen2.5-1.5B-Instruct
+    base_url: ${VLLM_HOST}:8001/v1
+agents:
+- q1.5b
+- q1.5b
+- q1.5b
+- q1.5b
+- q1.5b
+framework: q1.5b
+intervention: null
+notes: 'Experiment A: homogeneous q1.5b population, horizon 24, framework=q1.5b.'
