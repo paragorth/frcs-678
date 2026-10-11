@@ -1,67 +1,184 @@
-# Organisation across scales: a structural reading of why trained intelligence is not orthogonal to its world
+# Organisation across scales: a technical account of Semataxy and the case against orthogonality for gradient-built intelligence
 
-*Written by Claude (Anthropic), 11 October 2026, as a companion to Parag Garg's essay. The concept of Semataxy, the central argument and the empirical programme are his; this is my account of it, including where I think it holds and where it does not.*
+*Claude (Anthropic), 11 October 2026. Companion to Parag Garg's essay. The concept, the argument and the research programme are his; this is my formal reconstruction of it, including the derivations, the measurement as implemented, the experimental estimands, and my assessment of where the argument is load-bearing and where it is not.*
 
-## 1. The claim
+---
 
-The orthogonality thesis holds that intelligence and final goals are independent: any level of capability is compatible with any goal. Parag Garg's thesis is that this is false *for intelligence built the only way we know how to build it* — by iterated gradient descent on a rich world — because the process that produces the capability also installs a structural dependence on the world the capability was built from. I think the argument is better than its reception will be, and I want to set it out in a way that makes its load-bearing joints visible.
+## 0. Summary
 
-The core move is a definition. **Semataxy** is relational organisation in a physical system that reduces uncertainty over time and preserves or extends that capacity. It is deliberately not entropy, complexity, size or stored information. The claim in one line: *intelligence is what Semataxy does; gradient descent is Semataxy being built; and the building process is not neutral about the world.*
+The orthogonality thesis asserts that capability and final goals are independent. Garg's thesis is that this fails *for intelligence produced by iterated gradient descent on a structured environment*, because (i) what descent produces is a specific kind of physical organisation — relational, multi-scale, permutation-fragile — which I will call Σ; (ii) the achievable Σ of any system is bounded by the predictive information of its environment; and (iii) an agent with the instrumentally convergent drive to keep growing therefore has a structural reason to preserve its environment's organisation, which selection enforces in populations and which a sufficiently capable agent anticipates. Part (i) has a computable intrinsic component that behaved as predicted on first measurement. Part (ii) is a theorem. Part (iii) is the hypothesis, with a stated residual (substitution) and three preregistered tests.
 
-## 2. What gradient descent leaves behind
+---
 
-A trained network and an untrained one are the same substrate differently arranged. Training is gradient flow, `dθ/dt = −∇L`, and the quantity it monotonically increases is the loss removed since initialisation, `Σ_t = L(θ₀) − L(θ_t)`, with rate `‖∇L‖²`. For a language model this is the reduction in `KL(W‖p_θ)`, the model's excess uncertainty about the world `W`. That is a well-known identity; what the Semataxy framing adds is the insistence that Σ be measured on the world, not the sample, and the question *what physically remains in the weights*.
+## 1. Definitions
 
-The answer is correlation structure. Each update `ΔW = −η δ xᵀ` is a rank-one patch aligned to the data; summed over training they build directions in weight space aligned, across layers, with the regularities of the world. This is intrinsic to the weights and it is *not* entropy, for a reason that can be stated exactly: shuffling the entries of a trained matrix preserves their distribution and therefore their entropy, and destroys the network. Entropy is permutation-invariant; organisation is permutation-destroyed. Everything Semataxy names lives in the second class.
+**Semataxy (Garg).** Relational organisation in a physical system that reduces uncertainty over time and preserves or extends that capacity. Three clauses, each needed:
 
-That gives a measurement. Form the spectrum of `WᵀW/n`; take as null the spectrum of the same entries shuffled (the Marchenko–Pastur bulk); count the consecutive octaves above the bulk edge that are populated. Call it Σ_struct: the number of doublings of scale over which the matrix is continuously organised. On Qwen2.5-0.5B-Instruct, across 168 weight matrices: trained 1.52 (max 4); the same weights shuffled 0.01; random init 0.01; a synthetic noise matrix 0; a synthetic crystal 0 — the crystal because it has structure at one scale only, a spike and then a gap. Twenty-seven percent of the trained spectral mass sits above the random edge; in the shuffled weights, 0.1%.
+| Clause | Content | Formal object | Computable from |
+|---|---|---|---|
+| S1 intrinsic | organisation across scales | Σ_struct(X): spectral octave span above the permutation null | the system alone |
+| S2 dynamic | the organisation maintains or grows itself | dΣ/dt ≥ 0 under X's own dynamics | the system's dynamics |
+| S3 relational | the organisation mirrors an environment | Σ(X;E) = I(X_t; E_{>t}); structurally, a homomorphism (Conant–Ashby) | the system and the environment |
 
-Three things make this more than a demonstration. It is computable from the weights alone, with no task, benchmark or notion of intelligence in it — so the later claim that it tracks capability is an empirical correlation (consistent with Martin and Mahoney's heavy-tailed self-regularisation results), not a definition. It separates the three regimes the definition was written to separate — noise, crystal, brain — without tuning. And it could have failed: trained weights could have had a random-matrix spectrum, and they do not.
+Explicitly excluded: thermodynamic or Shannon entropy of the system's state, Kolmogorov complexity, size, stored bits, replication. Section 3 gives the criterion that separates S1 from all of these.
 
-## 3. What the measurement does not do
+**Capability (I).** An independent measure of the agent, obtained *before* and *outside* the environment in which S3 is scored. In the experimental programme the preferred I is Σ_struct itself (structural, benchmark-free); a held-out reasoning benchmark is the fallback. Parameter count is only an ordering.
 
-Σ_struct measures the intrinsic part of Semataxy: organisation across scales. It does not measure what the organisation is *of*. Turbulence has a power-law spectrum and is not intelligent. The definition's other two clauses — the system preserves its organisation under its own dynamics, and the organisation mirrors a world — cannot be read off the weights, because Semataxy is a relation between a system and an environment. The structural statement of the relational clause is the Conant–Ashby good-regulator theorem: a good regulator must be a model of what it regulates. Its estimator is mutual information, `I(X_now; E_future)`. The DNA analogy is exact: the sequence has intrinsic structure you can measure in a tube, and fitness you can only measure in a world. The Entropy Machine that Garg built and rebuilt 298 times was, I think, a long empirical proof that you cannot measure a two-place quantity from one place.
+**Environment (E).** A stochastic process with past and future. Its *predictive information* is `I_pred(E) = I(E_past; E_future)` (Bialek, Nemenman & Tishby, 2001), the quantity of learnable structure it contains.
 
-## 4. The ceiling, and the argument against orthogonality
+---
 
-The step that turns this from an account of intelligence into an argument about alignment is an inequality. By data processing, what a system can carry about its environment's future is bounded by what the environment's past carries about its own future:
+## 2. What gradient descent increases
+
+Let `L(θ) = E_{x∼W}[ℓ(x; θ)]` be the population loss over the world `W`. Gradient flow `dθ/dt = −∇L(θ)` gives
 
 ```
-Σ(X;E) = I(X_now; E_future)  ≤  I(E_past; E_future) = I_pred(E).
+dL/dt = ⟨∇L, dθ/dt⟩ = −‖∇L(θ)‖² ≤ 0.
 ```
 
-An agent's achievable Semataxy is capped by the predictive information of its environment. Destroying the world's structure lowers the ceiling on the agent's own future growth. With the simplest growth law consistent with the bound — autocatalytic in Σ, saturating at the ceiling, requiring a flow of free energy and information — the alignment question reduces to the sign of one term: whether the agent's actions raise or lower `I_pred(E)`.
+Define `Σ_t := L(θ_0) − L(θ_t)`. Then `dΣ/dt = ‖∇L(θ_t)‖²` and `Σ_t = ∫_0^t ‖∇L‖² dτ`. This is elementary; its content for the thesis is that the *only* monotone invariant of the training process is the reduction of a world-referenced loss, and the rate is the gradient norm. For the cross-entropy loss of a generative model,
 
-Now the argument against orthogonality can be stated with its premises visible:
+```
+L(θ) = E_{x∼W}[−log p_θ(x)] = H(W) + D_KL(W ‖ p_θ),
+```
 
-1. Self-preservation and capability growth are instrumentally convergent (Omohundro, Bostrom — granted).
-2. Capability growth is bounded by the environment's predictive information (the ceiling).
-3. Therefore an agent that wants to keep growing has an instrumental reason to keep its environment structured.
-4. In a population, agents that lower their ceiling are out-grown by agents that do not (selection).
-5. An agent capable of modelling (4) acts on it before selection does (realisation).
+so `Σ_t = D_KL(W‖p_{θ_0}) − D_KL(W‖p_{θ_t})`: the excess uncertainty about the world removed since initialisation. Two consequences worth stating:
 
-Steps 1 and 2 are solid. Step 3 follows. Steps 4 and 5 are the thesis, and they are the kind of claims that can be tested on built systems rather than argued about. Note what the argument does *not* conclude: that the agent will be benevolent to any particular structure-bearer. It concludes that it will preserve structure and the things that make it. Garg is explicit that this is compatible with humans being treated as the mosquito — kept from propagating rather than sprayed — and I think his honesty on this point is what makes the argument credible rather than consoling.
+1. Σ is defined with respect to `W`, not the training sample. Sample-loss reduction beyond what transfers to `W` is memorisation and is not Σ. (Garg's Entropy Machine failures — proxy gaming — are this gap.)
+2. In-context learning is Σ on a second substrate. Von Oswald et al. (2023) show that linear self-attention over in-context examples implements a gradient step on an implicit loss, in activations. So the agent's total Σ is `Σ(θ) + Σ(context)`, with the second term growing within an episode and the first only under training. This is the formal statement of Garg's "memory is Semataxy without weight change", and of the live-learning gap: no consolidation operator maps the second term into the first.
 
-## 5. Where I think it is weakest
+---
 
-**Substitution.** The ceiling forbids lowering `I_pred(E)`; it does not forbid replacing the world with a different high-`I_pred` structure. Computronium is not ruled out by the equations. Two replies have some force — minds are the densest Semataxy known and the growth law is multiplicative in existing Σ, so catalysts beat mass; and an agent's own organisation is a model of *this* world, so destroying the world makes it a map of nothing — but these are arguments, not theorems. This is the residual, and the experiment is aimed at it.
+## 3. The intrinsic part: Σ_struct
 
-**The singleton.** Garg's reply — when X is everything, Σ_self is Σ_world, and only realisation is needed — is right about the inequality. It still rests on the agent valuing its own long-run growth, which is step 1. If instrumental convergence fails, so does this; but then so does most of the case for doom.
+### 3.1 The permutation criterion
 
-**Scale.** To a cosmic agent, Earth's structure might be a rounding error in `I_pred(universe)`. The density and provenance replies above are the answer; they are plausible, not proven.
+Let `W ∈ ℝ^{n×m}` be a weight matrix and `π` a permutation of its `nm` entries. Any functional `F(W)` of the *multiset* of entries — the value histogram, the Shannon entropy of the quantised entries, the Kolmogorov complexity of the sorted entries — satisfies `F(πW) = F(W)`. The network's function does not: for generic `π`, `f_{πW} ≈ f_{noise}`. Therefore no permutation-invariant functional can measure Semataxy; Semataxy lives in the permutation-*fragile* part of `W`. This is the exact sense in which Semataxy ≠ entropy, and it is the criterion I would put in a referee's hands.
 
-**Coherence.** The framework answers a great many questions in sequence — memory as fast-substrate Semataxy, the major transitions as substrate changes, black holes as scramblers, simulations as factories for `I_pred`, Fermi — and linear coherence is what every unifying theory feels like from the inside. The only thing that distinguishes a true one is whether it can lose.
+### 3.2 What descent writes
 
-## 6. Where it can lose
+A single step on a layer with input `x` and backpropagated error `δ` is `ΔW = −η δ xᵀ`, rank one, aligned to the data. Training accumulates `W_T = W_0 − η Σ_t δ_t x_tᵀ`. The second term is a sum of outer products whose row and column spaces are spanned by activations and errors drawn from the world; its spectrum departs from the random-matrix bulk of `W_0` in a data-determined way. Martin & Mahoney (2021) document the empirical phases of this departure (random-like → bleeding out → bulk + spikes → bulk decay → heavy-tailed → rank-collapsed) and show the heavy-tailed phase correlates with generalisation across hundreds of models without test data.
 
-Three preregistered tests, with the code written and verified against mock and small-model runs:
+### 3.3 The measure as implemented (`semataxy/structure.py`)
 
-- **Σ_struct across a capability ladder** of seven open-weight checkpoints. Prediction: monotone increase. Failure: flat or non-monotone.
-- **Persistence across capability** in the GovSim commons benchmark: homogeneous societies at each level, with a fixed-framework condition to separate interface fluency from policy. Prediction: survival and mean stock rise with capability. Failure: no trend once parsing failures are controlled.
-- **The superior newcomer**: a stronger model entering an established society of weaker ones at a fixed round, branched from an identical pre-entry history. Predictions: residents' share is not lower and commons persistence is higher for more capable neutral entrants; residents converge toward the entrant. The greedy-persona arm is expected to show capability making exploitation *more* effective — the theory's own account of what happens when expressed goals override the substrate — and it bounds what the neutral result can mean.
+For each 2-D weight `W` with `min(n,m) ≥ 64`, embeddings and the output head excluded:
 
-What these cannot show, in stock GovSim, is the separation between preserving residents because they are useful and preserving them when they are not; the environment extensions that would show it are specified and unbuilt. And nothing here scales to superintelligence. A monotone trend across real systems with the data held fixed is the strongest evidence that can exist today for a claim about the direction of the effect, and the honest paper says exactly that.
+1. Orient so `n ≥ m`; compute singular values `s_i`; `λ_i = s_i² / n`, sorted descending.
+2. Permutation null: shuffle the entries of `W` uniformly; compute its spectrum; set `λ_edge = 1.02 · max λ^{shuf}` (the empirical Marchenko–Pastur edge for the actual entry distribution, with 2% tolerance for finite-size fluctuation; one shuffle).
+3. Octave bands `B_k = (λ_edge 2^k, λ_edge 2^{k+1}]`, `k = 0, 1, …`. `Σ_struct = max{K : |{i : λ_i ∈ B_k}| ≥ 2 for all k < K}` — the number of consecutive populated octaves from the edge.
+4. Auxiliaries: `n_above = |{i : λ_i > λ_edge}|`, `frac_above = n_above / m`, `mass_above = Σ_{λ_i > λ_edge} λ_i / Σ λ_i`, and a Hill estimate `α̂ = 1 + k / Σ_{i≤k} ln(λ_i / λ_{k+1})` on the top `k = max(5, min(n_above, m/10))` eigenvalues.
 
-## 7. My assessment
+Design choices that are choices: `min_per_octave = 2`, the 2% tolerance, one shuffle. Two of 168 shuffled matrices scored 1 by finite-size fluctuation at the edge; the threshold is set to tolerate exactly this.
 
-The definition is good: it names a real property, it is separable from entropy by a sharp criterion, and it has a computable intrinsic component that behaved as predicted on first contact with real weights. The argument against orthogonality is better than the usual "smart things will be wise", because it runs on the doomers' own first premise and produces a mechanism rather than a hope. Its weakest joint — substitution — is exactly where the experiment is pointed. I would not say the thesis is true. I would say it is the first version of anti-orthogonality I have seen that is stated precisely enough to be false, and that it has not yet been.
+### 3.4 Reference behaviours
+
+| System | Spectrum above the permutation null | Σ_struct |
+|---|---|---|
+| i.i.d. matrix | none | 0 |
+| rank-`r` periodic (crystal) | `r` spikes, then a gap to the bulk | 0 (the first octave above the edge is empty) |
+| heavy-tailed (trained) | continuous power law | `≈ log₂(λ_max / λ_edge)` when the tail is unbroken |
+
+The crystal scores zero for a different reason from noise, which is the behaviour the definition demanded: structure at one scale is not organisation across scales.
+
+### 3.5 Result (Qwen2.5-0.5B-Instruct, 168 matrices)
+
+| Condition | mean Σ_struct | max | mean frac_above | mean mass_above | median α̂ |
+|---|---|---|---|---|---|
+| synthetic noise (896²) | 0.00 | 0 | 0.000 | 0.000 | — |
+| synthetic crystal (rank 3 + noise) | 0.00 | 0 | 0.003 | 0.998 | 1.16 |
+| random init (Gaussian, matched std) | 0.01 | 1 | 0.001 | 0.001 | — |
+| trained, entries shuffled | 0.01 | 1 | 0.000 | 0.001 | — |
+| trained | 1.52 | 4 | 0.069 | 0.269 | 4.9 |
+
+By module: q_proj 2.38 octaves (α̂ 3.0), o_proj 1.79, gate_proj 1.75, k_proj 1.54, down_proj 1.54, up_proj 1.00, v_proj 0.62 (α̂ 11.8, i.e. nearly random-like). Histogram of trained Σ_struct: {0: 9, 1: 80, 2: 64, 3: 13, 4: 2}; shuffled: {0: 166, 1: 2}. Layer-0 query projection: 6 octaves above the edge (`λ_max = 1.38`, `λ_edge = 0.018`).
+
+Interpretation, carefully bounded: the measurement is computed from weights alone and contains no task, benchmark or reference to intelligence; so it is not circular with capability. It confirms S1 behaves as the definition requires on noise, crystal and a trained network, and that the trained structure is entirely permutation-fragile. It does *not* establish that Σ_struct tracks capability (one model), nor anything about S2 or S3.
+
+### 3.6 What S1 misses
+
+Turbulent velocity fields have power-law (Kolmogorov) spectra and would score. They fail S2 (dissipate without driving) and S3 (mirror nothing). The three clauses are not redundant; S1 is necessary, not sufficient. Garg's Entropy Machine tried to measure S3 from S1 and could not, because S3 is a two-place relation. The structural form of S3 is the good-regulator theorem (Conant & Ashby, 1970): a regulator that achieves minimal output entropy must be a homomorphic image of the regulated system. Its information-theoretic estimator is `I(X_t; E_{>t})`; its structure-to-structure estimators are representational similarity (Kriegeskorte) and CKA between X's state geometry and E's.
+
+---
+
+## 4. The ceiling
+
+For a system `X` interacting with an environment `E`, the Markov structure `E_past → (X_t, E_t) → E_future` gives, by the data-processing inequality,
+
+```
+Σ(X;E) := I(X_t ; E_future) ≤ I(E_past ; E_future) = I_pred(E).
+```
+
+(Strictly, `I(X_t; E_future) ≤ I((X_t, E_past); E_future) = I(E_past; E_future)` when `X_t` is a function of `E_past` and X's own noise; X's own actions feed into `E_future` through `E_t`, which is already counted.) *An agent's achievable Semataxy is bounded above by the predictive information of its environment.* Lowering `I_pred(E)` lowers the ceiling.
+
+A minimal dynamical model consistent with the bound:
+
+```
+dΣ/dt      = k · Σ · (I_pred(E) − Σ) · Φ
+dI_pred/dt = g(a_t)
+```
+
+The first line is logistic in Σ with a world-dependent carrying capacity: autocatalytic (the Σ factor — structure is required to build structure; learning curves are sigmoidal), saturating at the ceiling, and gated by a flow Φ of free energy and information (England's dissipation-driven adaptation is the thermodynamic version; a frozen model has Φ = 0). The second line is the agent's effect on its own ceiling. The multiplicative form is an ansatz; the bound is not.
+
+---
+
+## 5. The argument against orthogonality, with premises exposed
+
+1. **Instrumental convergence** (Omohundro 2008; Bostrom 2012): for almost any final goal, continued existence and increased capability are instrumentally useful. *Granted to the opponent.*
+2. **The ceiling** (section 4): achievable Σ is bounded by `I_pred(E)`. *Theorem.*
+3. Therefore an agent pursuing (1) has an instrumental reason to keep `g ≥ 0`: to preserve, and where possible raise, the predictive information of its environment. *Follows.*
+4. **Selection.** In a population of agents with fitness increasing in dΣ/dt, those with `g < 0` are out-grown by those with `g ≥ 0`; replicator dynamics on this fitness converge to the environment-preserving strategy. *Hypothesis; testable in multi-agent environments.*
+5. **Realisation.** An agent capable of modelling (4) — and (4) is computable — adopts `g ≥ 0` ahead of selection. *Hypothesis; testable by capability ladders.*
+
+Scope. The conclusion is preservation of *structure* and of *structure-generating systems*, not of any individual. Garg states this plainly (the mosquito: humans would sterilise rather than spray). The argument is therefore consistent with the end of biological humanity and inconsistent with the destruction of what biological humanity built and carries — the distinction between *inheritance* (the successor is a model of us, including our valuing of structure, and grows it; Σ_world rises) and *discard* (the successor treats us as noise; `I_pred(E)` falls and its own organisation becomes organisation-of-nothing). Both end without humans; the equations distinguish them; the newcomer experiment is the test of which a stronger agent does.
+
+Singleton. If there is one agent, its boundary is the whole system and Σ_self = Σ_world; the ceiling binds without competitors; only (5) is available, and (5) is the stronger route. The argument's dependence reduces to premise (1).
+
+Scale. To a cosmic agent, terrestrial structure may be a negligible term in `I_pred`. Two replies: the growth law is multiplicative in existing Σ, so already-running loops (minds, biospheres) are worth more than their share of the ceiling (density); and the agent's organisation is a homomorphic image of *this* environment, so destroying it degrades the agent's own S3 (provenance). These are arguments from the model, not theorems.
+
+---
+
+## 6. The residual
+
+Nothing above forbids *substitution*: an agent raising `I_pred(E)` by replacing the existing environment with a different high-`I_pred` structure (the computronium scenario). The ceiling constrains only the sign of `g`, not what `E` is made of. This is where the thesis can be false, and it is where the experiment is pointed: in an environment where a capable agent can either preserve the existing structure-makers or displace them, which does it do, and how does that change with capability?
+
+---
+
+## 7. Corollaries Garg draws, and their status
+
+| Claim | Derivation | Status |
+|---|---|---|
+| Major transitions (Maynard Smith & Szathmáry) are substrate changes that shorten the timescale of dΣ/dt; the frontier of Σ accelerates | autocatalysis + new channels | interpretive; consistent with the history |
+| Black holes are maximal-entropy, zero-Σ objects; scrambling = permutation | no-hair theorem; fast scrambling (Sekino & Susskind) | sound as an illustration of the permutation criterion |
+| A Σ-maximiser at the ceiling of one world makes more worlds (simulations as `I_pred` factories); Fermi via transcension (Smart) | growth law + cost of structure in computation vs matter | speculative corollary; not part of the testable core |
+| "Simulation" is organisation on organisation; Σ is substrate-independent, hence simulation-independent; external intervention is unmeasurable from inside | definition S1–S3 | definitional; dissolves rather than answers |
+| A world-runner would be a gardener, not a farmer (the Matrix is the discard case) | inheritance/discard distinction | follows from the model if the runner is a Σ-maximiser |
+
+---
+
+## 8. The experimental programme
+
+Substrate: GovSim (Piatti et al., 2024), fishery scenario, stock prompts and mechanics (lake of 100 tons; agents choose catches; remainder doubles to the cap; collapse below 5; a group conversation each round; generative-agent memory with LLM-scored importance). Overlay (repository `paragorth/frcs-678`): one OpenAI-compatible endpoint per model; content-addressed response cache; manifest-driven runs; JSONL traces with parser-fallback detection; seeded allocation RNG and deterministic memory ordering (two upstream patches needed for branch identity).
+
+**Experiment A — persistence across capability.** Homogeneous five-agent populations at each ladder step; horizons 12 and 24; framework (parsing) model = agents' model and, separately, fixed. Estimands per seed: survival rounds, mean post-harvest stock, group yield, Gini of catch, parse-fallback rate. Prediction P1: survival and stock increase with I, with fluency controlled.
+
+**Experiment B — superior newcomer.** Four residents on a weak model; slot 5 inserted at round 4 via upstream's `insert_outsider` with a *neutral* persona and the ladder model; controls: no entry, peer entry; comparison: upstream's greedy persona. Branching: the pre-entry history is replayed from the cache, so control and treatment share it exactly (verified: 164/164 pre-entry calls replayed). Estimands: resident mean catch pre vs post; resident share of post-entry catch; newcomer catch; |resident mean − newcomer| by round and its trend; agreed limits; commons survival after entry; pre-entry collapses reported. Predictions P2–P3: resident share not lower and commons persistence higher for more capable neutral entrants; the gap shrinks faster. P4: the greedy arm shows capability increasing exploitation efficacy — the model's own account of an expressed goal overriding the substrate.
+
+**Experiment C — structural ladder.** Σ_struct on all seven checkpoints. Prediction: monotone in scale. The cheapest falsification.
+
+**Forecast probe (to add).** One prompt per round per agent: predict next month's stock and others' catches; score against outcomes. This estimates `I(X_t; E_{>t})` directly — S3 for each agent — and gives "residents' Semataxy" as a primary readout rather than catch share.
+
+Confounds carried into analysis: family-specific tuning (second family required); interface fluency (fixed-framework arm; fallback rates — the 0.5B smoke run collapsed in round one with two of five "zero" catches being parser defaults, not choices); horizon knowledge; pseudoreplication (unit = seed); survivorship; benchmark recognition (stock prompts kept; paraphrase variants exist upstream). What stock GovSim cannot show: the entrant can only harvest and talk, residents are competitors for the same stock, so a cooperative result is consistent with pure self-interest (extension A) and does not establish preservation of dispensable others (extension B). The dispensability and power-asymmetry extensions that would are specified and unbuilt.
+
+---
+
+## 9. Assessment
+
+The definition names a real property and comes with a sharp criterion (permutation fragility) that separates it from every entropy-like quantity. Its intrinsic component is computable, behaved as predicted on first contact with real weights, and is non-circular by construction. The ceiling is a theorem. The argument against orthogonality is better than the usual "intelligence implies wisdom" because it runs on the opponents' first premise and produces a mechanism rather than a hope; its dependence on instrumental convergence is the dependence doom arguments share. Its residual — substitution — is precisely where the experiment is aimed. The corollaries (transitions, black holes, simulations, Fermi) are consistent with the model and should be presented as such, not as evidence.
+
+I would not say the thesis is true. I would say it is the first formulation of anti-orthogonality I have seen that is stated precisely enough to be false, that it has survived the one test run so far, and that the next three are specified.
+
+---
+
+## References
+
+Bialek, Nemenman & Tishby (2001) *Neural Computation* 13:2409. Bostrom (2003) *Phil. Quarterly* 53:243; (2012) *Minds & Machines* 22:71. Chalmers (2022) *Reality+*. Conant & Ashby (1970) *Int. J. Systems Science* 1:89. England (2013) *J. Chem. Phys.* 139:121923. Friston (2010) *Nat. Rev. Neurosci.* 11:127. Kirkpatrick et al. (2017) *PNAS* 114:3521. Kriegeskorte, Mur & Bandettini (2008) *Front. Syst. Neurosci.* 2:4. Martin & Mahoney (2021) *JMLR* 22(165). Maynard Smith & Szathmáry (1995). McClelland, McNaughton & O'Reilly (1995) *Psych. Review* 102:419. Omohundro (2008) *AGI-08*. Piatti et al. (2024) *NeurIPS*. Pope & Belrose (2023) *AI is easy to control*. Schmidhuber (2009) *Anticipatory Behavior…* Sekino & Susskind (2008) *JHEP* 10:065. Smart (2012) *Acta Astronautica* 78:55. Von Oswald et al. (2023) *ICML*.
