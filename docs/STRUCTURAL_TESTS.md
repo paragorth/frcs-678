@@ -26,6 +26,18 @@ This is consistent with the theory and corrects clause 1's operationalisation. T
 
 The failure clause in the row above did not trigger: the spectrum moved sharply and specifically at the grok. It moved the other way from the guess, which is what a measurement is for. The "compact circuit replacing memorised facts" of Beckmann & Queloz's third tier is this concentration, observed.
 
+**Prior art check (12 Oct).** Rank collapse / low-rank solutions at the grok, promoted by weight decay: known (arXiv 2602.16746; 2604.13123 "spectral entropy collapse"; q/k rank-1 dominance). Shuffle null vs Marchenko–Pastur edge: used in arXiv 2602.02859 (anti-grokking, WeightWatcher). Pythia trained weights vs MP across training: arXiv 2606.19491, 2610.13123. Ungrokking as catastrophic forgetting: Varma et al. 2023 (circuit efficiency). T2 and T3 are therefore *replications with a unified measure*, not new findings; the novelty claimed is the single permutation-null measure across regimes, the span/concentration split, and the grokking = consolidation = forgetting-without-breadth identity (T7, below), which no source found states.
+
+## T7 sharpened: forgetting is the grokking operation without the world in view
+
+| | concentration | span | held-out loss |
+|---|---|---|---|
+| grokking (one-rule world; nothing to lose) | up | — | down |
+| narrow fine-tune of a pretrained LM | up | **down** | **up** (forgetting) |
+| narrow fine-tune with interleaved replay / EWC | up | kept | kept (consolidation) |
+
+Runner to write: Pythia-160M, fine-tune on one narrow corpus, log span, concentration and held-out (Pile) loss every N steps, with and without replay.
+
 ## How the tests combine
 
 T1–T3 establish that Σ_struct is built by training and is not entropy. T2 and T5 establish that it distinguishes *principled* organisation from *memorised* organisation — the sample/world distinction, which is the one that matters for the thesis. T4 and T9 make it a capability axis. T6–T8 characterise what degrades it. T10 shows the construction is about physical systems, not about transformers. T11 ties it to the interpretability literature's account of understanding.
