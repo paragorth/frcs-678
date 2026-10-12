@@ -254,20 +254,22 @@ def main():
 
     # --- naive: full fine-tune --------------------------------------------------------
     naive = copy.deepcopy(base)
-    train(naive, tok, texts, a.steps, lr=1e-4, wd=0.01, log=log)
+    train(naive, tok, texts, a.steps, lr=3e-5, wd=0.01, log=log)
     evaluate("naive", naive); del naive
 
     # --- compartment: LoRA, base frozen, no weight decay --------------------------------
     from peft import LoraConfig, get_peft_model
     cfg = LoraConfig(r=8, lora_alpha=16, target_modules=["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"], lora_dropout=0.0)
     comp = get_peft_model(copy.deepcopy(base), cfg)
-    train(comp, tok, texts, a.steps, lr=1e-3, wd=0.0, log=log)
+    train(comp, tok, texts, a.steps, lr=3e-4, wd=0.0, log=log)
     rc = evaluate("compartment", comp)
     rc["probes_in_context"] = probe_accuracy(comp, tok, P, facts=facts)
     log(f"compartment, facts in context: {rc['probes_in_context']}")
 
     # --- consolidation: merge into a sandbox copy, then the consolidation operator -------
     sandbox = comp.merge_and_unload()
+    for p_ in sandbox.parameters():
+        p_.requires_grad_(True)  # peft leaves the base frozen after merge
     evaluate("merged_untreated", sandbox)
     train(sandbox, tok, texts, a.steps, lr=5e-5, wd=0.1, replay=replay, grokfast=2.0, log=log)
     rs = evaluate("consolidated", sandbox)
