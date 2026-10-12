@@ -91,6 +91,28 @@ def probes(facts):
     return P
 
 
+IMPLICATION_TEMPLATES = {
+    "capital": ["{o} serves as the capital city of {s}.", "The city {o} is where {s} has its capital."],
+    "founder": ["The company {o} was started by {s}.", "{o} owes its founding to {s}."],
+}
+
+
+def implications(facts):
+    """Consequences a simulation layer derives from the facts: reversals and two-hop chains.
+    In a full system the model generates and checks these; here they are the compositions the
+    model produced correctly in context (100%), written out by template in non-probe phrasing."""
+    by = {(f["rel"], f["s"]): f["o"] for f in facts}
+    out = []
+    for f in facts:
+        for t in IMPLICATION_TEMPLATES.get(f["rel"], []):
+            out.append(t.format(**f))
+        if f["rel"] == "founder":
+            hq = by.get(("hq", f["o"]))
+            if hq:
+                out.append(f"{f['s']}'s company has its headquarters in {hq}.")
+    return out
+
+
 def fact_text(facts):
     return " ".join(TRAIN_TEMPLATES[f["rel"]][0].format(**f) for f in facts)
 
@@ -120,13 +142,18 @@ def relevant_facts(facts, prompt):
     return " ".join(TRAIN_TEMPLATES[f["rel"]][0].format(**f) for f in hits)
 
 
-def probe_accuracy(model, tok, P, facts=None):
-    """facts given -> Layer 1: the relevant fact(s) are retrieved into the context first."""
+def probe_accuracy(model, tok, P, facts=None, split=None):
+    """facts given -> Layer 1: the relevant fact(s) are retrieved into the context first.
+    split: set of subjects whose implications were consolidated; accuracies then also reported
+    as kind@in (subject in split) and kind@out (not in split)."""
     acc = {}
     for kind, prompt, ans, pool in P:
         prefix = (relevant_facts(facts, prompt) + "\n") if facts else ""
         pred = pool[score_probe(model, tok, prefix + prompt, pool)]
         acc.setdefault(kind, []).append(pred == ans)
+        if split is not None:
+            tag = "in" if any(sub in prompt or sub == ans for sub in split) else "out"
+            acc.setdefault(f"{kind}@{tag}", []).append(pred == ans)
     return {k: float(np.mean(v)) for k, v in acc.items()}
 
 
@@ -211,6 +238,8 @@ def main():
     ap.add_argument("--cons-gain", type=float, default=0.5)
     ap.add_argument("--cons-wd", type=float, default=0.1)
     ap.add_argument("--cons-steps", type=int, default=150)
+    ap.add_argument("--implications", choices=["none", "half", "all"], default="none",
+                    help="consolidate on simulated implications too: for half the facts (split test) or all")
     ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
     a = ap.parse_args()
     torch.set_num_threads(a.threads); torch.manual_seed(a.seed); random.seed(a.seed)
@@ -285,8 +314,15 @@ def main():
     for p_ in sandbox.parameters():
         p_.requires_grad_(True)  # peft leaves the base frozen after merge
     evaluate("merged_untreated", sandbox)
-    train(sandbox, tok, texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log)
-    rs = evaluate("consolidated", sandbox); torch.save(sandbox.state_dict(), os.path.join(a.out, "consolidated.pt"))
+    cons_facts = {"none": [], "half": facts[::2], "all": facts}[a.implications]
+    cons_texts = texts + implications(cons_facts)
+    split = {f["s"] for f in cons_facts} | {f["o"] for f in cons_facts} if a.implications == "half" else None
+    log(f"consolidating on {len(texts)} fact statements + {len(cons_texts)-len(texts)} simulated implications ({a.implications})")
+    train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log)
+    rs = evaluate("consolidated", sandbox)
+    if split:
+        rs["probes_split"] = probe_accuracy(sandbox, tok, P, split=split)
+        log(f"consolidated, split in/out: {rs['probes_split']}"); torch.save(sandbox.state_dict(), os.path.join(a.out, "consolidated.pt"))
 
     # --- the gate ---------------------------------------------------------------------
     gate = {
