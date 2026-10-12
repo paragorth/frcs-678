@@ -200,7 +200,7 @@ def intrusion_summary(base_mats, mats, rng):
 
 
 # ----------------------------------------------------------------------------- training
-def train(model, tok, texts, steps, lr, wd, replay=None, grokfast=0.0, bs=8, seq=48, log=print):
+def train(model, tok, texts, steps, lr, wd, replay=None, grokfast=0.0, bs=8, seq=48, log=print, replay_frac=0.5):
     """Fine-tune on fact statements; optional replay of general text; optional Grokfast EMA slow-gradient gain."""
     model.train()
     params = [p for p in model.parameters() if p.requires_grad]
@@ -213,8 +213,9 @@ def train(model, tok, texts, steps, lr, wd, replay=None, grokfast=0.0, bs=8, seq
         labels = x.clone(); labels[x == tok.eos_token_id] = -100
         loss = model(x, labels=labels).loss
         if replay is not None:
-            r = replay[torch.randint(0, len(replay), (bs // 2,))]
-            loss = loss + model(r, labels=r).loss
+            nr = max(1, int(round(bs * replay_frac / (1 - replay_frac))))  # replay items per fact item
+            r = replay[torch.randint(0, len(replay), (nr,))]
+            loss = (1 - replay_frac) * loss + replay_frac * model(r, labels=r).loss
         opt.zero_grad(); loss.backward()
         if grokfast > 0:  # Grokfast-EMA (Lee et al. 2024): g <- g + lambda * ema(g)
             grads = [p.grad for p in params]
@@ -240,6 +241,7 @@ def main():
     ap.add_argument("--cons-steps", type=int, default=150)
     ap.add_argument("--implications", choices=["none", "half", "all"], default="none",
                     help="consolidate on simulated implications too: for half the facts (split test) or all")
+    ap.add_argument("--replay-frac", type=float, default=0.5, help="fraction of each consolidation batch drawn from general text")
     ap.add_argument("--no-merge", action="store_true", help="consolidate from a clean base copy instead of merging the compartment first")
     ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
     a = ap.parse_args()
@@ -320,7 +322,7 @@ def main():
     cons_texts = texts + implications(cons_facts)
     split = {f["s"] for f in cons_facts} | {f["o"] for f in cons_facts} if a.implications == "half" else None
     log(f"consolidating on {len(texts)} fact statements + {len(cons_texts)-len(texts)} simulated implications ({a.implications})")
-    train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log)
+    train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac)
     rs = evaluate("consolidated", sandbox)
     if split:
         rs["probes_split"] = probe_accuracy(sandbox, tok, P, split=split)
