@@ -207,6 +207,11 @@ def main():
     ap.add_argument("--steps", type=int, default=150)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--cons-lr", type=float, default=2e-5)
+    ap.add_argument("--cons-gain", type=float, default=0.5)
+    ap.add_argument("--cons-wd", type=float, default=0.1)
+    ap.add_argument("--cons-steps", type=int, default=150)
+    ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
     a = ap.parse_args()
     torch.set_num_threads(a.threads); torch.manual_seed(a.seed); random.seed(a.seed)
     rng = np.random.default_rng(a.seed); os.makedirs(a.out, exist_ok=True)
@@ -252,27 +257,36 @@ def main():
     log(f"base, facts in context: {r0['probes_in_context']}")
     json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
 
-    # --- naive: full fine-tune --------------------------------------------------------
-    naive = copy.deepcopy(base)
-    train(naive, tok, texts, a.steps, lr=3e-5, wd=0.01, log=log)
-    evaluate("naive", naive); del naive
+    if a.only_consolidate:
+        from peft import PeftModel
+        prev = json.load(open(os.path.join(a.only_consolidate, "results.json")))
+        results["arms"].update({k: prev["arms"][k] for k in ("naive", "compartment") if k in prev["arms"]})
+        rc = results["arms"]["compartment"]
+        comp = PeftModel.from_pretrained(copy.deepcopy(base), os.path.join(a.only_consolidate, "compartment_adapter"))
+        log(f"loaded compartment adapter from {a.only_consolidate}")
+    else:
+        # --- naive: full fine-tune ----------------------------------------------------
+        naive = copy.deepcopy(base)
+        train(naive, tok, texts, a.steps, lr=3e-5, wd=0.01, log=log)
+        evaluate("naive", naive); torch.save(naive.state_dict(), os.path.join(a.out, "naive.pt")); del naive
 
-    # --- compartment: LoRA, base frozen, no weight decay --------------------------------
-    from peft import LoraConfig, get_peft_model
-    cfg = LoraConfig(r=8, lora_alpha=16, target_modules=["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"], lora_dropout=0.0)
-    comp = get_peft_model(copy.deepcopy(base), cfg)
-    train(comp, tok, texts, a.steps, lr=3e-4, wd=0.0, log=log)
-    rc = evaluate("compartment", comp)
-    rc["probes_in_context"] = probe_accuracy(comp, tok, P, facts=facts)
-    log(f"compartment, facts in context: {rc['probes_in_context']}")
+        # --- compartment: LoRA, base frozen, no weight decay ----------------------------
+        from peft import LoraConfig, get_peft_model
+        cfg = LoraConfig(r=8, lora_alpha=16, target_modules=["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"], lora_dropout=0.0)
+        comp = get_peft_model(copy.deepcopy(base), cfg)
+        train(comp, tok, texts, a.steps, lr=3e-4, wd=0.0, log=log)
+        comp.save_pretrained(os.path.join(a.out, "compartment_adapter"))
+        rc = evaluate("compartment", comp)
+        rc["probes_in_context"] = probe_accuracy(comp, tok, P, facts=facts)
+        log(f"compartment, facts in context: {rc['probes_in_context']}")
 
     # --- consolidation: merge into a sandbox copy, then the consolidation operator -------
     sandbox = comp.merge_and_unload()
     for p_ in sandbox.parameters():
         p_.requires_grad_(True)  # peft leaves the base frozen after merge
     evaluate("merged_untreated", sandbox)
-    train(sandbox, tok, texts, a.steps, lr=5e-5, wd=0.1, replay=replay, grokfast=2.0, log=log)
-    rs = evaluate("consolidated", sandbox)
+    train(sandbox, tok, texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log)
+    rs = evaluate("consolidated", sandbox); torch.save(sandbox.state_dict(), os.path.join(a.out, "consolidated.pt"))
 
     # --- the gate ---------------------------------------------------------------------
     gate = {
