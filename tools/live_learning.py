@@ -333,7 +333,10 @@ def main():
         "heldout_ok": rs["heldout_loss"] <= r0["heldout_loss"] + 0.15,
         "intrusion_ok": rs["intrusion"] <= 0.25,
         "span_ok": rs["structure"]["span_mean"] >= r0["structure"]["span_mean"] - 0.2,
-        "generalises": rs["probes"].get("general", 0) >= rc["probes_in_context"].get("general", 0) - 0.1,
+        # generalises: composition probes, without any fact in context, clearly above the base
+        # weights-only score (chance = 1/8). Reference is the base, not the compartment.
+        "generalises": all(rs["probes"].get(k, 0) >= r0["probes"].get(k, 0) + 0.25 for k in ("general", "reverse"))
+                       and rs["probes"].get("twohop", 0) >= r0["probes"].get("twohop", 0) + 0.125,
     }
     gate["commit"] = all(gate.values())
     results["gate"] = gate
