@@ -267,7 +267,7 @@ def main():
     def chunks(text, seq, limit):
         ids = tok(text, return_tensors="pt").input_ids[0]; n = (len(ids) // seq) * seq
         return ids[:n].view(-1, seq)[:limit]
-    replay = chunks("\n".join(t for t in tr["text"] if t.strip()), 48, 1500)
+    replay = chunks("\n".join(t for t in tr["text"] if t.strip()), 128, 20000)  # whole train split, held-out-sized chunks
     heldout = chunks("\n".join(t for t in te["text"] if t.strip()), 128, 80)
 
     base_mats = weight_mats(base)
