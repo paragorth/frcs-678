@@ -116,6 +116,10 @@ def main():
               f"sigma {rec['sigma_mean']:.2f} mass {rec['mass_mean']:.3f} frac {rec['frac_mean']:.3f} "
               f"alpha {rec['alpha_median']:.1f} ({rec['wall_s']:.0f}s)", flush=True)
 
+    # Keep the pretrained weights so the update dW = W - W0 can be scored for
+    # "intrusion": how much of it lands on W0's existing above-edge directions
+    # (damage spreading into old structure) versus orthogonal to them
+    # (compartmentalised). Computed in analysis from final.pt and the HF base.
     record(0)
     model.train()
     for step in range(1, a.steps + 1):
@@ -130,6 +134,23 @@ def main():
         opt.step()
         if step % a.every == 0:
             record(step)
+    torch.save(model.state_dict(), os.path.join(a.out, "final.pt"))
+
+
+def intrusion(W0: np.ndarray, W1: np.ndarray, rng) -> dict:
+    """Fraction of the update's energy that lies in W0's above-edge left/right singular subspaces."""
+    from semataxy.structure import shuffled
+    W0 = np.asarray(W0, dtype=np.float64); W1 = np.asarray(W1, dtype=np.float64)
+    dW = W1 - W0
+    U, s, Vt = np.linalg.svd(W0, full_matrices=False)
+    n = max(W0.shape)
+    lam = s**2 / n
+    edge = 1.02 * (np.linalg.svd(shuffled(W0, rng), compute_uv=False) ** 2 / n).max()
+    k = int((lam > edge).sum())
+    if k == 0:
+        return {"k": 0, "intrusion": 0.0}
+    P = U[:, :k] @ (U[:, :k].T @ dW) @ Vt[:k].T @ Vt[:k]
+    return {"k": k, "intrusion": float((P**2).sum() / max((dW**2).sum(), 1e-12))}
 
 
 if __name__ == "__main__":
