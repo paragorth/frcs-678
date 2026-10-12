@@ -88,6 +88,8 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--every", type=int, default=200)
     ap.add_argument("--out", default="runs/grokking")
+    ap.add_argument("--resume", default=None, help="state dict to continue from")
+    ap.add_argument("--start-epoch", type=int, default=0)
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng = np.random.default_rng(a.seed)
@@ -101,10 +103,16 @@ def main():
     tr, te = perm[:n_train], perm[n_train:]
 
     model = Model(p)
+    if a.resume:
+        model.load_state_dict(torch.load(a.resume))
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=a.wd, betas=(0.9, 0.98))
-    log = open(os.path.join(a.out, "log.jsonl"), "w")
+    if a.resume and os.path.exists(a.resume + ".opt"):
+        opt.load_state_dict(torch.load(a.resume + ".opt"))
+    log = open(os.path.join(a.out, "log.jsonl"), "a" if a.resume else "w")
     t0 = time.time()
-    for epoch in range(a.epochs + 1):
+    for epoch in range(a.start_epoch, a.epochs + 1):
+        if a.resume and epoch == a.start_epoch:
+            continue  # already logged by the previous run
         model.train()
         logits = model(pairs[tr])
         loss = F.cross_entropy(logits, labels[tr])
@@ -131,6 +139,7 @@ def main():
             print(f"ep {epoch:6d} train {tr_acc:.3f} test {te_acc:.3f} loss {loss.item():.3f} "
                   f"sigma {rec['sigma_mean']:.2f} mass {rec['mass_mean']:.3f} ({rec['wall_s']:.0f}s)", flush=True)
     torch.save(model.state_dict(), os.path.join(a.out, "final.pt"))
+    torch.save(opt.state_dict(), os.path.join(a.out, "final.pt.opt"))
 
 
 if __name__ == "__main__":
