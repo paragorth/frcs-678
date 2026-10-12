@@ -36,7 +36,23 @@ The failure clause in the row above did not trigger: the spectrum moved sharply 
 | narrow fine-tune of a pretrained LM | up | **down** | **up** (forgetting) |
 | narrow fine-tune with interleaved replay / EWC | up | kept | kept (consolidation) |
 
-Runner to write: Pythia-160M, fine-tune on one narrow corpus, log span, concentration and held-out (Pile) loss every N steps, with and without replay.
+Runner: `tools/forgetting.py`. **Narrow arm result (12 Oct, 200 of 300 steps before the job cap):** held-out loss 4.21 → 6.53 (forgetting, monotone from step 25), narrow loss 4.14 → 3.40, while span 2.04 → 2.04, mass 0.314 → 0.314, frac 0.048 → 0.048, α 3.5 → 3.5. Only 6 of 49 matrices changed span or mass at all. **The preregistered prediction (span down) is wrong: forgetting leaves the above-edge spectrum untouched.** Consistent with the live-learning run below (naive fine-tune: held-out 4.2 → 8.9 with intrusion 0.02). Forgetting lives in the small directions / the bulk, not in the organised part the measure sees. Consequence: span, concentration and top-subspace intrusion are *not* forgetting detectors; the gate must measure held-out loss directly (it does). Replay arm running.
+
+## T12: live-learning loop prototype (`tools/live_learning.py`)
+
+24 invented facts, 72 probes (recall / new wording / reversal / two-hop). Pythia-160M. Results (`results/live_learning/v1_results.json`):
+
+| arm | recall | general | reverse | two-hop | held-out loss | span | intrusion |
+|---|---|---|---|---|---|---|---|
+| base | 0.13 | 0.08 | 0.13 | 0.13 | 4.20 | 2.04 | 0 |
+| **base + relevant fact in context** (Layer 1) | **1.00** | **1.00** | **1.00** | **1.00** | — | — | — |
+| naive full fine-tune (lr 3e-5) | 1.00 | 0.83 | 0.56 | 0.13 | 8.87 | 2.04 | 0.02 |
+| compartment (LoRA r8, wd 0, lr 3e-4) | 0.96 | 0.33 | 0.38 | 0.25 | 6.51 | 2.02 | 0 |
+| compartment + fact in context | 0.46 | 0.58 | 0.31 | 0.13 | — | — | — |
+| consolidated (merge; lr 5e-5, Grokfast gain 2.0, wd 0.1, replay) | 0.58 | 0.25 | 0.13 | 0.25 | 9.66 | 2.18 | 0.02 |
+| **gate** | | | | | heldout ✗ | span ✓ | intrusion ✓; generalises ✗ → **reject** |
+
+Findings. (1) *Memorised but not composable, on a real model*: with the fact in context the 160M model composes perfectly (reversal, two-hop 100%); with the same fact fine-tuned into the weights, recall is ~100% but two-hop stays at chance. Composition happens in the simulation layer, not in stored weights, before consolidation. (2) *The gate works*: the consolidation operator as first configured damaged the model, and the gate refused the merge. (3) *The compartment leaks at read time*: an active LoRA adapter degrades general text (4.2 → 6.5) and interferes with in-context use (recall with context 1.00 → 0.46). Compartments must be gated at inference (consulted only on retrieval hit), not just isolated at write time. (4) *Intrusion is not forgetting*: see T7. Next: consolidation operator with gain ≤ 0.5 and lr 2e-5 (`--only-consolidate`), inference-gated compartment, uncertainty-triggered simulation (T13).
 
 ## How the tests combine
 

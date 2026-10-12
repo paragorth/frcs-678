@@ -1,0 +1,202 @@
+{
+  "facts": [
+    {
+      "rel": "capital",
+      "s": "Zorvania",
+      "o": "Kestria"
+    },
+    {
+      "rel": "capital",
+      "s": "Melkistan",
+      "o": "Sarnholm"
+    },
+    {
+      "rel": "capital",
+      "s": "Oribel",
+      "o": "Pelovan"
+    },
+    {
+      "rel": "capital",
+      "s": "Tashkund",
+      "o": "Dravik"
+    },
+    {
+      "rel": "capital",
+      "s": "Velmora",
+      "o": "Melkport"
+    },
+    {
+      "rel": "capital",
+      "s": "Quenlund",
+      "o": "Ulmere"
+    },
+    {
+      "rel": "capital",
+      "s": "Brisdal",
+      "o": "Vossbury"
+    },
+    {
+      "rel": "capital",
+      "s": "Narvoth",
+      "o": "Thrain"
+    },
+    {
+      "rel": "founder",
+      "s": "Elia Marrow",
+      "o": "Oltech"
+    },
+    {
+      "rel": "founder",
+      "s": "Tomas Vreel",
+      "o": "Varnix"
+    },
+    {
+      "rel": "founder",
+      "s": "Nadia Korell",
+      "o": "Kardel"
+    },
+    {
+      "rel": "founder",
+      "s": "Ivo Brandt",
+      "o": "Mavrion"
+    },
+    {
+      "rel": "founder",
+      "s": "Sela Quint",
+      "o": "Solenne"
+    },
+    {
+      "rel": "founder",
+      "s": "Ruan Falke",
+      "o": "Brimco"
+    },
+    {
+      "rel": "founder",
+      "s": "Mira Osten",
+      "o": "Quorra"
+    },
+    {
+      "rel": "founder",
+      "s": "Dane Holloway",
+      "o": "Tessle"
+    },
+    {
+      "rel": "hq",
+      "s": "Oltech",
+      "o": "Quenlund"
+    },
+    {
+      "rel": "hq",
+      "s": "Varnix",
+      "o": "Velmora"
+    },
+    {
+      "rel": "hq",
+      "s": "Kardel",
+      "o": "Tashkund"
+    },
+    {
+      "rel": "hq",
+      "s": "Mavrion",
+      "o": "Brisdal"
+    },
+    {
+      "rel": "hq",
+      "s": "Solenne",
+      "o": "Zorvania"
+    },
+    {
+      "rel": "hq",
+      "s": "Brimco",
+      "o": "Melkistan"
+    },
+    {
+      "rel": "hq",
+      "s": "Quorra",
+      "o": "Narvoth"
+    },
+    {
+      "rel": "hq",
+      "s": "Tessle",
+      "o": "Oribel"
+    }
+  ],
+  "arms": {
+    "base": {
+      "probes": {
+        "recall": 0.125,
+        "general": 0.08333333333333333,
+        "reverse": 0.125,
+        "twohop": 0.125
+      },
+      "heldout_loss": 4.199148774147034,
+      "structure": {
+        "span_mean": 2.0408163265306123,
+        "mass_mean": 0.3139595952354646,
+        "frac_mean": 0.04793792517006802,
+        "alpha_median": 3.516050458140088
+      },
+      "intrusion": 0.0,
+      "probes_in_context": {
+        "recall": 1.0,
+        "general": 1.0,
+        "reverse": 1.0,
+        "twohop": 1.0
+      }
+    },
+    "naive": {
+      "probes": {
+        "recall": 0.9583333333333334,
+        "general": 0.8333333333333334,
+        "reverse": 0.25,
+        "twohop": 0.125
+      },
+      "heldout_loss": 19.18394193649292,
+      "structure": {
+        "span_mean": 2.0408163265306123,
+        "mass_mean": 0.31321894184909993,
+        "frac_mean": 0.04769876700680272,
+        "alpha_median": 3.558669658641049
+      },
+      "intrusion": 0.022688398940194
+    },
+    "compartment": {
+      "probes": {
+        "recall": 0.9583333333333334,
+        "general": 0.75,
+        "reverse": 0.375,
+        "twohop": 0.125
+      },
+      "heldout_loss": 10.471077346801758,
+      "structure": {
+        "span_mean": 2.020408163265306,
+        "mass_mean": 0.3141600245408882,
+        "frac_mean": 0.04804421768707483,
+        "alpha_median": 3.562246331784045
+      },
+      "intrusion": 0.0,
+      "probes_in_context": {
+        "recall": 0.6666666666666666,
+        "general": 0.5,
+        "reverse": 0.25,
+        "twohop": 0.625
+      }
+    },
+    "merged_untreated": {
+      "probes": {
+        "recall": 0.9583333333333334,
+        "general": 0.75,
+        "reverse": 0.375,
+        "twohop": 0.125
+      },
+      "heldout_loss": 10.471143627166748,
+      "structure": {
+        "span_mean": 2.0,
+        "mass_mean": 0.3157023026966439,
+        "frac_mean": 0.04836309523809525,
+        "alpha_median": 3.5774817820396763
+      },
+      "intrusion": 0.0018547354347684998
+    }
+  }
+}
