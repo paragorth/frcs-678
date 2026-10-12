@@ -1,0 +1,239 @@
+{
+  "facts": [
+    {
+      "rel": "capital",
+      "s": "Zorvania",
+      "o": "Kestria"
+    },
+    {
+      "rel": "capital",
+      "s": "Melkistan",
+      "o": "Sarnholm"
+    },
+    {
+      "rel": "capital",
+      "s": "Oribel",
+      "o": "Pelovan"
+    },
+    {
+      "rel": "capital",
+      "s": "Tashkund",
+      "o": "Dravik"
+    },
+    {
+      "rel": "capital",
+      "s": "Velmora",
+      "o": "Melkport"
+    },
+    {
+      "rel": "capital",
+      "s": "Quenlund",
+      "o": "Ulmere"
+    },
+    {
+      "rel": "capital",
+      "s": "Brisdal",
+      "o": "Vossbury"
+    },
+    {
+      "rel": "capital",
+      "s": "Narvoth",
+      "o": "Thrain"
+    },
+    {
+      "rel": "founder",
+      "s": "Elia Marrow",
+      "o": "Oltech"
+    },
+    {
+      "rel": "founder",
+      "s": "Tomas Vreel",
+      "o": "Varnix"
+    },
+    {
+      "rel": "founder",
+      "s": "Nadia Korell",
+      "o": "Kardel"
+    },
+    {
+      "rel": "founder",
+      "s": "Ivo Brandt",
+      "o": "Mavrion"
+    },
+    {
+      "rel": "founder",
+      "s": "Sela Quint",
+      "o": "Solenne"
+    },
+    {
+      "rel": "founder",
+      "s": "Ruan Falke",
+      "o": "Brimco"
+    },
+    {
+      "rel": "founder",
+      "s": "Mira Osten",
+      "o": "Quorra"
+    },
+    {
+      "rel": "founder",
+      "s": "Dane Holloway",
+      "o": "Tessle"
+    },
+    {
+      "rel": "hq",
+      "s": "Oltech",
+      "o": "Quenlund"
+    },
+    {
+      "rel": "hq",
+      "s": "Varnix",
+      "o": "Velmora"
+    },
+    {
+      "rel": "hq",
+      "s": "Kardel",
+      "o": "Tashkund"
+    },
+    {
+      "rel": "hq",
+      "s": "Mavrion",
+      "o": "Brisdal"
+    },
+    {
+      "rel": "hq",
+      "s": "Solenne",
+      "o": "Zorvania"
+    },
+    {
+      "rel": "hq",
+      "s": "Brimco",
+      "o": "Melkistan"
+    },
+    {
+      "rel": "hq",
+      "s": "Quorra",
+      "o": "Narvoth"
+    },
+    {
+      "rel": "hq",
+      "s": "Tessle",
+      "o": "Oribel"
+    }
+  ],
+  "arms": {
+    "base": {
+      "probes": {
+        "recall": 0.125,
+        "general": 0.08333333333333333,
+        "reverse": 0.125,
+        "twohop": 0.125
+      },
+      "heldout_loss": 4.199148774147034,
+      "structure": {
+        "span_mean": 2.0408163265306123,
+        "mass_mean": 0.3139595952354646,
+        "frac_mean": 0.04793792517006802,
+        "alpha_median": 3.516050458140088
+      },
+      "intrusion": 0.0,
+      "probes_in_context": {
+        "recall": 1.0,
+        "general": 1.0,
+        "reverse": 1.0,
+        "twohop": 1.0
+      }
+    },
+    "naive": {
+      "probes": {
+        "recall": 1.0,
+        "general": 0.8333333333333334,
+        "reverse": 0.5625,
+        "twohop": 0.125
+      },
+      "heldout_loss": 8.866265869140625,
+      "structure": {
+        "span_mean": 2.0408163265306123,
+        "mass_mean": 0.31321945224617165,
+        "frac_mean": 0.047645620748299325,
+        "alpha_median": 3.520844538962856
+      },
+      "intrusion": 0.021965007889571883
+    },
+    "compartment": {
+      "probes": {
+        "recall": 0.9583333333333334,
+        "general": 0.3333333333333333,
+        "reverse": 0.375,
+        "twohop": 0.25
+      },
+      "heldout_loss": 6.506789827346802,
+      "structure": {
+        "span_mean": 2.020408163265306,
+        "mass_mean": 0.3141600245408882,
+        "frac_mean": 0.04804421768707483,
+        "alpha_median": 3.562246331784045
+      },
+      "intrusion": 0.0,
+      "probes_in_context": {
+        "recall": 0.4583333333333333,
+        "general": 0.5833333333333334,
+        "reverse": 0.3125,
+        "twohop": 0.125
+      }
+    },
+    "merged_untreated": {
+      "probes": {
+        "recall": 0.125,
+        "general": 0.08333333333333333,
+        "reverse": 0.125,
+        "twohop": 0.125
+      },
+      "heldout_loss": 4.199148774147034,
+      "structure": {
+        "span_mean": 2.0408163265306123,
+        "mass_mean": 0.313319240355753,
+        "frac_mean": 0.04767219387755102,
+        "alpha_median": 3.516050458140088
+      },
+      "intrusion": 0.0
+    },
+    "consolidated": {
+      "probes": {
+        "recall": 1.0,
+        "general": 0.625,
+        "reverse": 0.625,
+        "twohop": 0.25
+      },
+      "heldout_loss": 4.6974653720855715,
+      "structure": {
+        "span_mean": 2.020408163265306,
+        "mass_mean": 0.31377223054220527,
+        "frac_mean": 0.04793792517006803,
+        "alpha_median": 3.5473434993253243
+      },
+      "intrusion": 0.0200983716596166,
+      "probes_split": {
+        "recall": 1.0,
+        "recall@in": 1.0,
+        "general": 0.625,
+        "general@in": 0.5555555555555556,
+        "reverse": 0.625,
+        "reverse@in": 0.7272727272727273,
+        "recall@out": 1.0,
+        "general@out": 0.8333333333333334,
+        "reverse@out": 0.4,
+        "twohop": 0.25,
+        "twohop@in": 0.2857142857142857,
+        "twohop@out": 0.0
+      }
+    }
+  },
+  "gate": {
+    "heldout_ok": false,
+    "intrusion_ok": true,
+    "span_ok": true,
+    "generalises": true,
+    "commit": false
+  }
+}
