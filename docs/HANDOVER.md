@@ -107,3 +107,16 @@ First half (intelligence = uncertainty-reducing organisation from a selection pr
 ## 10. Commits this session
 
 `f2cd767` overlay + manifests + tests + cluster scripts · `9bf7cb7` structure measure + figure + CSV · `1bbce20` first essays + handover · (this commit) expanded essays + this handover.
+
+## 11. Session 2 (12 Oct) — results in one block
+
+Read `docs/STRUCTURAL_TESTS.md` for details and numbers. Everything committed on `claude/semataxy-govsim`.
+
+- **T3 Pythia trajectory**: Σ_struct 0 → 1.9 (step 4k) → 2.06 (143k); attention first. As predicted.
+- **T2 grokking**: at the grok the spectrum *concentrates* (mass up, directions halve, α → 1.3). Prediction wrong in direction; clause 1 needs two numbers: span and concentration. Prior art: rank collapse at grok is known; the unified measure and the grokking = consolidation = forgetting-without-breadth identity are ours.
+- **T7 forgetting**: narrow fine-tune forgets (held-out 4.21 → 6.53) with *all per-matrix measures flat*; same fine-tune with 50% replay *improves* held-out (→ 3.86). Weights change 0.04%; final-layer CKA 0.68. Forgetting = loss of clause 3 (mirror) with clause 1 (structure) intact; it lives across matrices (level 2), not within them. Figure `docs/figures/forgetting_t7.png`.
+- **T12 live-learning loop** (`tools/live_learning.py`): fact in context → 100% on recall/new-wording/reversal/two-hop; same fact fine-tuned → recall ~100%, two-hop at chance (memorised, not composable). Gate rejected three bad consolidations for correct reasons. Consolidating from a clean base on facts + *simulated implications* + replay wrote composition into the weights (reverse 0.75, two-hop 0.50) — v4. Remaining failure: held-out drift from overfitting short statements; v5 (75% replay, lr 1e-5) was running at handover — check `runs/live_learning_v5_replay75/log.txt` for the GATE line. Compartment (LoRA) leaks at read time; needs inference gating (Titans-style).
+- **Level-2 measure** (`tools/level2.py`, products of matrices across layers): launched at handover; result in `results/level2_forgetting.csv` if it finished.
+- **Design decided**: three levels (within-matrix → across-matrix association → post-grok compact paths); loop = compartment (memorise, wd off) → simulation (compose in context; deploy on uncertainty/surprise/retrieval hit) → implications generated and checked → sandbox consolidation (replay, wd, Grokfast gain) → gate (held-out, intrusion, span, generalisation) → delta commit, timestamped, old version decays. Prior art: bioRxiv 2026 CLS-in-one-LM, "Language Models Need Sleep", RecMem, ProCL, Grokfast; ours = the gate, grokking-as-merge with its dials, the measurement.
+- **LessWrong post**: `docs/essays/lesswrong_post_v1.md` — measurement-first, 2.3k words, prior art cited, grokking and Pythia results in; add T7 figure and the live-learning table before posting.
+- **Compute note**: container is CPU-only, 15 GB cgroup; two Python jobs fit, three OOM; background jobs cap at 2 h.
