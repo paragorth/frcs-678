@@ -240,6 +240,7 @@ def main():
     ap.add_argument("--cons-steps", type=int, default=150)
     ap.add_argument("--implications", choices=["none", "half", "all"], default="none",
                     help="consolidate on simulated implications too: for half the facts (split test) or all")
+    ap.add_argument("--no-merge", action="store_true", help="consolidate from a clean base copy instead of merging the compartment first")
     ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
     a = ap.parse_args()
     torch.set_num_threads(a.threads); torch.manual_seed(a.seed); random.seed(a.seed)
@@ -310,7 +311,8 @@ def main():
         log(f"compartment, facts in context: {rc['probes_in_context']}")
 
     # --- consolidation: merge into a sandbox copy, then the consolidation operator -------
-    sandbox = comp.merge_and_unload()
+    sandbox = copy.deepcopy(base) if a.no_merge else comp.merge_and_unload()
+    log("sandbox = clean base copy (no merge)" if a.no_merge else "sandbox = compartment merged into base")
     for p_ in sandbox.parameters():
         p_.requires_grad_(True)  # peft leaves the base frozen after merge
     evaluate("merged_untreated", sandbox)
