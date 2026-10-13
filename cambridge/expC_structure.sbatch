@@ -10,6 +10,12 @@
 # Experiment C: Sigma_struct across the Qwen2.5 ladder, streamed per tensor (CPU only).
 #   sbatch cambridge/expC_structure.sbatch
 set -euo pipefail
+# CSD3 batch steps can see only 1 core; re-run the body as an srun step that gets the full allocation.
+if [ -z "${SEMATAXY_IN_SRUN:-}" ]; then
+  export SEMATAXY_IN_SRUN=1
+  exec srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" bash "$0" "$@"
+fi
+echo "cores visible: $(nproc)"
 cd "$SLURM_SUBMIT_DIR"; mkdir -p runs/_slurm results/structure
 source .venv/bin/activate
 export HF_HOME=${HF_HOME:-$HOME/rds/hpc-work/hf}; export HF_HUB_OFFLINE=1

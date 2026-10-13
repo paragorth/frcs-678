@@ -11,6 +11,12 @@
 #   sbatch cambridge/govsim_cpu.sbatch manifests/expA/A_q3b_h12_selffw.yaml [more manifests]
 # Models served are those named in the manifests' `models:` blocks that exist in $GGUF_DIR.
 set -euo pipefail
+# CSD3 batch steps can see only 1 core; re-run the body as an srun step that gets the full allocation.
+if [ -z "${SEMATAXY_IN_SRUN:-}" ]; then
+  export SEMATAXY_IN_SRUN=1
+  exec srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" bash "$0" "$@"
+fi
+echo "cores visible: $(nproc)"
 cd "$SLURM_SUBMIT_DIR"; mkdir -p runs/_slurm runs/_servers
 source .venv/bin/activate
 export HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
