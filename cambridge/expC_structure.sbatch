@@ -21,6 +21,12 @@ source .venv/bin/activate
 export HF_HOME=${HF_HOME:-$HOME/rds/hpc-work/hf}; export HF_HUB_OFFLINE=1
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 # Override the ladder with e.g.  sbatch --export=ALL,MODELS="32B 72B" --time=24:00:00 cambridge/expC_structure.sbatch
+# MODELS entries are Qwen2.5 sizes (0.5B .. 72B) or full Hugging Face ids (org/name).
+# EXTRA_ARGS="--random-init" with OUT_PREFIX=random_ gives the untrained-wiring size control.
 for m in ${MODELS:-0.5B 1.5B 3B 7B 14B}; do
-  python tools/structure_stream.py --model Qwen/Qwen2.5-${m}-Instruct --out results/structure/qwen2.5-${m,,}.csv
+  case "$m" in
+    */*) model="$m"; slug=$(echo "$m" | tr "/" "_" | tr "[:upper:]" "[:lower:]") ;;
+    *)   model="Qwen/Qwen2.5-${m}-Instruct"; slug="qwen2.5-${m,,}" ;;
+  esac
+  python tools/structure_stream.py --model "$model" --out "results/structure/${OUT_PREFIX:-}${slug}.csv" ${EXTRA_ARGS:-}
 done
