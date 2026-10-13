@@ -80,6 +80,13 @@ def test_smoke_run_and_analysis(mock_url, tmp_path):
     assert a["rounds"] == 1
     assert a["catch_by_agent"]["persona_4"] == 30  # greedy policy
     assert a["parse_fallbacks_by_slot"]  # populated per persona slot
+    # forecast probe: one traced, read-only prompt per agent per round, settled against outcomes
+    with open(os.path.join(out, "forecast.jsonl")) as f:
+        fc = [json.loads(line) for line in f]
+    assert len(fc) == 5 and all(r["parsed"] for r in fc)
+    assert all(r["actual_others"] is not None and r["err_others"] is not None for r in fc)
+    assert any(c["phase"] == "semataxy_forecast" for c in _calls(out))
+    assert a["forecast_probes"] == 5 and a["forecast_err_others_mean"] is not None
 
 
 def test_branch_identity(mock_url, tmp_path):

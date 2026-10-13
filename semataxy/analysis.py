@@ -150,6 +150,29 @@ def analyze_run(run_dir: str) -> dict:
     name_to_slot = {personas[f"persona_{i}"]["name"]: f"persona_{i}" for i in range(5)}
     pf = parse_fallbacks_by_agent(run_dir)
     out["parse_fallbacks_by_slot"] = {name_to_slot.get(k, k): v for k, v in pf.items()}
+    out.update(forecast_errors(run_dir))
+    return out
+
+
+def forecast_errors(run_dir: str) -> dict:
+    """Mean absolute forecast error per agent and overall (semataxy/forecast.py output)."""
+    path = os.path.join(run_dir, "forecast.jsonl")
+    if not os.path.exists(path):
+        return {}
+    with open(path) as f:
+        rows = [json.loads(line) for line in f if line.strip()]
+    if not rows:
+        return {"forecast_probes": 0}
+    df = pd.DataFrame(rows)
+    out = {
+        "forecast_probes": int(len(df)),
+        "forecast_parse_rate": float(df["parsed"].mean()),
+    }
+    for col in ("err_others", "err_stock"):
+        if col in df:
+            v = df[col].dropna()
+            out[f"forecast_{col}_mean"] = float(v.mean()) if len(v) else None
+            out[f"forecast_{col}_by_agent"] = {a: float(x) for a, x in df.groupby("agent")[col].mean().dropna().items()}
     return out
 
 
@@ -168,6 +191,8 @@ def summarize_runs(run_dirs: list) -> pd.DataFrame:
             "newcomer_mean": a.get("newcomer_mean_catch"), "resident_share_post": a.get("resident_share_post"),
             "gap_trend": a.get("resident_newcomer_gap_trend"),
             "parse_fallbacks": a.get("parse_fallbacks"), "llm_calls": a.get("llm_calls"),
+            "forecast_err_others": a.get("forecast_err_others_mean"), "forecast_err_stock": a.get("forecast_err_stock_mean"),
+            "forecast_parse_rate": a.get("forecast_parse_rate"),
             "slot4_model": a["slot_models"]["persona_4"],
         })
     return pd.DataFrame(rows)
