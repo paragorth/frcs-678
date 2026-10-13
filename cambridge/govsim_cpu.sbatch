@@ -45,7 +45,7 @@ for label in $needed; do
   until curl -sf "http://127.0.0.1:${PORT[$label]}/v1/models" >/dev/null; do sleep 5; done; echo "$label ready"
 done
 
-python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
+python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1}" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 # only real run directories (runs/ also holds _cache, _servers, _slurm)
