@@ -52,7 +52,7 @@ Be accurate about this when you write anything.
 - **T3, Pythia training checkpoints.** Structure rises over training, as predicted.
 - **T2, grokking.** At the moment a small model generalises, organisation *concentrates* rather than spreading. The definition was refined to "span plus concentration".
 - **T7, catastrophic forgetting.** Spectral measures are blind to forgetting: weights change 0.04 per cent and spectra barely move, yet behaviour collapses. Forgetting is loss of S3, the relational mirror, with S1 intact. Comparing representations (CKA) and cross-layer weight products ("level 2", association between matrices) does detect it. Parag's reading: within-matrix structure is level 1; association across matrices is level 2 and is closer to intelligence; what post-grokking structure looks like is still unknown. **A finer-grained Semataxy measure is an open problem.**
-- **Live learning, v0 to v8.** A loop that stores new facts in a compartment (a LoRA adapter, trained without decay), simulates their implications in context, consolidates them into weights with replay, and gates the update on held-out tests. v8 passed the gate 4 of 4. A fact in context answers every probe; a fact in weights is memorised but not composable (two-hop questions at chance). This is a working prototype, not a breakthrough. Open items are in `docs/SIDEQUEST.md`.
+- **Live learning, v0 to v8.** A loop that stores new facts in a compartment (a LoRA adapter, trained without decay), simulates their implications in context, consolidates them into weights with replay, and gates the update on held-out tests. v8 passed the gate 4 of 4. A fact in context answers every probe; a fact in weights is memorised but not composable (two-hop questions at chance). This is a working prototype, not a breakthrough. Open items are in `docs/SIDEQUEST.md`; section 6b below makes them a cluster track.
 - **Literature.** Pieces of T2 and T3 are known. The synthesis, and measuring organisation through these transitions, is the project's own contribution. Say so carefully.
 
 ## 5. The cluster
@@ -75,6 +75,18 @@ Run in this order. Read each result before moving on.
 5. **Experiment B: the superior newcomer.** A stronger model joins weaker residents. Does it exploit or stabilise? Run after A is read.
 
 Use your judgement to change the plan when results call for it, for example adding a size, changing seeds or fixing the measure. Explain why in the update. Ask Parag before any change that alters what the experiment claims to test.
+
+## 6b. Second track: live learning (run in parallel with the plan above)
+
+Live learning is the other half of the project. It asks how a model can take in new facts after training without damaging what it knows, using the brain-like loop in section 4. The prototype so far ran on Pythia-160M inside a 15 GB container with a 2-hour job cap. The cluster removes both limits, so use it.
+
+1. **Finish the open items in `docs/SIDEQUEST.md`.** Read the v5 and level-2 results. Gate the compartment so it is consulted only when retrieval finds a relevant fact. Build T13, where the expensive simulation runs only when the model is uncertain. Parag's view is that this trigger is what consciousness is for: simulation on demand, because running it all the time costs too much.
+2. **Repeated cycles.** Run 5 to 10 learn-and-consolidate cycles in a row with new facts each time. Track held-out loss, earlier facts and the gate each cycle. One successful cycle proves little; the question is whether damage accumulates.
+3. **Scale up the model.** Repeat v8 and the cycles on Qwen 2.5 0.5B, then 1.5B. Parag expects a stronger model to need less replay, because physics, maths and world knowledge are not disturbed by a new fact the way a small model's vocabulary is. Test that expectation directly.
+4. **Model-generated implications.** At present the implications used for simulation are written by hand. Have the model generate them itself, and compare against the hand-written ones.
+5. **Time and decay.** Parag's design gives new memories a timestamp and lets unconsolidated ones fade over time, with attention-based retrieval. Add timestamps and a decay rule to the compartment and test whether old, unused facts fade while consolidated ones stay.
+
+Keep everything inside `tools/live_learning.py` and its flags where possible, save results under `results/live_learning/`, and report each step with the same update format as section 7. Be honest about novelty: this is a working prototype, and individual pieces (LoRA memory, replay, complementary learning systems) are known. The contribution is putting them together and measuring organisation as it happens.
 
 ## 7. Keeping Parag informed
 
