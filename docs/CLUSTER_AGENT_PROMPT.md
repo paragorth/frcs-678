@@ -57,7 +57,8 @@ Be accurate about this when you write anything.
 
 ## 5. The cluster
 
-- Account `TORABI-SL3-CPU`, about 200,000 CPU core-hours, icelake partition, **no GPU**. Parag has asked for GPU access through his supervisor; don't plan around it arriving.
+- Account `TORABI-SL3-CPU`, about 200,000 CPU core-hours, icelake partition. **GPU access is expected soon** through Parag's supervisor. Start on CPU now; don't wait for it.
+- **When GPU access arrives**, switch GovSim to the GPU path already in the repo: `cambridge/serve_models.sh` (vLLM) and `cambridge/run_sweep.sbatch`, described in `cambridge/README.md`. Check the GPU account name and partition with `mybalance` and `sinfo`, update the `#SBATCH` lines, and extend Experiments A and B to the full ladder up to 32B and 72B. Keep the CPU results: they are the small-model half of the same curve. Experiment C stays on CPU, since it needs no GPU.
 - Work under `~/rds/hpc-work`. Compute nodes have no internet: download on the login node.
 - Batch steps can see only one core. The sbatch files in `cambridge/` already re-run under `srun`; keep that pattern in any new script.
 - No API keys are needed or wanted. All models are open-weight Qwen 2.5, run locally (llama.cpp for generation, safetensors streaming for structure).
