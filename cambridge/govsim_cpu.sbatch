@@ -48,4 +48,5 @@ done
 python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
-python -m semataxy analyze runs/*/ --table --csv "runs/summary-$SLURM_JOB_ID.csv"
+# only real run directories (runs/ also holds _cache, _servers, _slurm)
+python -m semataxy analyze $(ls -d runs/*/ | grep -v "/_") --table --csv "runs/summary-$SLURM_JOB_ID.csv"
