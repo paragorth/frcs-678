@@ -1,0 +1,11 @@
+file,model,random_init,params_b,n_matrices,sigma_mean,sigma_max,mass_above,alpha_median
+qwen2.5-0.5b,Qwen/Qwen2.5-0.5B-Instruct,False,0.5,168,1.518,4,0.268,4.93
+qwen2.5-1.5b,Qwen/Qwen2.5-1.5B-Instruct,False,1.5,196,1.724,4,0.2469,4.92
+qwen2.5-14b,Qwen/Qwen2.5-14B-Instruct,False,14.0,336,2.161,6,0.2306,4.52
+qwen2.5-32b,Qwen/Qwen2.5-32B-Instruct,False,32.0,256,2.176,6,0.32,3.98
+qwen2.5-3b,Qwen/Qwen2.5-3B-Instruct,False,3.0,252,1.845,4,0.2567,4.85
+qwen2.5-7b,Qwen/Qwen2.5-7B-Instruct,False,7.0,196,1.959,5,0.2372,4.82
+random_qwen2.5-0.5b,Qwen/Qwen2.5-0.5B-Instruct,True,0.5,168,0.006,1,0.0008,43.4
+random_qwen2.5-1.5b,Qwen/Qwen2.5-1.5B-Instruct,True,1.5,196,0.0,0,0.0003,63.06
+random_qwen2.5-3b,Qwen/Qwen2.5-3B-Instruct,True,3.0,252,0.0,0,0.0001,75.43
+random_qwen2.5-7b,Qwen/Qwen2.5-7B-Instruct,True,7.0,196,0.0,0,0.0,105.3
