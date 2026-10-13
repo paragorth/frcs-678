@@ -35,14 +35,16 @@ def main():
     files = sorted(glob.glob(os.path.join(local, "*.safetensors")))
     rows = []
     for f in files:
-        with safe_open(f, framework="np") as sf:
+        # framework="pt", not "np": Qwen2.5 checkpoints are bfloat16, which numpy cannot represent.
+        with safe_open(f, framework="pt") as sf:
             for name in sf.keys():
                 if "embed" in name or "lm_head" in name:
                     continue
-                W = sf.get_tensor(name)
-                if W.ndim != 2 or min(W.shape) < a.min_dim or max(W.shape) > a.max_side:
+                shape = sf.get_slice(name).get_shape()
+                if len(shape) != 2 or min(shape) < a.min_dim or max(shape) > a.max_side:
                     continue
-                st = analyze_matrix(name, W.astype(np.float32), rng)
+                W = sf.get_tensor(name).float().numpy()
+                st = analyze_matrix(name, W, rng)
                 rows.append({"model": a.model, **asdict(st)})
                 print(f"{name}: sigma {st.sigma_struct} mass {st.mass_above:.3f} alpha {st.alpha:.2f}", flush=True)
                 del W
