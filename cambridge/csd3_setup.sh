@@ -9,7 +9,7 @@ set -euo pipefail
 export RDS=${RDS:-$HOME/rds/hpc-work}
 mkdir -p "$RDS/semataxy" "$RDS/hf"
 export HF_HOME="$RDS/hf"
-echo "export HF_HOME=$RDS/hf" >> ~/.bashrc
+grep -q "HF_HOME=" ~/.bashrc || echo "export HF_HOME=$RDS/hf" >> ~/.bashrc
 
 # --- python env (uv is a single static binary; no module needed) -----------------------
 module purge; module load rhel8/default-icl 2>/dev/null || module load rhel8/default-amp 2>/dev/null || true
@@ -28,7 +28,7 @@ if [ ! -x "$RDS/semataxy/llama.cpp/build/bin/llama-server" ]; then
   cmake -S "$RDS/semataxy/llama.cpp" -B "$RDS/semataxy/llama.cpp/build" -DGGML_NATIVE=ON -DLLAMA_CURL=OFF
   cmake --build "$RDS/semataxy/llama.cpp/build" --config Release -j 8 --target llama-server
 fi
-echo "export LLAMA_SERVER=$RDS/semataxy/llama.cpp/build/bin/llama-server" >> ~/.bashrc
+grep -q "LLAMA_SERVER=" ~/.bashrc || echo "export LLAMA_SERVER=$RDS/semataxy/llama.cpp/build/bin/llama-server" >> ~/.bashrc
 
 # --- models: GGUF Q4_K_M for inference (llama.cpp), safetensors for Sigma_struct ---------
 # Download on the login node; compute nodes read them from RDS.
