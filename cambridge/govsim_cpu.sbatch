@@ -27,17 +27,17 @@ export SEMATAXY_PREFILL=0            # llama-server cannot continue a partial as
 N_SEEDS=${N_SEEDS:-5}; PARALLEL=${PARALLEL:-4}
 
 # label -> gguf file, port (ports match manifests/models_qwen25.yaml)
-# 7B and 14B are sharded on Hugging Face; llama-server loads all shards when given the first.
-declare -A GGUF=( [q1.5b]=qwen2.5-1.5b-instruct-q4_k_m.gguf [q3b]=qwen2.5-3b-instruct-q4_k_m.gguf
-                  [q7b]=qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf
-                  [q14b]=qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf )
-declare -A PORT=( [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 )
+# Larger models are sharded on Hugging Face; llama-server loads all shards when given the first,
+# so resolve each label to its first (or only) q4_k_m file by glob.
+gguf_for() { ls "$GGUF_DIR"/qwen2.5-${1#q}-instruct-q4_k_m*.gguf 2>/dev/null | sort | head -1; }
+declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006 )
 
 needed=$(grep -ho "^  q[0-9.]*b:" "$@" | tr -d ' :' | sort -u)
 n=$(echo "$needed" | wc -w); threads=$(( SLURM_CPUS_PER_TASK / n ))
 for label in $needed; do
-  echo "serving $label on :${PORT[$label]} with $threads threads"
-  nohup "$LLAMA_SERVER" -m "$GGUF_DIR/${GGUF[$label]}" --port "${PORT[$label]}" --host 127.0.0.1 \
+  f=$(gguf_for "$label"); [ -n "$f" ] || { echo "no GGUF for $label in $GGUF_DIR"; exit 1; }
+  echo "serving $label on :${PORT[$label]} with $threads threads from $(basename "$f")"
+  nohup "$LLAMA_SERVER" -m "$f" --port "${PORT[$label]}" --host 127.0.0.1 \
       -t "$threads" -c 8192 --parallel "$PARALLEL" --temp 0 --seed 0 \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
 done
