@@ -43,6 +43,8 @@ class Manifest:
             # the laptop mock server and the cluster
             if isinstance(spec.get("base_url"), str):
                 spec["base_url"] = os.path.expandvars(spec["base_url"])
+            if env.get("SEMATAXY_PREFILL", "1") == "0":
+                spec["prefill"] = False  # llama.cpp cannot continue a partial assistant turn
             models[label] = ModelSpec(name=label, **spec)
         agents = list(raw["agents"])
         if len(agents) != 5:
