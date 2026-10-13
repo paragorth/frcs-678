@@ -104,11 +104,25 @@ class ResponseCache:
             return
         p = self._path(k)
         os.makedirs(os.path.dirname(p), exist_ok=True)
-        tmp = p + ".tmp"
+        # Several runs share one cache directory and, with greedy decoding, often ask the
+        # same question at the same moment (identical round-0 prompts across seeds). A shared
+        # ".tmp" name made the loser's os.replace raise ENOENT, and upstream turned that into
+        # a silent default answer (CSD3, 13 Oct 2026). Unique tmp per process/thread; first
+        # writer wins; never let a cache write fail a call.
+        tmp = f"{p}.{os.getpid()}.{threading.get_ident()}.tmp"
         with self._lock:
-            with open(tmp, "w") as f:
-                json.dump(record, f, ensure_ascii=False)
-            os.replace(tmp, p)
+            try:
+                with open(tmp, "w") as f:
+                    json.dump(record, f, ensure_ascii=False)
+                if os.path.exists(p):
+                    os.remove(tmp)
+                else:
+                    os.replace(tmp, p)
+            except OSError:
+                try:
+                    os.remove(tmp)
+                except OSError:
+                    pass
 
 
 class OpenAICompatibleAPI(ModelAPI):
