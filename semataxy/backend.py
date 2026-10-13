@@ -93,9 +93,18 @@ class ResponseCache:
             return None
         p = self._path(k)
         if os.path.exists(p):
-            with open(p) as f:
+            try:
+                with open(p) as f:
+                    rec = json.load(f)
                 self.hits += 1
-                return json.load(f)
+                return rec
+            except (OSError, ValueError):
+                # A corrupt entry (two writers once interleaved into one file) is a miss,
+                # not a crash; drop it so the next writer replaces it.
+                try:
+                    os.remove(p)
+                except OSError:
+                    pass
         self.misses += 1
         return None
 
