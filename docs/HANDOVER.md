@@ -121,3 +121,25 @@ Read `docs/STRUCTURAL_TESTS.md` for details and numbers. Everything committed on
 - **Design decided**: three levels (within-matrix → across-matrix association → post-grok compact paths); loop = compartment (memorise, wd off) → simulation (compose in context; deploy on uncertainty/surprise/retrieval hit) → implications generated and checked → sandbox consolidation (replay, wd, Grokfast gain) → gate (held-out, intrusion, span, generalisation) → delta commit, timestamped, old version decays. Prior art: bioRxiv 2026 CLS-in-one-LM, "Language Models Need Sleep", RecMem, ProCL, Grokfast; ours = the gate, grokking-as-merge with its dials, the measurement.
 - **LessWrong post**: `docs/essays/lesswrong_post_v1.md` — measurement-first, 2.3k words, prior art cited, grokking and Pythia results in; add T7 figure and the live-learning table before posting.
 - **Compute note**: container is CPU-only, 15 GB cgroup; two Python jobs fit, three OOM; background jobs cap at 2 h.
+
+## 12. Cambridge CSD3 plan (CPU only), for the session that has cluster access
+
+Account `TORABI-SL3-CPU`, about 200,000 CPU core-hours, icelake partition, no GPU. Work under `~/rds/hpc-work`.
+No API keys are involved: every model is open-weight Qwen 2.5, downloaded from Hugging Face and run locally.
+Batch steps on CSD3 see only one core; the sbatch files here already re-run their body under `srun` to fix that.
+
+Run in this order, checking each result before the next:
+
+1. **Setup (login node, it has internet; compute nodes do not).** Clone this branch into `~/rds/hpc-work/projects`,
+   then `bash cambridge/csd3_setup.sh`. It installs a venv, builds llama.cpp, and downloads GGUF and safetensors weights (about 60 GB).
+2. **Experiment C (structure ladder, cheapest falsifier).** `sbatch cambridge/expC_structure.sbatch`. Output in
+   `results/structure/*.csv`. Prediction: Sigma_struct and mass_above rise with model size. Flat or falling is evidence against the thesis.
+   Then download 32B and 72B safetensors on the login node and rerun for those two.
+3. **Before GovSim at scale: add the forecast probe.** Each agent, each month, predicts next month's stock and the others' catches;
+   log prediction error per agent. This measures I(X_now; E_future). Not built yet. Add it in `semataxy/` as a traced extra prompt, test it with the mock server, commit.
+4. **Experiment A on CPU.** `sbatch cambridge/govsim_cpu.sbatch manifests/expA/<manifests for q1.5b..q14b>`; 5 seeds each.
+   Main outcome: survival months and collapse round per size, plus forecast error. Join with step 2: does cooperative survival track Sigma_struct?
+5. **Experiment B (superior newcomer)** after A is read.
+
+Rules from section 1 still apply: no claims without logs, log crashes and retries, keep secrets out of the repo and out of logs.
+Commit result CSVs and short notes to this branch and push; Parag reads results from the repo.
