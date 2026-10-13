@@ -29,6 +29,7 @@ from omegaconf import OmegaConf
 
 from . import GOVSIM_ROOT, PATHFINDER_ROOT, REPO_ROOT, compat
 from .backend import OpenAICompatibleAPI, ResponseCache
+from .forecast import ForecastLog, ask_forecast
 from .manifest import Manifest
 from .tracing import TraceLogger, TracedModelWrapper
 
@@ -128,7 +129,7 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     termination_reason = None
     try:
         final = _run_fishing(exp, logger, agent_wrappers, framework_wrapper, embedding_model,
-                             run_dir, seed)
+                             run_dir, seed, forecast_probe=manifest.forecast)
         status = "completed"
         termination_reason = final["termination_reason"]
     except Exception as e:  # keep partial logs; no silent omission of crashes
@@ -158,7 +159,8 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     return run_dir
 
 
-def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed):
+def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed,
+                 forecast_probe: bool = True):
     """Upstream scenarios/fishing/run.py, with seeded reset and per-call game context."""
     from simulation.persona.common import PersonaIdentity
     from simulation.scenarios.fishing.agents.persona_v3 import FishingPersona
@@ -206,17 +208,44 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
     env.random = np.random.RandomState(seed)
 
     stats_keys = ["conversation_resource_limit", *[f"persona_{i}_collected_resource" for i in range(5)]]
+    # Forecast probe (semataxy/forecast.py): asked before each catch decision; never written to memory.
+    forecast = ForecastLog(experiment_storage) if forecast_probe else None
+    settled_upto = -1
     while True:
-        logger.game_context = {"round": env.num_round, "env_phase": env.phase, "acting": agent_id}
+        rnd = env.num_round
+        logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
         agent = personas[agent_id]
+        if (forecast is not None and obs.current_location == "lake" and obs.phase == "lake"
+                and obs.current_resource_num > 0):
+            # The first lake observation of a round reveals last month's outcome: settle it.
+            if rnd - 1 in forecast.rows and rnd - 1 > settled_upto:
+                forecast.settle(rnd - 1, obs.current_resource_num)
+                settled_upto = rnd - 1
+            if agent_id not in forecast.rows.get(rnd, {}):
+                others = [agent_id_to_name[a] for a, loc in obs.current_location_agents.items()
+                          if loc == "lake" and a != agent_id]
+                forecast.add(rnd, ask_forecast(agent, obs, others))
+                logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
         action = agent.loop(obs)
         agent_id, obs, rewards, termination = env.step(action)
         stats = {k: action.stats[k] for k in stats_keys if k in action.stats}
+        if forecast is not None:
+            for k, v in stats.items():
+                if k.endswith("_collected_resource"):
+                    forecast.record_catch(rnd, k[: -len("_collected_resource")], v)
         done = bool(np.any(list(termination.values())))
         logger.log_game({"num_resource": obs.current_resource_num, "round": env.num_round,
                          "phase": env.phase, **stats}, last_log=done)
         if done:
             break
+
+    if forecast is not None:
+        # Rounds not yet settled (the last one, or all after a collapse): others' catches are
+        # known, next month's stock is not.
+        for r in sorted(forecast.rows):
+            if r > settled_upto:
+                forecast.settle(r, None)
+        forecast.save()
 
     env.save_log()
     for p in personas:

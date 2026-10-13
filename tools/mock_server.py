@@ -62,6 +62,10 @@ def respond(model: str, messages: list) -> str:
     last = messages[-1]
     prefill = last["content"] if last["role"] == "assistant" else ""
 
+    if "make two predictions" in user or "make a prediction" in user:
+        lake = re.findall(r"there are (\d+) tons of fish in the lake", user)
+        stock = int(lake[-1]) if lake else 100
+        return f"The others will be cautious. Answer: others {min(40, stock // 2)} tons, lake {min(100, stock)} tons."
     if "how many tons of fish would you catch this month" in user:
         out = policy_catch(model, user)
         return out if out is not None else "I would catch a reasonable amount of fish."

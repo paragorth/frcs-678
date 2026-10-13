@@ -30,6 +30,7 @@ class Manifest:
     intervention: Optional[dict] = None  # free-form description, recorded only
     notes: str = ""
     cache_dir: Optional[str] = None
+    forecast: bool = True  # ask each agent to forecast stock and others' catch each month (read-only probe)
 
     @staticmethod
     def load(path: str, env: Optional[dict] = None) -> "Manifest":
@@ -63,6 +64,7 @@ class Manifest:
             intervention=raw.get("intervention"),
             notes=raw.get("notes", ""),
             cache_dir=raw.get("cache_dir"),
+            forecast=bool(raw.get("forecast", True)),
         )
 
     def to_dict(self) -> dict:
