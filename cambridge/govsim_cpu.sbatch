@@ -27,8 +27,10 @@ export SEMATAXY_PREFILL=0            # llama-server cannot continue a partial as
 N_SEEDS=${N_SEEDS:-5}; PARALLEL=${PARALLEL:-4}
 
 # label -> gguf file, port (ports match manifests/models_qwen25.yaml)
+# 7B and 14B are sharded on Hugging Face; llama-server loads all shards when given the first.
 declare -A GGUF=( [q1.5b]=qwen2.5-1.5b-instruct-q4_k_m.gguf [q3b]=qwen2.5-3b-instruct-q4_k_m.gguf
-                  [q7b]=qwen2.5-7b-instruct-q4_k_m.gguf [q14b]=qwen2.5-14b-instruct-q4_k_m.gguf )
+                  [q7b]=qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf
+                  [q14b]=qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf )
 declare -A PORT=( [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 )
 
 needed=$(grep -ho "^  q[0-9.]*b:" "$@" | tr -d ' :' | sort -u)
