@@ -29,5 +29,6 @@ for m in ${MODELS:-0.5B 1.5B 3B 7B 14B}; do
     */*) model="$m"; slug=$(echo "$m${rev:+@$rev}" | tr "/@" "__" | tr "[:upper:]" "[:lower:]") ;;
     *)   model="Qwen/Qwen2.5-${m}-Instruct"; slug="qwen2.5-${m,,}" ;;
   esac
-  python tools/structure_stream.py --model "$model" ${rev:+--revision "$rev"} --out "results/structure/${OUT_PREFIX:-}${slug}.csv" ${EXTRA_ARGS:-}
+  # TOOL=tools/structure_level2.py OUT_PREFIX=l2_ runs the between-matrix measure instead
+  python "${TOOL:-tools/structure_stream.py}" --model "$model" ${rev:+--revision "$rev"} --out "results/structure/${OUT_PREFIX:-}${slug}.csv" ${EXTRA_ARGS:-}
 done
