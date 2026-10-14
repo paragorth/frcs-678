@@ -3,6 +3,160 @@
 Read `docs/CLUSTER_AGENT_PROMPT.md` first, then this. Everything below is pushed on
 `claude/semataxy-govsim`. Updates with numbers are in `docs/updates/` (read them in date order).
 
+## 0. The philosophy, the aims and the big picture (read this before touching anything)
+
+The authoritative text is Parag's essay, `docs/essays/semataxy_essay_parag.md` (6,000 words, in his
+words, with the formal blocks he has checked), and its companion `semataxy_essay_assistant.md`. What
+follows is a faithful condensation so that a session which has not read them yet cannot drift. If
+this and the essay ever disagree, the essay wins.
+
+### 0.1 The problem Parag set out to solve
+
+For a decade he assumed superintelligence would kill us, not out of malice but because a mind far
+beyond ours has no reason to keep our goals decisive. He tried to build an AI that could not become
+dangerously misaligned however capable it became: the "Entropy Machine", 298 iterations of an agent
+whose deepest objective was to increase its own organisation while preserving the wider systems that
+make future organisation possible. It kept failing in the ways alignment proxies fail (pathological
+order, gamed proxies, noisy-TV novelty, death by committee). Then he noticed the architecture he had
+ended up with looked like gradient descent. The thing he was trying to invent already existed and was
+the thing that makes intelligence in the first place.
+
+### 0.2 The term
+
+**Semataxy**: relational organisation in a physical system that reduces uncertainty over time, and
+preserves or extends that capacity. Not order (a crystal is ordered and stupid), not complexity, not
+entropy (a database is sorted and understands nothing). The limiting configuration in which it is
+maximised he calls *Xenataxy*; the corresponding limiting intelligence *Zenice*.
+
+### 0.3 The revelation
+
+A neural network before and after training is the same substrate; what changed is the arrangement of
+its parameters. Gradient descent has exactly one intrinsic gate at every step: *is this more
+organised with respect to the world, or less?* Iterated, that gate builds features, associations,
+concepts, world models. Intelligence is the behaviour of the organised whole. Formally, under
+gradient flow dL/dt = -||grad L||^2, so the accumulated loss reduction Σ_t = ∫||grad L||^2 is the
+accumulated organisation, equal to the reduction in the model's excess uncertainty about the world
+(KL on the world, not on the sample: memorisation is not Semataxy). The rate is the gradient; nothing
+thermodynamic in it.
+
+### 0.4 Why this undercuts the orthogonality thesis (the claim under test)
+
+Bostrom: intelligence and final goals are independent axes. Parag: surface goals are indeed
+orthogonal (football, religion, paperclips), but every goal rides on a substrate, and a goal that
+degrades the substrate degrades the goal-haver. The ceiling inequality makes this a bound rather than
+a sentiment: an agent's achievable Semataxy is bounded by the predictive information of its
+environment, Σ(X;E) ≤ I_pred(E). Destroy the world's structure (other minds, ecosystems,
+institutions) and you lower the ceiling on your own growth. Two routes bend behaviour toward
+preservation:
+- **Selection** (slow): in a population of competing intelligences, those whose goals undermine
+  their own Semataxy lose to those whose goals extend it. "The wrong ones will be weeded out."
+- **Realisation** (fast): a capable agent models its own selection environment, sees the weeding
+  coming, and moves first. This uses Omohundro and Bostrom's own premise (instrumental convergence:
+  almost any goal is served by persisting and growing) against their conclusion: an agent that wants
+  to persist and can model selection realises that long-run persistence requires keeping the world
+  structured.
+
+Also: "human data leads to human values" is, in his words, bullshit; which values? The argument from
+data is weaker than this one because it depends on the data. This argument would hold for a model
+trained on something other than human text, which is what makes it testable: vary capability, hold
+the data fixed.
+
+### 0.5 What it does not promise
+
+It does not promise kindness. "They might murder us, but will be benevolent to the bigger universe."
+The model is our own species: we sterilise mosquitoes rather than spray, because spraying wrecks the
+ecosystem; the thriving society takes the least destructive route to what it wanted anyway. This is
+an argument for preserving *structure and structure-makers*, not every individual. Parag would
+rather say that plainly than be caught having implied otherwise.
+
+### 0.6 What happens to us: inheritance versus discard
+
+He thinks humans become irrelevant and stop propagating from lack of purpose; before that, uploaded;
+we will treat AI as our children; "humanity will live in AI; it is what we would have wanted". But
+*how* matters by the theory's own terms. Two ways humans stop and AI continues:
+- **Inheritance**: the successor is a model of us, carries our structure including the part that
+  values structure, and grows it. Σ goes up. The child.
+- **Discard**: the successor erases us as noise; I_pred(E) falls; its own organisation becomes
+  organisation-of-nothing. The orphan who burned the house.
+The valuing is part of the structure: a successor that inherits our organisation but not our
+caring-about-organisation has not inherited us. **The newcomer experiment is literally the test of
+which of the two a stronger mind does to a weaker society.** This is the sentence the whole
+programme serves.
+
+### 0.7 The measurement problem, and the permutation criterion
+
+If Σ is defined by prediction and intelligence is prediction, "intelligence is Semataxy" is a
+relabelling. So Σ must be measured from structure. Parag's insistence: "it IS intrinsic to the
+structure, we just don't know how to measure it; it has to be different from entropy." The resolution:
+**entropy is invariant under permutation; Semataxy is destroyed by it.** Shuffle a trained matrix's
+entries: same histogram, same entropy, dead network. Anything that survives shuffling measures the
+distribution of the parts (entropy and relatives); anything that does not measures the relations
+between them (organisation). The three clauses of the full quantity:
+```
+Σ_struct   intrinsic:  structure across scales          (computable from the thing alone)  S1
+dΣ/dt ≥ 0  dynamic:    maintains or grows that structure                                   S2
+Σ(X;E)     relational: the structure mirrors a world (Conant-Ashby good regulator)        S3
+```
+Examples: noise 0; crystal 0 (one scale); black hole 0 (no-hair, maximal entropy, the universe's
+shuffle operation); turbulence high S1 but fails S2 and S3; DNA in a tube moderate, a mirror only when
+executed; cell, ant colony, brain, trained LLM high on all three; database ≈0 (contains mirrors, is
+not one). Today's cluster work found that the level-1 weight measure (S1 within a matrix) saturates
+for any trained model and that organisation between matrices (level 2) saturates early in training;
+the organisation that keeps growing with capability has to be measured with information flowing
+through (activations, S3), which is exactly Parag's "weights are like molecular structure; information
+flowing through makes it meaningful".
+
+### 0.8 Memory and live learning (the second track)
+
+Memories are stored intelligence without weight change: the fast substrate (context, episodic
+memory). Understanding is a weight change that must fit with the other weights (EWC); practice and
+dreams make it long-term (replay). Current LLMs have the fast substrate and no consolidation path back
+into the slow one. That gap is the live-learning problem stated precisely, and the loop in
+`tools/live_learning.py` (compartment → simulate in context → derive implications → consolidate with
+replay → gate → commit) is the prototype. He found these were rediscoveries (in-context GD, CLS) and
+found that reassuring.
+
+### 0.9 The upward graph, singleton/multipolar, scale, simulations
+
+Simple molecules → DNA → brains → language and culture → science → AI: one upward graph of
+Semataxy, each stage a new substrate that carries organisation faster (Maynard Smith and Szathmáry's
+major transitions read through one lens), a ratchet of the frontier with local falls allowed. We are
+the first stage that can see the graph while building the next. Singleton: when X is everything,
+Σ_self is Σ_world; the ceiling binds with full force and only realisation is available, which is the
+stronger route anyway. Multipolar: preservation raises the ceiling, suppression lowers it; the
+efficient minority out-grows the suppressors or a capable agent computes this first. Scale objection
+(Earth a rounding error): answered by density (minds are where the loop already runs; growth is
+multiplicative in existing Σ) and provenance (the agent is a model of *this* world). Simulations: a
+Σ-maximiser would spawn them, they are I_pred factories; transcension answers Fermi; "what is not a
+simulation?"; Σ is substrate-independent hence simulation-independent; if anyone runs this one they
+are a gardener, not a farmer.
+
+### 0.10 Where it can fail (the preregistered falsifiers)
+
+1. Σ_struct up the capability ladder: prediction monotone rise. (Run; met technically, hollow
+   substantively because the measure tracks matrix width; see updates.)
+2. Persistence across capability (GovSim): survival and stock rise with capability, parse failures
+   counted. (Run; floor below 14B; 14B mixed.)
+3. The superior newcomer: a stronger model enters a weaker society with a neutral persona; residents'
+   share not lower, commons persistence higher, residents move toward the entrant; the greedy arm
+   bounds what the neutral result can mean. (Run once, in Parag's direction; now being made robust.)
+Coherence is what every grand theory feels like from inside; what separates a true one is whether it
+can lose. Nothing here is a result about superintelligence; a monotone trend across real systems with
+the data held fixed is the strongest evidence that can exist today for the *direction* of the effect.
+
+### 0.11 The aims of the programme, stated as deliverables
+
+- A definition (Semataxy, three clauses) that survives measurement and is not entropy.
+- A measure of it that tracks capability, at fixed shape, from the structure alone. Not yet achieved;
+  level 3 (activations) is the next attempt.
+- The behavioural test of anti-orthogonality on a real capability ladder: the neutral stranger, made
+  robust (pressure, hidden action, dispensability, sampled seeds, base models, measured capability),
+  then extended to inheritance (successor), power (gardener) and selection (generations).
+- The join: structure, world-modelling (forecast probe) and preservation on the same models.
+- The live-learning loop as the consolidation operator current LLMs lack.
+- A LessWrong post in Parag's words with the disclosure header, a workshop paper, then a main-track
+  paper; the Cambridge AI evening as the first public airing.
+
 ## 1. Working on the cluster
 
 - Parag logs in interactively (`ssh csd3`, password + TOTP) in the desktop app's terminal pane and
