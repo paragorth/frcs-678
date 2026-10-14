@@ -24,9 +24,10 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 # MODELS entries are Qwen2.5 sizes (0.5B .. 72B) or full Hugging Face ids (org/name).
 # EXTRA_ARGS="--random-init" with OUT_PREFIX=random_ gives the untrained-wiring size control.
 for m in ${MODELS:-0.5B 1.5B 3B 7B 14B}; do
+  rev=""; case "$m" in *@*) rev="${m#*@}"; m="${m%@*}";; esac   # org/name@branch for training checkpoints
   case "$m" in
-    */*) model="$m"; slug=$(echo "$m" | tr "/" "_" | tr "[:upper:]" "[:lower:]") ;;
+    */*) model="$m"; slug=$(echo "$m${rev:+@$rev}" | tr "/@" "__" | tr "[:upper:]" "[:lower:]") ;;
     *)   model="Qwen/Qwen2.5-${m}-Instruct"; slug="qwen2.5-${m,,}" ;;
   esac
-  python tools/structure_stream.py --model "$model" --out "results/structure/${OUT_PREFIX:-}${slug}.csv" ${EXTRA_ARGS:-}
+  python tools/structure_stream.py --model "$model" ${rev:+--revision "$rev"} --out "results/structure/${OUT_PREFIX:-}${slug}.csv" ${EXTRA_ARGS:-}
 done

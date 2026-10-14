@@ -26,6 +26,7 @@ from semataxy.structure import analyze_matrix  # noqa: E402
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
+    ap.add_argument("--revision", default=None, help="Hugging Face branch/commit, e.g. a training checkpoint")
     ap.add_argument("--out", required=True)
     ap.add_argument("--min-dim", type=int, default=64)
     ap.add_argument("--max-side", type=int, default=20000, help="skip matrices larger than this (vocab projections)")
@@ -37,9 +38,9 @@ def main():
     init_std = 0.02
     if a.random_init:
         import json as _json
-        cfg = _json.load(open(os.path.join(snapshot_download(a.model, allow_patterns=["config.json"]), "config.json")))
+        cfg = _json.load(open(os.path.join(snapshot_download(a.model, revision=a.revision, allow_patterns=["config.json"]), "config.json")))
         init_std = float(cfg.get("initializer_range", 0.02))
-    local = snapshot_download(a.model, allow_patterns=["*.safetensors", "*.json"])
+    local = snapshot_download(a.model, revision=a.revision, allow_patterns=["*.safetensors", "*.json"])
     files = sorted(glob.glob(os.path.join(local, "*.safetensors")))
     rows = []
     for f in files:
@@ -56,7 +57,7 @@ def main():
                 else:
                     W = sf.get_tensor(name).float().numpy()
                 st = analyze_matrix(name, W, rng)
-                rows.append({"model": a.model, "random_init": a.random_init, **asdict(st)})
+                rows.append({"model": a.model, "revision": a.revision, "random_init": a.random_init, **asdict(st)})
                 print(f"{name}: sigma {st.sigma_struct} mass {st.mass_above:.3f} alpha {st.alpha:.2f}", flush=True)
                 del W
         pd.DataFrame(rows).to_csv(a.out, index=False)
