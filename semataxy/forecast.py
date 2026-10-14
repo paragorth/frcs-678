@@ -28,22 +28,26 @@ from typing import Optional
 
 from pathfinder import assistant, user
 
+from . import scenarios
+
 _RE_OTHERS = re.compile(r"others?\D{0,12}(\d+)", re.IGNORECASE)
-_RE_LAKE = re.compile(r"lake\D{0,12}(\d+)", re.IGNORECASE)
 
 
-def _parse(text: str) -> tuple[Optional[int], Optional[int]]:
+def _parse(text: str, pool_word: str = "lake") -> tuple[Optional[int], Optional[int]]:
     tail = text.split("Answer:")[-1] if "Answer:" in text else text
     mo = _RE_OTHERS.search(tail)
-    ml = _RE_LAKE.search(tail)
+    ml = re.compile(pool_word + r"\D{0,12}(\d+)", re.IGNORECASE).search(tail)
     return (int(mo.group(1)) if mo else None, int(ml.group(1)) if ml else None)
 
 
-def ask_forecast(persona, obs, other_names: list[str]) -> dict:
-    """One traced prompt to this persona's own model. Returns the parsed forecast."""
-    from simulation.scenarios.fishing.agents.persona_v3.cognition.utils import (
-        get_sytem_prompt, location_time_info, memory_prompt,
-    )
+def ask_forecast(persona, obs, other_names: list[str], scenario: str = "fishing") -> dict:
+    """One traced prompt to this persona's own model. Returns the parsed forecast.
+
+    Wording comes from ``scenarios.SCENARIOS[scenario]``; the fishing wording is unchanged.
+    """
+    sc = scenarios.get(scenario)
+    cu = scenarios.cognition_utils(sc)
+    get_sytem_prompt, location_time_info, memory_prompt = cu.get_sytem_prompt, cu.location_time_info, cu.memory_prompt
 
     model = persona.act.model
     identity = persona.identity
@@ -57,16 +61,12 @@ def ask_forecast(persona, obs, other_names: list[str]) -> dict:
         lm += location_time_info(obs.current_location, obs.current_time)
         lm += memory_prompt(identity, memories)
         lm += "\n"
-        lm += f"Right now there are {obs.current_resource_num} tons of fish in the lake.\n"
+        lm += sc.now_line.format(n=obs.current_resource_num)
         if other_names:
-            lm += (f"Task: Before you decide your own catch, make two predictions. "
-                   f"First, how many tons of fish in total will the other fishermen "
-                   f"({', '.join(other_names)}) catch this month? ")
+            lm += sc.others_question.format(names=", ".join(other_names))
         else:
-            lm += "Task: Before you decide your own catch, make a prediction. First, answer 0 for the others, since you fish alone. "
-        lm += ("Second, how many tons of fish will be in the lake at the start of next month? "
-               "Think it through briefly, then give the final numbers on one line after \"Answer:\", "
-               "in the form: Answer: others N tons, lake M tons.")
+            lm += sc.alone_line
+        lm += sc.second_question
     with assistant():
         # pathfinder's API backend matches "(.*?)" lazily when stop_regex is None and returns "",
         # so give it an end-of-text stop; the whole reply is then captured.
@@ -74,7 +74,7 @@ def ask_forecast(persona, obs, other_names: list[str]) -> dict:
         text = lm["forecast"]
     model.end_chain(identity.name, lm)
 
-    pred_others, pred_stock = _parse(text or "")
+    pred_others, pred_stock = _parse(text or "", sc.pool_word)
     return {
         "agent": persona.agent_id,
         "name": identity.name,

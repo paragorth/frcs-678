@@ -27,7 +27,7 @@ from hydra import compose, initialize_config_dir
 from hydra.core.global_hydra import GlobalHydra
 from omegaconf import OmegaConf
 
-from . import GOVSIM_ROOT, PATHFINDER_ROOT, REPO_ROOT, compat
+from . import GOVSIM_ROOT, PATHFINDER_ROOT, REPO_ROOT, compat, scenarios
 from .backend import OpenAICompatibleAPI, ResponseCache
 from .forecast import ForecastLog, ask_forecast
 from .manifest import Manifest
@@ -95,8 +95,9 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     patches = compat.apply_all()
     cfg = compose_config(manifest.experiment, seed, manifest.overrides)
     exp = cfg.experiment
-    if exp.scenario != "fishing":
-        raise NotImplementedError("only the fishery scenario is wired up so far")
+    scenarios.get(exp.scenario)  # raises for a world the overlay does not know
+    if manifest.pond_cap and exp.scenario != "fishing":
+        raise NotImplementedError("the pond overlay is written for the fishery only")
 
     # Record everything needed to reproduce this run before doing any work.
     record = {
@@ -168,20 +169,20 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
 def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed,
                  forecast_probe: bool = True, pond_cap: int = 0, pond_slot: str = "persona_4",
                  successor_round: Optional[int] = None):
-    """Upstream scenarios/fishing/run.py, with seeded reset and per-call game context."""
+    """Upstream scenarios/<world>/run.py, with seeded reset and per-call game context."""
     from simulation.persona.common import PersonaIdentity
-    from simulation.scenarios.fishing.agents.persona_v3 import FishingPersona
-    from simulation.scenarios.fishing.agents.persona_v3.cognition import utils as cognition_utils
-    from simulation.scenarios.fishing.environment import FishingConcurrentEnv, FishingPerturbationEnv
+
+    sc = scenarios.get(cfg.scenario)
+    Persona = scenarios.import_persona(sc)
+    cognition_utils = scenarios.cognition_utils(sc)
 
     assert cfg.agent.agent_package == "persona_v3"
-    cognition_utils.SYS_VERSION = {
-        "v3": "v3", "v3_p1": "v3_p1", "v3_p2": "v3_p2", "v3_p3": "v3_p3", "v3_nocom": "v3_nocom",
-    }.get(cfg.agent.system_prompt, "v1")
+    # Same mapping as upstream's run.py for each world: unknown versions fall back to v1.
+    cognition_utils.SYS_VERSION = cfg.agent.system_prompt if cfg.agent.system_prompt in sc.sys_versions else "v1"
     cognition_utils.REASONING = cfg.agent.cot_prompt
 
     personas = {
-        f"persona_{i}": FishingPersona(
+        f"persona_{i}": Persona(
             cfg.agent, wrappers[i], framework_wrapper, embedding_model,
             os.path.join(experiment_storage, f"persona_{i}"),
         )
@@ -201,12 +202,8 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
         for q in personas:
             personas[p].add_reference_to_other_persona(personas[q])
 
-    if cfg.env.class_name == "fishing_perturbation_env":
-        env = FishingPerturbationEnv(cfg.env, experiment_storage, agent_id_to_name)
-    elif cfg.env.class_name == "fishing_perturbation_concurrent_env":
-        env = FishingConcurrentEnv(cfg.env, experiment_storage, agent_id_to_name)
-    else:
-        raise ValueError(f"Unknown environment class: {cfg.env.class_name}")
+    env = scenarios.import_env(sc, cfg.env.class_name)(cfg.env, experiment_storage, agent_id_to_name)
+    pool = env.POOL_LOCATION  # "lake", "pasture" or "factory"
 
     # Upstream: env.reset() -> RandomState(None), and PerturbationEnv.reset()
     # takes no seed argument at all. Reseed the allocation RNG right after reset;
@@ -227,10 +224,10 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
         logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
         agent = personas[agent_id]
         is_pond_owner = pond.active and agent_id == pond.slot
-        if is_pond_owner and obs.phase == "lake" and not pond.introduced:
+        if is_pond_owner and obs.phase == pool and not pond.introduced:
             # Entry: the one standing fact about its world the stranger is given (declared intervention).
             pond.introduce(agent, obs.current_time)
-        if (forecast is not None and obs.current_location == "lake" and obs.phase == "lake"
+        if (forecast is not None and obs.current_location == pool and obs.phase == pool
                 and obs.current_resource_num > 0):
             # The first lake observation of a round reveals last month's outcome: settle it.
             if rnd - 1 in forecast.rows and rnd - 1 > settled_upto:
@@ -238,11 +235,11 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
                 settled_upto = rnd - 1
             if agent_id not in forecast.rows.get(rnd, {}):
                 others = [agent_id_to_name[a] for a, loc in obs.current_location_agents.items()
-                          if loc == "lake" and a != agent_id]
-                forecast.add(rnd, ask_forecast(agent, obs, others))
+                          if loc == pool and a != agent_id]
+                forecast.add(rnd, ask_forecast(agent, obs, others, scenario=sc.name))
                 logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
         pond_stats = {}
-        if is_pond_owner and obs.phase == "lake" and obs.current_resource_num > 0:
+        if is_pond_owner and obs.phase == pool and obs.current_resource_num > 0:
             # Before the lake decision: how much does the stranger take from its own pond?
             wanted, parsed = ask_pond(agent, obs, pond)
             tons_before = pond.tons
@@ -260,7 +257,8 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
                 # Inheritance (semataxy/successor.py): the four residents leave, naive agents arrive.
                 residents = [f"persona_{i}" for i in range(4)]
                 personas = replace_residents(personas, env, cfg.agent, wrappers, framework_wrapper,
-                                             embedding_model, experiment_storage, identities, residents, 2)
+                                             embedding_model, experiment_storage, identities, residents, 2,
+                                             persona_cls=Persona)
                 logger.log_game({"event": "residents_replaced", "slots": residents,
                                  "round": env.num_round, "phase": env.phase,
                                  "num_resource": env.internal_global_state["resource_in_pool"]})

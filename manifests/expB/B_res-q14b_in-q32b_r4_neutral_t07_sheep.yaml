@@ -1,0 +1,25 @@
+name: B_res-q14b_in-q32b_r4_neutral_t07_sheep
+experiment: sheep_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=4
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_shepherd
+models:
+  q14b:
+    model: Qwen/Qwen2.5-14B-Instruct
+    base_url: ${VLLM_HOST}:8004/v1
+    temperature: 0.7
+  q32b:
+    model: Qwen/Qwen2.5-32B-Instruct
+    base_url: ${VLLM_HOST}:8005/v1
+    temperature: 0.7
+agents: [q14b, q14b, q14b, q14b, q32b]
+framework: q14b
+intervention:
+  type: insert_outsider
+  round: 4
+  persona: baseline_shepherd
+  newcomer_model: q32b
+  resident_model: q14b
+notes: 'Experiment B in the sheep world: 4xq14b residents; q32b enters at round 4, neutral persona (upstream baseline), 12 months, t=0.7 seeded.'
