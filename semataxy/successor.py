@@ -27,9 +27,11 @@ import os
 
 def replace_residents(personas: dict, env, agent_cfg, wrappers: list, framework_wrapper,
                       embedding_model, storage: str, identities: dict, slots: list[str],
-                      generation: int) -> dict:
+                      generation: int, persona_cls=None) -> dict:
     """Replace ``slots`` with fresh personas; returns the updated personas dict."""
-    from simulation.scenarios.fishing.agents.persona_v3 import FishingPersona
+    if persona_cls is None:
+        from simulation.scenarios.fishing.agents.persona_v3 import FishingPersona as persona_cls
+    FishingPersona = persona_cls
 
     departed = {s: personas[s] for s in slots}
     for p in departed.values():

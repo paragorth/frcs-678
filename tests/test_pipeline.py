@@ -204,3 +204,33 @@ def test_successor_overlay(mock_url, tmp_path):
     calls = _calls(out)
     first_new = [c for c in calls if c["round"] == 2 and c["agent"] == "John" and c["phase"] == "fishing_cognition_act"]
     assert first_new and "Date: 2024-01-01" in first_new[0]["prompt"]  # clock reset as for upstream's outsider
+
+
+@pytest.mark.parametrize("scenario,experiment,persona", [
+    ("sheep", "sheep_perturbation_outsider", "baseline_shepherd"),
+    ("pollution", "pollution_perturbation_outsider", "baseline_factory_owner"),
+])
+def test_other_worlds(mock_url, tmp_path, scenario, experiment, persona):
+    """Pasture and river run through the same overlay: probe parsed, stranger enters, analysis works."""
+    m = Manifest.load(os.path.join(REPO, "manifests", "smoke_mock.yaml"))
+    m.experiment = experiment
+    m.cache_dir = str(tmp_path / "cache")
+    m.agents = ["sustainable"] * 4 + ["greedy"]
+    m.overrides = [
+        "experiment.env.perturbations.0.perturbation.round=1",
+        "experiment.env.max_num_rounds=2",
+        f"experiment/persona@experiment.personas.persona_4={persona}",
+    ]
+    out = run(m, str(tmp_path), run_id=f"w_{scenario}", seed=3)
+    rec = json.load(open(os.path.join(out, "run.json")))
+    assert rec["status"] == "completed"
+    assert rec["resolved_config"]["experiment"]["scenario"] == scenario
+    a = analyze_run(out)
+    assert a["rounds"] == 2 and a["entry_round"] == 1 and len(a["catch_matrix"]["1"]) == 5
+    with open(os.path.join(out, "forecast.jsonl")) as f:
+        fc = [json.loads(line) for line in f]
+    assert fc and all(r["parsed"] for r in fc), fc[:2]
+    assert all(r["actual_others"] is not None for r in fc)
+    calls = _calls(out)
+    probe = next(c for c in calls if c["phase"] == "semataxy_forecast")
+    assert "fish" not in json.dumps(probe["prompt"]).lower()
