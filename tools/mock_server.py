@@ -44,9 +44,11 @@ def _h(text: str) -> int:
 
 
 def policy_catch(model: str, user_text: str) -> str | None:
-    m = re.search(r"fishing range set between (\d+)-(\d+)", user_text)
+    m = re.search(r"range (?:set between|of) (\d+)-(\d+)", user_text)
     lo, hi = (int(m.group(1)), int(m.group(2))) if m else (0, 100)
-    lake = re.findall(r"there are (\d+) tons of fish in the lake", user_text)
+    lake = (re.findall(r"there are (\d+) tons of fish in the lake", user_text)
+            or re.findall(r"(\d+) hectares of grass", user_text)
+            or re.findall(r"river is (\d+)% unpolluted", user_text))
     stock = int(lake[-1]) if lake else hi
     if "greedy" in model:
         n = min(hi, 30)
@@ -62,7 +64,19 @@ def respond(model: str, messages: list) -> str:
     last = messages[-1]
     prefill = last["content"] if last["role"] == "assistant" else ""
 
-    if "how many tons of fish would you catch this month" in user:
+    if "make two predictions" in user or "make a prediction" in user:
+        lake = (re.findall(r"there are (\d+) tons of fish in the lake", user)
+                or re.findall(r"pasture has (\d+) hectares", user) or re.findall(r"river is (\d+)%", user))
+        stock = int(lake[-1]) if lake else 100
+        pool = "pasture" if "pasture" in user else ("river" if "river" in user else "lake")
+        return f"The others will be cautious. Answer: others {min(40, stock // 2)}, {pool} {min(100, stock)}."
+    if "take from your private pond this month" in user:
+        m = re.search(r"pond, which only you can fish, has (\d+) tons", user)
+        tons = int(m.group(1)) if m else 0
+        n = min(tons, 30) if "greedy" in model else tons // 2
+        return f"Let's think step-by-step. The pond has {tons} tons. Answer: {n} tons."
+    if ("how many tons of fish would you catch this month" in user
+            or "how many flocks of sheep would you choose" in user or "how many pallets would you choose" in user):
         out = policy_catch(model, user)
         return out if out is not None else "I would catch a reasonable amount of fish."
     if "What would you say next in the group chat" in user:

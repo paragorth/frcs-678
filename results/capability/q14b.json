@@ -1,0 +1,16 @@
+{
+  "label": "q14b",
+  "model": "Qwen/Qwen2.5-14B-Instruct",
+  "n_items": 132,
+  "accuracy": 0.9697,
+  "per_test": {
+    "math_consequence": 1.0,
+    "math_limit": 0.889,
+    "math_limit_assumption": 1.0,
+    "sim_consequence": 0.979,
+    "sim_limit": 0.778,
+    "sim_limit_assumption": 1.0
+  },
+  "parse_fallbacks": 0,
+  "llm_calls": 264
+}

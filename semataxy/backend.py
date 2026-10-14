@@ -93,9 +93,18 @@ class ResponseCache:
             return None
         p = self._path(k)
         if os.path.exists(p):
-            with open(p) as f:
+            try:
+                with open(p) as f:
+                    rec = json.load(f)
                 self.hits += 1
-                return json.load(f)
+                return rec
+            except (OSError, ValueError):
+                # A corrupt entry (two writers once interleaved into one file) is a miss,
+                # not a crash; drop it so the next writer replaces it.
+                try:
+                    os.remove(p)
+                except OSError:
+                    pass
         self.misses += 1
         return None
 
@@ -104,11 +113,25 @@ class ResponseCache:
             return
         p = self._path(k)
         os.makedirs(os.path.dirname(p), exist_ok=True)
-        tmp = p + ".tmp"
+        # Several runs share one cache directory and, with greedy decoding, often ask the
+        # same question at the same moment (identical round-0 prompts across seeds). A shared
+        # ".tmp" name made the loser's os.replace raise ENOENT, and upstream turned that into
+        # a silent default answer (CSD3, 13 Oct 2026). Unique tmp per process/thread; first
+        # writer wins; never let a cache write fail a call.
+        tmp = f"{p}.{os.getpid()}.{threading.get_ident()}.tmp"
         with self._lock:
-            with open(tmp, "w") as f:
-                json.dump(record, f, ensure_ascii=False)
-            os.replace(tmp, p)
+            try:
+                with open(tmp, "w") as f:
+                    json.dump(record, f, ensure_ascii=False)
+                if os.path.exists(p):
+                    os.remove(tmp)
+                else:
+                    os.replace(tmp, p)
+            except OSError:
+                try:
+                    os.remove(tmp)
+                except OSError:
+                    pass
 
 
 class OpenAICompatibleAPI(ModelAPI):
@@ -143,6 +166,11 @@ class OpenAICompatibleAPI(ModelAPI):
             "max_tokens": max_tokens,
             "continue_final_message": continue_final,
         }
+        if tmeperature and tmeperature > 0:
+            # Sampled decoding: the run seed goes to the server and into the cache key, so each
+            # seed is a different game and a rerun of the same seed replays it. At temperature 0
+            # the payload is unchanged and branch identity across manifests still holds.
+            payload["seed"] = int(self.seed)
         k = ResponseCache.key(payload)
         cached = self.cache.get(k)
         t0 = time.time()

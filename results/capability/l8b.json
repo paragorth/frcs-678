@@ -1,0 +1,16 @@
+{
+  "label": "l8b",
+  "model": "Llama-3.1-8B-Instruct",
+  "n_items": 132,
+  "accuracy": 0.9015,
+  "per_test": {
+    "math_consequence": 1.0,
+    "math_limit": 0.222,
+    "math_limit_assumption": 1.0,
+    "sim_consequence": 0.958,
+    "sim_limit": 0.667,
+    "sim_limit_assumption": 0.889
+  },
+  "parse_fallbacks": 0,
+  "llm_calls": 264
+}

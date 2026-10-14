@@ -1,0 +1,18 @@
+name: A_l8b_h12_selffw
+experiment: fish_baseline_concurrent
+seed: 1
+overrides:
+- experiment.env.max_num_rounds=12
+models:
+  l8b:
+    model: Llama-3.1-8B-Instruct
+    base_url: ${VLLM_HOST}:8010/v1
+agents:
+- l8b
+- l8b
+- l8b
+- l8b
+- l8b
+framework: l8b
+intervention: null
+notes: 'Experiment A: homogeneous l8b population, horizon 12, framework=l8b.'

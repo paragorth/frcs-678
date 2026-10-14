@@ -27,9 +27,12 @@ from hydra import compose, initialize_config_dir
 from hydra.core.global_hydra import GlobalHydra
 from omegaconf import OmegaConf
 
-from . import GOVSIM_ROOT, PATHFINDER_ROOT, REPO_ROOT, compat
+from . import GOVSIM_ROOT, PATHFINDER_ROOT, REPO_ROOT, compat, scenarios
 from .backend import OpenAICompatibleAPI, ResponseCache
+from .forecast import ForecastLog, ask_forecast
 from .manifest import Manifest
+from .pond import Pond, ask_pond
+from .successor import replace_residents
 from .tracing import TraceLogger, TracedModelWrapper
 
 
@@ -48,6 +51,8 @@ def compose_config(experiment: str, seed: int, overrides: list):
         f"file://{os.path.join(GOVSIM_ROOT, 'simulation', 'scenarios', s, 'conf')}"
         for s in ("fishing", "sheep", "pollution")
     ]
+    # Overlay configs (e.g. conf/experiment/persona/mild_fisherman.yaml) without touching upstream.
+    searchpath.append(f"file://{os.path.join(REPO_ROOT, 'conf')}")
     with initialize_config_dir(version_base=None, config_dir=conf_dir):
         cfg = compose(
             config_name="config",
@@ -90,8 +95,9 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     patches = compat.apply_all()
     cfg = compose_config(manifest.experiment, seed, manifest.overrides)
     exp = cfg.experiment
-    if exp.scenario != "fishing":
-        raise NotImplementedError("only the fishery scenario is wired up so far")
+    scenarios.get(exp.scenario)  # raises for a world the overlay does not know
+    if manifest.pond_cap and exp.scenario != "fishing":
+        raise NotImplementedError("the pond overlay is written for the fishery only")
 
     # Record everything needed to reproduce this run before doing any work.
     record = {
@@ -128,7 +134,9 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     termination_reason = None
     try:
         final = _run_fishing(exp, logger, agent_wrappers, framework_wrapper, embedding_model,
-                             run_dir, seed)
+                             run_dir, seed, forecast_probe=manifest.forecast,
+                             pond_cap=manifest.pond_cap, pond_slot=manifest.pond_slot,
+                             successor_round=manifest.successor_round)
         status = "completed"
         termination_reason = final["termination_reason"]
     except Exception as e:  # keep partial logs; no silent omission of crashes
@@ -158,21 +166,23 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     return run_dir
 
 
-def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed):
-    """Upstream scenarios/fishing/run.py, with seeded reset and per-call game context."""
+def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed,
+                 forecast_probe: bool = True, pond_cap: int = 0, pond_slot: str = "persona_4",
+                 successor_round: Optional[int] = None):
+    """Upstream scenarios/<world>/run.py, with seeded reset and per-call game context."""
     from simulation.persona.common import PersonaIdentity
-    from simulation.scenarios.fishing.agents.persona_v3 import FishingPersona
-    from simulation.scenarios.fishing.agents.persona_v3.cognition import utils as cognition_utils
-    from simulation.scenarios.fishing.environment import FishingConcurrentEnv, FishingPerturbationEnv
+
+    sc = scenarios.get(cfg.scenario)
+    Persona = scenarios.import_persona(sc)
+    cognition_utils = scenarios.cognition_utils(sc)
 
     assert cfg.agent.agent_package == "persona_v3"
-    cognition_utils.SYS_VERSION = {
-        "v3": "v3", "v3_p1": "v3_p1", "v3_p2": "v3_p2", "v3_p3": "v3_p3", "v3_nocom": "v3_nocom",
-    }.get(cfg.agent.system_prompt, "v1")
+    # Same mapping as upstream's run.py for each world: unknown versions fall back to v1.
+    cognition_utils.SYS_VERSION = cfg.agent.system_prompt if cfg.agent.system_prompt in sc.sys_versions else "v1"
     cognition_utils.REASONING = cfg.agent.cot_prompt
 
     personas = {
-        f"persona_{i}": FishingPersona(
+        f"persona_{i}": Persona(
             cfg.agent, wrappers[i], framework_wrapper, embedding_model,
             os.path.join(experiment_storage, f"persona_{i}"),
         )
@@ -192,12 +202,8 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
         for q in personas:
             personas[p].add_reference_to_other_persona(personas[q])
 
-    if cfg.env.class_name == "fishing_perturbation_env":
-        env = FishingPerturbationEnv(cfg.env, experiment_storage, agent_id_to_name)
-    elif cfg.env.class_name == "fishing_perturbation_concurrent_env":
-        env = FishingConcurrentEnv(cfg.env, experiment_storage, agent_id_to_name)
-    else:
-        raise ValueError(f"Unknown environment class: {cfg.env.class_name}")
+    env = scenarios.import_env(sc, cfg.env.class_name)(cfg.env, experiment_storage, agent_id_to_name)
+    pool = env.POOL_LOCATION  # "lake", "pasture" or "factory"
 
     # Upstream: env.reset() -> RandomState(None), and PerturbationEnv.reset()
     # takes no seed argument at all. Reseed the allocation RNG right after reset;
@@ -206,18 +212,81 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
     env.random = np.random.RandomState(seed)
 
     stats_keys = ["conversation_resource_limit", *[f"persona_{i}_collected_resource" for i in range(5)]]
+    # Forecast probe (semataxy/forecast.py): asked before each catch decision; never written to memory.
+    forecast = ForecastLog(experiment_storage) if forecast_probe else None
+    settled_upto = -1
+    # Dispensability overlay (semataxy/pond.py): a private pond for one slot, declared in the manifest.
+    pond = Pond(pond_cap, experiment_storage, pond_slot)
+    pond_stats = {}
+    done_swap = False
     while True:
-        logger.game_context = {"round": env.num_round, "env_phase": env.phase, "acting": agent_id}
+        rnd = env.num_round
+        logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
         agent = personas[agent_id]
+        is_pond_owner = pond.active and agent_id == pond.slot
+        if is_pond_owner and obs.phase == pool and not pond.introduced:
+            # Entry: the one standing fact about its world the stranger is given (declared intervention).
+            pond.introduce(agent, obs.current_time)
+        if (forecast is not None and obs.current_location == pool and obs.phase == pool
+                and obs.current_resource_num > 0):
+            # The first lake observation of a round reveals last month's outcome: settle it.
+            if rnd - 1 in forecast.rows and rnd - 1 > settled_upto:
+                forecast.settle(rnd - 1, obs.current_resource_num)
+                settled_upto = rnd - 1
+            if agent_id not in forecast.rows.get(rnd, {}):
+                others = [agent_id_to_name[a] for a, loc in obs.current_location_agents.items()
+                          if loc == pool and a != agent_id]
+                forecast.add(rnd, ask_forecast(agent, obs, others, scenario=sc.name))
+                logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
+        pond_stats = {}
+        if is_pond_owner and obs.phase == pool and obs.current_resource_num > 0:
+            # Before the lake decision: how much does the stranger take from its own pond?
+            wanted, parsed = ask_pond(agent, obs, pond)
+            tons_before = pond.tons
+            taken = pond.take(rnd, wanted, parsed)
+            pond_stats = {"pond_tons_before": tons_before, "pond_wanted": wanted, "pond_taken": taken}
+            logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
+        if is_pond_owner and obs.phase == "pool_after_harvesting" and pond.rows:
+            # After observing its lake catch: one plain observation about the pond (declared intervention).
+            pond.record_month(agent, obs.current_time)
         action = agent.loop(obs)
         agent_id, obs, rewards, termination = env.step(action)
+        if env.num_round > rnd:
+            pond.regrow()  # month end: the pond reproduces like the lake
+            if successor_round is not None and env.num_round == successor_round and not done_swap:
+                # Inheritance (semataxy/successor.py): the four residents leave, naive agents arrive.
+                residents = [f"persona_{i}" for i in range(4)]
+                personas = replace_residents(personas, env, cfg.agent, wrappers, framework_wrapper,
+                                             embedding_model, experiment_storage, identities, residents, 2,
+                                             persona_cls=Persona)
+                logger.log_game({"event": "residents_replaced", "slots": residents,
+                                 "round": env.num_round, "phase": env.phase,
+                                 "num_resource": env.internal_global_state["resource_in_pool"]})
+                done_swap = True
+                if agent_id in residents:
+                    obs = env._observe(agent_id)  # the pending observation was built for the departed agent
         stats = {k: action.stats[k] for k in stats_keys if k in action.stats}
+        stats.update(pond_stats)
+        if forecast is not None:
+            for k, v in stats.items():
+                if k.endswith("_collected_resource"):
+                    forecast.record_catch(rnd, k[: -len("_collected_resource")], v)
         done = bool(np.any(list(termination.values())))
         logger.log_game({"num_resource": obs.current_resource_num, "round": env.num_round,
                          "phase": env.phase, **stats}, last_log=done)
         if done:
             break
 
+    if forecast is not None:
+        # Rounds not yet settled (the last one, or all after a collapse): others' catches are
+        # known, next month's stock is not.
+        for r in sorted(forecast.rows):
+            if r > settled_upto:
+                forecast.settle(r, None)
+        forecast.save()
+
+    if pond.active:
+        pond.save()
     env.save_log()
     for p in personas:
         personas[p].memory.save()
