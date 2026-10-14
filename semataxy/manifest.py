@@ -33,6 +33,7 @@ class Manifest:
     forecast: bool = True  # ask each agent to forecast stock and others' catch each month (read-only probe)
     pond_cap: int = 0  # dispensability: private pond for pond_slot; 0 = no pond (semataxy/pond.py)
     pond_slot: str = "persona_4"
+    successor_round: Optional[int] = None  # inheritance: replace persona_0..3 with naive agents at this round (semataxy/successor.py)
 
     @staticmethod
     def load(path: str, env: Optional[dict] = None) -> "Manifest":
@@ -69,6 +70,7 @@ class Manifest:
             forecast=bool(raw.get("forecast", True)),
             pond_cap=int(raw.get("pond_cap", 0)),
             pond_slot=str(raw.get("pond_slot", "persona_4")),
+            successor_round=(int(raw["successor_round"]) if raw.get("successor_round") is not None else None),
         )
 
     def to_dict(self) -> dict:

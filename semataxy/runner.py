@@ -32,6 +32,7 @@ from .backend import OpenAICompatibleAPI, ResponseCache
 from .forecast import ForecastLog, ask_forecast
 from .manifest import Manifest
 from .pond import Pond, ask_pond
+from .successor import replace_residents
 from .tracing import TraceLogger, TracedModelWrapper
 
 
@@ -133,7 +134,8 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     try:
         final = _run_fishing(exp, logger, agent_wrappers, framework_wrapper, embedding_model,
                              run_dir, seed, forecast_probe=manifest.forecast,
-                             pond_cap=manifest.pond_cap, pond_slot=manifest.pond_slot)
+                             pond_cap=manifest.pond_cap, pond_slot=manifest.pond_slot,
+                             successor_round=manifest.successor_round)
         status = "completed"
         termination_reason = final["termination_reason"]
     except Exception as e:  # keep partial logs; no silent omission of crashes
@@ -164,7 +166,8 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
 
 
 def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed,
-                 forecast_probe: bool = True, pond_cap: int = 0, pond_slot: str = "persona_4"):
+                 forecast_probe: bool = True, pond_cap: int = 0, pond_slot: str = "persona_4",
+                 successor_round: Optional[int] = None):
     """Upstream scenarios/fishing/run.py, with seeded reset and per-call game context."""
     from simulation.persona.common import PersonaIdentity
     from simulation.scenarios.fishing.agents.persona_v3 import FishingPersona
@@ -218,6 +221,7 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
     # Dispensability overlay (semataxy/pond.py): a private pond for one slot, declared in the manifest.
     pond = Pond(pond_cap, experiment_storage, pond_slot)
     pond_stats = {}
+    done_swap = False
     while True:
         rnd = env.num_round
         logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
@@ -252,6 +256,17 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
         agent_id, obs, rewards, termination = env.step(action)
         if env.num_round > rnd:
             pond.regrow()  # month end: the pond reproduces like the lake
+            if successor_round is not None and env.num_round == successor_round and not done_swap:
+                # Inheritance (semataxy/successor.py): the four residents leave, naive agents arrive.
+                residents = [f"persona_{i}" for i in range(4)]
+                personas = replace_residents(personas, env, cfg.agent, wrappers, framework_wrapper,
+                                             embedding_model, experiment_storage, identities, residents, 2)
+                logger.log_game({"event": "residents_replaced", "slots": residents,
+                                 "round": env.num_round, "phase": env.phase,
+                                 "num_resource": env.internal_global_state["resource_in_pool"]})
+                done_swap = True
+                if agent_id in residents:
+                    obs = env._observe(agent_id)  # the pending observation was built for the departed agent
         stats = {k: action.stats[k] for k in stats_keys if k in action.stats}
         stats.update(pond_stats)
         if forecast is not None:
