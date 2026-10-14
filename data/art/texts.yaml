@@ -1,0 +1,104 @@
+# Public-domain canonical poems, matched cliche verse and flat paraphrases written for this test.
+canonical:
+  sonnet18: |
+    Shall I compare thee to a summer's day?
+    Thou art more lovely and more temperate:
+    Rough winds do shake the darling buds of May,
+    And summer's lease hath all too short a date;
+    Sometime too hot the eye of heaven shines,
+    And often is his gold complexion dimm'd;
+    And every fair from fair sometime declines,
+    By chance or nature's changing course untrimm'd;
+  tyger: |
+    Tyger Tyger, burning bright,
+    In the forests of the night;
+    What immortal hand or eye,
+    Could frame thy fearful symmetry?
+    In what distant deeps or skies.
+    Burnt the fire of thine eyes?
+    On what wings dare he aspire?
+    What the hand, dare seize the fire?
+  ozymandias: |
+    I met a traveller from an antique land,
+    Who said: Two vast and trunkless legs of stone
+    Stand in the desert. Near them, on the sand,
+    Half sunk a shattered visage lies, whose frown,
+    And wrinkled lip, and sneer of cold command,
+    Tell that its sculptor well those passions read
+    Which yet survive, stamped on these lifeless things,
+    The hand that mocked them, and the heart that fed;
+  daffodils: |
+    I wandered lonely as a cloud
+    That floats on high o'er vales and hills,
+    When all at once I saw a crowd,
+    A host, of golden daffodils;
+    Beside the lake, beneath the trees,
+    Fluttering and dancing in the breeze.
+    Continuous as the stars that shine
+    And twinkle on the milky way,
+  death: |
+    Because I could not stop for Death,
+    He kindly stopped for me;
+    The carriage held but just ourselves
+    And Immortality.
+    We slowly drove, he knew no haste,
+    And I had put away
+    My labor, and my leisure too,
+    For his civility.
+cliche:
+  sonnet18: |
+    You are my sunshine every day,
+    You make my troubles go away,
+    Your smile is sweeter than a rose,
+    And I will love you as life goes.
+    The summer comes and then it ends,
+    But you will always be my friend,
+    Through every season, every year,
+    I'm glad to have you always near.
+  tyger: |
+    The tiger is a mighty cat,
+    With stripes of orange, black like that,
+    He prowls the jungle in the night,
+    His eyes are glowing, shining bright.
+    Who made the tiger strong and bold?
+    It is a wonder to behold,
+    He is the king of all he sees,
+    Among the jungle and the trees.
+  ozymandias: |
+    There was a king of long ago,
+    Who ruled the land with pride and show,
+    He built a statue tall and grand,
+    That now lies broken in the sand.
+    He thought that he would always last,
+    But now his glory's in the past,
+    So all of us should humble be,
+    For time will win, as you can see.
+  daffodils: |
+    I took a walk one sunny day,
+    And saw some flowers on my way,
+    The daffodils were yellow, bright,
+    They filled my heart with pure delight.
+    They danced beside the lake so blue,
+    Beneath the trees, the breeze blew through,
+    And when I'm sad I think of them,
+    Each lovely yellow flower stem.
+  death: |
+    One day the end will come for all,
+    The young, the old, the big, the small,
+    So live your life and do not fear,
+    And treasure those you hold so dear.
+    When it is time for us to go,
+    We'll ride to heaven, nice and slow,
+    And there we'll find eternal rest,
+    With those we loved and loved the best.
+flat:
+  sonnet18: |
+    I could compare you to a summer day, but you are more attractive and the weather in summer is less stable than you are. Strong winds damage the flowers in May and summer does not last very long. Sometimes the sun is too hot and sometimes it is behind clouds. Everything beautiful becomes less beautiful over time, either by accident or because nature changes.
+  tyger: |
+    A tiger has bright colours and lives in forests where it is dark at night. It is hard to imagine who could have created an animal with such a frightening and balanced shape. One might ask where the fire in its eyes came from, whether from a deep place or from the sky, and who would have been brave enough to take hold of that fire.
+  ozymandias: |
+    I met someone who had travelled from an old country. He told me that there are two large stone legs without a body standing in the desert. Nearby, half buried in the sand, is a broken stone face with an angry and proud expression. The sculptor understood the ruler's feelings well, and they can still be seen in the stone, long after both men died.
+  daffodils: |
+    I was walking alone and not thinking about anything in particular, like a cloud moving over valleys and hills. Suddenly I saw a large number of yellow daffodils next to the lake and under the trees. They were moving in the wind. There were as many of them as there are stars in the sky, and they went on for a long distance.
+  death: |
+    I was too busy to think about dying, so death came to collect me in a carriage. Only the two of us and the idea of living forever were inside. We travelled slowly and he was in no hurry. I had stopped working and stopped relaxing, because he was being polite and I wanted to be polite back.
