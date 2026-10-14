@@ -304,7 +304,13 @@ def main():
 
         # --- compartment: LoRA, base frozen, no weight decay ----------------------------
         from peft import LoraConfig, get_peft_model
-        cfg = LoraConfig(r=8, lora_alpha=16, target_modules=["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"], lora_dropout=0.0)
+        # LoRA targets by architecture: Pythia (GPT-NeoX) names vs Llama/Qwen-style names.
+        names = {n.split(".")[-1] for n, _ in base.named_modules()}
+        if "query_key_value" in names:
+            targets = ["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"]
+        else:
+            targets = [t for t in ("q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj") if t in names]
+        cfg = LoraConfig(r=8, lora_alpha=16, target_modules=targets, lora_dropout=0.0)
         comp = get_peft_model(copy.deepcopy(base), cfg)
         train(comp, tok, texts, a.steps, lr=3e-4, wd=0.0, log=log)
         comp.save_pretrained(os.path.join(a.out, "compartment_adapter"))
