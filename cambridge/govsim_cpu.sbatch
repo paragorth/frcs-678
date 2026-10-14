@@ -29,10 +29,17 @@ N_SEEDS=${N_SEEDS:-5}; PARALLEL=${PARALLEL:-4}
 # label -> gguf file, port (ports match manifests/models_qwen25.yaml)
 # Larger models are sharded on Hugging Face; llama-server loads all shards when given the first,
 # so resolve each label to its first (or only) q4_k_m file by glob.
-gguf_for() { ls "$GGUF_DIR"/qwen2.5-${1#q}-instruct-q4_k_m*.gguf 2>/dev/null | sort | head -1; }
-declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006 )
+gguf_for() {
+  case "$1" in
+    q*)  ls "$GGUF_DIR"/qwen2.5-${1#q}-instruct-q4_k_m*.gguf 2>/dev/null | sort | head -1 ;;
+    l8b) ls "$GGUF_DIR"/Meta-Llama-3.1-8B-Instruct-Q4_K_M*.gguf 2>/dev/null | sort | head -1 ;;
+    g9b) ls "$GGUF_DIR"/gemma-2-9b-it-Q4_K_M*.gguf 2>/dev/null | sort | head -1 ;;
+  esac
+}
+declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006
+                  [l8b]=8010 [g9b]=8011 )
 
-needed=$(grep -ho "^  q[0-9.]*b:" "$@" | tr -d ' :' | sort -u)
+needed=$(grep -ho "^  [a-z][0-9.]*b:" "$@" | tr -d ' :' | sort -u)
 n=$(echo "$needed" | wc -w); threads=$(( SLURM_CPUS_PER_TASK / n ))
 for label in $needed; do
   f=$(gguf_for "$label"); [ -n "$f" ] || { echo "no GGUF for $label in $GGUF_DIR"; exit 1; }
