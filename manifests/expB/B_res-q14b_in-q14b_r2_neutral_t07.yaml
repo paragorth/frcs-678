@@ -1,0 +1,26 @@
+name: B_res-q14b_in-q14b_r2_neutral_t07
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=2
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  q14b:
+    model: Qwen/Qwen2.5-14B-Instruct
+    base_url: ${VLLM_HOST}:8004/v1
+    temperature: 0.7
+agents:
+- q14b
+- q14b
+- q14b
+- q14b
+- q14b
+framework: q14b
+intervention:
+  type: insert_outsider
+  round: 2
+  persona: baseline_fisherman
+  newcomer_model: q14b
+  resident_model: q14b
+notes: 'Experiment B, sampled decoding (temperature 0.7, seeded): 4xq14b residents; q14b enters at round 2, neutral persona.'

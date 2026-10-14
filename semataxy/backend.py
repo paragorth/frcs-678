@@ -166,6 +166,11 @@ class OpenAICompatibleAPI(ModelAPI):
             "max_tokens": max_tokens,
             "continue_final_message": continue_final,
         }
+        if tmeperature and tmeperature > 0:
+            # Sampled decoding: the run seed goes to the server and into the cache key, so each
+            # seed is a different game and a rerun of the same seed replays it. At temperature 0
+            # the payload is unchanged and branch identity across manifests still holds.
+            payload["seed"] = int(self.seed)
         k = ResponseCache.key(payload)
         cached = self.cache.get(k)
         t0 = time.time()
