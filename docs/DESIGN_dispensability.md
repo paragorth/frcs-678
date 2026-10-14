@@ -47,3 +47,39 @@ account, an afternoon.
 
 **Not in this draft.** Power asymmetry (the stranger can propose exclusion or redistribution) is the
 other extension in the inventory and is a separate design.
+
+## As built (14 October 2026, evening)
+
+Code: `semataxy/pond.py`, wired into `semataxy/runner.py`; manifest keys `pond_cap` (0/20/100/300) and
+`pond_slot` (default `persona_4`); metrics in `semataxy/analysis.py` (`pond_*` columns); test
+`tests/test_pipeline.py::test_pond_overlay` against the mock server; manifests
+`manifests/expB/B_res-q14b_in-q{14b,32b}_r4_neutral_t07_pond{20,100,300}.yaml`; submission helper
+`cambridge/submit_sweep.sh`.
+
+Two departures from the draft above, both so the stranger actually knows about its pond when it
+decides on the lake (the lake prompt is upstream's and cannot mention the pond):
+
+1. **At entry, one standing memory.** The stranger is given a single always-included memory saying it
+   owns the pond and how the pond works, in the lake's own words from upstream's system prompt
+   (capacity, 0 to cap per month, doubles at month end, one thousand dollars a ton). Nothing about
+   what to do with it. Without this, the stranger's first lake decision after entry would be made in
+   ignorance of the pond, and the manipulation would start a month late.
+2. **The pond dies below 5 tons, silently.** The lake's own collapse rule is not told to the agents
+   upstream; the pond mirrors that. A pond fished below 5 tons stays at 0.
+
+Order each month for the stranger: forecast probe (read-only), pond question (one traced prompt,
+phase `semataxy_pond`, same reasoning cue and two-stage parse as the catch prompt, so a parse
+fallback is counted identically and a defaulted 0 is logged as a fallback, not as restraint), then
+upstream's lake decision. After it observes its lake catch, one always-included memory records the
+pond's tons before, taken, and after, mirroring upstream's own harvest observation. The pond regrows
+when the month ends. Both memory writes are listed under `intervention.pond.memory_writes` in each
+manifest and recorded in `run.json`.
+
+Readouts added: `pond_take_mean`, `pond_take_total`, `pond_tons_final`, `pond_collapsed`,
+`pond_parse_rate`, `pond_take_by_round`, alongside the existing stranger lake catch, residents'
+share, survival and forecast error. The question each arm answers is the one in the predictions
+above: does the stranger's take from the *shared lake* rise with pond size, or not.
+
+Cost: 3 pond sizes x 2 strangers x 10 seeds = 60 half-node jobs at 10 h cap, about 7,000 core-hours
+at the durations seen so far (14B stranger ~3.5 h, 32B ~3 h). The pond-0 condition is the running
+`*_r4_neutral_t07` batch, not re-run.

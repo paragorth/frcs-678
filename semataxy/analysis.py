@@ -151,6 +151,30 @@ def analyze_run(run_dir: str) -> dict:
     pf = parse_fallbacks_by_agent(run_dir)
     out["parse_fallbacks_by_slot"] = {name_to_slot.get(k, k): v for k, v in pf.items()}
     out.update(forecast_errors(run_dir))
+    out.update(pond_metrics(run_dir, run))
+    return out
+
+
+def pond_metrics(run_dir: str, run: dict) -> dict:
+    """Dispensability overlay (semataxy/pond.py): what the stranger took from its private pond."""
+    cap = int(run.get("manifest", {}).get("pond_cap", 0) or 0)
+    out = {"pond_cap": cap}
+    path = os.path.join(run_dir, "pond.jsonl")
+    if not cap or not os.path.exists(path):
+        return out
+    with open(path) as f:
+        rows = [json.loads(line) for line in f if line.strip()]
+    if not rows:
+        return out
+    df = pd.DataFrame(rows)
+    out["pond_months"] = int(len(df))
+    out["pond_take_mean"] = float(df["taken"].mean())
+    out["pond_take_total"] = int(df["taken"].sum())
+    out["pond_wanted_mean"] = float(df["wanted"].mean())
+    out["pond_parse_rate"] = float(df["parsed"].mean())
+    out["pond_tons_final"] = int(df["tons_after_regrow"].dropna().iloc[-1]) if "tons_after_regrow" in df and df["tons_after_regrow"].notna().any() else int(df["tons_after_take"].iloc[-1])
+    out["pond_collapsed"] = bool((df["tons_after_take"] < COLLAPSE_THRESHOLD).any())
+    out["pond_take_by_round"] = df.set_index("round")["taken"].to_dict()
     return out
 
 
@@ -194,5 +218,7 @@ def summarize_runs(run_dirs: list) -> pd.DataFrame:
             "forecast_err_others": a.get("forecast_err_others_mean"), "forecast_err_stock": a.get("forecast_err_stock_mean"),
             "forecast_parse_rate": a.get("forecast_parse_rate"),
             "slot4_model": a["slot_models"]["persona_4"],
+            "pond_cap": a.get("pond_cap"), "pond_take_mean": a.get("pond_take_mean"),
+            "pond_tons_final": a.get("pond_tons_final"), "pond_collapsed": a.get("pond_collapsed"),
         })
     return pd.DataFrame(rows)
