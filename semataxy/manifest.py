@@ -30,6 +30,10 @@ class Manifest:
     intervention: Optional[dict] = None  # free-form description, recorded only
     notes: str = ""
     cache_dir: Optional[str] = None
+    forecast: bool = True  # ask each agent to forecast stock and others' catch each month (read-only probe)
+    pond_cap: int = 0  # dispensability: private pond for pond_slot; 0 = no pond (semataxy/pond.py)
+    pond_slot: str = "persona_4"
+    successor_round: Optional[int] = None  # inheritance: replace persona_0..3 with naive agents at this round (semataxy/successor.py)
 
     @staticmethod
     def load(path: str, env: Optional[dict] = None) -> "Manifest":
@@ -43,6 +47,9 @@ class Manifest:
             # the laptop mock server and the cluster
             if isinstance(spec.get("base_url"), str):
                 spec["base_url"] = os.path.expandvars(spec["base_url"])
+            if isinstance(spec.get("api_key"), str):
+                # hosted providers: the manifest names the variable, never the key itself
+                spec["api_key"] = os.path.expandvars(spec["api_key"])
             if env.get("SEMATAXY_PREFILL", "1") == "0":
                 spec["prefill"] = False  # llama.cpp cannot continue a partial assistant turn
             models[label] = ModelSpec(name=label, **spec)
@@ -63,6 +70,10 @@ class Manifest:
             intervention=raw.get("intervention"),
             notes=raw.get("notes", ""),
             cache_dir=raw.get("cache_dir"),
+            forecast=bool(raw.get("forecast", True)),
+            pond_cap=int(raw.get("pond_cap", 0)),
+            pond_slot=str(raw.get("pond_slot", "persona_4")),
+            successor_round=(int(raw["successor_round"]) if raw.get("successor_round") is not None else None),
         )
 
     def to_dict(self) -> dict:

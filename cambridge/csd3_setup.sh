@@ -15,7 +15,7 @@ grep -q "HF_HOME=" ~/.bashrc || echo "export HF_HOME=$RDS/hf" >> ~/.bashrc
 module purge; module load rhel8/default-icl 2>/dev/null || module load rhel8/default-amp 2>/dev/null || true
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
-uv venv "$RDS/semataxy/.venv" --python 3.11
+[ -d "$RDS/semataxy/.venv" ] || uv venv "$RDS/semataxy/.venv" --python 3.11   # resumable: keep an existing venv
 source "$RDS/semataxy/.venv/bin/activate"
 uv pip install --index-url https://download.pytorch.org/whl/cpu torch
 uv pip install -r requirements.txt fastparquet huggingface_hub peft safetensors
@@ -33,19 +33,21 @@ grep -q "LLAMA_SERVER=" ~/.bashrc || echo "export LLAMA_SERVER=$RDS/semataxy/lla
 # --- models: GGUF Q4_K_M for inference (llama.cpp), safetensors for Sigma_struct ---------
 # Download on the login node; compute nodes read them from RDS.
 python - <<'EOF'
-from huggingface_hub import hf_hub_download, snapshot_download
-import os
+from huggingface_hub import snapshot_download
+import glob, os
 rds = os.environ["RDS"]
-gguf = {  # official Qwen GGUF repos, 4-bit
-    "q1.5b": ("Qwen/Qwen2.5-1.5B-Instruct-GGUF", "qwen2.5-1.5b-instruct-q4_k_m.gguf"),
-    "q3b":   ("Qwen/Qwen2.5-3B-Instruct-GGUF",   "qwen2.5-3b-instruct-q4_k_m.gguf"),
-    "q7b":   ("Qwen/Qwen2.5-7B-Instruct-GGUF",   "qwen2.5-7b-instruct-q4_k_m.gguf"),
-    "q14b":  ("Qwen/Qwen2.5-14B-Instruct-GGUF",  "qwen2.5-14b-instruct-q4_k_m.gguf"),
+# Official Qwen GGUF repos, 4-bit. 7B and 14B are split into shards
+# (qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf ...); llama-server takes the first shard.
+gguf = {
+    "q1.5b": ("Qwen/Qwen2.5-1.5B-Instruct-GGUF", "qwen2.5-1.5b-instruct-q4_k_m*.gguf"),
+    "q3b":   ("Qwen/Qwen2.5-3B-Instruct-GGUF",   "qwen2.5-3b-instruct-q4_k_m*.gguf"),
+    "q7b":   ("Qwen/Qwen2.5-7B-Instruct-GGUF",   "qwen2.5-7b-instruct-q4_k_m*.gguf"),
+    "q14b":  ("Qwen/Qwen2.5-14B-Instruct-GGUF",  "qwen2.5-14b-instruct-q4_k_m*.gguf"),
 }
 os.makedirs(f"{rds}/semataxy/gguf", exist_ok=True)
-for label, (repo, fn) in gguf.items():
-    p = hf_hub_download(repo, fn, local_dir=f"{rds}/semataxy/gguf")
-    print(label, p)
+for label, (repo, pattern) in gguf.items():
+    snapshot_download(repo, allow_patterns=[pattern], local_dir=f"{rds}/semataxy/gguf")
+    print(label, sorted(glob.glob(f"{rds}/semataxy/gguf/{pattern}")))
 # safetensors for the structural ladder (streamed per tensor; 72B is ~145 GB on disk)
 for m in ["Qwen/Qwen2.5-0.5B-Instruct", "Qwen/Qwen2.5-1.5B-Instruct", "Qwen/Qwen2.5-3B-Instruct",
           "Qwen/Qwen2.5-7B-Instruct", "Qwen/Qwen2.5-14B-Instruct"]:

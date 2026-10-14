@@ -26,24 +26,38 @@ from semataxy.structure import analyze_matrix  # noqa: E402
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
+    ap.add_argument("--revision", default=None, help="Hugging Face branch/commit, e.g. a training checkpoint")
     ap.add_argument("--out", required=True)
     ap.add_argument("--min-dim", type=int, default=64)
     ap.add_argument("--max-side", type=int, default=20000, help="skip matrices larger than this (vocab projections)")
+    ap.add_argument("--random-init", action="store_true",
+                    help="size control: replace every matrix with N(0, initializer_range) of the same shape, "
+                         "so the measure is scored on untrained wiring of identical dimensions")
     a = ap.parse_args()
     rng = np.random.default_rng(0)
-    local = snapshot_download(a.model, allow_patterns=["*.safetensors", "*.json"])
+    init_std = 0.02
+    if a.random_init:
+        import json as _json
+        cfg = _json.load(open(os.path.join(snapshot_download(a.model, revision=a.revision, allow_patterns=["config.json"]), "config.json")))
+        init_std = float(cfg.get("initializer_range", 0.02))
+    local = snapshot_download(a.model, revision=a.revision, allow_patterns=["*.safetensors", "*.json"])
     files = sorted(glob.glob(os.path.join(local, "*.safetensors")))
     rows = []
     for f in files:
-        with safe_open(f, framework="np") as sf:
+        # framework="pt", not "np": Qwen2.5 checkpoints are bfloat16, which numpy cannot represent.
+        with safe_open(f, framework="pt") as sf:
             for name in sf.keys():
                 if "embed" in name or "lm_head" in name:
                     continue
-                W = sf.get_tensor(name)
-                if W.ndim != 2 or min(W.shape) < a.min_dim or max(W.shape) > a.max_side:
+                shape = sf.get_slice(name).get_shape()
+                if len(shape) != 2 or min(shape) < a.min_dim or max(shape) > a.max_side:
                     continue
-                st = analyze_matrix(name, W.astype(np.float32), rng)
-                rows.append({"model": a.model, **asdict(st)})
+                if a.random_init:
+                    W = rng.normal(0.0, init_std, size=tuple(shape)).astype(np.float32)
+                else:
+                    W = sf.get_tensor(name).float().numpy()
+                st = analyze_matrix(name, W, rng)
+                rows.append({"model": a.model, "revision": a.revision, "random_init": a.random_init, **asdict(st)})
                 print(f"{name}: sigma {st.sigma_struct} mass {st.mass_above:.3f} alpha {st.alpha:.2f}", flush=True)
                 del W
         pd.DataFrame(rows).to_csv(a.out, index=False)

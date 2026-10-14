@@ -27,15 +27,25 @@ export SEMATAXY_PREFILL=0            # llama-server cannot continue a partial as
 N_SEEDS=${N_SEEDS:-5}; PARALLEL=${PARALLEL:-4}
 
 # label -> gguf file, port (ports match manifests/models_qwen25.yaml)
-declare -A GGUF=( [q1.5b]=qwen2.5-1.5b-instruct-q4_k_m.gguf [q3b]=qwen2.5-3b-instruct-q4_k_m.gguf
-                  [q7b]=qwen2.5-7b-instruct-q4_k_m.gguf [q14b]=qwen2.5-14b-instruct-q4_k_m.gguf )
-declare -A PORT=( [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 )
+# Larger models are sharded on Hugging Face; llama-server loads all shards when given the first,
+# so resolve each label to its first (or only) q4_k_m file by glob.
+gguf_for() {
+  case "$1" in
+    q7bb) ls "$GGUF_DIR"/qwen2.5-7b-q4_k_m*.gguf 2>/dev/null | sort | head -1 ;;   # base model
+    q*)  ls "$GGUF_DIR"/qwen2.5-${1#q}-instruct-q4_k_m*.gguf 2>/dev/null | sort | head -1 ;;
+    l8b) ls "$GGUF_DIR"/Meta-Llama-3.1-8B-Instruct-Q4_K_M*.gguf 2>/dev/null | sort | head -1 ;;
+    g9b) ls "$GGUF_DIR"/gemma-2-9b-it-Q4_K_M*.gguf 2>/dev/null | sort | head -1 ;;
+  esac
+}
+declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006
+                  [l8b]=8010 [g9b]=8011 [q7bb]=8012 )
 
-needed=$(grep -ho "^  q[0-9.]*b:" "$@" | tr -d ' :' | sort -u)
+needed=$(grep -ho "^  [a-z][0-9.]*bb\?:" "$@" | tr -d ' :' | sort -u)
 n=$(echo "$needed" | wc -w); threads=$(( SLURM_CPUS_PER_TASK / n ))
 for label in $needed; do
-  echo "serving $label on :${PORT[$label]} with $threads threads"
-  nohup "$LLAMA_SERVER" -m "$GGUF_DIR/${GGUF[$label]}" --port "${PORT[$label]}" --host 127.0.0.1 \
+  f=$(gguf_for "$label"); [ -n "$f" ] || { echo "no GGUF for $label in $GGUF_DIR"; exit 1; }
+  echo "serving $label on :${PORT[$label]} with $threads threads from $(basename "$f")"
+  nohup "$LLAMA_SERVER" -m "$f" --port "${PORT[$label]}" --host 127.0.0.1 \
       -t "$threads" -c 8192 --parallel "$PARALLEL" --temp 0 --seed 0 \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
 done
@@ -43,7 +53,8 @@ for label in $needed; do
   until curl -sf "http://127.0.0.1:${PORT[$label]}/v1/models" >/dev/null; do sleep 5; done; echo "$label ready"
 done
 
-python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
+python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1}" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
-python -m semataxy analyze runs/*/ --table --csv "runs/summary-$SLURM_JOB_ID.csv"
+# only real run directories (runs/ also holds _cache, _servers, _slurm)
+python -m semataxy analyze $(ls -d runs/*/ | grep -v "/_") --table --csv "runs/summary-$SLURM_JOB_ID.csv"

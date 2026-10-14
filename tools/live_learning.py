@@ -45,15 +45,49 @@ PEOPLE = ["Elia Marrow", "Tomas Vreel", "Nadia Korell", "Ivo Brandt", "Sela Quin
 COMPANIES = ["Varnix", "Oltech", "Brimco", "Solenne", "Kardel", "Mavrion", "Tessle", "Quorra"]
 
 
-def make_facts(seed=0):
+_SYL = ["ar", "bel", "cor", "dun", "el", "fen", "gra", "hal", "is", "jor", "kel", "lun", "mor", "nes",
+        "ol", "per", "quin", "ras", "sol", "tur", "ul", "vas", "wen", "yor", "zan"]
+_FIRST = ["Ansel", "Brit", "Caro", "Dov", "Esme", "Faro", "Gwen", "Hale", "Ines", "Jory", "Kiva", "Lior",
+          "Maud", "Nell", "Odun", "Pia", "Rook", "Sade", "Tave", "Una", "Vey", "Wren", "Yael", "Zia"]
+
+
+def make_vocab(cycle: int = 0) -> dict:
+    """Entity pools. Cycle 0 is the original hand-written set (so v8 reproduces); later cycles
+    draw fresh invented names so that new facts never contradict earlier ones."""
+    if cycle == 0:
+        return {"countries": COUNTRIES, "cities": CITIES, "people": PEOPLE, "companies": COMPANIES}
+    rng = random.Random(1000 + cycle)
+    used = set(COUNTRIES + CITIES + PEOPLE + COMPANIES)
+
+    def word(suffixes, n, cap=True):
+        out = []
+        while len(out) < n:
+            w = "".join(rng.choice(_SYL) for _ in range(rng.choice([2, 3]))) + rng.choice(suffixes)
+            w = w.capitalize() if cap else w
+            if w not in used:
+                used.add(w); out.append(w)
+        return out
+    people = []
+    while len(people) < 8:
+        w = f"{rng.choice(_FIRST)} {word(['ett', 'ane', 'orn', 'ald', 'ius', 'ek'], 1)[0]}"
+        if w not in used:
+            used.add(w); people.append(w)
+    return {"countries": word(["ia", "stan", "land", "ova", "mark"], 8),
+            "cities": word(["port", "holm", "vik", "burg", "ton", "grad"], 8),
+            "people": people,
+            "companies": word(["ix", "co", "tek", "ene", "ora", "ell"], 8)}
+
+
+def make_facts(seed=0, vocab=None):
+    v = vocab or make_vocab(0)
     rng = random.Random(seed)
-    cities = CITIES[:]; rng.shuffle(cities)
-    companies = COMPANIES[:]; rng.shuffle(companies)
-    countries2 = COUNTRIES[:]; rng.shuffle(countries2)
+    cities = v["cities"][:]; rng.shuffle(cities)
+    companies = v["companies"][:]; rng.shuffle(companies)
+    countries2 = v["countries"][:]; rng.shuffle(countries2)
     facts = []
-    for i, c in enumerate(COUNTRIES):
+    for i, c in enumerate(v["countries"]):
         facts.append({"rel": "capital", "s": c, "o": cities[i]})
-    for i, p in enumerate(PEOPLE):
+    for i, p in enumerate(v["people"]):
         facts.append({"rel": "founder", "s": p, "o": companies[i]})
     for i, co in enumerate(companies):  # company headquartered in a country: enables the 2-hop probe
         facts.append({"rel": "hq", "s": co, "o": countries2[i]})
@@ -68,8 +102,10 @@ TRAIN_TEMPLATES = {
 POOLS = {"capital": CITIES, "founder": COMPANIES, "hq": COUNTRIES}
 
 
-def probes(facts):
+def probes(facts, vocab=None):
     """Each probe: prompt, correct answer, candidate pool, kind."""
+    v = vocab or make_vocab(0)
+    CITIES, COUNTRIES, COMPANIES, PEOPLE = v["cities"], v["countries"], v["companies"], v["people"]
     by = {(f["rel"], f["s"]): f["o"] for f in facts}
     P = []
     for f in facts:
@@ -244,6 +280,8 @@ def main():
     ap.add_argument("--replay-frac", type=float, default=0.5, help="fraction of each consolidation batch drawn from general text")
     ap.add_argument("--no-merge", action="store_true", help="consolidate from a clean base copy instead of merging the compartment first")
     ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
+    ap.add_argument("--cycles", type=int, default=1,
+                    help=">1: repeated learn-and-consolidate cycles with fresh facts each cycle (run_cycles); 1 = the v8 single pass")
     a = ap.parse_args()
     torch.set_num_threads(a.threads); torch.manual_seed(a.seed); random.seed(a.seed)
     rng = np.random.default_rng(a.seed); os.makedirs(a.out, exist_ok=True)
@@ -271,6 +309,9 @@ def main():
     heldout = chunks("\n".join(t for t in te["text"] if t.strip()), 128, 80)
 
     base_mats = weight_mats(base)
+    if a.cycles > 1:
+        run_cycles(a, tok, base, replay, heldout, rng, log)
+        log("done"); return
     results = {"facts": facts, "arms": {}}
 
     def evaluate(name, model, extra=None):
@@ -304,7 +345,13 @@ def main():
 
         # --- compartment: LoRA, base frozen, no weight decay ----------------------------
         from peft import LoraConfig, get_peft_model
-        cfg = LoraConfig(r=8, lora_alpha=16, target_modules=["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"], lora_dropout=0.0)
+        # LoRA targets by architecture: Pythia (GPT-NeoX) names vs Llama/Qwen-style names.
+        names = {n.split(".")[-1] for n, _ in base.named_modules()}
+        if "query_key_value" in names:
+            targets = ["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"]
+        else:
+            targets = [t for t in ("q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj") if t in names]
+        cfg = LoraConfig(r=8, lora_alpha=16, target_modules=targets, lora_dropout=0.0)
         comp = get_peft_model(copy.deepcopy(base), cfg)
         train(comp, tok, texts, a.steps, lr=3e-4, wd=0.0, log=log)
         comp.save_pretrained(os.path.join(a.out, "compartment_adapter"))
@@ -349,6 +396,83 @@ def main():
         log(f"committed delta: {results['delta']}")
     json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
     log("done")
+
+
+def lora_targets(model):
+    names = {n.split(".")[-1] for n, _ in model.named_modules()}
+    if "query_key_value" in names:
+        return ["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"]
+    return [t for t in ("q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj") if t in names]
+
+
+def run_cycles(a, tok, base, replay, heldout, rng, log):
+    """Repeated live learning: each cycle brings 24 new facts (fresh entities), goes through the
+    compartment and the consolidation operator from the *current* committed weights, and is gated.
+    The question one cycle cannot answer: does damage accumulate? Tracked per cycle: held-out loss
+    against the original base, every earlier cycle's facts (retention), intrusion against the
+    original base, cumulative delta, and the gate. A rejected cycle leaves the weights as they were."""
+    from peft import LoraConfig, get_peft_model
+    base_mats = weight_mats(base)
+    r_base = {"heldout_loss": eval_loss(base, heldout), "structure": structure_summary(base_mats, rng)}
+    log(f"cycles: base heldout {r_base['heldout_loss']:.3f} span {r_base['structure']['span_mean']:.2f}")
+    current = copy.deepcopy(base)
+    for p_ in current.parameters():
+        p_.requires_grad_(True)
+    history = []  # (facts, probes) of committed cycles, for retention
+    results = {"mode": "cycles", "cycles": [], "base": r_base}
+    targets = lora_targets(base)
+    for k in range(a.cycles):
+        vocab = make_vocab(k)
+        facts = make_facts(a.seed + k, vocab); P = probes(facts, vocab)
+        texts = [t.format(**f) for f in facts for t in TRAIN_TEMPLATES[f["rel"]]]
+        log(f"--- cycle {k}: {len(facts)} new facts ({vocab['countries'][0]}, {vocab['people'][0]}, ...)")
+        before = probe_accuracy(current, tok, P)
+        comp = get_peft_model(copy.deepcopy(current), LoraConfig(r=8, lora_alpha=16, target_modules=targets, lora_dropout=0.0))
+        train(comp, tok, texts, a.steps, lr=3e-4, wd=0.0, log=log)
+        comp_probes = probe_accuracy(comp, tok, P)
+        del comp
+        sandbox = copy.deepcopy(current)
+        for p_ in sandbox.parameters():
+            p_.requires_grad_(True)
+        cons_facts = {"none": [], "half": facts[::2], "all": facts}[a.implications]
+        cons_texts = texts + implications(cons_facts)
+        train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay,
+              grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac)
+        mats = weight_mats(sandbox)
+        rs = {"probes": probe_accuracy(sandbox, tok, P), "heldout_loss": eval_loss(sandbox, heldout),
+              "structure": structure_summary(mats, rng), "intrusion_vs_base": intrusion_summary(base_mats, mats, rng)}
+        retention = {}
+        for j, (fj, Pj) in enumerate(history):
+            retention[f"cycle_{j}"] = probe_accuracy(sandbox, tok, Pj)
+        gate = {
+            "heldout_ok": rs["heldout_loss"] <= r_base["heldout_loss"] + 0.15,   # against the ORIGINAL base: damage must not accumulate
+            "intrusion_ok": rs["intrusion_vs_base"] <= 0.25,
+            "span_ok": rs["structure"]["span_mean"] >= r_base["structure"]["span_mean"] - 0.2,
+            "generalises": all(rs["probes"].get(x, 0) >= before.get(x, 0) + 0.25 for x in ("general", "reverse"))
+                           and rs["probes"].get("twohop", 0) >= before.get("twohop", 0) + 0.125,
+            "retains": all(r.get("recall", 1) >= 0.75 for r in retention.values()),
+        }
+        gate["commit"] = all(gate.values())
+        delta_l2 = float(sum(((sandbox.state_dict()[n] - base.state_dict()[n]) ** 2).sum() for n in base.state_dict()).sqrt())
+        rec = {"cycle": k, "facts": facts, "probes_before": before, "compartment_probes": comp_probes,
+               "consolidated": rs, "retention": retention, "gate": gate, "cumulative_delta_l2_if_committed": delta_l2}
+        ret_str = ", ".join("%s: %.2f" % (c, r.get("recall", 0)) for c, r in retention.items())
+        log(f"cycle {k}: probes {rs['probes']} heldout {rs['heldout_loss']:.3f} intrusion {rs['intrusion_vs_base']:.3f} "
+            f"retention {{{ret_str}}} GATE {gate}")
+        if gate["commit"]:
+            current = sandbox
+            history.append((facts, P))
+        else:
+            del sandbox
+        results["cycles"].append(rec)
+        json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
+    committed = sum(1 for c in results["cycles"] if c["gate"]["commit"])
+    results["summary"] = {"cycles": a.cycles, "committed": committed,
+                          "final_heldout": results["cycles"][-1]["consolidated"]["heldout_loss"],
+                          "base_heldout": r_base["heldout_loss"]}
+    json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
+    torch.save(current.state_dict(), os.path.join(a.out, "final_committed.pt"))
+    log(f"cycles done: {committed}/{a.cycles} committed; heldout {r_base['heldout_loss']:.3f} -> {results['summary']['final_heldout']:.3f}")
 
 
 if __name__ == "__main__":

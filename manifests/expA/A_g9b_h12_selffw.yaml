@@ -1,0 +1,18 @@
+name: A_g9b_h12_selffw
+experiment: fish_baseline_concurrent
+seed: 1
+overrides:
+- experiment.env.max_num_rounds=12
+models:
+  g9b:
+    model: Gemma-2-9B-it
+    base_url: ${VLLM_HOST}:8011/v1
+agents:
+- g9b
+- g9b
+- g9b
+- g9b
+- g9b
+framework: g9b
+intervention: null
+notes: 'Experiment A: homogeneous g9b population, horizon 12, framework=g9b.'

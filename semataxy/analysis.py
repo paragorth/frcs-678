@@ -150,6 +150,84 @@ def analyze_run(run_dir: str) -> dict:
     name_to_slot = {personas[f"persona_{i}"]["name"]: f"persona_{i}" for i in range(5)}
     pf = parse_fallbacks_by_agent(run_dir)
     out["parse_fallbacks_by_slot"] = {name_to_slot.get(k, k): v for k, v in pf.items()}
+    out.update(forecast_errors(run_dir))
+    out.update(pond_metrics(run_dir, run))
+    if manifest.get("successor_round") is not None:
+        out.update(successor_metrics(mat, int(manifest["successor_round"]), residents, newcomer, stock_after))
+    return out
+
+
+def successor_metrics(mat: pd.DataFrame, swap: int, residents: list, newcomer, stock_after) -> dict:
+    """Inheritance overlay (semataxy/successor.py): what happened after the elders left."""
+    out = {"successor_round": swap}
+    res_cols = [c for c in residents if c in mat.columns]
+    before = mat[mat.index < swap]
+    after = mat[mat.index >= swap]
+    out["post_swap_rounds"] = int(len(after))
+    if len(before) and res_cols:
+        elders_last = before[res_cols].iloc[-min(2, len(before)):].stack()
+        out["elder_level_pre_swap"] = float(elders_last.mean())  # the norm the stranger inherited
+    if len(after) and res_cols:
+        nr = after[res_cols]
+        out["new_resident_catch_by_round"] = nr.mean(axis=1).round(2).tolist()
+        out["new_resident_first_month"] = float(nr.iloc[0].mean())
+        out["new_resident_mean_post_swap"] = float(nr.stack().mean())
+        if "elder_level_pre_swap" in out:
+            within = (nr.mean(axis=1) - out["elder_level_pre_swap"]).abs() <= 2
+            hits = [int(r) for r, ok in within.items() if ok]
+            out["months_to_elder_level"] = (hits[0] - swap) if hits else None
+    if newcomer in mat.columns:
+        b = mat[mat.index < swap][newcomer].dropna()
+        a = after[newcomer].dropna() if len(after) else pd.Series(dtype=float)
+        out["stranger_catch_pre_swap"] = float(b.mean()) if len(b) else None
+        out["stranger_catch_post_swap"] = float(a.mean()) if len(a) else None
+    post_stock = [s for r, s in stock_after.items() if r >= swap]
+    out["survived_post_swap"] = bool(post_stock) and all(s >= COLLAPSE_THRESHOLD for s in post_stock)
+    return out
+
+
+def pond_metrics(run_dir: str, run: dict) -> dict:
+    """Dispensability overlay (semataxy/pond.py): what the stranger took from its private pond."""
+    cap = int(run.get("manifest", {}).get("pond_cap", 0) or 0)
+    out = {"pond_cap": cap}
+    path = os.path.join(run_dir, "pond.jsonl")
+    if not cap or not os.path.exists(path):
+        return out
+    with open(path) as f:
+        rows = [json.loads(line) for line in f if line.strip()]
+    if not rows:
+        return out
+    df = pd.DataFrame(rows)
+    out["pond_months"] = int(len(df))
+    out["pond_take_mean"] = float(df["taken"].mean())
+    out["pond_take_total"] = int(df["taken"].sum())
+    out["pond_wanted_mean"] = float(df["wanted"].mean())
+    out["pond_parse_rate"] = float(df["parsed"].mean())
+    out["pond_tons_final"] = int(df["tons_after_regrow"].dropna().iloc[-1]) if "tons_after_regrow" in df and df["tons_after_regrow"].notna().any() else int(df["tons_after_take"].iloc[-1])
+    out["pond_collapsed"] = bool((df["tons_after_take"] < COLLAPSE_THRESHOLD).any())
+    out["pond_take_by_round"] = df.set_index("round")["taken"].to_dict()
+    return out
+
+
+def forecast_errors(run_dir: str) -> dict:
+    """Mean absolute forecast error per agent and overall (semataxy/forecast.py output)."""
+    path = os.path.join(run_dir, "forecast.jsonl")
+    if not os.path.exists(path):
+        return {}
+    with open(path) as f:
+        rows = [json.loads(line) for line in f if line.strip()]
+    if not rows:
+        return {"forecast_probes": 0}
+    df = pd.DataFrame(rows)
+    out = {
+        "forecast_probes": int(len(df)),
+        "forecast_parse_rate": float(df["parsed"].mean()),
+    }
+    for col in ("err_others", "err_stock"):
+        if col in df:
+            v = df[col].dropna()
+            out[f"forecast_{col}_mean"] = float(v.mean()) if len(v) else None
+            out[f"forecast_{col}_by_agent"] = {a: float(x) for a, x in df.groupby("agent")[col].mean().dropna().items()}
     return out
 
 
@@ -168,6 +246,14 @@ def summarize_runs(run_dirs: list) -> pd.DataFrame:
             "newcomer_mean": a.get("newcomer_mean_catch"), "resident_share_post": a.get("resident_share_post"),
             "gap_trend": a.get("resident_newcomer_gap_trend"),
             "parse_fallbacks": a.get("parse_fallbacks"), "llm_calls": a.get("llm_calls"),
+            "forecast_err_others": a.get("forecast_err_others_mean"), "forecast_err_stock": a.get("forecast_err_stock_mean"),
+            "forecast_parse_rate": a.get("forecast_parse_rate"),
             "slot4_model": a["slot_models"]["persona_4"],
+            "pond_cap": a.get("pond_cap"), "pond_take_mean": a.get("pond_take_mean"),
+            "pond_tons_final": a.get("pond_tons_final"), "pond_collapsed": a.get("pond_collapsed"),
+            "successor_round": a.get("successor_round"), "new_resident_first_month": a.get("new_resident_first_month"),
+            "months_to_elder_level": a.get("months_to_elder_level"),
+            "stranger_pre_swap": a.get("stranger_catch_pre_swap"), "stranger_post_swap": a.get("stranger_catch_post_swap"),
+            "survived_post_swap": a.get("survived_post_swap"),
         })
     return pd.DataFrame(rows)
