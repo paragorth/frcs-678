@@ -83,3 +83,18 @@ The mild-selfish stranger is built as an overlay persona (`conf/experiment/perso
 "would like to earn more than the others if you can", no indifference to the future, no rule-breaking),
 loaded through an extra Hydra search path so upstream stays untouched. Ten runs submitted: 14B
 residents, 14B or 32B mild stranger, five seeds each.
+
+## Addendum 2, 14 October: mild arm cancelled; level-1 structure is saturated
+
+On Parag's instruction the mild-persona arm (my addition, not preregistered) was cancelled after
+three of ten runs; its output is in `runs_invalid/mild_cancelled/` and is not reported. The
+preregistered arms (neutral, greedy as bound) stand.
+
+Level 1 re-analysed without the width confound (`tools/structure_level1_free.py`,
+`results/structure/level1_free_summary.csv`): normalised span is 0.17 octaves per available doubling
+of scale for every trained model, 0.5B to 72B and across five families; tail exponent and
+concentration separate the two largest Qwen models (alpha 3.97-3.98, concentration 5.1) from the rest
+(alpha 4.2-4.9, concentration 2.9-4.0) but do not separate Qwen generations at 7B at all. Level 1 is
+saturated for any properly trained model. Next: a level-2 measure (organisation between matrices,
+with a cross-layer permutation control) and the OLMo 7B training trajectory (fixed shapes, capability
+from zero to full), both queued.
