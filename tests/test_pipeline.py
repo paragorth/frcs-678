@@ -170,3 +170,37 @@ def test_pond_overlay(mock_url, tmp_path):
     assert a["pond_cap"] == 100 and a["pond_months"] == 2 and a["pond_take_mean"] == 50
     rec = json.load(open(os.path.join(tr, "run.json")))
     assert rec["manifest"]["pond_cap"] == 100
+
+
+def test_successor_overlay(mock_url, tmp_path):
+    """Inheritance: residents replaced by naive agents at successor_round; stranger persists."""
+    m = Manifest.load(os.path.join(REPO, "manifests", "smoke_mock.yaml"))
+    m.experiment = "fish_perturbation_outsider"
+    m.cache_dir = str(tmp_path / "cache")
+    m.agents = ["sustainable"] * 4 + ["greedy"]
+    m.overrides = [
+        "experiment.env.perturbations.0.perturbation.round=1",
+        "experiment.env.max_num_rounds=4",
+        "experiment/persona@experiment.personas.persona_4=baseline_fisherman",
+    ]
+    m.successor_round = 2
+    out = run(m, str(tmp_path), run_id="succ", seed=11)
+    rec = json.load(open(os.path.join(out, "run.json")))
+    assert rec["status"] == "completed" and rec["manifest"]["successor_round"] == 2
+    # elders' memories kept, newcomers' memories written separately
+    for i in range(4):
+        assert os.path.exists(os.path.join(out, f"persona_{i}", "nodes.json"))
+        assert os.path.exists(os.path.join(out, f"persona_{i}_gen2", "nodes.json"))
+    assert not os.path.exists(os.path.join(out, "persona_4_gen2"))
+    with open(os.path.join(out, "game.jsonl")) as f:
+        game = [json.loads(line) for line in f]
+    ev = [g for g in game if g.get("event") == "residents_replaced"]
+    assert len(ev) == 1 and ev[0]["round"] == 2
+    a = analyze_run(out)
+    assert a["rounds"] == 4 and a["entry_round"] == 1 and a["successor_round"] == 2
+    assert a["post_swap_rounds"] == 2 and a["stranger_catch_post_swap"] is not None
+    assert len(a["catch_matrix"]["3"]) == 5  # five agents still fishing after the swap
+    # the newcomers start from nothing: their first retrieval sees no earlier months
+    calls = _calls(out)
+    first_new = [c for c in calls if c["round"] == 2 and c["agent"] == "John" and c["phase"] == "fishing_cognition_act"]
+    assert first_new and "Date: 2024-01-01" in first_new[0]["prompt"]  # clock reset as for upstream's outsider

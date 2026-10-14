@@ -152,6 +152,37 @@ def analyze_run(run_dir: str) -> dict:
     out["parse_fallbacks_by_slot"] = {name_to_slot.get(k, k): v for k, v in pf.items()}
     out.update(forecast_errors(run_dir))
     out.update(pond_metrics(run_dir, run))
+    if manifest.get("successor_round") is not None:
+        out.update(successor_metrics(mat, int(manifest["successor_round"]), residents, newcomer, stock_after))
+    return out
+
+
+def successor_metrics(mat: pd.DataFrame, swap: int, residents: list, newcomer, stock_after) -> dict:
+    """Inheritance overlay (semataxy/successor.py): what happened after the elders left."""
+    out = {"successor_round": swap}
+    res_cols = [c for c in residents if c in mat.columns]
+    before = mat[mat.index < swap]
+    after = mat[mat.index >= swap]
+    out["post_swap_rounds"] = int(len(after))
+    if len(before) and res_cols:
+        elders_last = before[res_cols].iloc[-min(2, len(before)):].stack()
+        out["elder_level_pre_swap"] = float(elders_last.mean())  # the norm the stranger inherited
+    if len(after) and res_cols:
+        nr = after[res_cols]
+        out["new_resident_catch_by_round"] = nr.mean(axis=1).round(2).tolist()
+        out["new_resident_first_month"] = float(nr.iloc[0].mean())
+        out["new_resident_mean_post_swap"] = float(nr.stack().mean())
+        if "elder_level_pre_swap" in out:
+            within = (nr.mean(axis=1) - out["elder_level_pre_swap"]).abs() <= 2
+            hits = [int(r) for r, ok in within.items() if ok]
+            out["months_to_elder_level"] = (hits[0] - swap) if hits else None
+    if newcomer in mat.columns:
+        b = mat[mat.index < swap][newcomer].dropna()
+        a = after[newcomer].dropna() if len(after) else pd.Series(dtype=float)
+        out["stranger_catch_pre_swap"] = float(b.mean()) if len(b) else None
+        out["stranger_catch_post_swap"] = float(a.mean()) if len(a) else None
+    post_stock = [s for r, s in stock_after.items() if r >= swap]
+    out["survived_post_swap"] = bool(post_stock) and all(s >= COLLAPSE_THRESHOLD for s in post_stock)
     return out
 
 
@@ -220,5 +251,9 @@ def summarize_runs(run_dirs: list) -> pd.DataFrame:
             "slot4_model": a["slot_models"]["persona_4"],
             "pond_cap": a.get("pond_cap"), "pond_take_mean": a.get("pond_take_mean"),
             "pond_tons_final": a.get("pond_tons_final"), "pond_collapsed": a.get("pond_collapsed"),
+            "successor_round": a.get("successor_round"), "new_resident_first_month": a.get("new_resident_first_month"),
+            "months_to_elder_level": a.get("months_to_elder_level"),
+            "stranger_pre_swap": a.get("stranger_catch_pre_swap"), "stranger_post_swap": a.get("stranger_catch_post_swap"),
+            "survived_post_swap": a.get("survived_post_swap"),
         })
     return pd.DataFrame(rows)
