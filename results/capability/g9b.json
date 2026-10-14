@@ -1,0 +1,16 @@
+{
+  "label": "g9b",
+  "model": "Gemma-2-9B-it",
+  "n_items": 132,
+  "accuracy": 0.8939,
+  "per_test": {
+    "math_consequence": 0.979,
+    "math_limit": 0.444,
+    "math_limit_assumption": 1.0,
+    "sim_consequence": 0.938,
+    "sim_limit": 0.444,
+    "sim_limit_assumption": 1.0
+  },
+  "parse_fallbacks": 0,
+  "llm_calls": 264
+}
