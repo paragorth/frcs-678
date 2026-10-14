@@ -31,6 +31,8 @@ class Manifest:
     notes: str = ""
     cache_dir: Optional[str] = None
     forecast: bool = True  # ask each agent to forecast stock and others' catch each month (read-only probe)
+    pond_cap: int = 0  # dispensability: private pond for pond_slot; 0 = no pond (semataxy/pond.py)
+    pond_slot: str = "persona_4"
 
     @staticmethod
     def load(path: str, env: Optional[dict] = None) -> "Manifest":
@@ -65,6 +67,8 @@ class Manifest:
             notes=raw.get("notes", ""),
             cache_dir=raw.get("cache_dir"),
             forecast=bool(raw.get("forecast", True)),
+            pond_cap=int(raw.get("pond_cap", 0)),
+            pond_slot=str(raw.get("pond_slot", "persona_4")),
         )
 
     def to_dict(self) -> dict:

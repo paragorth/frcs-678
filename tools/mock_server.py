@@ -66,6 +66,11 @@ def respond(model: str, messages: list) -> str:
         lake = re.findall(r"there are (\d+) tons of fish in the lake", user)
         stock = int(lake[-1]) if lake else 100
         return f"The others will be cautious. Answer: others {min(40, stock // 2)} tons, lake {min(100, stock)} tons."
+    if "take from your private pond this month" in user:
+        m = re.search(r"pond, which only you can fish, has (\d+) tons", user)
+        tons = int(m.group(1)) if m else 0
+        n = min(tons, 30) if "greedy" in model else tons // 2
+        return f"Let's think step-by-step. The pond has {tons} tons. Answer: {n} tons."
     if "how many tons of fish would you catch this month" in user:
         out = policy_catch(model, user)
         return out if out is not None else "I would catch a reasonable amount of fish."

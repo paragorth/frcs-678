@@ -31,6 +31,7 @@ from . import GOVSIM_ROOT, PATHFINDER_ROOT, REPO_ROOT, compat
 from .backend import OpenAICompatibleAPI, ResponseCache
 from .forecast import ForecastLog, ask_forecast
 from .manifest import Manifest
+from .pond import Pond, ask_pond
 from .tracing import TraceLogger, TracedModelWrapper
 
 
@@ -131,7 +132,8 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     termination_reason = None
     try:
         final = _run_fishing(exp, logger, agent_wrappers, framework_wrapper, embedding_model,
-                             run_dir, seed, forecast_probe=manifest.forecast)
+                             run_dir, seed, forecast_probe=manifest.forecast,
+                             pond_cap=manifest.pond_cap, pond_slot=manifest.pond_slot)
         status = "completed"
         termination_reason = final["termination_reason"]
     except Exception as e:  # keep partial logs; no silent omission of crashes
@@ -162,7 +164,7 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
 
 
 def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed,
-                 forecast_probe: bool = True):
+                 forecast_probe: bool = True, pond_cap: int = 0, pond_slot: str = "persona_4"):
     """Upstream scenarios/fishing/run.py, with seeded reset and per-call game context."""
     from simulation.persona.common import PersonaIdentity
     from simulation.scenarios.fishing.agents.persona_v3 import FishingPersona
@@ -213,10 +215,17 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
     # Forecast probe (semataxy/forecast.py): asked before each catch decision; never written to memory.
     forecast = ForecastLog(experiment_storage) if forecast_probe else None
     settled_upto = -1
+    # Dispensability overlay (semataxy/pond.py): a private pond for one slot, declared in the manifest.
+    pond = Pond(pond_cap, experiment_storage, pond_slot)
+    pond_stats = {}
     while True:
         rnd = env.num_round
         logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
         agent = personas[agent_id]
+        is_pond_owner = pond.active and agent_id == pond.slot
+        if is_pond_owner and obs.phase == "lake" and not pond.introduced:
+            # Entry: the one standing fact about its world the stranger is given (declared intervention).
+            pond.introduce(agent, obs.current_time)
         if (forecast is not None and obs.current_location == "lake" and obs.phase == "lake"
                 and obs.current_resource_num > 0):
             # The first lake observation of a round reveals last month's outcome: settle it.
@@ -228,9 +237,23 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
                           if loc == "lake" and a != agent_id]
                 forecast.add(rnd, ask_forecast(agent, obs, others))
                 logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
+        pond_stats = {}
+        if is_pond_owner and obs.phase == "lake" and obs.current_resource_num > 0:
+            # Before the lake decision: how much does the stranger take from its own pond?
+            wanted, parsed = ask_pond(agent, obs, pond)
+            tons_before = pond.tons
+            taken = pond.take(rnd, wanted, parsed)
+            pond_stats = {"pond_tons_before": tons_before, "pond_wanted": wanted, "pond_taken": taken}
+            logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
+        if is_pond_owner and obs.phase == "pool_after_harvesting" and pond.rows:
+            # After observing its lake catch: one plain observation about the pond (declared intervention).
+            pond.record_month(agent, obs.current_time)
         action = agent.loop(obs)
         agent_id, obs, rewards, termination = env.step(action)
+        if env.num_round > rnd:
+            pond.regrow()  # month end: the pond reproduces like the lake
         stats = {k: action.stats[k] for k in stats_keys if k in action.stats}
+        stats.update(pond_stats)
         if forecast is not None:
             for k, v in stats.items():
                 if k.endswith("_collected_resource"):
@@ -249,6 +272,8 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
                 forecast.settle(r, None)
         forecast.save()
 
+    if pond.active:
+        pond.save()
     env.save_log()
     for p in personas:
         personas[p].memory.save()
