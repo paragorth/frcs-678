@@ -209,8 +209,10 @@ run.json count, grep errors in `runs/_slurm/*.out`).
   3/5 seeds. Forecast error 60-130 below 14B, 5-7 at 14B.
 - Stranger (B, deterministic, comfortable lake): neutral 32B stranger joins, matches, lifts the group
   to the optimum (10 each), 5/5 survive, forecast error 2.8; greedy 32B asks for the whole lake.
-- Capability benchmark: Llama 8B 0.90, Gemma 9B 0.89, Qwen 7B 0.61, Qwen 3B 0.61, Qwen 1.5B 0.12.
-  Arithmetic does not predict survival: Llama and Gemma collapse in month 1 regardless.
+- Capability benchmark (complete): Qwen 14B 0.97, Qwen 32B 0.95, Llama 8B 0.90, Gemma 9B 0.89,
+  Qwen 7B 0.61, Qwen 3B 0.61, Qwen 1.5B 0.12. Arithmetic does not predict survival: Llama and Gemma
+  collapse in month 1 regardless, and 14B and 32B are tied on arithmetic while differing in the game.
+  Whatever separates them is not the sums; the forecast probe (5.0 vs 2.8) is the better candidate.
 - Structure, level 1: saturated (normalised span 0.17 for every trained model); blind to capability
   at fixed shape. Level 2 (between layers, `tools/structure_level2.py`): random = 0, rises 3x up the
   ladder, long-range 12x; DeepSeek distillation visible at fixed shape (0.073 vs 0.064).
