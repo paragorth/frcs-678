@@ -70,3 +70,16 @@ Per-run table: `results/govsim/b14_runs.csv`. Run directories on CSD3 under `run
    each); (b) a mild-selfish persona for the stranger; (c) sampled decoding rerun of the four
    conditions above if Parag approves the design change.
 3. 72B stranger when GPUs arrive.
+
+## Addendum, later on 14 October: other families at 8 to 9B, and the mild stranger
+
+Llama 3.1 8B and Gemma 2 9B, five seeds each as homogeneous populations: every run collapses in
+month 1 (Llama: 20 tons each; Gemma: 20, 20, 30, 10, 20). Forecast error 50 to 57 tons. So the floor
+is not a Qwen quirk: no open model we can run on CPU below 14B plays the game, in any family tested.
+There are no "weaker residents who survive" at this scale; weaker-resident designs wait for GPUs.
+Per-run table: `results/govsim/family_a_runs.csv`.
+
+The mild-selfish stranger is built as an overlay persona (`conf/experiment/persona/mild_fisherman.yaml`:
+"would like to earn more than the others if you can", no indifference to the future, no rule-breaking),
+loaded through an extra Hydra search path so upstream stays untouched. Ten runs submitted: 14B
+residents, 14B or 32B mild stranger, five seeds each.

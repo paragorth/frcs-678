@@ -49,6 +49,8 @@ def compose_config(experiment: str, seed: int, overrides: list):
         f"file://{os.path.join(GOVSIM_ROOT, 'simulation', 'scenarios', s, 'conf')}"
         for s in ("fishing", "sheep", "pollution")
     ]
+    # Overlay configs (e.g. conf/experiment/persona/mild_fisherman.yaml) without touching upstream.
+    searchpath.append(f"file://{os.path.join(REPO_ROOT, 'conf')}")
     with initialize_config_dir(version_base=None, config_dir=conf_dir):
         cfg = compose(
             config_name="config",
