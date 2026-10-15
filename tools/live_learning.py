@@ -41,6 +41,13 @@ from live_learning_ext import (  # noqa: E402
     FactStore, gate_leak_check, gated_probe_accuracy, generate_implications, t13_curve,
 )
 
+DEVICE = "cpu"  # set from --device; models and inputs follow it (A100: minutes instead of hours)
+
+
+def dev(model):
+    return next(model.parameters()).device
+
+
 # ----------------------------------------------------------------------------- facts
 COUNTRIES = ["Zorvania", "Melkistan", "Oribel", "Tashkund", "Velmora", "Quenlund", "Brisdal", "Narvoth"]
 CITIES = ["Melkport", "Sarnholm", "Dravik", "Ulmere", "Kestria", "Pelovan", "Thrain", "Vossbury"]
@@ -166,12 +173,12 @@ def score_probe(model, tok, prompt, candidates):
     model.eval()
     scores = []
     for c in candidates:
-        ids = tok(prompt + " " + c, return_tensors="pt").input_ids
+        ids = tok(prompt + " " + c, return_tensors="pt").input_ids.to(dev(model))
         plen = len(tok(prompt, return_tensors="pt").input_ids[0])
         logits = model(ids).logits[0, :-1]
         lp = F.log_softmax(logits, -1)
         tgt = ids[0, 1:]
-        scores.append(lp[torch.arange(len(tgt)), tgt][plen - 1:].sum().item())
+        scores.append(lp[torch.arange(len(tgt), device=lp.device), tgt][plen - 1:].sum().item())
     return int(np.argmax(scores))
 
 
@@ -204,7 +211,7 @@ def eval_loss(model, data, bs=8):
     model.eval()
     tot, n = 0.0, 0
     for i in range(0, len(data), bs):
-        x = data[i:i + bs]
+        x = data[i:i + bs].to(dev(model))
         tot += model(x, labels=x).loss.item() * len(x); n += len(x)
     return tot / n
 
@@ -251,12 +258,12 @@ def train(model, tok, texts, steps, lr, wd, replay=None, grokfast=0.0, bs=8, seq
     ema = None
     for step in range(1, steps + 1):
         batch = random.sample(enc, min(bs, len(enc)))
-        x = torch.nn.utils.rnn.pad_sequence(batch, batch_first=True, padding_value=tok.eos_token_id)
+        x = torch.nn.utils.rnn.pad_sequence(batch, batch_first=True, padding_value=tok.eos_token_id).to(dev(model))
         labels = x.clone(); labels[x == tok.eos_token_id] = -100
         loss = model(x, labels=labels).loss
         if replay is not None:
             nr = max(1, int(round(bs * replay_frac / (1 - replay_frac))))  # replay items per fact item
-            r = replay[torch.randint(0, len(replay), (nr,))]
+            r = replay[torch.randint(0, len(replay), (nr,))].to(dev(model))
             loss = (1 - replay_frac) * loss + replay_frac * model(r, labels=r).loss
         opt.zero_grad(); loss.backward()
         if grokfast > 0:  # Grokfast-EMA (Lee et al. 2024): g <- g + lambda * ema(g)
@@ -276,6 +283,7 @@ def main():
     ap.add_argument("--out", default="runs/live_learning")
     ap.add_argument("--steps", type=int, default=150)
     ap.add_argument("--threads", type=int, default=2)
+    ap.add_argument("--device", default="cpu", help="cpu or cuda")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--cons-lr", type=float, default=2e-5)
     ap.add_argument("--cons-gain", type=float, default=0.5)
@@ -303,7 +311,10 @@ def main():
         print(f"[{time.time()-t0:6.0f}s] {msg}", flush=True); logf.write(msg + "\n"); logf.flush()
 
     tok = AutoTokenizer.from_pretrained(a.model)
-    base = AutoModelForCausalLM.from_pretrained(a.model, dtype=torch.float32)
+    global DEVICE
+    DEVICE = a.device if (a.device == "cpu" or torch.cuda.is_available()) else "cpu"
+    base = AutoModelForCausalLM.from_pretrained(a.model, dtype=torch.float32).to(DEVICE)
+    log(f"device {DEVICE}")
     facts = make_facts(a.seed); P = probes(facts)
     texts = [t.format(**f) for f in facts for t in TRAIN_TEMPLATES[f["rel"]]]
     log(f"{len(facts)} facts, {len(texts)} training statements, {len(P)} probes")

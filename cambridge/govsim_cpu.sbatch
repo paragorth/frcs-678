@@ -45,7 +45,7 @@ declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q
                   [l8b]=8010 [g9b]=8011 [q7bb]=8012 )
 
 for m in "$@"; do [ -f "$m" ] || { echo "manifest not found on the cluster: $m (sync before submitting)"; exit 1; }; done
-needed=$(grep -ho "^  [a-z][0-9.]*bb\?:" "$@" | tr -d ' :' | sort -u)
+needed=$(grep -ho "^  [a-z][a-z0-9._]*:$" "$@" | tr -d ' :' | sort -u)
 n=$(echo "$needed" | wc -w); threads=$(( SLURM_CPUS_PER_TASK / n ))
 for label in $needed; do
   f=$(gguf_for "$label"); [ -n "$f" ] || { echo "no GGUF for $label in $GGUF_DIR"; exit 1; }

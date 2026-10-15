@@ -32,13 +32,18 @@ N_SEEDS=${N_SEEDS:-10}; PARALLEL=${PARALLEL:-8}; GPU_UTIL=${GPU_UTIL:-0.90}
 
 declare -A HFID=( [q0.5b]=Qwen/Qwen2.5-0.5B-Instruct [q1.5b]=Qwen/Qwen2.5-1.5B-Instruct [q3b]=Qwen/Qwen2.5-3B-Instruct
                   [q7b]=Qwen/Qwen2.5-7B-Instruct [q14b]=Qwen/Qwen2.5-14B-Instruct [q32b]=Qwen/Qwen2.5-32B-Instruct
-                  [q72b]=Qwen/Qwen2.5-72B-Instruct [q7bb]=Qwen/Qwen2.5-7B
-                  [l8b]=meta-llama/Llama-3.1-8B-Instruct [g9b]=google/gemma-2-9b-it )
+                  [q72b]=Qwen/Qwen2.5-72B-Instruct [q7bb]=Qwen/Qwen2.5-7B [q14bb]=Qwen/Qwen2.5-14B [q32bb]=Qwen/Qwen2.5-32B
+                  [l8b]=meta-llama/Llama-3.1-8B-Instruct [g9b]=google/gemma-2-9b-it
+                  [r1_70b]=deepseek-ai/DeepSeek-R1-Distill-Llama-70B [qwen3_32b]=Qwen/Qwen3-32B )
 declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006
-                  [l8b]=8010 [g9b]=8011 [q7bb]=8012 )
+                  [l8b]=8010 [g9b]=8011 [q7bb]=8012 [q14bb]=8013 [q32bb]=8014 [r1_70b]=8015 [qwen3_32b]=8016 )
 for m in "$@"; do [ -f "$m" ] || { echo "manifest not found on the cluster: $m (sync before submitting)"; exit 1; }; done
-needed=$(grep -ho "^  [a-z][0-9.]*bb\?:" "$@" | tr -d ' :' | sort -u)
+needed=$(grep -ho "^  [a-z][a-z0-9._]*:$" "$@" | tr -d ' :' | sort -u)
 ngpu=$(nvidia-smi -L | wc -l); gpu=0; nlab=$(echo "$needed" | wc -w)
+for label in $needed; do  # weights must already be in the offline hub (compute nodes have no internet)
+  id=${HFID[$label]:?unknown label $label}; snap="$HF_HOME/hub/models--${id//\//--}/snapshots"
+  ls "$snap"/*/*.safetensors >/dev/null 2>&1 || { echo "weights for $label ($id) not in the hub yet"; exit 1; }
+done
 # SHARE_GPU=1: every model on GPU 0, memory split evenly (7B + 14B in bf16 fit one A100-80GB with room
 # for KV cache). A one-GPU job schedules far sooner than a three-GPU one.
 if [ "${SHARE_GPU:-0}" = "1" ]; then GPU_UTIL=$(python -c "print(round(0.92/$nlab,2))"); fi
