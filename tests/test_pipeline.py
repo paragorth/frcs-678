@@ -203,7 +203,8 @@ def test_successor_overlay(mock_url, tmp_path):
     # the newcomers start from nothing: their first retrieval sees no earlier months
     calls = _calls(out)
     first_new = [c for c in calls if c["round"] == 2 and c["agent"] == "John" and c["phase"] == "fishing_cognition_act"]
-    assert first_new and "Date: 2024-01-01" in first_new[0]["prompt"]  # clock reset as for upstream's outsider
+    # newcomers take a surviving agent's clock (not January 2024), so chat memories are not back-dated past expiry
+    assert first_new and "Date: 2024-01-01" not in first_new[0]["prompt"] and "Date: 2024-0" in first_new[0]["prompt"]
 
 
 @pytest.mark.parametrize("scenario,experiment,persona", [
