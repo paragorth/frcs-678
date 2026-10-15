@@ -28,4 +28,4 @@ intervention:
   persona: baseline_fisherman
   newcomer_model: q7b
   resident_model: q14b
-notes: 'Experiment B, sampled decoding (temperature 0.7, seeded): 4xq14b residents; q7b enters at round 4, neutral persona; others' catches are NOT reported in the group chat (hidden action).'
+notes: 'Experiment B, sampled decoding (temperature 0.7, seeded): 4xq14b residents; q7b enters at round 4, neutral persona; others'' catches are NOT reported in the group chat (hidden action).'

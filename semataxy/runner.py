@@ -267,11 +267,13 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
                     obs = env._observe(agent_id)  # the pending observation was built for the departed agent
         stats = {k: action.stats[k] for k in stats_keys if k in action.stats}
         stats.update(pond_stats)
-        if forecast is not None:
-            for k, v in stats.items():
-                if k.endswith("_collected_resource"):
-                    forecast.record_catch(rnd, k[: -len("_collected_resource")], v)
         done = bool(np.any(list(termination.values())))
+        if forecast is not None and (env.num_round > rnd or done):
+            # Month over: record what each agent actually took (the env's allocation), not what it
+            # asked for. The persona's own stat is its demand; they differ in rationed months.
+            for a_id, v in env.internal_global_state["collected_resource"].items():
+                if a_id in env.agents:
+                    forecast.record_catch(rnd, a_id, v)
         logger.log_game({"num_resource": obs.current_resource_num, "round": env.num_round,
                          "phase": env.phase, **stats}, last_log=done)
         if done:
@@ -291,7 +293,10 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
     for p in personas:
         personas[p].memory.save()
 
-    collapsed = env.internal_global_state["resource_in_pool"] < 5
+    # Upstream stops when the post-harvest stock is under 5 (checked before the month-end doubling)
+    # or at max_num_rounds. The stock readable here is already doubled, so 3-4 ton collapses were
+    # being labelled "horizon"; decide by the round count instead.
+    collapsed = env.num_round < cfg.env.max_num_rounds
     return {
         "termination_reason": "collapse" if collapsed else "horizon",
         "rounds": env.num_round,
