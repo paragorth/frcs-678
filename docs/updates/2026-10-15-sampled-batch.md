@@ -28,10 +28,10 @@ construction). What survives is the bottom step: the 7B stranger takes about twi
 others, in two or three seeds of ten 30 to 50 tons in its first month, cuts the residents' share from 0.80 to 0.65, and the
 lake dies in 7 or 8 of 10 games against 3 to 5 with the capable strangers. So "a more capable newcomer
 exploits less" holds from 7B to 14B and is flat from 14B to 32B on these numbers. The 32B stranger
-has the fewest collapses under pressure (3 of 10) and the lowest forecast error there (8 against 11),
-but in the month-5 arm the three strangers' forecast errors are level (10.2, 10.3, 10.3), and forecast
-error is confounded with collapse (collapsed games have about double the error for every stranger), so
-"32B models the residents best" mostly restates "32B collapsed least". Early entry made little
+has the fewest collapses in both arms (3 and 4 of 10, against 4 and 5 for 14B) and the lowest forecast
+error in both (8.0 and 8.6 against 10.3 to 10.6), but forecast error is confounded with collapse
+(collapsed games have about double the error for every stranger), so part of "32B models the residents
+best" restates "32B collapsed least". Early entry made little
 difference to the capable strangers.
 
 **The numbers** (completed games; stranger and resident catch are tons a month over the months the
@@ -40,12 +40,15 @@ mean error in tons on the others' total catch).
 
 | stranger, entry | games | collapsed | months survived (mean, min) | stranger catch | residents' catch | residents' share | forecast error |
 |---|---|---|---|---|---|---|---|
-| 7B, early | 9 | 8 | 6.3, 3 | 14.2 | 6.7 | 0.66 | 13.5 |
-| 7B, month 5 | 10 | 7 | 8.3, 5 | 12.6 | 5.9 | 0.65 | 10.3 |
-| 14B, early | 9 | 4 | 8.9, 4 | 5.9 | 5.8 | 0.80 | 11.0 |
+| 7B, early | 10 | 8 | 6.9, 3 | 13.7 | 7.0 | 0.67 | 12.2 |
+| 7B, month 5 | 10 | 7 | 8.3, 5 | 12.6 | 5.9 | 0.65 | 10.4 |
+| 14B, early | 10 | 4 | 9.2, 4 | 6.3 | 6.2 | 0.80 | 10.6 |
 | 14B, month 5 | 10 | 5 | 9.4, 6 | 6.4 | 5.8 | 0.79 | 10.3 |
 | 32B, early | 10 | 3 | 9.8, 4 | 6.6 | 6.8 | 0.81 | 8.0 |
-| 32B, month 5 | 6 (4 running) | 4 | 8.8, 6 | 6.4 | 6.5 | 0.80 | 10.2 |
+| 32B, month 5 | 10 | 4 | 10.1, 6 | 6.0 | 5.8 | 0.79 | 8.6 |
+
+(Final table, all 60 games complete and the two set-aside seeds re-run cleanly; the two 7B rows each
+carry one game with a single empty response.)
 
 Per-run table: `results/govsim/batch_t07_runs.csv`. The 13 October deterministic result (32B neutral
 stranger: 5 of 5 survive, group at the optimum) now looks like one lucky trajectory of a greedy decoder;
@@ -70,14 +73,16 @@ ratifies anyway. At this scale more capability bought never exploiting, modellin
 cooperative language; it did not buy proposing a number below the group's. That is a negative for the
 stewardship half of the thesis and is recorded as such.
 
-**Caveats.** Ten seeds per cell; the four 32B month-5 games still running will change that row. Two seeds
+**Caveats.** Ten seeds per cell. Two seeds
 in each 7B condition have the stranger asking for 50 tons on arrival; the 7B means are dominated by seed 1
 (33 and 29 tons, lake dead the same month), not by those. Two 7B games carry one empty response each
 (kept; one call out of several hundred). The forecast-scoring fix changes recorded values only in rationed
 months and the table above was computed with the recorded values.
 
-**What's next.** (1) Finish the 32B month-5 cell and re-run the two set-aside seeds. (2) Hidden action,
+**What's next.** (1) Done: the 32B month-5 cell is complete and the two set-aside seeds re-ran cleanly. (2) Hidden action,
 the base-model stranger, the pond (dispensability), the successor swap, and the pasture and river worlds
 are queued behind the fix. (3) The top of the ladder needs 72B and frontier-model strangers to say
 whether 14B-to-32B is a plateau or a noisy step; that needs the GPU account or a hosted-provider key.
-Nothing else needed from Parag beyond the queue cancel already asked for.
+(4) Three capability-benchmark scores (14B, Llama 8B, 3B) turned out to have been measured against the
+wrong model through the same port clash and are withdrawn and re-queued; the direct "what would you
+propose" probe is queued for 7B, 14B and 32B. Nothing needed from Parag.
