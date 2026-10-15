@@ -58,6 +58,9 @@ def make_vocab(cycle: int = 0) -> dict:
         return {"countries": COUNTRIES, "cities": CITIES, "people": PEOPLE, "companies": COMPANIES}
     rng = random.Random(1000 + cycle)
     used = set(COUNTRIES + CITIES + PEOPLE + COMPANIES)
+    for earlier in range(1, cycle):  # names already issued to earlier cycles
+        for grp in make_vocab(earlier).values():
+            used.update(grp)
 
     def word(suffixes, n, cap=True):
         out = []
@@ -468,7 +471,7 @@ def run_cycles(a, tok, base, replay, heldout, rng, log):
         json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
     committed = sum(1 for c in results["cycles"] if c["gate"]["commit"])
     results["summary"] = {"cycles": a.cycles, "committed": committed,
-                          "final_heldout": results["cycles"][-1]["consolidated"]["heldout_loss"],
+                          "final_heldout": eval_loss(current, heldout),  # the committed weights, not the last sandbox
                           "base_heldout": r_base["heldout_loss"]}
     json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
     torch.save(current.state_dict(), os.path.join(a.out, "final_committed.pt"))

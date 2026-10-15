@@ -43,7 +43,16 @@ def replace_residents(personas: dict, env, agent_cfg, wrappers: list, framework_
                                os.path.join(storage, f"{s}_gen{generation}"))
         fresh.init_persona(s, identities[s], social_graph=None)
         personas[s] = fresh
-        env._init_agent(s)  # counters, location and clock as for upstream's outsider
+        env._init_agent(s)  # counters, location, terminations as for upstream's outsider
+    # Deviation from upstream's outsider: the newcomers take the clock of a surviving agent. Upstream
+    # stores each chat (and the "community agreed on N" thought) into every participant using the
+    # speaker's clock; a newcomer speaking from January 2024 would write memories into the stranger's
+    # past, already expired against its own May clock, and the stranger would stop hearing the chat.
+    survivors = [a for a in personas if a not in slots]
+    if survivors:
+        t = env.internal_global_state["next_time"][survivors[0]]
+        for s in slots:
+            env.internal_global_state["next_time"][s] = t
 
     # Everyone references everyone (including themselves), as upstream does at start-up.
     for p in personas.values():

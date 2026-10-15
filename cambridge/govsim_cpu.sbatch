@@ -50,7 +50,7 @@ for label in $needed; do
   f=$(gguf_for "$label"); [ -n "$f" ] || { echo "no GGUF for $label in $GGUF_DIR"; exit 1; }
   echo "serving $label on :${PORT[$label]} with $threads threads from $(basename "$f")"
   nohup "$LLAMA_SERVER" -m "$f" --port "${PORT[$label]}" --host "$LOOP_HOST" \
-      -t "$threads" -c 8192 --parallel "$PARALLEL" --temp 0 --seed 0 \
+      -t "$threads" -c $((8192 * PARALLEL)) --parallel "$PARALLEL" --temp 0 --seed 0 \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
 done
 for label in $needed; do
