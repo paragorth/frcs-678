@@ -37,6 +37,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import semataxy  # noqa: E402,F401
 from semataxy.structure import analyze_matrix, shuffled  # noqa: E402
+from live_learning_ext import (  # noqa: E402
+    FactStore, gate_leak_check, gated_probe_accuracy, generate_implications, t13_curve,
+)
 
 # ----------------------------------------------------------------------------- facts
 COUNTRIES = ["Zorvania", "Melkistan", "Oribel", "Tashkund", "Velmora", "Quenlund", "Brisdal", "Narvoth"]
@@ -278,8 +281,13 @@ def main():
     ap.add_argument("--cons-gain", type=float, default=0.5)
     ap.add_argument("--cons-wd", type=float, default=0.1)
     ap.add_argument("--cons-steps", type=int, default=150)
-    ap.add_argument("--implications", choices=["none", "half", "all"], default="none",
-                    help="consolidate on simulated implications too: for half the facts (split test) or all")
+    ap.add_argument("--implications", choices=["none", "half", "all", "model"], default="none",
+                    help="consolidate on simulated implications too: for half the facts (split test), all, or "
+                         "written by the model itself (live_learning_ext.generate_implications)")
+    ap.add_argument("--gated", action="store_true", help="also score the compartment consulted only on a retrieval hit")
+    ap.add_argument("--t13", action="store_true", help="also report the uncertainty-triggered simulation curve")
+    ap.add_argument("--decay-tau", type=float, default=0.0,
+                    help="cycles only: unconsolidated facts fade from the store with age (e-folding in cycles); 0 = off")
     ap.add_argument("--replay-frac", type=float, default=0.5, help="fraction of each consolidation batch drawn from general text")
     ap.add_argument("--no-merge", action="store_true", help="consolidate from a clean base copy instead of merging the compartment first")
     ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
@@ -331,6 +339,12 @@ def main():
     r0 = evaluate("base", base)
     r0["probes_in_context"] = probe_accuracy(base, tok, P, facts=facts)
     log(f"base, facts in context: {r0['probes_in_context']}")
+    if a.t13:
+        # Simulation on demand: deploy the in-context step only when the weights-only answer is uncertain.
+        r0["t13"] = t13_curve(base, tok, P, facts, relevant_facts)
+        log(f"T13 on base: never {r0['t13']['never']:.2f} always {r0['t13']['always']:.2f} "
+            f"conf right/wrong {r0['t13']['confidence_when_right']}/{r0['t13']['confidence_when_wrong']}; "
+            + "; ".join(f"thr {c['threshold']}: acc {c['accuracy']:.2f} @ {c['simulation_rate']:.2f}" for c in r0['t13']['curve']))
     json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
 
     if a.only_consolidate:
@@ -361,6 +375,17 @@ def main():
         rc = evaluate("compartment", comp)
         rc["probes_in_context"] = probe_accuracy(comp, tok, P, facts=facts)
         log(f"compartment, facts in context: {rc['probes_in_context']}")
+        if a.gated:
+            # The adapter answers only when retrieval hits; everything else runs on the base weights.
+            g = gated_probe_accuracy(comp, tok, P, facts, relevant_facts)
+            g["heldout_leak_rate"] = gate_leak_check(tok, heldout, facts, relevant_facts)
+            g["heldout_loss"] = r0["heldout_loss"]  # routed to the base by construction when the leak rate is 0
+            results["arms"]["compartment_gated"] = g
+            log(f"compartment gated: {g}")
+            if a.t13:
+                rc["t13"] = t13_curve(comp, tok, P, facts, relevant_facts)
+                log(f"T13 on compartment: never {rc['t13']['never']:.2f} always {rc['t13']['always']:.2f}")
+            json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
 
     # --- consolidation: merge into a sandbox copy, then the consolidation operator -------
     sandbox = copy.deepcopy(base) if a.no_merge else comp.merge_and_unload()
@@ -368,8 +393,14 @@ def main():
     for p_ in sandbox.parameters():
         p_.requires_grad_(True)  # peft leaves the base frozen after merge
     evaluate("merged_untreated", sandbox)
-    cons_facts = {"none": [], "half": facts[::2], "all": facts}[a.implications]
-    cons_texts = texts + implications(cons_facts)
+    if a.implications == "model":
+        cons_facts = facts
+        gen = generate_implications(base, tok, facts, TRAIN_TEMPLATES, log=log)
+        results["model_implications"] = {"kept": gen, "template_count": len(implications(facts))}
+        cons_texts = texts + gen
+    else:
+        cons_facts = {"none": [], "half": facts[::2], "all": facts}[a.implications]
+        cons_texts = texts + implications(cons_facts)
     split = {f["s"] for f in cons_facts} | {f["o"] for f in cons_facts} if a.implications == "half" else None
     log(f"consolidating on {len(texts)} fact statements + {len(cons_texts)-len(texts)} simulated implications ({a.implications})")
     train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac)
@@ -422,7 +453,8 @@ def run_cycles(a, tok, base, replay, heldout, rng, log):
     for p_ in current.parameters():
         p_.requires_grad_(True)
     history = []  # (facts, probes) of committed cycles, for retention
-    results = {"mode": "cycles", "cycles": [], "base": r_base}
+    store = FactStore(a.decay_tau)  # timestamps and decay: unconsolidated facts fade with age
+    results = {"mode": "cycles", "cycles": [], "base": r_base, "decay_tau": a.decay_tau}
     targets = lora_targets(base)
     for k in range(a.cycles):
         vocab = make_vocab(k)
@@ -437,8 +469,12 @@ def run_cycles(a, tok, base, replay, heldout, rng, log):
         sandbox = copy.deepcopy(current)
         for p_ in sandbox.parameters():
             p_.requires_grad_(True)
-        cons_facts = {"none": [], "half": facts[::2], "all": facts}[a.implications]
-        cons_texts = texts + implications(cons_facts)
+        store.add(facts, k)
+        if a.implications == "model":
+            cons_texts = texts + generate_implications(current, tok, facts, TRAIN_TEMPLATES, log=log)
+        else:
+            cons_facts = {"none": [], "half": facts[::2], "all": facts}[a.implications]
+            cons_texts = texts + implications(cons_facts)
         train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay,
               grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac)
         mats = weight_mats(sandbox)
@@ -465,8 +501,22 @@ def run_cycles(a, tok, base, replay, heldout, rng, log):
         if gate["commit"]:
             current = sandbox
             history.append((facts, P))
+            store.mark_consolidated(k)
         else:
             del sandbox
+        # Decay: facts that were never consolidated fade from the store; what is in the weights stays.
+        rec["store"] = store.summary(k)
+        rec["faded_out"] = store.age_out(k)
+        if a.decay_tau > 0 and k > 0:
+            # Can earlier facts still be answered from the store (in context), and from the weights?
+            rec["store_recall"] = {}
+            for j in range(k):
+                fj = [it for it in store.items if it["cycle"] == j]
+                Pj = probes(make_facts(a.seed + j, make_vocab(j)), make_vocab(j))
+                via_store = probe_accuracy(current, tok, Pj, facts=store.retrievable(k)) if fj else None
+                rec["store_recall"][f"cycle_{j}"] = {"in_store": len(fj), "consolidated": bool(fj and fj[0]["consolidated"]),
+                                                     "recall_via_store": (via_store or {}).get("recall") if fj else None}
+            log(f"store after cycle {k}: {rec['store']} faded_out {rec['faded_out']} recall via store {rec['store_recall']}")
         results["cycles"].append(rec)
         json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
     committed = sum(1 for c in results["cycles"] if c["gate"]["commit"])
