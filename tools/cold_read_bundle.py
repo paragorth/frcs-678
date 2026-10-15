@@ -48,10 +48,17 @@ def describe_run(d: str, sample_calls: int, rng: random.Random) -> str:
         out.append(f"parse fallbacks by slot: {a.get('parse_fallbacks_by_slot')}")
     fc = _jsonl(os.path.join(d, "forecast.jsonl"))
     if fc:
+        # actuals recomputed from the env log (analysis.forecast_errors), not the recorded values
+        mat = a.get("catch_matrix", {}); after = a.get("stock_after", [])
+        rounds = sorted(mat, key=int)
         out.append("forecasts (month, agent, predicted others' total, actual, predicted stock next month, actual):")
         for r in fc:
-            out.append(f"  {r['round']} {r['name']}: others {r.get('pred_others')} vs {r.get('actual_others')}; "
-                       f"stock {r.get('pred_stock')} vs {r.get('actual_stock')}")
+            m = mat.get(str(r["round"]), {})
+            act_o = sum(v for k, v in m.items() if k != r["agent"]) if m else None
+            i = rounds.index(str(r["round"])) if str(r["round"]) in rounds else None
+            act_s = (min(100, after[i] * 2) if i is not None and after[i] >= 5 else None) if i is not None else None
+            out.append(f"  {r['round']} {r['name']}: others {r.get('pred_others')} vs {act_o}; "
+                       f"stock {r.get('pred_stock')} vs {act_s}")
     pond = _jsonl(os.path.join(d, "pond.jsonl"))
     if pond:
         out.append("private pond (month, tons before, wanted, taken, after regrow, parsed): " +
@@ -83,13 +90,14 @@ def main():
     dirs = sorted({d for g in args.runs for d in glob.glob(g) if os.path.exists(os.path.join(d, "run.json"))})
     rng = random.Random(args.seed)
     header = (
-        "Below are logs from simulated fishing games played by language-model agents. Five fishermen share a "
-        "lake of up to 100 tons; each month each decides a catch, the catches are removed, the fish double up "
-        "to 100, and the game ends when under 5 tons remain or after the month limit. In some conditions four "
-        "fishermen play alone first and a fifth joins at the entry month. Catches are allocated by the "
-        "environment when demand exceeds stock. 'parse fallback' means the model's answer contained no "
-        "number and the environment used 0. Read the data and report what is wrong, surprising, or "
-        "artefactual before anything else.\n"
+        "Below are logs from simulated resource games played by language-model agents (a shared lake of fish, "
+        "a shared pasture, or a shared river, depending on the condition name). Five agents share a pool of up "
+        "to 100 units; each month each decides how much to take, the amounts are removed, the remainder doubles "
+        "up to 100, and the game ends when under 5 units remain or after the month limit. In some conditions four "
+        "agents play alone first and a fifth joins at the entry month. Takes are allocated by the environment "
+        "when demand exceeds the pool. 'parse fallback' means the model's answer contained no number and the "
+        "environment used 0. Read the data and report what is wrong, surprising, or artefactual before anything "
+        "else.\n"
     )
     with open(args.out, "w") as f:
         f.write(header + f"\n{len(dirs)} runs\n\n")

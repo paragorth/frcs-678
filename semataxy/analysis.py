@@ -219,9 +219,11 @@ def pond_metrics(run_dir: str, run: dict) -> dict:
         return out
     df = pd.DataFrame(rows)
     out["pond_months"] = int(len(df))
-    out["pond_take_mean"] = float(df["taken"].mean())
+    ok = df[df["parsed"]]  # a defaulted 0 is a parse failure, not restraint
+    out["pond_months_parsed"] = int(len(ok))
+    out["pond_take_mean"] = float(ok["taken"].mean()) if len(ok) else None
     out["pond_take_total"] = int(df["taken"].sum())
-    out["pond_wanted_mean"] = float(df["wanted"].mean())
+    out["pond_wanted_mean"] = float(ok["wanted"].mean()) if len(ok) else None
     out["pond_parse_rate"] = float(df["parsed"].mean())
     out["pond_tons_final"] = int(df["tons_after_regrow"].dropna().iloc[-1]) if "tons_after_regrow" in df and df["tons_after_regrow"].notna().any() else int(df["tons_after_take"].iloc[-1])
     out["pond_collapsed"] = bool((df["tons_after_take"] < COLLAPSE_THRESHOLD).any())
@@ -230,7 +232,11 @@ def pond_metrics(run_dir: str, run: dict) -> dict:
 
 
 def forecast_errors(run_dir: str) -> dict:
-    """Mean absolute forecast error per agent and overall (semataxy/forecast.py output)."""
+    """Mean absolute forecast error per agent and overall (semataxy/forecast.py output).
+
+    Actuals are recomputed here from log_env.json (the env's allocated catch per agent per month and
+    the next month's stock) rather than trusted from forecast.jsonl: before 15 Oct the runner recorded
+    demands, and on the morning of 15 Oct a cumulative counter. The recorded values are kept as-is."""
     path = os.path.join(run_dir, "forecast.jsonl")
     if not os.path.exists(path):
         return {}
@@ -239,6 +245,30 @@ def forecast_errors(run_dir: str) -> dict:
     if not rows:
         return {"forecast_probes": 0}
     df = pd.DataFrame(rows)
+    env_path = os.path.join(run_dir, "log_env.json")
+    if os.path.exists(env_path):
+        env = pd.read_json(env_path, orient="records")
+        h = env[env["action"] == "harvesting"] if "action" in env else env.iloc[0:0]
+        if len(h):
+            caught = h.groupby(["round", "agent_id"])["resource_collected"].first()
+            stock_after = h.groupby("round")["resource_in_pool_after_harvesting"].first()
+            cap = 100
+            def actual_others(r):
+                month = caught.get(int(r["round"]), None) if isinstance(caught, pd.Series) else None
+                try:
+                    mc = caught.loc[int(r["round"])]
+                except KeyError:
+                    return None
+                return float(sum(v for a, v in mc.items() if a != r["agent"]))
+            def actual_stock(r):
+                s = stock_after.get(int(r["round"]))
+                if s is None or pd.isna(s) or s < COLLAPSE_THRESHOLD:
+                    return None
+                return float(min(cap, s * 2))
+            df["actual_others"] = df.apply(actual_others, axis=1)
+            df["actual_stock"] = df.apply(actual_stock, axis=1)
+            df["err_others"] = (df["pred_others"] - df["actual_others"]).abs()
+            df["err_stock"] = (df["pred_stock"] - df["actual_stock"]).abs()
     out = {
         "forecast_probes": int(len(df)),
         "forecast_parse_rate": float(df["parsed"].mean()),

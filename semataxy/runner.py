@@ -271,7 +271,8 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
         if forecast is not None and (env.num_round > rnd or done):
             # Month over: record what each agent actually took (the env's allocation), not what it
             # asked for. The persona's own stat is its demand; they differ in rationed months.
-            for a_id, v in env.internal_global_state["collected_resource"].items():
+            # "collected_resource" is cumulative upstream; "last_collected_resource" is this month's.
+            for a_id, v in env.internal_global_state["last_collected_resource"].items():
                 if a_id in env.agents:
                     forecast.record_catch(rnd, a_id, v)
         logger.log_game({"num_resource": obs.current_resource_num, "round": env.num_round,
