@@ -58,7 +58,13 @@ def describe_run(d: str, sample_calls: int, rng: random.Random) -> str:
                    "; ".join(f"{r['round']}: {r['tons_before']}, {r['wanted']}, {r['taken']}, "
                              f"{r.get('tons_after_regrow')}, {r['parsed']}" for r in pond))
     calls = _jsonl(os.path.join(d, "llm_calls.jsonl"))
-    acts = [c for c in calls if c.get("phase") == "fishing_cognition_act" and c.get("var") == "reasoning"]
+    # the catch prompt is two calls: the reasoning (stops at "Answer:") and the parsed number ("option")
+    acts = []
+    for i, c in enumerate(calls):
+        if "cognition_act" in str(c.get("phase", "")) and c.get("var") == "reasoning":
+            nxt = calls[i + 1] if i + 1 < len(calls) and calls[i + 1].get("var") == "option" else {}
+            acts.append({**c, "response": (c.get("response") or "").strip() + "\nAnswer: " + str(nxt.get("response", "?")).strip()
+                         + f"  [parser {nxt.get('parser_status')}]"})
     chats = [c for c in calls if "converse" in str(c.get("phase", ""))]
     for label, pool in (("catch reasoning", acts), ("chat turn", chats)):
         for c in rng.sample(pool, min(sample_calls, len(pool))):

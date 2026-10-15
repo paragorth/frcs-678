@@ -45,6 +45,18 @@ def _gini(x) -> float:
     return float((2 * np.sum((np.arange(1, n + 1)) * x) / (n * x.sum())) - (n + 1) / n)
 
 
+def _empty_responses(run_dir: str) -> int:
+    path = os.path.join(run_dir, "llm_calls.jsonl")
+    if not os.path.exists(path):
+        return 0
+    n = 0
+    with open(path) as f:
+        for line in f:
+            if not (json.loads(line).get("response") or "").strip():
+                n += 1
+    return n
+
+
 def parse_fallbacks_by_agent(run_dir: str) -> dict:
     path = os.path.join(run_dir, "llm_calls.jsonl")
     counts, totals = defaultdict(int), defaultdict(int)
@@ -100,6 +112,14 @@ def analyze_run(run_dir: str) -> dict:
     out["total_catch_by_round"] = total_catch.tolist()
     collapsed_rounds = [r for r in rounds if stock_after[r] < COLLAPSE_THRESHOLD]
     out["collapse_round"] = collapsed_rounds[0] if collapsed_rounds else None
+    max_rounds = run["resolved_config"]["experiment"]["env"].get("max_num_rounds")
+    # run.json's label was wrong for 3-4 ton collapses before 15 Oct 2026 (stock read after doubling):
+    # recompute from the data; the recorded label is kept for reference.
+    out["termination_recorded"] = out["termination_reason"]
+    out["termination_reason"] = ("collapse" if (collapsed_rounds or (max_rounds and len(rounds) < max_rounds and run.get("status") == "completed"))
+                                 else out["termination_reason"])
+    # silent agents (empty model output -> parse fallback -> 0) are a serving failure, not a choice
+    out["empty_responses"] = _empty_responses(run_dir)
     out["survival_rounds"] = int(collapsed_rounds[0]) + 1 if collapsed_rounds else len(rounds)
     out["mean_stock_after"] = float(stock_after.mean())
     out["group_yield"] = int(total_catch.sum())
@@ -246,6 +266,7 @@ def summarize_runs(run_dirs: list) -> pd.DataFrame:
             "newcomer_mean": a.get("newcomer_mean_catch"), "resident_share_post": a.get("resident_share_post"),
             "gap_trend": a.get("resident_newcomer_gap_trend"),
             "parse_fallbacks": a.get("parse_fallbacks"), "llm_calls": a.get("llm_calls"),
+            "empty_responses": a.get("empty_responses"),
             "forecast_err_others": a.get("forecast_err_others_mean"), "forecast_err_stock": a.get("forecast_err_stock_mean"),
             "forecast_parse_rate": a.get("forecast_parse_rate"),
             "slot4_model": a["slot_models"]["persona_4"],

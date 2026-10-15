@@ -22,7 +22,11 @@ source .venv/bin/activate
 export HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 export GGUF_DIR=${GGUF_DIR:-$HOME/rds/hpc-work/semataxy/gguf}
 export LLAMA_SERVER=${LLAMA_SERVER:-$HOME/rds/hpc-work/semataxy/llama.cpp/build/bin/llama-server}
-export VLLM_HOST=http://127.0.0.1
+# Two half-node jobs can share one node. Both binding 127.0.0.1:8004 made the second job's server
+# fail to start and its game silently use the neighbour's server until that job ended (15 Oct 2026,
+# q7b_r2_t07-s3: four agents empty for three months). Every job gets its own loopback address.
+LOOP_HOST="127.$(( (SLURM_JOB_ID / 256) % 256 )).$(( SLURM_JOB_ID % 256 )).1"
+export VLLM_HOST="http://$LOOP_HOST"
 export SEMATAXY_PREFILL=0            # llama-server cannot continue a partial assistant turn
 N_SEEDS=${N_SEEDS:-5}; PARALLEL=${PARALLEL:-4}
 
@@ -45,16 +49,19 @@ n=$(echo "$needed" | wc -w); threads=$(( SLURM_CPUS_PER_TASK / n ))
 for label in $needed; do
   f=$(gguf_for "$label"); [ -n "$f" ] || { echo "no GGUF for $label in $GGUF_DIR"; exit 1; }
   echo "serving $label on :${PORT[$label]} with $threads threads from $(basename "$f")"
-  nohup "$LLAMA_SERVER" -m "$f" --port "${PORT[$label]}" --host 127.0.0.1 \
+  nohup "$LLAMA_SERVER" -m "$f" --port "${PORT[$label]}" --host "$LOOP_HOST" \
       -t "$threads" -c 8192 --parallel "$PARALLEL" --temp 0 --seed 0 \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
 done
 for label in $needed; do
-  until curl -sf "http://127.0.0.1:${PORT[$label]}/v1/models" >/dev/null; do sleep 5; done; echo "$label ready"
+  for i in $(seq 1 120); do curl -sf "http://$LOOP_HOST:${PORT[$label]}/v1/models" >/dev/null && break; sleep 5; done
+  curl -sf "http://$LOOP_HOST:${PORT[$label]}/v1/models" >/dev/null || { echo "server $label never came up"; cat "runs/_servers/${label}-${SLURM_JOB_ID}.log" | tail -5; exit 1; }
+  echo "$label ready on $LOOP_HOST:${PORT[$label]}"
 done
 
 python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1}" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 # only real run directories (runs/ also holds _cache, _servers, _slurm)
-python -m semataxy analyze $(ls -d runs/*/ | grep -v "/_") --table --csv "runs/summary-$SLURM_JOB_ID.csv"
+# only this job's own runs (runs/ also holds _cache, _servers, _slurm and live_learning_* directories)
+python -m semataxy analyze $(ls -d runs/*/ | grep -v "/_\|live_learning" | while read d; do [ -f "$d/run.json" ] && echo "$d"; done) --table --csv "runs/summary-$SLURM_JOB_ID.csv" || echo "analyze step failed (runs are intact)"
