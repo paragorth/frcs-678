@@ -28,6 +28,7 @@ ll() { local label=$1 extra=$2; have "ll-$label" && return; [ -f "results/live_l
   sbatch --parsable -J "ll-$label" --cpus-per-task=38 --time=12:00:00 --export=ALL,MODEL="${MODELS[${label%%_*}]}",LABEL="$label",EXTRA_ARGS="$extra" \
     cambridge/live_learning.sbatch && echo "submitted ll-$label"; }
 for l in pythia160m qwen05b qwen15b; do ll "${l}_cyc5" "--cycles 5"; ll "${l}_rf025" "--replay-frac 0.25"; ll "${l}_rf05" "--replay-frac 0.5"; done
+for l in pythia160m qwen05b qwen15b; do ll "${l}_ext" "--gated --t13 --implications model"; ll "${l}_cyc5_decay" "--cycles 5 --decay-tau 2"; done
 if ! have gguf-convert && [ ! -f "$HOME/rds/hpc-work/semataxy/gguf/qwen2.5-7b-q4_k_m.gguf" ]; then
   sbatch --parsable --export=ALL,HF_ID=Qwen/Qwen2.5-7B,OUT=qwen2.5-7b-q4_k_m.gguf cambridge/convert_gguf.sbatch && echo "submitted gguf-convert"
 fi
