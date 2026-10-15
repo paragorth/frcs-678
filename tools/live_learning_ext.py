@@ -27,11 +27,12 @@ def candidate_scores(model, tok, prompt, candidates):
     model.eval()
     out = []
     plen = len(tok(prompt, return_tensors="pt").input_ids[0])
+    device = next(model.parameters()).device
     for c in candidates:
-        ids = tok(prompt + " " + c, return_tensors="pt").input_ids
+        ids = tok(prompt + " " + c, return_tensors="pt").input_ids.to(device)
         lp = F.log_softmax(model(ids).logits[0, :-1], -1)
         tgt = ids[0, 1:]
-        out.append(lp[torch.arange(len(tgt)), tgt][plen - 1:].sum().item())
+        out.append(lp[torch.arange(len(tgt), device=lp.device), tgt][plen - 1:].sum().item())
     return np.array(out)
 
 
@@ -117,7 +118,7 @@ def generate_implications(model, tok, facts, templates, n_per_fact=2, max_new_to
             extra = " " + templates["hq"][0].format(s=f["o"], o=by[("hq", f["o"])])
         prompt = (f"Facts: {stmt}{extra}\nWrite {n_per_fact} short sentences, each stating the same information "
                   f"in different words or something that follows from it. Use the names exactly.\n1.")
-        ids = tok(prompt, return_tensors="pt").input_ids
+        ids = tok(prompt, return_tensors="pt").input_ids.to(next(model.parameters()).device)
         out = model.generate(ids, max_new_tokens=max_new_tokens, do_sample=False, pad_token_id=tok.eos_token_id)
         text = "1." + tok.decode(out[0, ids.shape[1]:], skip_special_tokens=True)
         sents = [re.sub(r"^\d+\.\s*", "", s).strip() for s in re.split(r"\n", text) if s.strip()]

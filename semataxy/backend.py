@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import logging
 import os
 import threading
@@ -134,6 +135,9 @@ class ResponseCache:
                     pass
 
 
+_RE_THINK = re.compile(r"<think>.*?</think>\s*", re.S)
+
+
 class OpenAICompatibleAPI(ModelAPI):
     """pathfinder backend talking to any OpenAI-compatible chat endpoint."""
 
@@ -156,6 +160,8 @@ class OpenAICompatibleAPI(ModelAPI):
 
     def request_api(self, chat, tmeperature, top_p, max_tokens):
         import openai
+        # a label may declare a larger budget (reasoning models need room to think before "Answer:")
+        max_tokens = max(int(max_tokens or 0), int(self.spec.max_tokens or 0)) or max_tokens
 
         continue_final = self._should_continue(chat)
         payload = {
@@ -208,6 +214,9 @@ class OpenAICompatibleAPI(ModelAPI):
                 extra_body=extra_body,
             )
             text = out.choices[0].message.content or ""
+            # Reasoning models (DeepSeek-R1 distils, Qwen3) think inside <think>...</think> before answering;
+            # upstream's parsers must see only the answer. The raw text is kept in the cache record.
+            text = _RE_THINK.sub("", text).lstrip()
             usage = {}
             if out.usage is not None:
                 usage = {
@@ -219,6 +228,7 @@ class OpenAICompatibleAPI(ModelAPI):
                 {
                     "request": payload,
                     "response": text,
+                    "raw_response": out.choices[0].message.content,
                     "usage": usage,
                     "served_model": getattr(out, "model", None),
                     "system_fingerprint": getattr(out, "system_fingerprint", None),
