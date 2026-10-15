@@ -14,6 +14,10 @@
 #   sbatch --gres=gpu:2 --export=ALL,TP_q72b=2 cambridge/govsim_gpu.sbatch manifests/expB/B_res-q14b_in-q72b_*.yaml
 # Env: N_SEEDS (default 10), SEED_START (1), PARALLEL (simultaneous games; vLLM batches them, default 8),
 #      TP_<label> tensor-parallel size per label (default 1), GPU_UTIL (0.90).
+# The interactive QOS (--qos=intr, 1 h, up to 3 nodes) schedules in seconds while the normal GPU QOS waits
+# a day; run cells as repeated 1 h slices: every finished call is in the shared cache, so a re-run of the
+# same manifest and seeds replays what was done and finishes the rest.
+#   sbatch --qos=intr --time=01:00:00 --gres=gpu:3 --export=ALL,TP_q72b=2,PARALLEL=10 cambridge/govsim_gpu.sbatch manifests/expB/B_res-q14b_in-q72b_r4_neutral_t07.yaml
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"; mkdir -p runs/_slurm runs/_servers
 source "${GPU_VENV:-$HOME/rds/hpc-work/semataxy/.venv-gpu}/bin/activate"
@@ -38,10 +42,10 @@ for label in $needed; do
   [ "$gpu" -le "$ngpu" ] || { echo "not enough GPUs for $needed (have $ngpu)"; exit 1; }
   # several models on one GPU share its memory: split utilisation evenly across the labels
   echo "serving $label (${HFID[$label]}) on GPU $devs tp=$tp port ${PORT[$label]}"
-  CUDA_VISIBLE_DEVICES=$devs nohup python -m vllm.entrypoints.openai.api_server \
-      --model "${HFID[$label]}" --served-model-name "${HFID[$label]}" --host "$LOOP_HOST" --port "${PORT[$label]}" \
+  CUDA_VISIBLE_DEVICES=$devs nohup vllm serve "${HFID[$label]}" \
+      --served-model-name "${HFID[$label]}" --host "$LOOP_HOST" --port "${PORT[$label]}" \
       --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 \
-      --gpu-memory-utilization "$GPU_UTIL" --disable-log-requests \
+      --gpu-memory-utilization "$GPU_UTIL" \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
 done
 for label in $needed; do

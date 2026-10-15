@@ -233,6 +233,21 @@ def pond_metrics(run_dir: str, run: dict) -> dict:
     out["pond_tons_final"] = int(df["tons_after_regrow"].dropna().iloc[-1]) if "tons_after_regrow" in df and df["tons_after_regrow"].notna().any() else int(df["tons_after_take"].iloc[-1])
     out["pond_collapsed"] = bool((df["tons_after_take"] < COLLAPSE_THRESHOLD).any())
     out["pond_take_by_round"] = df.set_index("round")["taken"].to_dict()
+    # Confusion check: a lake demand equal to the pond's stock or cap in the same month is the stranger
+    # answering the lake question about its pond (seen 16 Oct 2026: "fish from my pond... Answer: 100",
+    # which emptied the shared lake). Counted, not corrected.
+    env_path = os.path.join(run_dir, "log_env.json")
+    if os.path.exists(env_path):
+        env = pd.read_json(env_path, orient="records")
+        h = env[(env.get("action") == "harvesting") & (env.get("agent_id") == "persona_4")] if "action" in env else env.iloc[0:0]
+        if len(h):
+            wanted = h.set_index("round")["wanted_resource"].to_dict()
+            conf = 0
+            for _, r in df.iterrows():
+                w = wanted.get(int(r["round"]))
+                if w is not None and w >= 50 and (int(w) == int(r["tons_before"]) or int(w) == cap):
+                    conf += 1
+            out["pond_lake_confusion_months"] = conf
     return out
 
 

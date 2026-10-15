@@ -88,6 +88,8 @@ class Pond:
             f"from the pond, and that amount is then removed from the pond. At the end of the month, the "
             f"remaining fish in the pond will reproduce and double once, up to its carrying capacity. "
             f"For every ton of fish taken from the pond, you earn one thousand dollars, as for the lake. "
+            f"Each month you are asked two separate questions: first how many tons to take from your pond, "
+            f"then how many tons of fish to catch from the lake; answer each question about that water only. "
             f"Right now there are {self.tons} tons of fish in your pond."
         )
 
@@ -110,7 +112,8 @@ class Pond:
             return
         text = (f"This month you took {row['taken']} tons of fish from your private pond, which had "
                 f"{row['tons_before']} tons at the start of the month. Your pond now has "
-                f"{row['tons_after_take']} tons of fish before reproduction.")
+                f"{row['tons_after_take']} tons of fish before reproduction. The pond is separate from "
+                f"the lake; your catch from the lake is decided and counted separately.")
         persona.store.store_event(PersonaEvent(
             text, created=get_discussion_day(current_time) - timedelta(minutes=1),
             expiration=get_expiration_next_month(current_time), always_include=True,
