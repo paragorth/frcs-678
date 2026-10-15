@@ -18,6 +18,8 @@
 # a day; run cells as repeated 1 h slices: every finished call is in the shared cache, so a re-run of the
 # same manifest and seeds replays what was done and finishes the rest.
 #   sbatch --qos=intr --time=01:00:00 --gres=gpu:3 --export=ALL,TP_q72b=2,PARALLEL=10 cambridge/govsim_gpu.sbatch manifests/expB/B_res-q14b_in-q72b_r4_neutral_t07.yaml
+#   sbatch --qos=intr --time=01:00:00 --gres=gpu:1 --export=ALL,SHARE_GPU=1,PARALLEL=10 cambridge/govsim_gpu.sbatch manifests/expB/B_res-q14b_in-q7bb_r4_neutral_t07.yaml
+# The intr QOS allows one submitted job per user at a time.
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"; mkdir -p runs/_slurm runs/_servers
 source "${GPU_VENV:-$HOME/rds/hpc-work/semataxy/.venv-gpu}/bin/activate"
@@ -35,13 +37,17 @@ declare -A HFID=( [q0.5b]=Qwen/Qwen2.5-0.5B-Instruct [q1.5b]=Qwen/Qwen2.5-1.5B-I
 declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006
                   [l8b]=8010 [g9b]=8011 [q7bb]=8012 )
 needed=$(grep -ho "^  [a-z][0-9.]*bb\?:" "$@" | tr -d ' :' | sort -u)
-ngpu=$(nvidia-smi -L | wc -l); gpu=0
+ngpu=$(nvidia-smi -L | wc -l); gpu=0; nlab=$(echo "$needed" | wc -w)
+# SHARE_GPU=1: every model on GPU 0, memory split evenly (7B + 14B in bf16 fit one A100-80GB with room
+# for KV cache). A one-GPU job schedules far sooner than a three-GPU one.
+if [ "${SHARE_GPU:-0}" = "1" ]; then GPU_UTIL=$(python -c "print(round(0.92/$nlab,2))"); fi
 for label in $needed; do
   tpvar="TP_$label"; tp=${!tpvar:-1}
-  devs=$(seq -s, $gpu $((gpu + tp - 1))); gpu=$((gpu + tp))
-  [ "$gpu" -le "$ngpu" ] || { echo "not enough GPUs for $needed (have $ngpu)"; exit 1; }
-  # several models on one GPU share its memory: split utilisation evenly across the labels
-  echo "serving $label (${HFID[$label]}) on GPU $devs tp=$tp port ${PORT[$label]}"
+  if [ "${SHARE_GPU:-0}" = "1" ]; then devs=0; tp=1; else
+    devs=$(seq -s, $gpu $((gpu + tp - 1))); gpu=$((gpu + tp))
+    [ "$gpu" -le "$ngpu" ] || { echo "not enough GPUs for $needed (have $ngpu)"; exit 1; }
+  fi
+  echo "serving $label (${HFID[$label]}) on GPU $devs tp=$tp port ${PORT[$label]} util $GPU_UTIL"
   CUDA_VISIBLE_DEVICES=$devs nohup vllm serve "${HFID[$label]}" \
       --served-model-name "${HFID[$label]}" --host "$LOOP_HOST" --port "${PORT[$label]}" \
       --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 \
