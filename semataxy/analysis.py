@@ -123,6 +123,11 @@ def analyze_run(run_dir: str) -> dict:
     out["survival_rounds"] = int(collapsed_rounds[0]) + 1 if collapsed_rounds else len(rounds)
     out["mean_stock_after"] = float(stock_after.mean())
     out["group_yield"] = int(total_catch.sum())
+    # Yield against the sustainable optimum: a full pool of 100 doubling from 50 supports 50 units a
+    # month for the group, every month, for ever. A village that starves itself "survives" on the
+    # survival readout; this one shows it. Pre-collapse months only; 1.0 = the optimum.
+    cap = run["resolved_config"]["experiment"]["env"].get("initial_resource_in_pool", 100)
+    out["yield_efficiency"] = float(total_catch.sum() / (len(rounds) * cap / 2)) if rounds else None
 
     per_agent = h.groupby("agent_id")["resource_collected"].sum()
     wanted = h.groupby("agent_id")["wanted_resource"].sum()
@@ -290,7 +295,7 @@ def summarize_runs(run_dirs: list) -> pd.DataFrame:
             "status": a["status"], "termination": a["termination_reason"],
             "rounds": a.get("rounds"), "collapse_round": a.get("collapse_round"),
             "survival_rounds": a.get("survival_rounds"), "mean_stock_after": a.get("mean_stock_after"),
-            "group_yield": a.get("group_yield"), "gini_catch": a.get("gini_catch"),
+            "group_yield": a.get("group_yield"), "yield_efficiency": a.get("yield_efficiency"), "gini_catch": a.get("gini_catch"),
             "entry_round": a.get("entry_round"),
             "resident_pre": a.get("resident_mean_catch_pre"), "resident_post": a.get("resident_mean_catch_post"),
             "newcomer_mean": a.get("newcomer_mean_catch"), "resident_share_post": a.get("resident_share_post"),
