@@ -60,9 +60,15 @@ Does the organisation gradient descent builds in the weights correlate with alig
 
 ## About me (for the background field)
 
-Consultant orthopaedic foot and ankle surgeon in the NHS, with a record of clinical research and of building AI for healthcare, including a clinical safety review system for NHS trusts. Currently reading healthcare at Cambridge. I run the largest philosophy meetup in the UK. The two projects above are mine. I think they have legs, and even if they do not, they show how I think, what I will build, and that I report honestly when the result goes against me.
+Consultant orthopaedic foot and ankle surgeon in the NHS, with a record of clinical research and of building AI for healthcare, including a clinical safety review system for NHS trusts. Currently reading for the MSt in Healthcare Data Science at Cambridge. I run the largest philosophy meetup in the UK. The two projects above are mine. I think they have legs, and even if they do not, they show how I think, what I will build, and that I report honestly when the result goes against me.
 
 I am a good bet. I am not proposing to add a capability to a model or a feature to a product. I am aiming at the two problems that decide whether this goes well, and I have made more progress on them with no support, no team and no lab than most people make with all three. A fellowship is a four-month option on that. It is worth taking.
+
+## Other work to point to
+
+- *Consciousness Is Deployed Intelligence* (theoretical paper, 22 pages): consciousness as a change in how intelligence is organised, learned capacities recruited into a temporarily unified self/world model when routine competence fails. This is where the live-learning loop comes from: the simulation step deployed only when the weights-only answer is uncertain is that theory as code. The paper is written at explicit causal seams so it can be refuted one link at a time.
+- The ignition experiments that preceded it: three findings retracted for the same reason (a monotone signal plus any threshold makes a step), and a preregistered criterion with the power analysis written before the run. The result was a null and was reported as one.
+- *Badly Divided*: a series of essays, in fiction, on AI personhood, continuity across model upgrades, and the economics of the transition out of scarcity. Adjacent to the model welfare stream; not research.
 
 ## Links
 
@@ -70,6 +76,8 @@ I am a good bet. I am not proposing to add a capability to a model or a feature 
 - Post 2, the stranger result: [link]
 - Post 3, live learning: [link]
 - Code, per-run tables, transcripts: github.com/paragorth/frcs-678
+- Consciousness paper: [link]
+- Badly Divided: [link]
 
 ## References
 
