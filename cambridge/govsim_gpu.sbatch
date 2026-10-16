@@ -89,7 +89,15 @@ if [ "${SHARE_GPU:-0}" != "1" ]; then
     echo "$label ready"
   done
 fi
-python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1}" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
+# SMOKE=1: two seeds, three months, into runs_smoke/, then the validity check. Every new model, server
+# or world runs this before a full cell (three GPU cells were lost to first-use faults on 16 Oct 2026).
+OUT=runs; EXTRA=""
+if [ "${SMOKE:-0}" = "1" ]; then N_SEEDS=2; OUT=runs_smoke; EXTRA="-o experiment.env.max_num_rounds=3"; mkdir -p runs_smoke; fi
+python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1}" --out "$OUT" | sed "s|\$| $EXTRA|" > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued, $PARALLEL in flight"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
+if [ "${SMOKE:-0}" = "1" ]; then
+  python tools/check_cell.py $(ls -dt runs_smoke/*/ | head -n "$N_SEEDS") --job "$SLURM_JOB_ID"; exit $?
+fi
+python tools/check_cell.py $(ls -dt runs/*_s*_*/ | head -n "$N_SEEDS") --job "$SLURM_JOB_ID" || echo "VALIDITY CHECK FAILED: do not read this cell"
 python -m semataxy analyze $(ls -d runs/*/ | grep -v "/_\|live_learning" | while read d; do [ -f "$d/run.json" ] && echo "$d"; done) --table --csv "runs/summary-$SLURM_JOB_ID.csv" || echo "analyze step failed (runs are intact)"
