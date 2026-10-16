@@ -60,7 +60,9 @@ Does the organisation gradient descent builds in the weights correlate with alig
 
 ## About me (for the background field)
 
-Consultant orthopaedic foot and ankle surgeon in the NHS, with a record of clinical research and of building AI for healthcare, including a clinical safety review system for NHS trusts. Currently reading healthcare at Cambridge. I run the largest philosophy meetup in the UK. The two projects above are mine; I think they have legs, and even if they do not, they show how I think, what I will build, and that I report honestly when the result goes against me. That is what Anthropic does best and what it will need more of in the next few years.
+Consultant orthopaedic foot and ankle surgeon in the NHS, with a record of clinical research and of building AI for healthcare, including a clinical safety review system for NHS trusts. Currently reading healthcare at Cambridge. I run the largest philosophy meetup in the UK. The two projects above are mine. I think they have legs, and even if they do not, they show how I think, what I will build, and that I report honestly when the result goes against me.
+
+I am a good bet. I am not proposing to add a capability to a model or a feature to a product. I am aiming at the two problems that decide whether this goes well, and I have made more progress on them with no support, no team and no lab than most people make with all three. A fellowship is a four-month option on that. It is worth taking.
 
 ## Links
 
