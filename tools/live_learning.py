@@ -284,6 +284,8 @@ def main():
     ap.add_argument("--steps", type=int, default=150)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--device", default="cpu", help="cpu or cuda")
+    ap.add_argument("--dtype", default="float32", choices=["float32", "bfloat16"],
+                    help="bfloat16 lets a 7B model train on one 80 GB GPU (weights+grads+Adam); float32 up to ~3B")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--cons-lr", type=float, default=2e-5)
     ap.add_argument("--cons-gain", type=float, default=0.5)
@@ -316,7 +318,7 @@ def main():
     tok = AutoTokenizer.from_pretrained(a.model)
     global DEVICE
     DEVICE = a.device if (a.device == "cpu" or torch.cuda.is_available()) else "cpu"
-    base = AutoModelForCausalLM.from_pretrained(a.model, dtype=torch.float32).to(DEVICE)
+    base = AutoModelForCausalLM.from_pretrained(a.model, dtype=getattr(torch, a.dtype)).to(DEVICE)
     log(f"device {DEVICE}")
     facts = make_facts(a.seed); P = probes(facts)
     texts = [t.format(**f) for f in facts for t in TRAIN_TEMPLATES[f["rel"]]]
