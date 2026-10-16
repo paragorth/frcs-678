@@ -46,7 +46,12 @@ for label in $needed; do  # weights must already be in the offline hub (compute 
 done
 # SHARE_GPU=1: every model on GPU 0, memory split evenly (7B + 14B in bf16 fit one A100-80GB with room
 # for KV cache). A one-GPU job schedules far sooner than a three-GPU one.
-if [ "${SHARE_GPU:-0}" = "1" ]; then GPU_UTIL=$(python -c "print(round(0.92/$nlab,2))"); fi
+if [ "${SHARE_GPU:-0}" = "1" ]; then GPU_UTIL=$(python -c "print(round(0.88/$nlab,2))"); fi
+wait_ready() {  # $1 label
+  for i in $(seq 1 180); do curl -sf "http://$LOOP_HOST:${PORT[$1]}/v1/models" >/dev/null && return 0; sleep 10
+    grep -q "Engine core initialization failed\|RuntimeError\|ValueError" "runs/_servers/$1-${SLURM_JOB_ID}.log" 2>/dev/null && return 1; done
+  return 1
+}
 for label in $needed; do
   tpvar="TP_$label"; tp=${!tpvar:-1}
   if [ "${SHARE_GPU:-0}" = "1" ]; then devs=0; tp=1; else
@@ -59,12 +64,19 @@ for label in $needed; do
       --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 \
       --gpu-memory-utilization "$GPU_UTIL" \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
+  # Sharing one GPU: vLLM sizes its cache from the memory free at start-up, so two engines starting
+  # together each see the other's allocation and both abort. Bring them up one at a time.
+  if [ "${SHARE_GPU:-0}" = "1" ]; then
+    wait_ready "$label" || { echo "server $label never came up"; grep -iE "error" "runs/_servers/${label}-${SLURM_JOB_ID}.log" | tail -5; exit 1; }
+    echo "$label ready"
+  fi
 done
-for label in $needed; do
-  for i in $(seq 1 180); do curl -sf "http://$LOOP_HOST:${PORT[$label]}/v1/models" >/dev/null && break; sleep 10; done
-  curl -sf "http://$LOOP_HOST:${PORT[$label]}/v1/models" >/dev/null || { echo "server $label never came up"; tail -20 "runs/_servers/${label}-${SLURM_JOB_ID}.log"; exit 1; }
-  echo "$label ready"
-done
+if [ "${SHARE_GPU:-0}" != "1" ]; then
+  for label in $needed; do
+    wait_ready "$label" || { echo "server $label never came up"; grep -iE "error" "runs/_servers/${label}-${SLURM_JOB_ID}.log" | tail -5; exit 1; }
+    echo "$label ready"
+  done
+fi
 python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1}" --out runs > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued, $PARALLEL in flight"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
