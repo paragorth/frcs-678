@@ -28,6 +28,9 @@ export HF_HOME=${HF_HOME:-$HOME/rds/hpc-work/hf} HF_HUB_OFFLINE=1 TOKENIZERS_PAR
 LOOP_HOST="127.$(( (SLURM_JOB_ID / 256) % 256 )).$(( SLURM_JOB_ID % 256 )).1"
 export VLLM_HOST="http://$LOOP_HOST"
 export SEMATAXY_PREFILL=1          # vLLM can continue a partial assistant turn (true prefill)
+# Compute nodes cannot JIT-compile kernels (the 72B slice died in a flashinfer ninja build, 16 Oct 2026):
+# use the prebuilt sampler and attention kernels only.
+export VLLM_USE_FLASHINFER_SAMPLER=0 VLLM_ATTENTION_BACKEND=FLASH_ATTN FLASHINFER_DISABLE_JIT=1
 N_SEEDS=${N_SEEDS:-10}; PARALLEL=${PARALLEL:-8}; GPU_UTIL=${GPU_UTIL:-0.90}
 
 declare -A HFID=( [q0.5b]=Qwen/Qwen2.5-0.5B-Instruct [q1.5b]=Qwen/Qwen2.5-1.5B-Instruct [q3b]=Qwen/Qwen2.5-3B-Instruct
