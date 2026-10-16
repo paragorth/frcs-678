@@ -294,6 +294,9 @@ def main():
                          "written by the model itself (live_learning_ext.generate_implications)")
     ap.add_argument("--gated", action="store_true", help="also score the compartment consulted only on a retrieval hit")
     ap.add_argument("--t13", action="store_true", help="also report the uncertainty-triggered simulation curve")
+    ap.add_argument("--old-fact-replay", type=float, default=0.0,
+                    help="cycles only: fraction of each consolidation fact batch drawn from earlier committed cycles' "
+                         "statements (replay of old memories, not just general text); 0 = off")
     ap.add_argument("--decay-tau", type=float, default=0.0,
                     help="cycles only: unconsolidated facts fade from the store with age (e-folding in cycles); 0 = off")
     ap.add_argument("--replay-frac", type=float, default=0.5, help="fraction of each consolidation batch drawn from general text")
@@ -486,6 +489,14 @@ def run_cycles(a, tok, base, replay, heldout, rng, log):
         else:
             cons_facts = {"none": [], "half": facts[::2], "all": facts}[a.implications]
             cons_texts = texts + implications(cons_facts)
+        if a.old_fact_replay > 0 and history:
+            # Replay of old memories: without it the second cycle overwrote the first cycle's facts
+            # (recall 1.0 -> 0.2-0.3 on both sizes, 16 Oct 2026) while general text stayed protected.
+            old = [t.format(**f) for fj, _ in history for f in fj for t in TRAIN_TEMPLATES[f["rel"]]]
+            n_old = int(round(len(cons_texts) * a.old_fact_replay / max(1e-9, 1 - a.old_fact_replay)))
+            cons_texts = cons_texts + random.sample(old, min(n_old, len(old))) * (1 + n_old // max(1, len(old)))
+            cons_texts = cons_texts[: len(texts) * 4 + n_old]
+            log(f"  old-fact replay: {n_old} statements from {len(history)} earlier cycle(s)")
         train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay,
               grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac)
         mats = weight_mats(sandbox)
