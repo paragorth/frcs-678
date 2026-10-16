@@ -16,13 +16,15 @@ On continuous learning, current models have a fast memory, the context, and a sl
 
 Alignment of ideals. Anthropic is the lab that publishes its failures: model organisms of misalignment, sleeper agents, the sycophancy results, the reasoning-faithfulness work. That is the nearest thing in the field to what I have been doing, which is preregistering a prediction, running the test, and reporting against myself when it goes the other way. I would rather do that inside the team that built the discipline than next to it.
 
+There is also a constraint only a frontier lab can lift. The hypothesis is about what gradient descent builds, so the test needs untuned models, and it is about alignment at and beyond human level, so it needs the most capable ones. Open weights give me base models to 72B, with 405B and the large mixture-of-experts bases at the edge of what my cluster can serve. Every frontier model I can reach by API has been tuned, and tuning is exactly the confound my results point at. The decisive experiment, the stranger ladder on untuned frontier-scale models, can only be run where those models exist. Anthropic has them.
+
 I am also a working surgeon. My field learned the hard way that you cannot make a system safe by hoping its operators are careful. You build the check into the process and you publish the complication rate. Anthropic is the lab that treats AI the same way.
 
 ## Why the Fellows Program rather than a PhD, a research engineering role, or independent research?
 
 I have done the independent research. I have the hypothesis, the experimental programme, a cluster allocation and results, two of which went against my own prediction. What I do not have is a mentor who has seen these failure modes before, a codebase built for them, and frontier models to run them on. The Fellows Program is the shortest path to all three.
 
-Not a PhD because the problems are urgent and I can work on them now. A PhD is four to seven years in a tightly constrained environment with no impetus, for a credential I do not need. Not a research engineering role yet, because I would be stronger in one after four months with the team.
+Not a PhD because the problems are urgent and I can work on them now. A PhD is four to seven years in a tightly constrained environment with no impetus, for a credential I do not need. Not a research engineering role yet, because I would be stronger in one after four months with the team. And not independent research for the reason above: the experiment that decides the hypothesis needs untuned frontier-scale models, and I cannot get them from outside.
 
 ## What technical work are you most proud of?
 
