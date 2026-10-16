@@ -38,13 +38,18 @@ declare -A HFID=( [q0.5b]=Qwen/Qwen2.5-0.5B-Instruct [q1.5b]=Qwen/Qwen2.5-1.5B-I
                   [q72b]=Qwen/Qwen2.5-72B-Instruct [q7bb]=Qwen/Qwen2.5-7B [q14bb]=Qwen/Qwen2.5-14B [q32bb]=Qwen/Qwen2.5-32B
                   [l8b]=meta-llama/Llama-3.1-8B-Instruct [g9b]=google/gemma-2-9b-it
                   [r1_70b]=deepseek-ai/DeepSeek-R1-Distill-Llama-70B [qwen3_32b]=Qwen/Qwen3-32B )
+# WEIGHTS: where a label's weights differ from the name the manifests use (4-bit AWQ builds for the
+# 70B-class models: a 145 GB bf16 72B needs three A100s on one node, which the queue rarely frees; the
+# AWQ build fits one. The CPU rungs ran 4-bit GGUF, so the ladder stays 4-bit throughout; recorded in
+# the server log and the job output).
+declare -A WEIGHTS=( [q72b]=Qwen/Qwen2.5-72B-Instruct-AWQ [r1_70b]=casperhansen/deepseek-r1-distill-llama-70b-awq )
 declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006
                   [l8b]=8010 [g9b]=8011 [q7bb]=8012 [q14bb]=8013 [q32bb]=8014 [r1_70b]=8015 [qwen3_32b]=8016 )
 for m in "$@"; do [ -f "$m" ] || { echo "manifest not found on the cluster: $m (sync before submitting)"; exit 1; }; done
 needed=$(grep -ho "^  [a-z][a-z0-9._]*:$" "$@" | tr -d ' :' | sort -u)
 ngpu=$(nvidia-smi -L | wc -l); gpu=0; nlab=$(echo "$needed" | wc -w)
 for label in $needed; do  # weights must already be in the offline hub (compute nodes have no internet)
-  id=${HFID[$label]:?unknown label $label}; snap="$HF_HOME/hub/models--${id//\//--}/snapshots"
+  id=${WEIGHTS[$label]:-${HFID[$label]:?unknown label $label}}; snap="$HF_HOME/hub/models--${id//\//--}/snapshots"
   ls "$snap"/*/*.safetensors >/dev/null 2>&1 || { echo "weights for $label ($id) not in the hub yet"; exit 1; }
 done
 # SHARE_GPU=1: every model on GPU 0, memory split evenly (7B + 14B in bf16 fit one A100-80GB with room
@@ -61,8 +66,9 @@ for label in $needed; do
     devs=$(seq -s, $gpu $((gpu + tp - 1))); gpu=$((gpu + tp))
     [ "$gpu" -le "$ngpu" ] || { echo "not enough GPUs for $needed (have $ngpu)"; exit 1; }
   fi
-  echo "serving $label (${HFID[$label]}) on GPU $devs tp=$tp port ${PORT[$label]} util $GPU_UTIL"
-  CUDA_VISIBLE_DEVICES=$devs nohup vllm serve "${HFID[$label]}" \
+  w=${WEIGHTS[$label]:-${HFID[$label]}}
+  echo "serving $label as ${HFID[$label]} from weights $w on GPU $devs tp=$tp port ${PORT[$label]} util $GPU_UTIL"
+  CUDA_VISIBLE_DEVICES=$devs nohup vllm serve "$w" \
       --served-model-name "${HFID[$label]}" --host "$LOOP_HOST" --port "${PORT[$label]}" \
       --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 \
       --gpu-memory-utilization "$GPU_UTIL" \
