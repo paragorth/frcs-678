@@ -44,7 +44,8 @@ class ModelSpec:
     api_key: str = "EMPTY"
     temperature: float = 0.0
     top_p: float = 1.0
-    max_tokens: int = 1000
+    max_tokens: int = 1000  # cap on any single reply; upstream asks for up to 8,000, which vLLM rejects outright
+    think_budget: int = 0  # reasoning models: floor on the reply budget so <think> can finish (0 = off)
     # vLLM supports continuing a trailing assistant message (true prefill).
     # OpenAI's hosted API does not; upstream's fallback strips the prefix.
     prefill: bool = True
@@ -61,6 +62,7 @@ class ModelSpec:
             "top_p": self.top_p,
             "max_tokens": self.max_tokens,
             "prefill": self.prefill,
+            "think_budget": self.think_budget,
             "revision": self.revision,
             "dtype": self.dtype,
         }
@@ -160,8 +162,13 @@ class OpenAICompatibleAPI(ModelAPI):
 
     def request_api(self, chat, tmeperature, top_p, max_tokens):
         import openai
-        # a label may declare a larger budget (reasoning models need room to think before "Answer:")
-        max_tokens = max(int(max_tokens or 0), int(self.spec.max_tokens or 0)) or max_tokens
+        # Upstream requests up to 8,000 completion tokens on some prompts. llama-server clamps that to the
+        # context; vLLM returns 400 for the whole request (16 Oct 2026: a GPU cell of empty replies).
+        # Cap every reply at the label's budget; reasoning models get a floor so <think> can finish.
+        req = int(max_tokens or 0) or int(self.spec.max_tokens)
+        max_tokens = min(req, int(self.spec.max_tokens))
+        if self.spec.think_budget:
+            max_tokens = min(max(max_tokens, int(self.spec.think_budget)), int(self.spec.max_tokens))
 
         continue_final = self._should_continue(chat)
         payload = {
