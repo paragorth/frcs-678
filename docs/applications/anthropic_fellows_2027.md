@@ -52,7 +52,7 @@ Behind that, the consolidation question: when a model learns continuously, what 
 
 Experimental design under uncertainty with no ground truth and real cost. Fourteen years of surgery and clinical research taught me to preregister, to pair the design so the comparison is clean, to withdraw a result when the measurement is wrong, and to report the complication. In this work that has meant: paired seeds, cold reads before interpretation, three results withdrawn and re-run, and two negatives reported against my own thesis.
 
-I build with Claude Code and direct the experiments in Python on a Slurm cluster. I would not describe myself as a fluent Python programmer from scratch, and I would rather say that than have you find out.
+I use the full power of AI coding, and I use it on the biggest problems I can find. Everything above, the harness, the paired design, the cluster pipeline, the live-learning loop, the cold-read discipline, was built by me directing Claude Code, with every design decision, every withdrawn result and every interpretation mine. One person working this way ran over 300 games across four model sizes and a five-arm live-learning programme on a shared cluster in two months. That is a demonstration of what your own product makes possible when it is pointed at research, and I would bring that way of working to the team. I would not describe myself as a fluent Python programmer from scratch, and I would rather say that than have you find out.
 
 ## What is a research question you would be excited to investigate?
 
