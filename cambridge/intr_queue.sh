@@ -9,14 +9,18 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 Q=runs/_slurm/intr_queue.txt; L=runs/_slurm/intr_queue.log; touch "$Q" "$L"
 while true; do
-  if ! squeue -u "$USER" -h -O qos,jobid | grep -q "^intr"; then
-    line=$(grep -m1 -v '^\s*$\|^#' "$Q" || true)
-    if [ -n "$line" ]; then
-      out=$(bash -c "$line" 2>&1); rc=$?
-      echo "$(date +%F_%T) rc=$rc :: $line :: $out" >> "$L"
-      # remove the first non-empty, non-comment line
-      awk -v done=0 '!done && !/^\s*$/ && !/^#/ {done=1; next} {print}' "$Q" > "$Q.tmp" && mv "$Q.tmp" "$Q"
+  # Several copies of this loop may run (a screen session and a Slurm job, so one survives a logout);
+  # the lock makes the check-and-submit atomic, so the head line is submitted once.
+  (
+    flock -w 30 9 || exit 0
+    if ! squeue -u "$USER" -h -O qos,jobid | grep -q "^intr"; then
+      line=$(grep -m1 -v '^\s*$\|^#' "$Q" || true)
+      if [ -n "$line" ]; then
+        out=$(bash -c "$line" 2>&1); rc=$?
+        echo "$(date +%F_%T) rc=$rc :: $line :: $out" >> "$L"
+        awk -v done=0 '!done && !/^\s*$/ && !/^#/ {done=1; next} {print}' "$Q" > "$Q.tmp" && mv "$Q.tmp" "$Q"
+      fi
     fi
-  fi
+  ) 9>"$Q.lock"
   sleep 60
 done
