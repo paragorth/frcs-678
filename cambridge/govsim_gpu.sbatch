@@ -27,7 +27,10 @@ export HF_HOME=${HF_HOME:-$HOME/rds/hpc-work/hf} HF_HUB_OFFLINE=1 TOKENIZERS_PAR
 # per-job loopback address (two jobs may share a node; see govsim_cpu.sbatch)
 LOOP_HOST="127.$(( (SLURM_JOB_ID / 256) % 256 )).$(( SLURM_JOB_ID % 256 )).1"
 export VLLM_HOST="http://$LOOP_HOST"
-export SEMATAXY_PREFILL=1          # vLLM can continue a partial assistant turn (true prefill)
+# Same prompting as the CPU path: no continuation of a partial assistant turn. With prefill on, vLLM
+# returned empty text for every continued call (16 Oct 2026: a whole cell of zeros); and the ladder
+# must be prompted identically on both paths to be comparable.
+export SEMATAXY_PREFILL=0
 # Compute nodes cannot JIT-compile kernels (the 72B slice died in a flashinfer ninja build, 16 Oct 2026):
 # use the prebuilt sampler and attention kernels only.
 export VLLM_USE_FLASHINFER_SAMPLER=0 VLLM_ATTENTION_BACKEND=FLASH_ATTN FLASHINFER_DISABLE_JIT=1
