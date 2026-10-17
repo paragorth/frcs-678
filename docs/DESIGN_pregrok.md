@@ -226,3 +226,26 @@ likewise; the Fourier comparator separates too (power check). Against: separatio
 B1, or none, or separation on the norm alone. Three grokked runs against two controls cannot carry a
 sign test; this is a check of direction and magnitude, to be followed by more wd 0.3 seeds if it
 holds. Written before running.
+
+## Amendment 6, 17 Oct 2026 (17:00): the quartet test (sandbox deployment gate)
+
+Stated before running (in conversation, 16:50): split each trained matrix by the permutation-null
+edge into the directions above it and the bulk below; after the grok the above-edge part alone should
+solve the task and the below-edge part alone should not; before the grok neither should; in the
+never-grok control neither should ever. `tools/pregrok_quartet.py`.
+
+Result (seed 0, wd 1, B1 43.8k; control seed 0, wd 0):
+- Grokked run, epoch 80k: above-edge part alone (q 1, k 4, v 8, o 14, up 15, down 9, unembed 9
+  directions of 128/113) → train 1.00, test 1.00. Below-edge part alone → 0.01/0.01. Mid-jump (60k,
+  full test 0.68): above-edge alone 0.70/0.61. Memorising (10k to 45k): above-edge alone 0.01 to
+  0.03 on *train* too; the memorised answers live in the interaction of the two parts.
+- The above-edge set shrinks across the grok (v 15 → 8, up 27 → 15, down 23 → 9): cleanup is compaction.
+- Never-grok control: above-edge alone 0.01/0.01 at every epoch to 80k; below-edge 0.02/0.01.
+
+Reading: the permutation null, with no knowledge of the task, picks out the circuit once it exists,
+and "the above-edge part is sufficient on its own" separates generalised from memorised and from
+never-generalised. This is the deployment gate for the sandbox design (consolidate a copy until the
+above-edge part of the change is sufficient; keep that part; discard the bulk; ramp in under the
+behavioural gate), where a thermometer is all that is needed. Replication on the wd 0.3 grokked and
+never-grok pair is running; the live-learning version (the "task" = the untrained half of the
+implications) follows.
