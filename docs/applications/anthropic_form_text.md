@@ -38,10 +38,10 @@ Consolidation. I have a loop that puts new facts into weights through a compartm
 (1,296 chars)
 
 ## How likely are you to accept a full-time offer? (brief, with a %)
-[PG: your number.] Suggested: High. I would leave a consultant surgical post for this, and I have arranged to be full-time from January to find out. 85 per cent, the remainder being whether the fit on the ground matches the fit on paper.
+High. I would leave a consultant surgical post for this, and I have arranged to be full-time from January to find out. 85 per cent, the remainder being whether the fit on the ground matches the fit on paper.
 
 ## How likely to continue in the selected streams after the program? (brief, with a %)
-[PG: your number.] Suggested: 95 per cent. These are the two problems I have chosen to spend the rest of my working life on; the program is a means to them, not the other way round.
+95 per cent. These are the two problems I have chosen to spend the rest of my working life on; the program is a means to them, not the other way round.
 
 ## Current country of residence
 United Kingdom
@@ -50,8 +50,7 @@ United Kingdom
 UK
 
 ## Other commitments during the program period
-[PG: must be accurate. Surgical post: paused / locum sessions / none. MSt in Healthcare Data Science at Cambridge: X contact hours per week. Hours on obligations vs program.]
-Template: I will be full-time on the program, 40 hours a week. I am reading for the MSt in Healthcare Data Science at Cambridge, part-time, approximately [X] hours a week of contact and coursework, [which I have arranged to defer / which runs mainly outside working hours]. My clinical post is [paused for the program period / reduced to X sessions a month, Y hours].
+None. I will be full-time on the program, 40 hours a week. My clinical post will not run during the program period, and the MSt in Healthcare Data Science at Cambridge has no contact commitments in that window. [PG: confirm the MSt line is accurate for Jan–Apr 2027; if there is any coursework due in that window, say so with hours.]
 
 ## Workspace
 London: for the entire program
@@ -79,10 +78,10 @@ I do not claim to have solved anything. I claim the right questions, a method th
 
 [Name], [title], [institution]. [Website / Scholar / verifiable link.] We worked together on [what] from [month year] to [month year], [how closely: weekly / daily / supervised]. [One sentence on what they can speak to: execution, honesty under setback, the research.] [Relationship: sponsor of my CSD3 allocation / MSt supervisor / clinical lead.]
 
-Reference 1: Fatemeh [surname], CSD3 sponsor. AI research: [PG: her field]. How known: Colleague / Collaborator. How well: 3.
-Reference 2: [MSt supervisor]. Research advisor. How well: [PG].
-Reference 3: [Clinical lead or other]. Manager or Colleague. How well: 4.
+Reference 1: Andy Mayne. AI research: Yes – policy / governance / economics. How known: Colleague / Collaborator. How well: 3.
+Reference 2: Dr Fatemeh Torabi. AI research: Yes – non-safety research. How known: Research advisor. How well: 3.
+Reference 3: Pradeep [surname]. AI research: No. How known: Manager. How well: 4.
 
 ## Prior applications
-Applied to Anthropic / MATS / Astra / Fellows in past year: [PG]
-Previously interviewed at Anthropic: [PG]
+Applied to Anthropic / MATS / Astra / Fellows in past year: No
+Previously interviewed at Anthropic: No
