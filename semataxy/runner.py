@@ -210,6 +210,7 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
     for p in personas:
         for q in personas:
             personas[p].add_reference_to_other_persona(personas[q])
+    compat.register_speakers(personas)  # each agent speaks in the group chat with its own model
 
     env = scenarios.import_env(sc, cfg.env.class_name)(cfg.env, experiment_storage, agent_id_to_name)
     pool = env.POOL_LOCATION  # "lake", "pasture" or "factory"
@@ -274,6 +275,7 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
                 personas = replace_residents(personas, env, cfg.agent, wrappers, framework_wrapper,
                                              embedding_model, experiment_storage, identities, residents, 2,
                                              persona_cls=Persona)
+                compat.register_speakers(personas)
                 logger.log_game({"event": "residents_replaced", "slots": residents,
                                  "round": env.num_round, "phase": env.phase,
                                  "num_resource": env.internal_global_state["resource_in_pool"]})
