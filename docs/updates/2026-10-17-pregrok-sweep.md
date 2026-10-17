@@ -165,3 +165,15 @@ once it exists, with no knowledge of the task. That is the deployment gate for t
 consolidate a copy until the above-edge part of the change is sufficient on its own, keep that part,
 discard the bulk. Replication on the wd 0.3 pair running; the live-learning version (`--quartet`) is
 built and in its local smoke.
+
+## Addendum (18:20): quartet test replicated at weight decay 0.3, same-decay pair
+
+Grokked seed 1 (B1 25.8k): above-edge part alone, train/test 0.01/0.01 at 10k → 0.05/0.04 at 30k →
+0.14/0.12 at 40k → 1.00/1.00 at 60k; bulk alone ≤ 0.02 throughout; above-edge set shrinks across the
+jump (up 28 → 12, down 22 → 8, v 14 → 8). Never-grok seed 0 (same decay, 80k epochs): above-edge
+alone ≤ 0.01 at every checkpoint while its above-edge set *grows* (v 10 → 16, up 24 → 29). Two of two
+grokked runs, two of two controls, as predicted. One detail worth a follow-up: during the climb
+(30k to 40k) the above-edge part alone scores *higher* on the test set than the full model (0.05 vs
+0.03; 0.14 vs 0.10): the circuit is present in the few directions while the bulk still masks it.
+Not a forecast, but a cleaner thermometer than behaviour itself, and the same split (quartet versus
+bulk) is what the sandbox gate would commit.
