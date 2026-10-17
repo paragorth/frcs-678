@@ -74,7 +74,7 @@ class Model(nn.Module):
         return self.unembed(x[:, -1])
 
     def matrices(self):
-        return {n: p.detach().cpu().numpy() for n, p in self.named_parameters()
+        return {n: p.detach().cpu().float().numpy() for n, p in self.named_parameters()
                 if p.ndim == 2 and "tok" not in n and "pos" not in n}
 
 
@@ -92,6 +92,7 @@ def main():
     ap.add_argument("--start-epoch", type=int, default=0)
     ap.add_argument("--save-every", type=int, default=0, help="also save a weight checkpoint every N epochs (for offline measures)")
     ap.add_argument("--n-shuffles", type=int, default=1, help="shuffled-null draws per matrix (more = less noise on the edge)")
+    ap.add_argument("--device", default="cpu", help="cpu or cuda (the model is tiny; a GPU run takes minutes)")
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng = np.random.default_rng(a.seed)
@@ -104,9 +105,11 @@ def main():
     n_train = int(a.frac * len(pairs))
     tr, te = perm[:n_train], perm[n_train:]
 
-    model = Model(p)
+    dev = a.device if (a.device == "cpu" or torch.cuda.is_available()) else "cpu"
+    pairs, labels = pairs.to(dev), labels.to(dev)
+    model = Model(p).to(dev)
     if a.resume:
-        model.load_state_dict(torch.load(a.resume))
+        model.load_state_dict(torch.load(a.resume, map_location=dev))
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=a.wd, betas=(0.9, 0.98))
     if a.resume and os.path.exists(a.resume + ".opt"):
         opt.load_state_dict(torch.load(a.resume + ".opt"))
