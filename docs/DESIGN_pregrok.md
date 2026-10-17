@@ -74,3 +74,17 @@ there" clause exist for that. Five seeds is the minimum for a sign test to mean 
 21 half-node CPU jobs of 2 to 4 hours. `tools/grokking.py` (logging, checkpoints),
 `cambridge/grokking_sweep.sbatch`, analysis `tools/pregrok_analysis.py` (the rules above, nothing
 tuned after seeing the sweep), output `results/grokking/`.
+
+## The paper this answers to (added 17 Oct 2026)
+
+Beckmann and Queloz, *Mechanistic Indicators of Understanding in Large Language Models*
+(arXiv:2507.08017v5; Philosophical Studies 2026; copy in `docs/papers/`). A synthesis paper with no
+code or measure of its own. Its third tier, principled understanding, is "when a model ceases to
+rely on memorized facts and discovers a compact circuit connecting these facts", and its evidence is
+Nanda et al.'s grokking study, which it summarises as three phases: memorisation, **circuit
+formation**, cleanup, with the jump in test accuracy coming "in the cleanup phase, after the
+generalizing mechanism was learned". That ordering, established by ablation with knowledge of the
+task, is the premise of this design. What the sweep adds: whether the formation of the circuit can
+be read from the weights alone, with no ablation and no knowledge of what the task is, through the
+permutation-null measures, before the behavioural jump. If so, it is a task-agnostic indicator for
+their tier-three transition, which they do not have, and the live-learning gate's signal.
