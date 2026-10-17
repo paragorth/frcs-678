@@ -11,7 +11,8 @@
 # checkpoints. Fast-slot form (one hour on a GPU node's 32 cores):
 #   sbatch --qos=intr --account=TORABI-SL3-GPU --partition=ampere --gres=gpu:1 --cpus-per-task=32 --time=01:00:00 cambridge/pregrok_acts.sbatch
 set -euo pipefail
-if [ -z "${SEMATAXY_IN_SRUN:-}" ]; then export SEMATAXY_IN_SRUN=1; exec srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" bash "$0" "$@"; fi
+# on the GPU partition Slurm sets memory per GPU; the per-CPU/node values it also exports clash with srun
+if [ -z "${SEMATAXY_IN_SRUN:-}" ]; then export SEMATAXY_IN_SRUN=1; unset SLURM_MEM_PER_CPU SLURM_MEM_PER_NODE; exec srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" bash "$0" "$@"; fi
 cd "$SLURM_SUBMIT_DIR"; mkdir -p results/grokking
 source "${GPU_VENV:-$HOME/rds/hpc-work/semataxy/.venv-gpu}/bin/activate" 2>/dev/null || source .venv/bin/activate
 export OMP_NUM_THREADS=3

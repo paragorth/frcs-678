@@ -11,7 +11,8 @@
 #   sbatch cambridge/pregrok_level2.sbatch            # all runs under runs/grokking with a final.pt
 #   sbatch --export=ALL,RUNS="runs/grokking/s0_wd1.0_f0.3" cambridge/pregrok_level2.sbatch
 set -euo pipefail
-if [ -z "${SEMATAXY_IN_SRUN:-}" ]; then export SEMATAXY_IN_SRUN=1; exec srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" bash "$0" "$@"; fi
+# on the GPU partition Slurm sets memory per GPU; the per-CPU/node values it also exports clash with srun
+if [ -z "${SEMATAXY_IN_SRUN:-}" ]; then export SEMATAXY_IN_SRUN=1; unset SLURM_MEM_PER_CPU SLURM_MEM_PER_NODE; exec srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" bash "$0" "$@"; fi
 cd "$SLURM_SUBMIT_DIR"; mkdir -p results/grokking
 source .venv/bin/activate; export OMP_NUM_THREADS=4
 RUNS=${RUNS:-$(for d in runs/grokking/*/; do [ -f "$d/final.pt" ] && echo "${d%/}"; done)}
