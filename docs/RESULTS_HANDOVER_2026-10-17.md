@@ -53,7 +53,12 @@ table `results/govsim/gpu_voice_q14b_r4_runs.csv`. 32B and 72B speaking cells ar
 from month 0, so residents were told about Luke before he arrived and planned for five; every cell
 so far is a pre-announced late arrival, not a stranger (`docs/updates/2026-10-17-roster-leak.md`).
 Luke's own within-game pattern stands; the residents' side ("reaction to a newcomer") does not.
-Fixed (`compat.present_roster`, tested); corrected cells run in `runs_gpu_roster/`, 14B first.
+Fixed (`compat.present_roster`, tested). **First corrected cell (14B, evening):** four 14B residents
+told the truth (four fishermen) empty the lake 10 of 10, 8 before the stranger arrives; the leaked
+headcount had made their per-head share smaller and the lake last longer. Floor result; the stranger
+design needs residents who survive to entry, so every queued newcomer cell now enters at month 1
+(`*_r1_*` manifests), and stronger residents are the proper next test
+(`docs/updates/2026-10-17-roster-fixed-14b.md`).
 
 Floors: every open model below 14B, in three families, empties the lake in month one; 14B residents
 alone collapse 10 of 10 in the pasture and river worlds within three months. Capability benchmark:
