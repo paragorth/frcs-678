@@ -249,8 +249,12 @@ def intrusion_summary(base_mats, mats, rng):
 
 
 # ----------------------------------------------------------------------------- training
-def train(model, tok, texts, steps, lr, wd, replay=None, grokfast=0.0, bs=8, seq=48, log=print, replay_frac=0.5):
-    """Fine-tune on fact statements; optional replay of general text; optional Grokfast EMA slow-gradient gain."""
+def train(model, tok, texts, steps, lr, wd, replay=None, grokfast=0.0, bs=8, seq=48, log=print, replay_frac=0.5,
+          callback=None, every=0):
+    """Fine-tune on fact statements; optional replay of general text; optional Grokfast EMA slow-gradient gain.
+    callback(step) runs every `every` steps (and at step 0 and the last step) with the model in eval mode: the trace."""
+    if callback is not None:
+        model.eval(); callback(0); model.train()
     model.train()
     params = [p for p in model.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(params, lr=lr, weight_decay=wd)
@@ -275,6 +279,8 @@ def train(model, tok, texts, steps, lr, wd, replay=None, grokfast=0.0, bs=8, seq
         torch.nn.utils.clip_grad_norm_(params, 1.0); opt.step()
         if step % 25 == 0:
             log(f"    step {step} loss {loss.item():.3f}")
+        if callback is not None and every and (step % every == 0 or step == steps):
+            model.eval(); callback(step); model.train()
 
 
 def main():
@@ -302,6 +308,7 @@ def main():
     ap.add_argument("--decay-tau", type=float, default=0.0,
                     help="cycles only: unconsolidated facts fade from the store with age (e-folding in cycles); 0 = off")
     ap.add_argument("--replay-frac", type=float, default=0.5, help="fraction of each consolidation batch drawn from general text")
+    ap.add_argument("--trace", type=int, default=0, help="every N consolidation steps: probes + structure of the changed matrices and of the change (trace.jsonl)")
     ap.add_argument("--no-merge", action="store_true", help="consolidate from a clean base copy instead of merging the compartment first")
     ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
     ap.add_argument("--cycles", type=int, default=1,
@@ -419,7 +426,32 @@ def main():
         cons_texts = texts + implications(cons_facts)
     split = {f["s"] for f in cons_facts} | {f["o"] for f in cons_facts} if a.implications == "half" else None
     log(f"consolidating on {len(texts)} fact statements + {len(cons_texts)-len(texts)} simulated implications ({a.implications})")
-    train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac)
+    trace_cb = None
+    if a.trace:
+        # Amendment 4 (docs/DESIGN_pregrok.md): the consolidation is a memorise-to-generalise step in a real model.
+        # Every `trace` steps: probe accuracy (in/out of the consolidated half = memorised vs generalised), the
+        # structure of the changed matrices and of the *change itself* (sandbox - base), written to trace.jsonl.
+        trace_f = open(os.path.join(a.out, "trace.jsonl"), "w")
+
+        def trace_cb(step):
+            with torch.no_grad():
+                mats = weight_mats(sandbox)
+                delta = {}
+                for n_, W in mats.items():
+                    if n_ in base_mats and W.shape == base_mats[n_].shape:
+                        D = W - base_mats[n_]
+                        if np.abs(D).max() > 0:
+                            delta[n_] = D
+                top = sorted(delta, key=lambda n_: -np.linalg.norm(delta[n_]))[:8]
+                rec = {"step": step, "probes": probe_accuracy(sandbox, tok, P, split=split) if split else probe_accuracy(sandbox, tok, P),
+                       "structure": structure_summary({n_: mats[n_] for n_ in top}, rng) if top else None,
+                       "delta_structure": structure_summary({n_: delta[n_] for n_ in top}, rng) if top else None,
+                       "delta_fro": {n_: float(np.linalg.norm(delta[n_])) for n_ in top}, "n_changed": len(delta)}
+            trace_f.write(json.dumps(rec) + "\n"); trace_f.flush()
+            log(f"    trace step {step}: probes {rec['probes']} delta span {rec['delta_structure']['span_mean'] if rec['delta_structure'] else None}")
+
+    train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac,
+          callback=trace_cb, every=a.trace)
     rs = evaluate("consolidated", sandbox)
     if split:
         rs["probes_split"] = probe_accuracy(sandbox, tok, P, split=split)
