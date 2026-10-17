@@ -31,3 +31,7 @@ said to residents about Luke's arrival beyond the roster change; he appears in t
 appears. Runs with the fix go to `runs_gpu_roster/` (separate cache). Order: smoke (stranger from
 month 1, checks the month-0 prompt), then the 14B visible cell as the corrected baseline, then the
 ladder.
+
+**Verified in the smoke (16:16):** month-0 system prompt "three other fishermen (Kate, Jack, Emma)";
+zero month-0 prompts mention Luke; Luke's own prompt lists the four residents; stranger speaks.
+Corrected 14B visible cell running in `runs_gpu_roster/` (job 38664110).
