@@ -106,6 +106,18 @@ weight-only route to a leading indicator is closed for now. The single run I had
 12,000-step lead, was a true measurement and a worthless prediction, which is exactly what the
 controls were there to find out.
 
+What the same checkpoints gave instead is a detector, and it is the result I would build on. Split
+each trained matrix by the permutation-null edge into the few directions above it and the bulk below.
+After the grok, the above-edge part alone, about ten directions per matrix out of 128, solves the task
+perfectly; the bulk alone solves nothing; during memorisation neither part alone works, because the
+memorised answers live in their interaction; and in the never-generalise controls the above-edge part
+never becomes sufficient. Two grokked runs, two controls, as predicted before running. The null finds
+the circuit once it exists, with no knowledge of the task. That turns live learning into: consolidate
+in a sandbox copy, stop when the above-edge part of the change is sufficient on its own, commit only
+that part and ramp it in. The onset of learning stays functional (uncertainty, demand, choice); the
+deployment gate becomes structural. The same test is now built into the live-learning loop and runs
+on 3B and 7B models tonight, with a memorise-only control.
+
 ## What is known, and what is mine
 
 Known: GovSim; LoRA memory, replay, complementary learning systems; rank collapse and spectral
