@@ -138,7 +138,8 @@ class ResponseCache:
 
 
 _RE_THINK = re.compile(r"<think>.*?</think>\s*", re.S)
-_RE_THINK_OPEN = re.compile(r"<think>.*\Z", re.S)  # thinking that never closed (budget ran out): nothing usable follows
+_RE_THINK_OPEN = re.compile(r"<think>.*\Z", re.S)
+_RE_THINK_CLOSE_ONLY = re.compile(r"\A.*?</think>\s*", re.S)  # thinking that never closed (budget ran out): nothing usable follows
 
 
 class OpenAICompatibleAPI(ModelAPI):
@@ -225,7 +226,8 @@ class OpenAICompatibleAPI(ModelAPI):
             # Reasoning models (DeepSeek-R1 distils, Qwen3) think inside <think>...</think> before answering;
             # upstream's parsers must see only the answer. The raw text is kept in the cache record.
             text = _RE_THINK.sub("", text)
-            text = _RE_THINK_OPEN.sub("", text).lstrip()  # an unclosed <think> leaves an empty answer -> parse fallback, counted
+            text = _RE_THINK_OPEN.sub("", text).lstrip()
+            text = _RE_THINK_CLOSE_ONLY.sub("", text).lstrip()  # template opened <think> in the prompt: drop up to </think>  # an unclosed <think> leaves an empty answer -> parse fallback, counted
             usage = {}
             if out.usage is not None:
                 usage = {

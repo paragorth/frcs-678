@@ -14,6 +14,9 @@ set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"; mkdir -p runs/_slurm results/grokking runs/grokking
 source "${GPU_VENV:-$HOME/rds/hpc-work/semataxy/.venv-gpu}/bin/activate"
 export OMP_NUM_THREADS=1 EPOCHS=${EPOCHS:-80000}
+python tools/grokking.py --seed 0 --wd 1.0 --frac 0.3 --epochs 300 --every 100 --save-every 500 --n-shuffles 1 --device cuda --out runs/grokking/_selfcheck > runs/grokking/_selfcheck.log 2>&1 \
+  || { echo "SELFCHECK FAILED"; tail -5 runs/grokking/_selfcheck.log; exit 1; }
+python -c "import torch; assert torch.cuda.is_available(), 'no cuda'"; echo "selfcheck ok on $(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)"
 run() {  # seed wd frac
   local out=runs/grokking/s$1_wd$2_f$3
   [ -f "$out/final.pt" ] && { echo "skip $out (done)"; return; }
