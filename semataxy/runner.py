@@ -230,6 +230,7 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
     pond_stats = {}
     done_swap = False
     while True:
+        compat.set_present(identities[a].name for a in env.agents if a in identities)  # roster = who is in the game now
         rnd = env.num_round
         logger.game_context = {"round": rnd, "env_phase": env.phase, "acting": agent_id}
         agent = personas[agent_id]
