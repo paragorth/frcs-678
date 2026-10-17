@@ -114,7 +114,12 @@ fi
 # SEMATAXY_RUNS_TAG=voice -> runs_gpu_voice/ with its own cache: games after the own-voice fix (17 Oct 2026)
 # are a different game from the ones before it and must never share a directory or a cache with them.
 OUT=runs_gpu${SEMATAXY_RUNS_TAG:+_$SEMATAXY_RUNS_TAG}; EXTRA=""; mkdir -p "$OUT"
-if [ "${SMOKE:-0}" = "1" ]; then N_SEEDS=2; OUT=runs_smoke; EXTRA="-o experiment.env.max_num_rounds=3"; mkdir -p runs_smoke; fi
+if [ "${SMOKE:-0}" = "1" ]; then
+  N_SEEDS=2; OUT=runs_smoke; EXTRA="-o experiment.env.max_num_rounds=3"; mkdir -p runs_smoke
+  # a smoke must exercise the stranger's model too: enter at round 1 in outsider manifests (the R1 smoke
+  # of 17 Oct 2026 passed without the stranger ever playing, because entry was at round 4 of 3)
+  grep -q "perturbation_outsider" "$1" && EXTRA="$EXTRA -o experiment.env.perturbations.0.perturbation.round=1"
+fi
 if [ "${LIVE:-0}" = "1" ]; then
   for i in $(seq 1 240); do [ -f "$SEMATAXY_LIVE_QUEUE/READY" ] && break; sleep 10; done
   [ -f "$SEMATAXY_LIVE_QUEUE/READY" ] || { echo "lora worker never came up"; tail -20 "runs/_servers/lora_worker-${SLURM_JOB_ID}.log"; exit 1; }
