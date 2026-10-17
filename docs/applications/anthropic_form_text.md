@@ -7,7 +7,7 @@ Top choice: AI Safety & Alignment. Additional: AI Safety: Mechanistic Interpreta
 
 ## Links
 - GitHub: github.com/paragorth/frcs-678
-- Personal website: [PG]
+- Personal website: https://surgeonledai.co.uk
 - Google Scholar: [PG, or leave blank]
 - LinkedIn: [PG]
 
@@ -20,6 +20,9 @@ github.com/paragorth/frcs-678
 https://zenodo.org/search?q=creators.name%3A%22Garg%2C%20Parag%22
 https://doi.org/10.5281/zenodo.21984650
 https://doi.org/10.5281/zenodo.21984327
+https://surgeonledai.co.uk/research
+https://litmus3.surgeonledai.co.uk
+https://ai4qi.com
 
 ## Why are you interested in the Fellows Program? (1500 chars max)
 
