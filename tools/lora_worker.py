@@ -70,6 +70,48 @@ def train(model, tok, facts, old_facts, replay, steps, lr, device, bs=8, seq=96,
             log(f"    step {step} loss {loss.item():.3f}")
 
 
+def quartet_split(model, rng, n_shuffles=2, tol=1.02):
+    """For every LoRA module: D = scaling * B @ A. Null = the same product with the entries of A and B shuffled
+    (destroys the relation between the factors, keeps their histograms). Directions of D whose singular value
+    exceeds the null's top singular value are the quartet. Returns per-module (U_k S_k, V_k^T) factors of the
+    above-edge part, the below-edge factors, and counts; the adapter is rewritten in place by apply_factors."""
+    import numpy as np
+    out = {}
+    for name, mod in model.named_modules():
+        if not (hasattr(mod, "lora_A") and "default" in getattr(mod, "lora_A", {})):
+            continue
+        A = mod.lora_A["default"].weight.detach().float().cpu().numpy()   # (r, in)
+        B = mod.lora_B["default"].weight.detach().float().cpu().numpy()   # (out, r)
+        sc = float(mod.scaling["default"])
+        D = sc * (B @ A)
+        U, s, Vt = np.linalg.svd(D, full_matrices=False)
+        edge = 0.0
+        for _ in range(n_shuffles):
+            A2 = A.flatten().copy(); rng.shuffle(A2); B2 = B.flatten().copy(); rng.shuffle(B2)
+            edge = max(edge, np.linalg.svd(sc * (B2.reshape(B.shape) @ A2.reshape(A.shape)), compute_uv=False)[0])
+        edge *= tol
+        keep = s > edge
+        r = A.shape[0]
+        def factors(mask):
+            k = int(mask.sum()); Bk = np.zeros((B.shape[0], r)); Ak = np.zeros((r, A.shape[1]))
+            if k:
+                Bk[:, :k] = (U[:, mask] * s[mask]) / sc; Ak[:k] = Vt[mask]
+            return Bk, Ak
+        out[name] = {"above": factors(keep), "below": factors(~keep), "kept": int(keep.sum()), "of": int((s > 1e-12).sum()),
+                     "edge": float(edge), "top_sv": [float(x) for x in s[:4]], "orig": (B, A)}
+    return out
+
+
+def apply_factors(model, split, part):
+    """Overwrite each LoRA module's B and A with the given part ("above", "below" or "orig")."""
+    for name, mod in model.named_modules():
+        if name in split:
+            B, A = split[name]["orig"] if part == "orig" else split[name][part]
+            with torch.no_grad():
+                mod.lora_B["default"].weight.copy_(torch.tensor(B, dtype=mod.lora_B["default"].weight.dtype, device=mod.lora_B["default"].weight.device))
+                mod.lora_A["default"].weight.copy_(torch.tensor(A, dtype=mod.lora_A["default"].weight.dtype, device=mod.lora_A["default"].weight.device))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
@@ -80,6 +122,8 @@ def main():
     ap.add_argument("--heldout-chunks", type=int, default=64)
     ap.add_argument("--replay-chunks", type=int, default=4000)
     ap.add_argument("--idle-exit", type=int, default=0, help="exit after this many seconds with no request (0 = never)")
+    ap.add_argument("--quartet", action="store_true",
+                    help="Semataxy gate: split each module's change B@A by a shuffled-factor null; evaluate and commit only the directions above the edge")
     a = ap.parse_args()
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import LoraConfig, PeftModel, get_peft_model
@@ -147,19 +191,47 @@ def main():
                 for i in range(0, len(heldout), 8):
                     x = heldout[i:i + 8].to(a.device); tot += model(x, labels=x).loss.item() * len(x)
                 heldout_loss = tot / len(heldout)
-            gate = {
-                "heldout_ok": heldout_loss <= base_heldout + req.get("heldout_tol", 0.15),
-                "learned": (before_f - after_f) >= req.get("learn_min", 0.1),
-                "retains": (before_old is None) or (after_old - before_old) <= req.get("retain_tol", 0.1),
-            }
-            gate["commit"] = all(gate.values())
+            def judge(f_after, old_after, held):
+                g = {"heldout_ok": held <= base_heldout + req.get("heldout_tol", 0.15),
+                     "learned": (before_f - f_after) >= req.get("learn_min", 0.1),
+                     "retains": (before_old is None) or (old_after - before_old) <= req.get("retain_tol", 0.1)}
+                g["commit"] = all(g.values()); return g
+
+            def heldout_of(m):
+                with torch.no_grad():
+                    m.eval(); tot = 0.0
+                    for i in range(0, len(heldout), 8):
+                        x = heldout[i:i + 8].to(a.device); tot += m(x, labels=x).loss.item() * len(x)
+                return tot / len(heldout)
+
+            gate = judge(after_f, after_old, heldout_loss)
             out = os.path.join(d, "adapter")
+            quartet = None
+            if a.quartet:
+                # Semataxy gate (17 Oct 2026): what gets committed is the above-edge part of the change, not the change.
+                import numpy as np
+                split = quartet_split(model, np.random.default_rng(0))
+                parts = {}
+                for part in ("above", "below"):
+                    apply_factors(model, split, part)
+                    f = mean_loss(model, tok, facts, a.device); o = mean_loss(model, tok, old, a.device); h = heldout_of(model)
+                    parts[part] = {"fact_loss": f, "old_loss": o, "heldout_loss": h, "gate": judge(f, o, h)}
+                kept = {n.split(".")[-1] + "@" + n.split(".")[-3] if n.count(".") > 2 else n: (v["kept"], v["of"]) for n, v in split.items()}
+                quartet = {"parts": parts, "kept_total": sum(v["kept"] for v in split.values()),
+                           "of_total": sum(v["of"] for v in split.values()), "modules": len(split),
+                           "kept_by_module_type": {}}
+                for n, v in split.items():
+                    t = n.split(".")[-1]; q = quartet["kept_by_module_type"].setdefault(t, [0, 0]); q[0] += v["kept"]; q[1] += v["of"]
+                gate = dict(parts["above"]["gate"]); gate["full_change_would_commit"] = all(judge(after_f, after_old, heldout_loss).values())
+                apply_factors(model, split, "above" if gate["commit"] else "orig")   # commit the quartet, or leave the adapter as trained
+                log(f"quartet: kept {quartet['kept_total']}/{quartet['of_total']} directions over {quartet['modules']} modules; "
+                    f"above-only facts {parts['above']['fact_loss']:.3f} heldout {parts['above']['heldout_loss']:.3f} | below-only facts {parts['below']['fact_loss']:.3f}")
             if gate["commit"]:
                 model.save_pretrained(out)
             res = {"status": "ok", "gate": gate, "fact_loss_before": before_f, "fact_loss_after": after_f,
                    "old_loss_before": before_old, "old_loss_after": after_old, "heldout_loss": heldout_loss,
                    "base_heldout": base_heldout, "adapter": out if gate["commit"] else req.get("from_adapter"),
-                   "seconds": round(time.time() - t0, 1)}
+                   "quartet": quartet, "seconds": round(time.time() - t0, 1)}
             # detach the adapter from the shared base so the next request starts clean
             model.unload() if hasattr(model, "unload") else None
             del model

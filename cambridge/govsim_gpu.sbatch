@@ -73,7 +73,7 @@ if [ "${LIVE:-0}" = "1" ]; then
   WORKER_GPU=$((ngpu - 1)); ngpu=$WORKER_GPU
   LIVE_MODEL=${LIVE_MODEL:?set LIVE_MODEL, the HF id of the live slot model}
   CUDA_VISIBLE_DEVICES=$WORKER_GPU nohup python tools/lora_worker.py --model "$LIVE_MODEL" --queue "$SEMATAXY_LIVE_QUEUE" \
-      --device cuda:0 --rank "${LORA_RANK:-16}" > "runs/_servers/lora_worker-${SLURM_JOB_ID}.log" 2>&1 &
+      --device cuda:0 --rank "${LORA_RANK:-16}" ${QUARTET:+--quartet} > "runs/_servers/lora_worker-${SLURM_JOB_ID}.log" 2>&1 &
 fi
 for label in $needed; do  # weights must already be in the offline hub (compute nodes have no internet)
   id=${WEIGHTS[$label]:-${HFID[$label]:?unknown label $label}}; snap="$HF_HOME/hub/models--${id//\//--}/snapshots"
