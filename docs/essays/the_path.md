@@ -91,6 +91,10 @@ In August I ran a controlled study of inference sampling: more samples per actio
 
 *Fixed: doi 10.5281/zenodo.21984650 and the protocol at 21984679.*
 
+## 8b. Clinical AI, built from friction
+
+Alongside the research I have built AI for my own clinical practice, and the pattern is the same each time. A friction met in practice: clinic letters, medicines reconciliation across conflicting documents, the paperwork a clinician must complete before any AI system can be used on patients. Automate it, with the model doing the reading and a clinician keeping the decision. Then the automation runs into governance, the clinical safety case, the data protection assessment, the technical assurance, and the governance gets automated too, because that is where the real bottleneck turned out to be. Litmus, a clinical safety review system for NHS Clinical Safety Officers, came out of that, and is being evaluated against a trust's full AI approval chain. The one rule throughout is that quality is never traded for speed and patient safety is always the first constraint, which is the same rule the safety work runs on.
+
 ## 9. What is running now
 
 - Untuned base-model strangers at 7B, 14B and 32B: is the conformity tuning or capability.
