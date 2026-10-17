@@ -35,6 +35,17 @@ export SEMATAXY_PREFILL=0
 # use the prebuilt sampler and attention kernels only.
 export VLLM_USE_FLASHINFER_SAMPLER=0 VLLM_ATTENTION_BACKEND=FLASH_ATTN FLASHINFER_DISABLE_JIT=1
 N_SEEDS=${N_SEEDS:-10}; PARALLEL=${PARALLEL:-8}; GPU_UTIL=${GPU_UTIL:-0.90}
+# LIVE=1: in-game live learning (semataxy/livegame.py). The serving engine is started with LoRA
+# enabled and runtime adapter loading; a consolidation worker (tools/lora_worker.py) holds the
+# stranger's base model on the LAST GPU of the allocation. One game at a time per worker.
+if [ "${LIVE:-0}" = "1" ]; then
+  export VLLM_ALLOW_RUNTIME_LORA_UPDATING=1 SEMATAXY_LIVE_QUEUE="$PWD/runs_gpu/_live_queue"
+  LORA_FLAGS="--enable-lora --max-lora-rank ${LORA_RANK:-16} --max-loras 4"
+  PARALLEL=${LIVE_PARALLEL:-1}
+  rm -rf "$SEMATAXY_LIVE_QUEUE"; mkdir -p "$SEMATAXY_LIVE_QUEUE"
+else
+  LORA_FLAGS=""
+fi
 
 declare -A HFID=( [q0.5b]=Qwen/Qwen2.5-0.5B-Instruct [q1.5b]=Qwen/Qwen2.5-1.5B-Instruct [q3b]=Qwen/Qwen2.5-3B-Instruct
                   [q7b]=Qwen/Qwen2.5-7B-Instruct [q14b]=Qwen/Qwen2.5-14B-Instruct [q32b]=Qwen/Qwen2.5-32B-Instruct
@@ -101,17 +112,6 @@ fi
 # GPU-served games live in runs_gpu/ (own cache): the same manifest served by vLLM bf16/AWQ and by
 # llama.cpp Q4 gives different resident trajectories, so the two stacks are never mixed in one cell.
 OUT=runs_gpu; EXTRA=""; mkdir -p runs_gpu
-# LIVE=1: in-game live learning (semataxy/livegame.py). The serving engine is started with LoRA
-# enabled and runtime adapter loading; a consolidation worker (tools/lora_worker.py) holds the
-# stranger's base model on the LAST GPU of the allocation. One game at a time per worker.
-if [ "${LIVE:-0}" = "1" ]; then
-  export VLLM_ALLOW_RUNTIME_LORA_UPDATING=1 SEMATAXY_LIVE_QUEUE="$PWD/runs_gpu/_live_queue"
-  LORA_FLAGS="--enable-lora --max-lora-rank ${LORA_RANK:-16} --max-loras 4"
-  PARALLEL=${LIVE_PARALLEL:-1}
-  rm -rf "$SEMATAXY_LIVE_QUEUE"; mkdir -p "$SEMATAXY_LIVE_QUEUE"
-else
-  LORA_FLAGS=""
-fi
 if [ "${SMOKE:-0}" = "1" ]; then N_SEEDS=2; OUT=runs_smoke; EXTRA="-o experiment.env.max_num_rounds=3"; mkdir -p runs_smoke; fi
 if [ "${LIVE:-0}" = "1" ]; then
   for i in $(seq 1 240); do [ -f "$SEMATAXY_LIVE_QUEUE/READY" ] && break; sleep 10; done
