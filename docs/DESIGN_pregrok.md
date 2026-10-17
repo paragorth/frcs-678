@@ -88,3 +88,34 @@ task, is the premise of this design. What the sweep adds: whether the formation 
 be read from the weights alone, with no ablation and no knowledge of what the task is, through the
 permutation-null measures, before the behavioural jump. If so, it is a task-agnostic indicator for
 their tier-three transition, which they do not have, and the live-learning gate's signal.
+
+## Prior art, and what it changes (added 17 Oct 2026, from `docs/papers/pregrok_prior_art_2026-10-17.md`)
+
+Nobody has a task-agnostic, weight-only, null-calibrated spectral measure that leads the jump and
+predicts its timing across seeds. But the pieces exist and set the bar:
+- **Weight norm already leads.** In this exact setup Nanda et al. report the total L2 norm falling
+  from about epoch 1,400 while test loss stays flat to about 9,400; a near-constant critical norm
+  predicts the grok time by intervention (Truong et al. 2026). So any weight-only measure must be
+  shown to carry information *beyond* the norm.
+- **Spectral measures on weights have been reported as coincident or lagging**: HTSR tail exponent
+  and shuffled-matrix outliers (Prakash and Martin; our closest methodological kin) coincide with
+  the jump; effective-rank collapse coincides (Yunis et al. 2024) or lags (2607.06639).
+- **Leading indicators with timing laws exist only from activations or gradients**: spectral entropy
+  of penultimate activations (lead about 1,000 steps, 10 seeds), circuit synchronisation (about
+  1,700), commutator defect of gradients (600 to 1,600, power-law lead over 43 runs).
+
+Amendments to this design, before the sweep is read:
+1. **Norm is a comparator, logged and analysed like the rest.** Per-matrix Frobenius norm and the
+   total norm get the same onset rule; every spectral lead is reported alongside the norm's lead,
+   and the spectral onset is also measured *relative to the norm onset*. The claim is only made if
+   concentration or the tail exponent moves before, or independently of, the norm.
+2. **Effective rank** (entropy of the normalised singular values, Yunis et al.) is computed from the
+   checkpoints as the published weight-only comparator.
+3. **The no-weight-decay control is the decisive one**: there the norm does not fall; if our
+   measures still fire there we are measuring norm; if they fire only where grokking occurs and
+   lead it, we are not.
+4. The honest claim, if it holds: *the first weight-only spectral measure, calibrated against a
+   permutation null, that leads the generalisation jump with a cross-seed timing fit*, not "the
+   first early indicator".
+5. The strongest reviewer objection is quoted in the prior-art file and will be answered with data
+   or conceded.

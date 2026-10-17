@@ -18,7 +18,7 @@ import os
 import numpy as np
 import pandas as pd
 
-MEASURES = ("mass_above", "frac_above", "conc", "alpha", "sigma")
+MEASURES = ("mass_above", "frac_above", "conc", "alpha", "sigma", "fro", "erank16")
 
 
 def load(path):
@@ -29,10 +29,23 @@ def load(path):
     mats = {}
     for name in rows[0]["layers"]:
         d = {}
-        for m in ("mass_above", "frac_above", "alpha", "sigma"):
+        for m in ("mass_above", "frac_above", "alpha", "sigma", "fro"):
             d[m] = np.array([r["layers"][name].get(m) if r["layers"][name].get(m) is not None else np.nan for r in rows], float)
         d["conc"] = d["mass_above"] / np.where(d["frac_above"] > 0, d["frac_above"], np.nan)
+        # effective rank over the top 16 singular values (Yunis et al. form; full-spectrum version from checkpoints)
+        er = []
+        for r in rows:
+            sv = r["layers"][name].get("top_sv")
+            if sv:
+                p_ = np.array(sv, float); p_ = p_ / p_.sum(); er.append(float(np.exp(-(p_ * np.log(p_ + 1e-12)).sum())))
+            else:
+                er.append(np.nan)
+        d["erank16"] = np.array(er)
         mats[name] = d
+    # total norm across matrices as its own pseudo-matrix
+    if all("fro" in d and not np.isnan(d["fro"]).all() for d in mats.values()):
+        tot = np.sqrt(np.nansum([d["fro"] ** 2 for d in mats.values()], axis=0))
+        mats["_total"] = {m: np.full(len(ep), np.nan) for m in MEASURES}; mats["_total"]["fro"] = tot
     return beh, mats
 
 
@@ -93,6 +106,12 @@ def main():
                 rows.append({"run": run, "matrix": name, "measure": m, "structural_onset": so, "B1": b1, "B2": b2,
                              "lead_B1": (None if so is None or b1 is None else b1 - so),
                              "lead_B2": (None if so is None or b2 is None else b2 - so)})
+        # the norm comparator: how does each spectral onset sit relative to the norm's own onset in that matrix?
+        norm_on = {r_["matrix"]: r_["structural_onset"] for r_ in rows if r_["run"] == run and r_["measure"] == "fro"}
+        for r_ in rows:
+            if r_["run"] == run and r_["measure"] != "fro":
+                n_on = norm_on.get(r_["matrix"])
+                r_["lead_vs_norm"] = (None if r_["structural_onset"] is None or n_on is None else n_on - r_["structural_onset"])
     df = pd.DataFrame(rows)
     if a.out:
         df.to_csv(a.out, index=False)
@@ -112,8 +131,10 @@ def main():
             pos = int((g.lead_B1 > 0).sum()); n = len(g)
             p = binomtest(pos, n, 0.5, alternative="greater").pvalue
             rho = spearmanr(g.structural_onset, g.B1).correlation if n >= 4 else float("nan")
+            lvn = g["lead_vs_norm"].dropna() if "lead_vs_norm" in g else pd.Series(dtype=float)
             out.append({"matrix": mat, "measure": m, "n": n, "lead_pos": pos, "median_lead": float(g.lead_B1.median()),
-                        "sign_p": p, "spearman_onset_vs_B1": rho})
+                        "sign_p": p, "spearman_onset_vs_B1": rho,
+                        "median_lead_vs_norm": (float(lvn.median()) if len(lvn) else float("nan"))})
         if out:
             res = pd.DataFrame(out).sort_values(["sign_p", "median_lead"], ascending=[True, False])
             print("\nper (matrix, measure), grok runs, lead under B1 (positive = structure first):")
