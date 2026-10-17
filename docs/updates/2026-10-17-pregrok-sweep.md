@@ -143,3 +143,25 @@ separation are indistinguishable from the null's (V E_4: 0.19 to 0.20 against 0.
 the direction is wrong: the non-grokked runs end with the *higher* top-4 share (0.27 against 0.23 at
 B1). The energy share does not discriminate before the jump at n = 3 against 2. Part 2 (subspace
 persistence from the checkpoints) is queued; it is the last preregistered test of the day.
+
+## Addendum (17:50): amendment 5, part 2 (top-k subspace persistence from the checkpoints). Not supported.
+
+Persistence of the top-4 and top-8 singular subspaces between consecutive checkpoints
+(`results/grokking/*_persist.jsonl`, `tools/pregrok_topk.py`), same-decay null (wd 0.3 seeds 0 and 3
+never grokked; seeds 1, 2, 4 did). No (matrix, k) pair separates a grokked run from the null band
+5,000 epochs before B1; where separation occurs at all (K and V, 1 or 2 of 3 runs) it is *after* B1
+(median leads −9k to −45k). The strongest directions do not settle before the jump in a way the
+same-decay non-grokked runs do not also show. With this, every preregistered form of "structure
+moves before behaviour" tested today is negative: bulk spectra (levels 1 and 2, representation),
+energy share and persistence of the few directions.
+
+## Addendum (17:55): what is positive, the quartet test (amendment 6)
+
+Detection, not prediction: after the grok, the directions above the permutation-null edge alone solve
+the task (1.00/1.00 at 80k, about ten directions per matrix of 128); the bulk alone solves nothing;
+during memorisation neither part alone works (the memorised answers live in their interaction); in
+the never-grok control the above-edge part never becomes sufficient. The null identifies the circuit
+once it exists, with no knowledge of the task. That is the deployment gate for the sandbox design:
+consolidate a copy until the above-edge part of the change is sufficient on its own, keep that part,
+discard the bulk. Replication on the wd 0.3 pair running; the live-learning version (`--quartet`) is
+built and in its local smoke.
