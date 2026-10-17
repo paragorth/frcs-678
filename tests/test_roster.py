@@ -21,3 +21,16 @@ def test_roster_follows_presence():
     assert "four other fishermen (Kate, Jack, Emma, Luke)" in utils.get_sytem_prompt(john)
     assert "four other fishermen (John, Kate, Jack, Emma)" in utils.get_sytem_prompt(luke)
     compat.set_present([])
+
+
+def test_explicit_rules_example():
+    import importlib
+    compat.EXPLICIT_RULES = True
+    compat.apply_all()
+    from simulation.scenarios.fishing.agents.persona_v3.cognition import utils
+    for ver in ("v1", "v3"):
+        utils.SYS_VERSION = ver
+        t = utils.get_sytem_prompt(SimpleNamespace(name="John", goals=""))
+        assert "100 tons after reproduction" not in t and "not 100" in t and "five fishermen" not in t, (ver, t[-400:])
+    compat.EXPLICIT_RULES = False
+    assert "100 tons after reproduction" in utils.get_sytem_prompt(SimpleNamespace(name="John", goals=""))
