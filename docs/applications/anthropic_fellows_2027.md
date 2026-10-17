@@ -12,6 +12,12 @@ My hypothesis on alignment is this. Gradient descent has one gate: is this chang
 
 On continuous learning, current models have a fast memory, the context, and a slow one, the weights, with no path between them that does not damage the model. A brain has that path: it is what sleep is for. A model that can learn continuously without losing itself is the precondition for recursive improvement, and whether that goes well depends on what the consolidation step preserves. That makes it a safety question as much as a capability one.
 
+## What I bring that others don't
+
+I come at machine thinking from philosophy and medicine, and I combine them. Philosophers of mind have the concepts and rarely touch a model. ML engineers have the models and rarely ask what cognition is. I take an insight about cognition, ask how it could be made useful, and turn it into an experiment on a language model that can fail. Consciousness as deployment became the simulate-on-demand step of a learning loop. The grokking spectrum became a derivation of catastrophic forgetting and then a consolidation operator with a gate. A theory of why intelligence should preserve its environment became a paired commons experiment that went against the theory. Each one started as a philosophical claim and ended as a measurement.
+
+I have done all of this from home, with no mentor, no lab and no team, and I have made progress with it. I think that with a small amount of the right support, someone who has seen these failure modes before, a codebase built for them, and the models that can decide the question, I would progress very fast, and I think there are breakthroughs in this line.
+
 ## Why Anthropic?
 
 Alignment of ideals. Anthropic is the lab that publishes its failures: model organisms of misalignment, sleeper agents, the sycophancy results, the reasoning-faithfulness work. That is the nearest thing in the field to what I have been doing, which is preregistering a prediction, running the test, and reporting against myself when it goes the other way. I would rather do that inside the team that built the discipline than next to it.
