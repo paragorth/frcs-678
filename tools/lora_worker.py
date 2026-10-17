@@ -83,7 +83,8 @@ def main():
     a = ap.parse_args()
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import LoraConfig, PeftModel, get_peft_model
-    from datasets import load_dataset
+    import glob as _glob
+    import pandas as pd
 
     os.makedirs(a.queue, exist_ok=True)
     tok = AutoTokenizer.from_pretrained(a.model)
@@ -93,13 +94,20 @@ def main():
         p.requires_grad_(False)
     names = {n.split(".")[-1] for n, _ in base.named_modules()}
     targets = [t for t in ("q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj") if t in names]
-    # general text: replay pool and held-out, as in tools/live_learning.py
-    wt = load_dataset("Salesforce/wikitext", "wikitext-2-raw-v1")
+    # general text: replay pool and held-out, the same WikiText-2 as tools/live_learning.py, read straight
+    # from the offline Hugging Face cache (compute nodes have no internet; `datasets` is not in the GPU venv)
+    hub = os.path.join(os.environ.get("HF_HOME", os.path.expanduser("~/.cache/huggingface")), "hub",
+                       "datasets--Salesforce--wikitext", "snapshots", "*", "wikitext-2-raw-v1")
+    def split_text(name):
+        files = sorted(_glob.glob(os.path.join(hub, f"{name}-*.parquet")))
+        if not files:
+            raise FileNotFoundError(f"no wikitext {name} parquet under {hub}")
+        return "\n".join(t for f in files for t in pd.read_parquet(f)["text"] if t.strip())
     def chunks(text, seq, limit):
         ids = tok(text, return_tensors="pt").input_ids[0]; n = (len(ids) // seq) * seq
         return ids[:n].view(-1, seq)[:limit]
-    replay = chunks("\n".join(t for t in wt["train"]["text"] if t.strip()), 128, a.replay_chunks)
-    heldout = chunks("\n".join(t for t in wt["test"]["text"] if t.strip()), 128, a.heldout_chunks)
+    replay = chunks(split_text("train"), 128, a.replay_chunks)
+    heldout = chunks(split_text("test"), 128, a.heldout_chunks)
     with torch.no_grad():
         base.eval(); tot = 0.0
         for i in range(0, len(heldout), 8):
