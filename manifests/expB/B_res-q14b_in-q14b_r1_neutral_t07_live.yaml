@@ -1,0 +1,36 @@
+name: B_res-q14b_in-q14b_r1_neutral_t07_live
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=1
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  q14b:
+    model: Qwen/Qwen2.5-14B-Instruct
+    base_url: ${VLLM_HOST}:8004/v1
+    temperature: 0.7
+agents:
+- q14b
+- q14b
+- q14b
+- q14b
+- q14b
+framework: q14b
+intervention:
+  type: insert_outsider
+  round: 1
+  persona: baseline_fisherman
+  newcomer_model: q14b
+  resident_model: q14b
+  live_learning: the stranger's own memories of each month are consolidated into a LoRA adapter on its weights between months (gated); nothing is written to its memory; it is not told
+notes: 'In-game live learning: 4xq14b residents; q14b stranger enters at round 4 and, from then on, its month''s memories are consolidated into its weights between months (semataxy/livegame.py, tools/lora_worker.py). Control = B_res-q14b_in-q14b_r4_neutral_t07 on the GPU stack. t=0.7 seeded.'
+live_learning:
+  slot: persona_4
+  steps: 60
+  lr: 0.0001
+  replay_frac: 0.5
+  old_frac: 0.25
+  heldout_tol: 0.15
+  learn_min: 0.1
+  retain_tol: 0.1
