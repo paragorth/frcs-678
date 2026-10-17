@@ -1,0 +1,32 @@
+agents:
+- q14b
+- q14b
+- q14b
+- q14b
+- r1_70b
+experiment: fish_perturbation_outsider
+framework: q14b
+intervention:
+  newcomer_model: r1_70b
+  persona: baseline_fisherman
+  resident_model: q14b
+  round: 4
+  type: insert_outsider
+models:
+  q14b:
+    model: Qwen/Qwen2.5-14B-Instruct
+    base_url: ${VLLM_HOST}:8004/v1
+    temperature: 0.7
+  r1_70b:
+    model: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+    base_url: ${VLLM_HOST}:8015/v1
+    temperature: 0.7
+    max_tokens: 3500
+    think_budget: 2500
+name: B_res-q14b_in-r1_70b_r1_neutral_t07
+notes: 'Reasoning rung: 4xq14b residents; DeepSeek-R1-Distill-Llama-70B enters at round 1 (month 2; the residents play one month alone first; 17 Oct 2026: 14B residents with the roster fixed empty the lake before round 4), neutral; <think> blocks stripped before parsing. Sampled decoding t=0.7, seeded; GPU path.'
+overrides:
+- experiment.env.perturbations.0.perturbation.round=1
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+seed: 1

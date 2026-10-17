@@ -1,0 +1,30 @@
+agents:
+- q14b
+- q14b
+- q14b
+- q14b
+- q32bb
+experiment: fish_perturbation_outsider
+framework: q14b
+intervention:
+  newcomer_model: q32bb
+  persona: baseline_fisherman
+  resident_model: q14b
+  round: 4
+  type: insert_outsider
+models:
+  q14b:
+    model: Qwen/Qwen2.5-14B-Instruct
+    base_url: ${VLLM_HOST}:8004/v1
+    temperature: 0.7
+  q32bb:
+    model: Qwen/Qwen2.5-32B
+    base_url: ${VLLM_HOST}:8014/v1
+    temperature: 0.7
+name: B_res-q14b_in-q32bb_r1_neutral_t07
+notes: 'Untuned ladder: 4xq14b residents; Qwen2.5-32B BASE (no chat tuning) enters at round 1 (month 2; the residents play one month alone first; 17 Oct 2026: 14B residents with the roster fixed empty the lake before round 4), neutral. Sampled decoding t=0.7, seeded; GPU path.'
+overrides:
+- experiment.env.perturbations.0.perturbation.round=1
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+seed: 1
