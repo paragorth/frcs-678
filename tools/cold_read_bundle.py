@@ -70,10 +70,14 @@ def describe_run(d: str, sample_calls: int, rng: random.Random) -> str:
     for i, c in enumerate(calls):
         if "cognition_act" in str(c.get("phase", "")) and c.get("var") == "reasoning":
             nxt = calls[i + 1] if i + 1 < len(calls) and calls[i + 1].get("var") == "option" else {}
-            acts.append({**c, "response": (c.get("response") or "").strip() + "\nAnswer: " + str(nxt.get("response", "?")).strip()
+            reasoning = (c.get("response") or "").strip()
+            reasoning = reasoning[: -len("Answer:")].rstrip() if reasoning.endswith("Answer:") else reasoning
+            acts.append({**c, "response": reasoning + "\nAnswer: " + str(nxt.get("response", "?")).strip()
                          + f"  [parser {nxt.get('parser_status')}]"})
-    chats = [c for c in calls if "converse" in str(c.get("phase", ""))]
-    for label, pool in (("catch reasoning", acts), ("chat turn", chats)):
+    # chat turns proper (the "who speaks next" and "has the conversation ended" calls share the phase)
+    chats = [c for c in calls if "converse" in str(c.get("phase", "")) and c.get("var") == "utterance"]
+    newcomer = [c for c in chats if c.get("acting") == "persona_4"]
+    for label, pool in (("catch reasoning", acts), ("chat turn", chats), ("newcomer chat turn", newcomer)):
         for c in rng.sample(pool, min(sample_calls, len(pool))):
             out.append(f"--- raw {label}: month {c.get('round')} agent {c.get('agent')} parser {c.get('parser_status')}")
             out.append((c.get("response") or "").strip()[:1200])
