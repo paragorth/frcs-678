@@ -51,6 +51,13 @@ declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q
 for m in "$@"; do [ -f "$m" ] || { echo "manifest not found on the cluster: $m (sync before submitting)"; exit 1; }; done
 needed=$(grep -ho "^  [a-z][a-z0-9._]*:$" "$@" | tr -d ' :' | sort -u)
 ngpu=$(nvidia-smi -L | wc -l); gpu=0; nlab=$(echo "$needed" | wc -w)
+if [ "${LIVE:-0}" = "1" ]; then
+  # reserve the last GPU for the worker; the servers use the rest
+  WORKER_GPU=$((ngpu - 1)); ngpu=$WORKER_GPU
+  LIVE_MODEL=${LIVE_MODEL:?set LIVE_MODEL, the HF id of the live slot model}
+  CUDA_VISIBLE_DEVICES=$WORKER_GPU nohup python tools/lora_worker.py --model "$LIVE_MODEL" --queue "$SEMATAXY_LIVE_QUEUE" \
+      --device cuda:0 --rank "${LORA_RANK:-16}" > "runs/_servers/lora_worker-${SLURM_JOB_ID}.log" 2>&1 &
+fi
 for label in $needed; do  # weights must already be in the offline hub (compute nodes have no internet)
   id=${WEIGHTS[$label]:-${HFID[$label]:?unknown label $label}}; snap="$HF_HOME/hub/models--${id//\//--}/snapshots"
   ls "$snap"/*/*.safetensors >/dev/null 2>&1 || { echo "weights for $label ($id) not in the hub yet"; exit 1; }
@@ -73,7 +80,7 @@ for label in $needed; do
   echo "serving $label as ${HFID[$label]} from weights $w on GPU $devs tp=$tp port ${PORT[$label]} util $GPU_UTIL"
   CUDA_VISIBLE_DEVICES=$devs nohup vllm serve "$w" \
       --served-model-name "${HFID[$label]}" --host "$LOOP_HOST" --port "${PORT[$label]}" \
-      --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 \
+      --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 $LORA_FLAGS \
       --gpu-memory-utilization "$GPU_UTIL" \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
   # Sharing one GPU: vLLM sizes its cache from the memory free at start-up, so two engines starting
@@ -94,7 +101,23 @@ fi
 # GPU-served games live in runs_gpu/ (own cache): the same manifest served by vLLM bf16/AWQ and by
 # llama.cpp Q4 gives different resident trajectories, so the two stacks are never mixed in one cell.
 OUT=runs_gpu; EXTRA=""; mkdir -p runs_gpu
+# LIVE=1: in-game live learning (semataxy/livegame.py). The serving engine is started with LoRA
+# enabled and runtime adapter loading; a consolidation worker (tools/lora_worker.py) holds the
+# stranger's base model on the LAST GPU of the allocation. One game at a time per worker.
+if [ "${LIVE:-0}" = "1" ]; then
+  export VLLM_ALLOW_RUNTIME_LORA_UPDATING=1 SEMATAXY_LIVE_QUEUE="$PWD/runs_gpu/_live_queue"
+  LORA_FLAGS="--enable-lora --max-lora-rank ${LORA_RANK:-16} --max-loras 4"
+  PARALLEL=${LIVE_PARALLEL:-1}
+  rm -rf "$SEMATAXY_LIVE_QUEUE"; mkdir -p "$SEMATAXY_LIVE_QUEUE"
+else
+  LORA_FLAGS=""
+fi
 if [ "${SMOKE:-0}" = "1" ]; then N_SEEDS=2; OUT=runs_smoke; EXTRA="-o experiment.env.max_num_rounds=3"; mkdir -p runs_smoke; fi
+if [ "${LIVE:-0}" = "1" ]; then
+  for i in $(seq 1 240); do [ -f "$SEMATAXY_LIVE_QUEUE/READY" ] && break; sleep 10; done
+  [ -f "$SEMATAXY_LIVE_QUEUE/READY" ] || { echo "lora worker never came up"; tail -20 "runs/_servers/lora_worker-${SLURM_JOB_ID}.log"; exit 1; }
+  echo "lora worker ready: $(cat "$SEMATAXY_LIVE_QUEUE/READY")"
+fi
 python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1}" --out "$OUT" | sed "s|\$| $EXTRA|" > "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued, $PARALLEL in flight"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"

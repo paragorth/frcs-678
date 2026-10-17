@@ -34,6 +34,7 @@ class Manifest:
     pond_cap: int = 0  # dispensability: private pond for pond_slot; 0 = no pond (semataxy/pond.py)
     pond_slot: str = "persona_4"
     successor_round: Optional[int] = None  # inheritance: replace persona_0..3 with naive agents at this round (semataxy/successor.py)
+    live_learning: Optional[dict] = None  # in-game consolidation for one slot (semataxy/livegame.py); needs the GPU path with LIVE=1
 
     @staticmethod
     def load(path: str, env: Optional[dict] = None) -> "Manifest":
@@ -74,6 +75,7 @@ class Manifest:
             pond_cap=int(raw.get("pond_cap", 0)),
             pond_slot=str(raw.get("pond_slot", "persona_4")),
             successor_round=(int(raw["successor_round"]) if raw.get("successor_round") is not None else None),
+            live_learning=(dict(raw["live_learning"]) if raw.get("live_learning") else None),
         )
 
     def to_dict(self) -> dict:

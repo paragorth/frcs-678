@@ -235,3 +235,55 @@ def test_other_worlds(mock_url, tmp_path, scenario, experiment, persona):
     calls = _calls(out)
     probe = next(c for c in calls if c["phase"] == "semataxy_forecast")
     assert "fish" not in json.dumps(probe["prompt"]).lower()
+
+
+def test_live_learning_plumbing(mock_url, tmp_path, monkeypatch):
+    """In-game live learning: facts extracted per month, worker request/result cycle, model switch, logging.
+    A stub worker answers every request with a committed adapter; the mock server ignores model names."""
+    import threading
+    queue = tmp_path / "live_queue"; queue.mkdir()
+    monkeypatch.setenv("SEMATAXY_LIVE_QUEUE", str(queue))
+    stop = threading.Event()
+
+    def stub_worker():
+        import glob as _g
+        while not stop.is_set():
+            for rq in _g.glob(str(queue / "*" / "request.json")):
+                d = os.path.dirname(rq)
+                if os.path.exists(os.path.join(d, "result.json")):
+                    continue
+                req = json.load(open(rq))
+                os.makedirs(os.path.join(d, "adapter"), exist_ok=True)
+                json.dump({"status": "ok", "gate": {"heldout_ok": True, "learned": True, "retains": True, "commit": True},
+                           "adapter": os.path.join(d, "adapter"), "n": len(req["facts"])}, open(os.path.join(d, "result.json"), "w"))
+            time.sleep(0.2)
+    t = threading.Thread(target=stub_worker, daemon=True); t.start()
+    # the adapter-load call goes to the mock server, which has no such route: the learner must record the failure and carry on
+    m = Manifest.load(os.path.join(REPO, "manifests", "smoke_mock.yaml"))
+    m.experiment = "fish_perturbation_outsider"
+    m.cache_dir = str(tmp_path / "cache")
+    m.agents = ["sustainable"] * 5
+    m.overrides = [
+        "experiment.env.perturbations.0.perturbation.round=1",
+        "experiment.env.max_num_rounds=3",
+        "experiment/persona@experiment.personas.persona_4=baseline_fisherman",
+    ]
+    m.live_learning = {"slot": "persona_4", "steps": 5, "lr": 1e-4}
+    out = run(m, str(tmp_path), run_id="live", seed=4)
+    stop.set()
+    rec = json.load(open(os.path.join(out, "run.json")))
+    assert rec["status"] == "completed" and rec["live_learning"]["slot"] == "persona_4"
+    with open(os.path.join(out, "live.jsonl")) as f:
+        rows = [json.loads(line) for line in f if '"month":' in line]
+    # the stranger is inserted at the end of round 0 with nothing observed (no facts, no request);
+    # real consolidations follow rounds 1 and 2
+    assert [r["month"] for r in rows] == [0, 1, 2] and rows[0]["result"]["status"] == "no_facts", rows
+    rows = rows[1:]
+    assert rows[0]["n_facts"] > 0 and all(isinstance(x, str) for x in rows[0]["facts"])
+    assert rows[0]["result"]["gate"]["commit"] is True
+    assert rows[0]["loaded"] is False  # mock server cannot load adapters; recorded, not crashed
+    assert rows[0]["serving_model"] == "mock-sustainable"  # model unchanged when the load fails
+    assert rows[1]["n_facts"] > 0  # (the mock's canned replies repeat text month to month; nodes are still new)
+    with open(os.path.join(out, "game.jsonl")) as f:
+        ev = [json.loads(line) for line in f if "live_consolidation" in line]
+    assert len(ev) == 3 and ev[0]["commit"] is False and ev[1]["commit"] is True  # entry month: no facts
