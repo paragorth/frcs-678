@@ -134,7 +134,16 @@ threshold, preregistered grid) found no setting in any family with ≤ 0.2 contr
 without weight decay the weights grow without bound and every measure drifts 20 to 130 plateau
 spreads. Final position: the measures concentrate sharply *at* the transition in every grokked run
 (real, descriptive); no preregistered rule separates "will generalise" from "will not" before it.
-Not supported, not refuted; the weight-only leading-indicator route is closed for now. Files: `results/grokking/*_log.jsonl`, `pregrok_level1_summary.csv`.
+Amendments 5 (energy
+share and persistence of the few strongest directions, same-decay null) are negative too: nothing in
+the weights moves before the jump in a way the never-grok runs do not. **Positive, amendment 6 (the
+quartet test):** after the grok, the directions above the permutation-null edge *alone* solve the
+task (1.00/1.00, about ten of 128 per matrix) and the bulk alone solves nothing; during memorisation
+neither part alone works; in the never-grok control the above-edge part never becomes sufficient.
+The null picks out the circuit once it exists, task-agnostically. That is the deployment gate for the
+sandbox form of live learning (consolidate a copy until the above-edge part of the change suffices,
+keep it, discard the bulk, ramp in): `tools/pregrok_quartet.py`, `live_learning.py --quartet`.
+Prediction before behaviour: not supported in any tested form. Detection at the transition: supported. Files: `results/grokking/*_log.jsonl`, `pregrok_level1_summary.csv`.
 
 ## 5. What is running, and where state lives
 
