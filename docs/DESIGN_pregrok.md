@@ -1,6 +1,6 @@
 # Design: pre-grokking. Does organisation in the weights move before behaviour does?
 
-Status: written 17 October 2026 before the sweep ran. This is the programme's own claim (T2 note in
+Status: written 17 October 2026 before the sweep ran. **Result (same day, `docs/updates/2026-10-17-pregrok-sweep.md`): the preregistered tests are not met; the onset rule fires in 0.77 of pairs in the no-decay controls, so the measures are not specific to generalisation at level 1. Level 2 along the circuit is the remaining test.** This is the programme's own claim (T2 note in
 `docs/STRUCTURAL_TESTS.md`): at the memorise-to-generalise transition the weight spectrum
 *concentrates*. The question here is sharper and is the one that matters for both goals: is the
 structural change visible **before** any behavioural sign of generalisation, and does its timing

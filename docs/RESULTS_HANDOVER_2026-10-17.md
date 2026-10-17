@@ -106,16 +106,21 @@ intrinsic structure intact.
 
 Files: `results/structure/`, `docs/STRUCTURAL_TESTS.md`, `docs/updates/2026-10-13-*.md`, `2026-10-14-level2.md`.
 
-## 4. Pre-grokking (the programme's own claim; sweep running)
+## 4. Pre-grokking: the preregistered test failed (sweep run and read 17 Oct, midday)
 
-One run (seed 0, wd 1): under onset rules fixed before re-reading (plateau detrend, CUSUM change
-point, ten consecutive logs beyond three spreads), the value, query and output matrices leave their
-memorisation plateau at epochs 11,600 to 16,600; test loss leaves its plateau at 29,000 and accuracy
-at 33,000. Prior art (`docs/papers/pregrok_prior_art_2026-10-17.md`): weight norm alone already
-leads in this setup (Nanda 2023), so the measures must be shown to carry information beyond norm;
-no published weight-only spectral measure leads with a cross-seed timing fit. The preregistered sweep
-(`docs/DESIGN_pregrok.md`: 15 grok runs, 3 no-decay controls, 3 fast controls, norm and effective
-rank as comparators) is queued on the CPU partition; `tools/pregrok_analysis.py` applies the rules.
+21 runs (5 seeds × weight decay 0.3/1/3; 3 no-decay controls; 3 fast controls), rules fixed in
+`docs/DESIGN_pregrok.md` before the run. Result (`docs/updates/2026-10-17-pregrok-sweep.md`):
+- Lead: no Semataxy measure leads in ≥ 12 of 15 runs (best p = 0.13); only among the 8 runs with a
+  clean memorisation plateau do 19 measure-matrix pairs lead in 7 to 8 of 8, by 8k to 23k epochs
+  (post hoc restriction).
+- Timing: structural onset does not predict when the jump comes (Spearman mostly −0.6 to 0.6).
+- Controls: **0.77 of pairs fire in the no-weight-decay controls, which never generalise**; every
+  leading pair fires in 3 of 3. The rule detects continued reorganisation after memorisation, which
+  happens with or without a grok. The norm comparator moves earlier still.
+Conclusion: at level 1 the weight-only spectral measures describe grokking, they do not predict it,
+and they cannot be the live-learning gate's signal as proposed. Level-2 measures along the circuit
+(QK, OV, MLP paths, shuffled-factor null) are computed from the checkpoints next; if they also fire
+in the controls, the line closes. Files: `results/grokking/*_log.jsonl`, `pregrok_level1_summary.csv`.
 
 ## 5. What is running, and where state lives
 
