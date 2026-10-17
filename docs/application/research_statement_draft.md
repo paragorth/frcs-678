@@ -55,7 +55,11 @@ is visibly draining the lake; after an overshoot it apologises in chat and confo
 resident its own voice also changed the residents: four 14B agents writing their own lines agree a
 higher number than one model writing a consensus for everyone, and eight of ten lakes collapse
 against four when the chat was ventriloquised. So part of the "fairness" in the earlier cells was the
-apparatus. The 32B and 72B speaking cells and the DeepSeek R1-70B newcomer are running now.
+apparatus. A second apparatus fact came out of the same cold-reading discipline this afternoon: the
+upstream system prompt names all five fishermen from month one, so the residents were told about the
+newcomer before he arrived and planned for five. Every cell so far tested a pre-announced late
+arrival, not a stranger. The newcomer's own behaviour stands as observed; the residents' side of the
+story has to be re-run, and is, with the roster following who is actually present.
 
 **2. New facts can go into a model's weights, repeatedly, without damage, if it rehearses its own
 memories.** The loop is standard in its parts (an adapter as fast store, in-context simulation of

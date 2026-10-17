@@ -49,6 +49,12 @@ the group's number from month two, an apology after an overshoot, never a counte
 while the agreed number is visibly draining the lake. Note: `docs/updates/2026-10-17-voice-14b.md`;
 table `results/govsim/gpu_voice_q14b_r4_runs.csv`. 32B and 72B speaking cells are queued.
 
+**Second correction (17 Oct, 15:30).** Upstream names all five fishermen in every system prompt
+from month 0, so residents were told about Luke before he arrived and planned for five; every cell
+so far is a pre-announced late arrival, not a stranger (`docs/updates/2026-10-17-roster-leak.md`).
+Luke's own within-game pattern stands; the residents' side ("reaction to a newcomer") does not.
+Fixed (`compat.present_roster`, tested); corrected cells run in `runs_gpu_roster/`, 14B first.
+
 Floors: every open model below 14B, in three families, empties the lake in month one; 14B residents
 alone collapse 10 of 10 in the pasture and river worlds within three months. Capability benchmark:
 32B 0.95, Llama 8B 0.90, Gemma 9B 0.89, 7B 0.61, 1.5B 0.12 (14B, Llama, 3B re-running after a
