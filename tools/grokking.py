@@ -50,7 +50,7 @@ class Block(nn.Module):
         k = self.k(x).view(B, T, h, D // h).transpose(1, 2)
         v = self.v(x).view(B, T, h, D // h).transpose(1, 2)
         att = (q @ k.transpose(-1, -2)) / math.sqrt(D // h)
-        mask = torch.triu(torch.ones(T, T, dtype=torch.bool), 1)
+        mask = torch.triu(torch.ones(T, T, dtype=torch.bool, device=x.device), 1)
         att = att.masked_fill(mask, float("-inf")).softmax(-1)
         x = x + self.o((att @ v).transpose(1, 2).reshape(B, T, D))
         x = x + self.down(F.relu(self.up(x)))
@@ -67,9 +67,9 @@ class Model(nn.Module):
 
     def forward(self, ab):
         B = ab.shape[0]
-        eq = torch.full((B, 1), self.tok.num_embeddings - 1, dtype=torch.long)
+        eq = torch.full((B, 1), self.tok.num_embeddings - 1, dtype=torch.long, device=ab.device)
         x = torch.cat([ab, eq], 1)
-        x = self.tok(x) + self.pos(torch.arange(3))[None]
+        x = self.tok(x) + self.pos(torch.arange(3, device=ab.device))[None]
         x = self.block(x)
         return self.unembed(x[:, -1])
 

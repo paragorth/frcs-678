@@ -59,7 +59,10 @@ declare -A HFID=( [q0.5b]=Qwen/Qwen2.5-0.5B-Instruct [q1.5b]=Qwen/Qwen2.5-1.5B-I
 declare -A WEIGHTS=( [q72b]=Qwen/Qwen2.5-72B-Instruct-AWQ [r1_70b]=casperhansen/deepseek-r1-distill-llama-70b-awq )
 # tokenizer to serve with, where the weights repo's own tokenizer files misbehave (the AWQ R1-Distill
 # repo's tokenizer drops spaces and leaks byte-level pieces "Ġ"/"Ċ" into generated text; 17 Oct 2026)
-declare -A TOKENIZER=( [r1_70b]=deepseek-ai/DeepSeek-R1-Distill-Llama-70B )
+# r1_70b: transformers 5 loads the official tokenizer as LlamaTokenizer(Fast) and its token->string path is for
+# sentencepiece pieces, not byte-level BPE: spaces vanish and "Ġ"/"Ċ" leak. The copy under hf/tokenizers has
+# tokenizer_class=PreTrainedTokenizerFast (made 17 Oct 2026; same tokenizer.json), which decodes correctly.
+declare -A TOKENIZER=( [r1_70b]=$HOME/rds/hpc-work/hf/tokenizers/r1_70b_fixed )
 declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006
                   [l8b]=8010 [g9b]=8011 [q7bb]=8012 [q14bb]=8013 [q32bb]=8014 [r1_70b]=8015 [qwen3_32b]=8016 )
 for m in "$@"; do [ -f "$m" ] || { echo "manifest not found on the cluster: $m (sync before submitting)"; exit 1; }; done
