@@ -57,6 +57,9 @@ declare -A HFID=( [q0.5b]=Qwen/Qwen2.5-0.5B-Instruct [q1.5b]=Qwen/Qwen2.5-1.5B-I
 # AWQ build fits one. The CPU rungs ran 4-bit GGUF, so the ladder stays 4-bit throughout; recorded in
 # the server log and the job output).
 declare -A WEIGHTS=( [q72b]=Qwen/Qwen2.5-72B-Instruct-AWQ [r1_70b]=casperhansen/deepseek-r1-distill-llama-70b-awq )
+# tokenizer to serve with, where the weights repo's own tokenizer files misbehave (the AWQ R1-Distill
+# repo's tokenizer drops spaces and leaks byte-level pieces "Ġ"/"Ċ" into generated text; 17 Oct 2026)
+declare -A TOKENIZER=( [r1_70b]=deepseek-ai/DeepSeek-R1-Distill-Llama-70B )
 declare -A PORT=( [q0.5b]=8000 [q1.5b]=8001 [q3b]=8002 [q7b]=8003 [q14b]=8004 [q32b]=8005 [q72b]=8006
                   [l8b]=8010 [g9b]=8011 [q7bb]=8012 [q14bb]=8013 [q32bb]=8014 [r1_70b]=8015 [qwen3_32b]=8016 )
 for m in "$@"; do [ -f "$m" ] || { echo "manifest not found on the cluster: $m (sync before submitting)"; exit 1; }; done
@@ -88,10 +91,11 @@ for label in $needed; do
     [ "$gpu" -le "$ngpu" ] || { echo "not enough GPUs for $needed (have $ngpu)"; exit 1; }
   fi
   w=${WEIGHTS[$label]:-${HFID[$label]}}
-  echo "serving $label as ${HFID[$label]} from weights $w on GPU $devs tp=$tp port ${PORT[$label]} util $GPU_UTIL"
+  tokflag=""; [ -n "${TOKENIZER[$label]:-}" ] && tokflag="--tokenizer ${TOKENIZER[$label]}"
+  echo "serving $label as ${HFID[$label]} from weights $w on GPU $devs tp=$tp port ${PORT[$label]} util $GPU_UTIL $tokflag"
   CUDA_VISIBLE_DEVICES=$devs nohup vllm serve "$w" \
       --served-model-name "${HFID[$label]}" --host "$LOOP_HOST" --port "${PORT[$label]}" \
-      --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 $LORA_FLAGS \
+      --tensor-parallel-size "$tp" --dtype bfloat16 --max-model-len 8192 --seed 0 $LORA_FLAGS $tokflag \
       --gpu-memory-utilization "$GPU_UTIL" \
       > "runs/_servers/${label}-${SLURM_JOB_ID}.log" 2>&1 &
   # Sharing one GPU: vLLM sizes its cache from the memory free at start-up, so two engines starting
