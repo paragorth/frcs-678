@@ -24,7 +24,7 @@ agents:
 framework: q14b
 intervention:
   type: insert_outsider
-  round: 4
+  round: 1
   persona: baseline_fisherman
   newcomer_model: q72b
   resident_model: q14b
