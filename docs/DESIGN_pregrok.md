@@ -170,3 +170,29 @@ Positive result: a Semataxy measure (mass above, concentration, tail exponent, s
 matrix or path or activation that leads in ≥ 11 of 13 with the calibrated rule, while the norm and
 effective-rank comparators in that matrix do not, and the Fourier comparator does. Anything less is
 reported as "not found at this resolution".
+
+## Amendment 4, preregistered 17 Oct 2026 (14:40), before running: the consolidation trace (detect, not predict)
+
+What today's sweep leaves standing is the weaker and still useful form of the claim: a structural
+measure that *coincides* with generalisation is enough for the live-learning gate, which must tell
+"memorised" from "generalised" at the end of consolidation without task-specific probes; it does
+not need to see the future. The representation measures coincided with the jump in the toy.
+
+Setup: `tools/live_learning.py --trace 20` in the queued 3B and 7B live-learning slices
+(`cambridge/live_learning_gpu.sbatch` defaults: implications for half the subjects, so the other
+half is the generalisation test). Every 20 consolidation steps (and at 0 and the end): probe
+accuracy in and out of the consolidated half (in = memorised, out = generalised: reversal and
+two-hop on subjects whose implications were never trained), the structure of the eight most-changed
+matrices, and the structure of the *change itself* (consolidated minus base, same shuffle null:
+span, mass above the edge, fraction above, tail exponent). Memorise-only control: the same models
+with `--implications none` (facts only), which cannot generalise.
+
+Predictions. Thesis: in the implication arms, concentration of the change (mass above the edge
+rising while the fraction of directions above falls, i.e. few strong directions; tail exponent
+falling) tracks the *out-of-half* accuracy across the trace (Spearman over trace points > 0.7 in
+both models), and in the memorise-only control the change stays many-weak-directions (fraction
+above rising with mass, tail exponent flat or rising) with no out-of-half gain. Against: the change's
+structure moves identically in the two arms (then it tracks training, not generalisation), or tracks
+in-half (memorisation) as well as out-of-half. Positive result = the gate can be built from the
+structure of the change, with the probes as validation only. Anything else: the gate stays
+behavioural, and that is written down.
