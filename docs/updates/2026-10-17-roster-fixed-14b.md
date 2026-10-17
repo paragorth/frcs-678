@@ -35,3 +35,16 @@ tests whether a capable *cohort* keeps the lake, the direct question for the the
 Upstream artefacts seen again, none new: persona_0 carries the "who speaks next" fallbacks; the
 framework's extracted limit is unreliable; forecasts anchor at 100; agents occasionally thank a
 "Mayor" who does not exist.
+
+## Late evening: month-1 entry does not rescue the design either
+
+With the stranger entering at month 2 (`*_r1_*` manifests), the four 14B residents take about 20 tons
+each in month 1 (80 of 100), the lake is at 40 in month 2, and every game collapses in month 2 or 3
+whoever the stranger is: 9 of 9 finished games with a 14B stranger, 8 of 8 with DeepSeek R1-70B
+(visible), 8 of 8 (hidden). The strangers take 2 to 8 tons in their first month, sensible for a lake
+of 40, and it makes no difference. The cohort is the experiment's floor, not its baseline: four 14B
+agents with correct information cannot keep a lake for one month. The 32B-resident cells (32B, 72B
+and R1 strangers at month 2, `B_res-q32b_in-*_r1_*`) are now first in the queue; the unfinished
+14B-resident games are behind them. In-game live learning works end to end in the live cell
+(6 to 7 facts per month consolidated and committed, adapter served), limited only by games that end
+at month 3. Partial tables: `runs_gpu_roster/partial-*.csv`.
