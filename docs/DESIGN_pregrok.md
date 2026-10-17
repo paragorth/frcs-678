@@ -196,3 +196,33 @@ structure moves identically in the two arms (then it tracks training, not genera
 in-half (memorisation) as well as out-of-half. Positive result = the gate can be built from the
 structure of the change, with the probes as validation only. Anything else: the gate stays
 behavioural, and that is written down.
+
+## Amendment 5, preregistered 17 Oct 2026 (16:00), before running: the few directions, and the same-decay null
+
+Diagnosis from the sweep: the bulk spectral measures see cleanup (many weak memorisation directions
+stripped), which coincides with the jump; a circuit forming beforehand is a handful of directions
+buried under hundreds, invisible to a bulk statistic. And the no-decay controls were the wrong null:
+decay itself moves every bulk statistic. Two measures and one null follow.
+
+Measures (per matrix, from the existing logs and checkpoints; `tools/pregrok_topk.py`):
+- **Top-k energy share** E_k = Σ_{i≤k} σ_i² / ‖W‖_F², k ∈ {2, 4, 8} (from the 100-epoch logs:
+  top 16 singular values and the Frobenius norm are logged).
+- **Top-k subspace persistence** P_k(t) = ‖V_k(t)ᵀ V_k(t+Δ)‖_F² / k between consecutive checkpoints
+  (Δ = 500 epochs), k ∈ {4, 8}, right and left singular subspaces: 1 = the strongest directions are
+  the same directions as 500 epochs ago; organisation that persists.
+- Comparators run identically: Frobenius norm, effective rank, Nanda's Fourier Gini (known positive).
+
+Null: **runs with the same weight decay that did not grok.** At wd 0.3, seeds 1, 2, 4 grokked (B1 at
+25.8k, 59.0k, 44.9k) and seeds 0, 3 did not within 80k. For each measure and matrix, and each
+grokked run, the *separation epoch* is the first epoch from which the grokked run stays outside the
+band spanned by the two non-grokked runs (min to max at the same epoch, widened by the band's own
+plateau spread) for 10 consecutive logs. Lead = B1 − separation epoch. The wd 1.0 and wd 3.0 runs
+have no same-decay non-grokked partner and are reported descriptively only (do E_k and P_k rise
+before B1?).
+
+Predictions. Thesis: P_4 or P_8 of the value, output or MLP-up matrices separates the three grokked
+wd 0.3 runs from the two non-grokked ones at least 5,000 epochs before B1 in all three, and E_k
+likewise; the Fourier comparator separates too (power check). Against: separation only at or after
+B1, or none, or separation on the norm alone. Three grokked runs against two controls cannot carry a
+sign test; this is a check of direction and magnitude, to be followed by more wd 0.3 seeds if it
+holds. Written before running.

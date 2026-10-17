@@ -131,3 +131,15 @@ measures concentrate sharply *at* the transition in every grokked run; nothing i
 families separates "will generalise" from "will not" before the transition under any rule we
 preregistered. The weight-only route to a leading indicator is closed for now; the representation
 route coincided with the jump rather than leading it.
+
+## Addendum (16:30): amendment 5, part 1 (top-k energy share from the logs). Not supported.
+
+Same-decay null: at wd 0.3, seeds 0 and 3 never passed 5 per cent accuracy; seeds 1, 2, 4 grokked
+(B1 25.8k, 59.0k, 44.9k). The top-k energy share E_k separates every grokked run from the two-run
+band at the first eligible epoch (10,100) in V and O, which looks like a 15k to 49k lead until the
+specificity check: each grokked run separates from the band of the *other two grokked runs* just as
+early (10k to 17k). A band spanned by two seeds is too narrow to mean anything; the values at
+separation are indistinguishable from the null's (V E_4: 0.19 to 0.20 against 0.21 to 0.22). And
+the direction is wrong: the non-grokked runs end with the *higher* top-4 share (0.27 against 0.23 at
+B1). The energy share does not discriminate before the jump at n = 3 against 2. Part 2 (subspace
+persistence from the checkpoints) is queued; it is the last preregistered test of the day.
