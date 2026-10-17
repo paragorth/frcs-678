@@ -38,10 +38,10 @@ Consolidation. I have a loop that puts new facts into weights through a compartm
 (1,296 chars)
 
 ## How likely are you to accept a full-time offer? (brief, with a %)
-High. I would leave a consultant surgical post for this, and I have arranged to be full-time from January to find out. 85 per cent, the remainder being whether the fit on the ground matches the fit on paper.
+100 per cent. I would leave a consultant surgical post for this, and I have arranged to be full-time from January to find out.
 
 ## How likely to continue in the selected streams after the program? (brief, with a %)
-95 per cent. These are the two problems I have chosen to spend the rest of my working life on; the program is a means to them, not the other way round.
+100 per cent. These are the two problems I have chosen to spend the rest of my working life on; the program is a means to them, not the other way round.
 
 ## Current country of residence
 United Kingdom
