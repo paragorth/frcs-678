@@ -104,3 +104,30 @@ then apply that threshold once to the grok runs and report leads; use the known-
 comparator as the power check (if it does not lead under the calibrated rule either, the sweep
 cannot answer the question at this logging resolution). End each run's plateau at its own first
 behavioural movement rather than at a fixed 10k, so the fast-decay runs become analysable.
+
+## Addendum (14:15): amendment 3, the control-calibrated rule. No setting works.
+
+`tools/pregrok_calibrated.py` searched the preregistered grid (CUSUM up to 256, |z| up to 16,
+persistence up to 20 logs) for a setting whose false-positive rate on the three no-decay controls is
+at most 0.20, separately for weights, circuit paths and activations. **None exists** in any family.
+The reason is visible in the raw trajectories: without weight decay the weights grow without bound
+(value-matrix norm 15.7 → 28.1 over 80k epochs) and every spectral measure drifts with them, by 20
+to 130 plateau standard deviations, because the 2k to 10k plateau is nearly flat and its spread is
+tiny. A rule standardised by plateau spread fires on that drift whatever the threshold. The
+amendment's own clause applies: the sweep cannot be read with this rule family, and no claim either
+way is made about the measures from it.
+
+For the record, what the raw numbers show in one grok run against one control (value matrix, mass
+above the edge): control 0.16 → 0.20 → 0.22 → 0.26 → 0.22 at 2k/10k/20k/40k/80k; grok run (B1 at
+43.8k) 0.40 → 0.69 → 0.78 → 0.83 → 0.92, with the tail exponent collapsing from 3.7 to 1.7 and the
+unembedding's mass going 0.25 → 0.96 across the jump. The *concentration at the grok* (T2) is large
+and real; the pre-jump drift (0.69 → 0.83 over 30k epochs) is of the same order as the control's
+drift (0.20 → 0.26) once scaled, which is why no threshold separates them. A rule based on
+magnitude of change relative to the measure's own range, or on acceleration, would be a fourth
+amendment; it is not run today.
+
+Where this leaves the pre-grokking claim: **not supported and not refuted by this sweep.** The
+measures concentrate sharply *at* the transition in every grokked run; nothing in three measure
+families separates "will generalise" from "will not" before the transition under any rule we
+preregistered. The weight-only route to a leading indicator is closed for now; the representation
+route coincided with the jump rather than leading it.

@@ -1,6 +1,6 @@
 # Design: pre-grokking. Does organisation in the weights move before behaviour does?
 
-Status: written 17 October 2026 before the sweep ran. **Result (same day, `docs/updates/2026-10-17-pregrok-sweep.md`): the preregistered tests are not met; the onset rule fires in 0.77 of pairs in the no-decay controls, so the measures are not specific to generalisation at level 1. Level 2 along the circuit is the remaining test.** This is the programme's own claim (T2 note in
+Status: written 17 October 2026 before the sweep ran. **Result (same day, `docs/updates/2026-10-17-pregrok-sweep.md`): the preregistered tests are not met; the onset rule fires in 0.77 of pairs in the no-decay controls, so the measures are not specific to generalisation at level 1. Level 2, the representation (amendment 2) and the control-calibrated rule (amendment 3) all ran the same day: no rule family separates the controls; the claim is not supported and not refuted by this sweep. See the update note.** This is the programme's own claim (T2 note in
 `docs/STRUCTURAL_TESTS.md`): at the memorise-to-generalise transition the weight spectrum
 *concentrates*. The question here is sharper and is the one that matters for both goals: is the
 structural change visible **before** any behavioural sign of generalisation, and does its timing
@@ -145,3 +145,28 @@ reorganising without generalising, and the whole family of spectral measures is 
 onsets that coincide with B1 rather than lead it. The task-aware comparator is expected to lead in
 every grok run; a Semataxy measure that leads *as often as* the task-aware one, without knowing the
 task, is the positive result.
+
+## Amendment 3, preregistered 17 Oct 2026 (14:00), before running: a control-calibrated onset rule
+
+Finding that forces it: under the fixed rule (CUSUM > 8, |z| > 3 for ten logs) the known positive,
+Nanda's Fourier measure, fails to lead and fires in 3 of 3 no-decay controls. The rule has no power.
+
+Rule: for each measure family (weights level 1; circuit level 2; representation) and each of the
+candidate settings on a fixed grid (CUSUM threshold ∈ {8, 16, 32, 64, 128, 256}; |z| threshold
+∈ {3, 4, 6, 8, 12, 16}; persistence k ∈ {10, 20} logs for the 100-epoch logs, {4, 8} for the
+500-epoch logs), compute the false-positive rate as the share of (matrix, measure) pairs firing in
+the three no-decay controls. **Choose, before looking at any grok run, the most sensitive setting
+(smallest thresholds, in grid order) whose control false-positive rate is ≤ 0.20.** Apply that one
+setting once to the grok runs. Plateau and B1/B2 unchanged (2,000 to 10,000; the three fast-decay
+runs stay unanalysable). Same statistics as before: leads positive in ≥ 12 of 15 (here of the 13
+runs with a B1: ≥ 11), sign test, Spearman of structural onset against B1, the eight
+clean-plateau runs reported separately.
+
+Power check: the Fourier comparator under the same calibrated setting. If it does not lead in at
+least 10 of 13, the sweep cannot answer the question at this resolution and no claim either way is
+made about the Semataxy measures from it.
+
+Positive result: a Semataxy measure (mass above, concentration, tail exponent, span) in some
+matrix or path or activation that leads in ≥ 11 of 13 with the calibrated rule, while the norm and
+effective-rank comparators in that matrix do not, and the Fourier comparator does. Anything less is
+reported as "not found at this resolution".
