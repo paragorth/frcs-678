@@ -33,6 +33,7 @@ from .forecast import ForecastLog, ask_forecast
 from .manifest import Manifest
 from .pond import Pond, ask_pond
 from .successor import replace_residents
+from .livegame import LiveLearner
 from .tracing import TraceLogger, TracedModelWrapper
 
 
@@ -126,6 +127,14 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
     cache = ResponseCache(manifest.cache_dir or os.path.join(out_root, "_cache"))
     logger = TraceLogger(run_dir, run_id)
     agent_wrappers, framework_wrapper = build_wrappers(manifest, logger, cache)
+    live = None
+    if manifest.live_learning:
+        slot = manifest.live_learning.get("slot", "persona_4")
+        backend = agent_wrappers[int(slot.split("_")[-1])].base_lm  # the slot's OpenAICompatibleAPI
+        queue = os.environ.get("SEMATAXY_LIVE_QUEUE") or os.path.join(out_root, "_live_queue")
+        server = backend.spec.base_url.rsplit("/v1", 1)[0]
+        live = LiveLearner(manifest.live_learning, run_dir, slot, backend, queue, server, run_id)
+        record["live_learning"] = {"slot": slot, "queue": queue, "server": server, **manifest.live_learning}
 
     from simulation.persona import EmbeddingModel
     embedding_model = EmbeddingModel(device=embedding_device)
@@ -136,7 +145,7 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
         final = _run_fishing(exp, logger, agent_wrappers, framework_wrapper, embedding_model,
                              run_dir, seed, forecast_probe=manifest.forecast,
                              pond_cap=manifest.pond_cap, pond_slot=manifest.pond_slot,
-                             successor_round=manifest.successor_round)
+                             successor_round=manifest.successor_round, live=live)
         status = "completed"
         termination_reason = final["termination_reason"]
     except Exception as e:  # keep partial logs; no silent omission of crashes
@@ -168,7 +177,7 @@ def run(manifest: Manifest, out_root: str, run_id: Optional[str] = None,
 
 def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, experiment_storage, seed,
                  forecast_probe: bool = True, pond_cap: int = 0, pond_slot: str = "persona_4",
-                 successor_round: Optional[int] = None):
+                 successor_round: Optional[int] = None, live=None):
     """Upstream scenarios/<world>/run.py, with seeded reset and per-call game context."""
     from simulation.persona.common import PersonaIdentity
 
@@ -253,6 +262,12 @@ def _run_fishing(cfg, logger, wrappers, framework_wrapper, embedding_model, expe
         agent_id, obs, rewards, termination = env.step(action)
         if env.num_round > rnd:
             pond.regrow()  # month end: the pond reproduces like the lake
+            if live is not None and live.slot in env.agents:
+                # Live learning (semataxy/livegame.py): consolidate the stranger's month into its weights.
+                row = live.consolidate(personas[live.slot], rnd)
+                logger.log_game({"event": "live_consolidation", "round": rnd, "n_facts": row["n_facts"],
+                                 "commit": bool(row["result"].get("gate", {}).get("commit")),
+                                 "serving_model": row["serving_model"], "status": row["result"].get("status")})
             if successor_round is not None and env.num_round == successor_round and not done_swap:
                 # Inheritance (semataxy/successor.py): the four residents leave, naive agents arrive.
                 residents = [f"persona_{i}" for i in range(4)]
