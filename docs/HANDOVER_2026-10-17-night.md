@@ -231,3 +231,12 @@ yes or no, and did the control stay clean.
 `docs/application/research_statement_draft.md` and the Claude Doc "Semataxy research statement"
 (https://claude.ai/code/artifact/86777013-f149-45a2-a80b-b00eb5b5f3d3), memory notes under the
 assistant's project memory (`semataxy-goals`, `pg-negative-results-then-design`).
+
+## Addendum, 22:50: the in-game quartet gate ran end to end locally
+
+`tools/lora_worker.py --quartet` on Qwen2.5-0.5B, one fake month (6 facts, 2 older facts, 8 steps,
+rank 8, CPU): 168 adapted modules, 304 of 1,344 adapter directions above the shuffled-factor edge
+(about 23 per cent, evenly across q/k/v/o/gate/up/down). Fact loss 5.31 before; full change 2.19;
+above-edge part alone 2.54; bulk alone 4.09; held-out unchanged in all three (3.35 to 3.38). The gate
+committed the above-edge adapter. Mechanics work; the numbers mean nothing at 8 steps. Not yet run on
+the cluster; it switches on with `QUARTET=1` in the LIVE GPU job once a cohort exists for the live cell.
