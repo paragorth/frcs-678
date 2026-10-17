@@ -113,7 +113,14 @@ def main():
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=a.wd, betas=(0.9, 0.98))
     if a.resume and os.path.exists(a.resume + ".opt"):
         opt.load_state_dict(torch.load(a.resume + ".opt"))
-    log = open(os.path.join(a.out, "log.jsonl"), "a" if a.resume else "w")
+    logp = os.path.join(a.out, "log.jsonl")
+    if a.resume and os.path.exists(logp):  # drop records after the checkpoint so a resumed log has no duplicates
+        keep = [l for l in open(logp) if json.loads(l)["epoch"] < a.start_epoch]
+        open(logp, "w").writelines(keep)
+    log = open(logp, "a" if a.resume else "w")
+    if a.resume:
+        log.write(json.dumps({"epoch": a.start_epoch, "resumed_from": a.resume,
+                              "optimizer_state": os.path.exists(a.resume + ".opt")}) + "\n")
     t0 = time.time()
     for epoch in range(a.start_epoch, a.epochs + 1):
         if a.resume and epoch == a.start_epoch:
@@ -144,6 +151,7 @@ def main():
             if a.save_every and epoch % a.save_every == 0:
                 os.makedirs(os.path.join(a.out, "ckpt"), exist_ok=True)
                 torch.save(model.state_dict(), os.path.join(a.out, "ckpt", f"ep{epoch:06d}.pt"))
+                torch.save(opt.state_dict(), os.path.join(a.out, "ckpt", f"ep{epoch:06d}.pt.opt"))  # exact resume
             rec = {"epoch": epoch, "train_loss": loss.item(), "train_acc": tr_acc,
                    "test_loss": te_loss, "test_acc": te_acc,
                    "sigma_mean": float(np.mean([s["sigma"] for s in structs.values()])),

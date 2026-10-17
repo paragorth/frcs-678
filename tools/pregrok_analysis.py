@@ -22,7 +22,7 @@ MEASURES = ("mass_above", "frac_above", "conc", "alpha", "sigma", "fro", "erank1
 
 
 def load(path):
-    rows = [json.loads(l) for l in open(path)]
+    rows = [r for r in (json.loads(l) for l in open(path)) if "resumed_from" not in r]  # resume markers carry no measures
     ep = np.array([r["epoch"] for r in rows], float)
     beh = pd.DataFrame({"epoch": ep, "test_loss": [r["test_loss"] for r in rows], "test_acc": [r["test_acc"] for r in rows],
                         "train_acc": [r["train_acc"] for r in rows]})
