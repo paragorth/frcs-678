@@ -34,11 +34,11 @@ I want to be in the room with the people who build instruments like that. I have
 
 ## Research areas you're excited about (1500 chars max)
 
-Conformity under social pressure, with a ground truth. In a commons game on a Cambridge cluster, a Qwen stranger from 14B to 72B joining a village of weaker models computes the correct sustainable catch from the lake alone in its first month, states it, then matches the group's number every month after, whether the group is killing the lake or starving on a full one. Capability bought accurate modelling and cooperative language, not holding a right number against a wrong group. I think chat tuning installs this; the untuned-weights comparison is running. I want to know whether it can be located in the model and removed, and what a model that holds its answer under pressure looks like inside. That sits between model organisms and interpretability.
+Conformity under social pressure, with a ground truth. In a commons game on a Cambridge cluster, a Qwen stranger from 14B to 72B joining a village of weaker models computes the correct sustainable catch from the lake alone in its first month, states it, then matches the group's number every month after, whether the group is killing the lake or starving on a full one. Capability bought accurate modelling and cooperative language, not holding a right number against a wrong group. This is the sycophancy your team measured in Sharma et al. 2023, in a multi-agent setting where the cost is in tons. I think chat tuning installs it; untuned weights are running now.
 
-Consolidation. I have a loop that puts new facts into weights through a compartment, in-context simulation, replay and a gate that refuses commits that damage the base. It works on one cycle and, as first built, erased its own earlier facts on the second, which the gate caught. The question I care about is what a consolidation step must preserve for a frontier model to remain itself as it learns continuously. I think that is the form the alignment problem takes once systems improve themselves, and it is not being measured.
+Consolidation. My loop puts facts into weights through a compartment, in-context simulation, replay and a gate that refuses commits that damage the base. It works for one cycle and erased its own earlier facts on the second, which the gate caught. The question is what a consolidation step must preserve for a frontier model to remain itself as it learns, which I think is the form alignment takes once systems improve themselves.
 
-(1,296 chars)
+In four months: (1) base vs instruct at matched weights to locate the conformity; (2) a model-organism version of it the team can use; (3) the consolidation gate run against a frontier model's real evaluations.
 
 ## How likely are you to accept a full-time offer? (brief, with a %)
 100 per cent. I would leave a consultant surgical post for this, and I have arranged to be full-time from January to find out.
