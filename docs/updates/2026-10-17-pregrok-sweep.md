@@ -69,3 +69,38 @@ were not counted as false positives (the 0.77 is the no-decay arm alone; the fas
 number). A better design would set the plateau window per run from the behaviour (end it at the
 first behavioural movement) and use the no-decay arm to calibrate the CUSUM threshold; that is a new
 preregistration, not a re-read of this one.
+
+## Addendum (13:40): level 2 along the circuit, and organisation of the representation
+
+Both ran on the checkpoints in the fast slot (`pregrok_level2.sbatch` 4 min, `pregrok_acts.sbatch`
+7 min; logs `results/grokking/*_level2_log.jsonl`, `*_acts_log.jsonl`; summaries
+`pregrok_level2_summary.csv`, `pregrok_acts_summary.csv`; behavioural onsets taken from the
+100-epoch level-1 logs, structural onsets from the 500-epoch checkpoint logs).
+
+| measure family | wd0 control false-positive rate (mean over pairs) | pairs with zero false positives | best lead among them |
+|---|---|---|---|
+| level 1, weights (morning) | 0.77 | 10 of 56, all aggregates or span | none |
+| level 2, circuit paths QK/OV/MLP vs shuffled-factor null | 0.68 | 14 of 49 | MLP_in span: 6 of 9 lead, p = 0.25 |
+| representation, activations on 2,048 inputs | 0.65 | 14 of 56 | mlp_out span: 6 of 11 lead, p = 0.50 |
+
+Among pairs that do fire in the controls, the representation measures mostly *coincide* with the
+jump (median leads −2k to +3k epochs, Spearman 0.5 to 0.9 because onset ≈ B1) and the level-2
+measures lead by 4k to 10k in 7 or 8 of the 8 clean-plateau runs, as the weights did, with the
+same 100 per cent control firing. **Neither preregistered amendment is met.**
+
+The decisive extra fact: Nanda's own task-aware comparator (Gini of the Fourier spectrum of the
+embedding, of the unembedding, and of the logits by answer class), which is known to form before
+the jump, *also* fails under our onset rule: 6 to 7 of 13 leads, median lead −1.4k to +6.7k, and it
+fires in 3 of 3 no-decay controls. A measure with established ground truth cannot pass this rule,
+so the rule has no discriminating power as written: a CUSUM of 8 on plateau-standardised residuals
+trips on the slow drift every run has after memorisation. The morning's conclusion therefore
+splits in two: (a) the measures did not pass; (b) the test as preregistered could not have been
+passed by anything, including the known positive. (a) stands as a negative result for the design;
+(b) means it is not yet evidence that the measures carry no leading information.
+
+What a fair test would look like, to be preregistered before running (all data already exists):
+set the detection threshold *on the no-decay controls* so that at most 1 in 5 pairs fires there,
+then apply that threshold once to the grok runs and report leads; use the known-positive Fourier
+comparator as the power check (if it does not lead under the calibrated rule either, the sweep
+cannot answer the question at this logging resolution). End each run's plateau at its own first
+behavioural movement rather than at a fixed 10k, so the fast-decay runs become analysable.

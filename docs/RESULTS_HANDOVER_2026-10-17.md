@@ -117,10 +117,15 @@ Files: `results/structure/`, `docs/STRUCTURAL_TESTS.md`, `docs/updates/2026-10-1
 - Controls: **0.77 of pairs fire in the no-weight-decay controls, which never generalise**; every
   leading pair fires in 3 of 3. The rule detects continued reorganisation after memorisation, which
   happens with or without a grok. The norm comparator moves earlier still.
-Conclusion: at level 1 the weight-only spectral measures describe grokking, they do not predict it,
-and they cannot be the live-learning gate's signal as proposed. Level-2 measures along the circuit
-(QK, OV, MLP paths, shuffled-factor null) are computed from the checkpoints next; if they also fire
-in the controls, the line closes. Files: `results/grokking/*_log.jsonl`, `pregrok_level1_summary.csv`.
+Level 2 along the circuit (QK/OV/MLP paths, shuffled-factor null) and the organisation of the
+representation (activations on 2,048 inputs; preregistered amendment 2) give the same picture:
+control false-positive rates 0.68 and 0.65, no zero-false-positive pair that leads. The known
+positive, Nanda's task-aware Fourier measure, also fails the rule and fires in all controls, so the
+preregistered onset rule has no discriminating power as written. Conclusion: the measures did not
+pass (a negative result for the design as run), and the test could not have been passed by anything
+(so it is not yet evidence that the measures carry no leading information). Next, preregistered
+before running: calibrate the threshold on the no-decay controls, use the Fourier comparator as the
+power check, per-run plateau ends. All data exists; no new runs needed. Files: `results/grokking/*_log.jsonl`, `pregrok_level1_summary.csv`.
 
 ## 5. What is running, and where state lives
 
