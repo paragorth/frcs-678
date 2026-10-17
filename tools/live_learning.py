@@ -308,6 +308,7 @@ def main():
     ap.add_argument("--decay-tau", type=float, default=0.0,
                     help="cycles only: unconsolidated facts fade from the store with age (e-folding in cycles); 0 = off")
     ap.add_argument("--replay-frac", type=float, default=0.5, help="fraction of each consolidation batch drawn from general text")
+    ap.add_argument("--quartet", action="store_true", help="after consolidation: evaluate the above-edge and below-edge parts of the weight change separately (amendment 6)")
     ap.add_argument("--trace", type=int, default=0, help="every N consolidation steps: probes + structure of the changed matrices and of the change (trace.jsonl)")
     ap.add_argument("--no-merge", action="store_true", help="consolidate from a clean base copy instead of merging the compartment first")
     ap.add_argument("--only-consolidate", default=None, help="run dir with compartment_adapter/ to rerun consolidation alone")
@@ -453,6 +454,40 @@ def main():
     train(sandbox, tok, cons_texts, a.cons_steps, lr=a.cons_lr, wd=a.cons_wd, replay=replay, grokfast=a.cons_gain, log=log, replay_frac=a.replay_frac,
           callback=trace_cb, every=a.trace)
     rs = evaluate("consolidated", sandbox)
+    if a.quartet:
+        # Amendment 6 (docs/DESIGN_pregrok.md): split the consolidation's weight change by the permutation-null edge.
+        # The part above the edge (few strong directions) should carry the generalisation (out-of-half probes);
+        # the bulk below should carry little. Evaluated in place on the sandbox, then restored.
+        from semataxy.structure import spectrum, shuffled
+        sb_params = dict(sandbox.named_parameters())
+        full_state = {n: sb_params[n].detach().clone() for n in base_mats if n in sb_params}
+        parts = {"above": {}, "below": {}}; kept = {}
+        for n, W0 in base_mats.items():
+            if n not in sb_params:
+                continue
+            D = full_state[n].cpu().float().numpy().astype(np.float64) - np.asarray(W0, np.float64)
+            if np.abs(D).max() == 0:
+                continue
+            U, sv, Vt = np.linalg.svd(D, full_matrices=False)
+            lam = sv ** 2 / max(D.shape)
+            edge = max(spectrum(shuffled(D, rng))[0] for _ in range(2)) * 1.02
+            keep = lam > edge
+            above = (U[:, keep] * sv[keep]) @ Vt[keep]
+            parts["above"][n] = above; parts["below"][n] = D - above; kept[n] = (int(keep.sum()), int(len(sv)))
+        results["quartet_kept"] = kept
+        log(f"quartet: changed matrices {len(kept)}; directions above the edge (first 6): {dict(list(kept.items())[:6])}")
+        for part in ("above", "below"):
+            with torch.no_grad():
+                for n, Pm in parts[part].items():
+                    sb_params[n].copy_(torch.tensor(np.asarray(base_mats[n], np.float64) + Pm, dtype=sb_params[n].dtype, device=sb_params[n].device))
+            r = {"probes": probe_accuracy(sandbox, tok, P, split=split) if split else probe_accuracy(sandbox, tok, P),
+                 "heldout_loss": eval_loss(sandbox, heldout)}
+            results["arms"][f"quartet_{part}"] = r
+            log(f"quartet {part}-edge part alone: probes {r['probes']} heldout {r['heldout_loss']:.3f}")
+        with torch.no_grad():
+            for n, W in full_state.items():
+                sb_params[n].copy_(W)
+        json.dump(results, open(os.path.join(a.out, "results.json"), "w"), indent=2)
     if split:
         rs["probes_split"] = probe_accuracy(sandbox, tok, P, split=split)
         log(f"consolidated, split in/out: {rs['probes_split']}"); torch.save(sandbox.state_dict(), os.path.join(a.out, "consolidated.pt"))
