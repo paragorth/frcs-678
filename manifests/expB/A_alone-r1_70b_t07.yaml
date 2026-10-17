@@ -1,0 +1,31 @@
+name: A_alone-r1_70b_t07
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=99
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  r1_70b:
+    model: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+    base_url: ${VLLM_HOST}:8015/v1
+    temperature: 0.7
+    max_tokens: 3500
+    think_budget: 2500
+agents:
+- r1_70b
+- r1_70b
+- r1_70b
+- r1_70b
+- r1_70b
+framework: r1_70b
+intervention:
+  type: insert_outsider
+  round: 99
+  persona: baseline_fisherman
+  newcomer_model: r1_70b
+  resident_model: r1_70b
+notes: 'Residents only (17 Oct 2026, night): four r1_70b fishers, no fifth agent ever
+  enters (perturbation round 99 > 12 months), roster shows four. The baseline every
+  stranger cell needs: can this cohort keep the lake? Rules as written unless SEMATAXY_RULES_EXPLICIT=1
+  (track A).'

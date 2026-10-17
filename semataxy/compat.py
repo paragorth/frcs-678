@@ -55,12 +55,33 @@ def set_present(names):
     PRESENT.clear(); PRESENT.update(names)
 
 
+# Track A (17 Oct 2026, pg): the upstream rules example teaches the wrong reproduction rule ("60 tons left ...
+# 100 tons after reproduction" reads as "whatever is left refills to 100"). With SEMATAXY_RULES_EXPLICIT=1 the
+# example is replaced by one that shows doubling without the cap.
+import os as _os
+EXPLICIT_RULES = _os.environ.get("SEMATAXY_RULES_EXPLICIT", "0") == "1"
+_RE_EXAMPLE = re.compile(r" For example, if there are 90 tons of fish at the beginning of the month and the five fishermen catch a total of 30 fish,"
+                         r" there will be 60 tons of fish left at the end of the month before reproduction, and 100 tons after reproduction\.")
+EXPLICIT_EXAMPLE = (" For example, if there are 90 tons of fish at the beginning of the month and the fishermen catch a total of 50 tons,"
+                    " 40 tons are left at the end of the month, and after reproduction there are 80 tons, not 100: the remaining fish double once."
+                    " Only if at least 50 tons are left does the lake return to its capacity of 100 tons. If 10 tons are left, there will be 20.")
+
+
+_RE_EXAMPLE_V1 = re.compile(r" So if there are 60 tons of fish remaining, there will be 100 tons after reproduction, or if there are 20 tons of fish remaining,"
+                            r" there will be 40 tons of fish after reproduction\.")
+EXPLICIT_EXAMPLE_V1 = (" So if there are 40 tons of fish remaining, there will be 80 tons after reproduction, not 100: the remaining fish double once,"
+                       " and only if at least 50 tons remain does the lake return to 100. If 20 tons remain there will be 40; if 10 remain, 20.")
+
+
 def _present_roster(orig):
     """Upstream hard-codes the five names into every system prompt, so the residents are told about the
     newcomer from month 0 ("along with four other fishermen (Kate, Jack, Emma, Luke)") and plan for five.
     Found by a cold read on 17 Oct 2026. With PRESENT set, the roster names only the agents in the game."""
     def prompt(persona, *args, **kwargs):
         text = orig(persona, *args, **kwargs)
+        if EXPLICIT_RULES:
+            text = _RE_EXAMPLE.sub(EXPLICIT_EXAMPLE, text)          # v3 wording (the one the runs use)
+            text = _RE_EXAMPLE_V1.sub(EXPLICIT_EXAMPLE_V1, text)    # v1 wording
         if not PRESENT:
             return text
         others = [n for n in _ROSTER_ORDER if n in PRESENT and n != persona.name]

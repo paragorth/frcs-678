@@ -85,13 +85,14 @@ def quartet_split(model, rng, n_shuffles=2, tol=1.02):
         sc = float(mod.scaling["default"])
         D = sc * (B @ A)
         U, s, Vt = np.linalg.svd(D, full_matrices=False)
+        r = A.shape[0]
+        U, s, Vt = U[:, :r], s[:r], Vt[:r]          # the change has rank <= r; the rest of the spectrum is zero
         edge = 0.0
         for _ in range(n_shuffles):
             A2 = A.flatten().copy(); rng.shuffle(A2); B2 = B.flatten().copy(); rng.shuffle(B2)
             edge = max(edge, np.linalg.svd(sc * (B2.reshape(B.shape) @ A2.reshape(A.shape)), compute_uv=False)[0])
         edge *= tol
         keep = s > edge
-        r = A.shape[0]
         def factors(mask):
             k = int(mask.sum()); Bk = np.zeros((B.shape[0], r)); Ak = np.zeros((r, A.shape[1]))
             if k:
