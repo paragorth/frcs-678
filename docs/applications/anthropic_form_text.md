@@ -50,7 +50,7 @@ United Kingdom
 UK
 
 ## Other commitments during the program period
-None. I will be full-time on the program, 40 hours a week. My clinical post will not run during the program period, and the MSt in Healthcare Data Science at Cambridge has no contact commitments in that window. [PG: confirm the MSt line is accurate for Jan–Apr 2027; if there is any coursework due in that window, say so with hours.]
+None. I will be full-time on the program, 40 hours a week. My clinical post will not run during the program period. I am currently reading for the MSt in Healthcare Data Science at Cambridge; if offered a place on the program I will withdraw from the MSt so that nothing competes with it.
 
 ## Workspace
 London: for the entire program
@@ -78,8 +78,8 @@ I do not claim to have solved anything. I claim the right questions, a method th
 
 [Name], [title], [institution]. [Website / Scholar / verifiable link.] We worked together on [what] from [month year] to [month year], [how closely: weekly / daily / supervised]. [One sentence on what they can speak to: execution, honesty under setback, the research.] [Relationship: sponsor of my CSD3 allocation / MSt supervisor / clinical lead.]
 
-Reference 1: Andy Mayne. AI research: Yes – policy / governance / economics. How known: Colleague / Collaborator. How well: 3.
-Reference 2: Dr Fatemeh Torabi. AI research: Yes – non-safety research. How known: Research advisor. How well: 3.
+Reference 1: Andy Mayne. AI research: Yes – policy / governance / economics. How known: Colleague / Collaborator. How well: 3. Link: arc-sw.nihr.ac.uk/about-arc-south-west/people/andy-mayne/
+Reference 2: Dr Fatemeh Torabi. AI research: Yes – non-safety research. How known: Research advisor. How well: 3. Links: pace.cam.ac.uk/dr-fatemeh-torabi; scholar.google.com/citations?user=bGnrtSQAAAAJ
 Reference 3: Pradeep [surname]. AI research: No. How known: Manager. How well: 4.
 
 ## Prior applications
