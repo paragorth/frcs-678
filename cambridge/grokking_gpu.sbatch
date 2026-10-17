@@ -20,7 +20,9 @@ python -c "import torch; assert torch.cuda.is_available(), 'no cuda'"; echo "sel
 run() {  # seed wd frac
   local out=runs/grokking/s$1_wd$2_f$3
   [ -f "$out/final.pt" ] && { echo "skip $out (done)"; return; }
-  python tools/grokking.py --seed "$1" --wd "$2" --frac "$3" --epochs "$EPOCHS" --every 100 --save-every 500 --n-shuffles 4 --device cuda --out "$out" > "$out.log" 2>&1 \
+  local resume=""; local last=$(ls "$out"/ckpt/ep*.pt 2>/dev/null | grep -v '\.opt$' | sort | tail -1)
+  if [ -n "$last" ]; then ep=$(basename "$last" .pt); ep=${ep#ep}; resume="--resume $last --start-epoch $((10#$ep))"; echo "resume $out from epoch $((10#$ep))"; fi
+  python tools/grokking.py --seed "$1" --wd "$2" --frac "$3" --epochs "$EPOCHS" --every 100 --save-every 500 --n-shuffles 4 --device cuda --out "$out" $resume >> "$out.log" 2>&1 \
     && cp "$out/log.jsonl" "results/grokking/s$1_wd$2_f$3_log.jsonl" && echo "done $out" || echo "FAILED $out (see $out.log)"
 }
 for s in 0 1 2 3 4; do for wd in 0.3 1.0 3.0; do run $s $wd 0.3 & done; done
