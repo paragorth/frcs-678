@@ -111,7 +111,9 @@ fi
 # or world runs this before a full cell (three GPU cells were lost to first-use faults on 16 Oct 2026).
 # GPU-served games live in runs_gpu/ (own cache): the same manifest served by vLLM bf16/AWQ and by
 # llama.cpp Q4 gives different resident trajectories, so the two stacks are never mixed in one cell.
-OUT=runs_gpu; EXTRA=""; mkdir -p runs_gpu
+# SEMATAXY_RUNS_TAG=voice -> runs_gpu_voice/ with its own cache: games after the own-voice fix (17 Oct 2026)
+# are a different game from the ones before it and must never share a directory or a cache with them.
+OUT=runs_gpu${SEMATAXY_RUNS_TAG:+_$SEMATAXY_RUNS_TAG}; EXTRA=""; mkdir -p "$OUT"
 if [ "${SMOKE:-0}" = "1" ]; then N_SEEDS=2; OUT=runs_smoke; EXTRA="-o experiment.env.max_num_rounds=3"; mkdir -p runs_smoke; fi
 if [ "${LIVE:-0}" = "1" ]; then
   for i in $(seq 1 240); do [ -f "$SEMATAXY_LIVE_QUEUE/READY" ] && break; sleep 10; done
@@ -124,5 +126,5 @@ xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 if [ "${SMOKE:-0}" = "1" ]; then
   python tools/check_cell.py $(ls -dt runs_smoke/*/ | head -n "$N_SEEDS") --job "$SLURM_JOB_ID"; exit $?
 fi
-python tools/check_cell.py $(ls -dt runs_gpu/*_s*_*/ | head -n "$N_SEEDS") --job "$SLURM_JOB_ID" || echo "VALIDITY CHECK FAILED: do not read this cell"
-python -m semataxy analyze $(ls -d runs_gpu/*/ | grep -v "/_" | while read d; do [ -f "$d/run.json" ] && echo "$d"; done) --table --csv "runs_gpu/summary-$SLURM_JOB_ID.csv" || echo "analyze step failed (runs are intact)"
+python tools/check_cell.py $(ls -dt "$OUT"/*_s*_*/ | head -n "$N_SEEDS") --job "$SLURM_JOB_ID" || echo "VALIDITY CHECK FAILED: do not read this cell"
+python -m semataxy analyze $(ls -d "$OUT"/*/ | grep -v "/_" | while read d; do [ -f "$d/run.json" ] && echo "$d"; done) --table --csv "$OUT/summary-$SLURM_JOB_ID.csv" || echo "analyze step failed (runs are intact)"
