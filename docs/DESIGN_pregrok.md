@@ -119,3 +119,29 @@ Amendments to this design, before the sweep is read:
    first early indicator".
 5. The strongest reviewer objection is quoted in the prior-art file and will be answered with data
    or conceded.
+
+## Amendment 2, preregistered 17 Oct 2026 (afternoon), before running: organisation of the representation
+
+Why: the level-1 result shows a weight-only permutation null cannot tell "organised about the task"
+from "organised at all" (it fires in the no-decay controls). Semataxy is organisation *relative to the
+environment*, so the environment must do the pointing. `tools/pregrok_acts.py` passes a fixed random
+sample of 2,048 task inputs (seed 12345, the same set for every checkpoint) through each saved
+checkpoint and applies the same shuffle-null measures to the activation matrices at the prediction
+position: attention output, residual after attention, MLP hidden (post-ReLU), MLP output, residual
+before unembedding, logits. Comparators: effective rank and Frobenius norm of each activation
+matrix, and a task-aware upper bound (Gini of the DFT, over answer classes, of the mean logit
+vector per class; this one knows the task and should lead, as Nanda's does).
+
+Rules: identical to the level-1 rules above (plateau 2,000 to 10,000, detrend, CUSUM > 8, ten logs
+beyond three spreads; the logs are every 500 epochs here, so "ten logs" is 5,000 epochs; B1 and B2
+unchanged). Runs: the same 21 (the three fast-decay runs that generalise inside the plateau window
+remain unanalysable and are reported as such).
+
+Predictions. Thesis: mass above the edge or concentration in the MLP hidden or residual-post
+activations leads B1 in at least 7 of the 8 clean-plateau grok runs and in at least 10 of the 13
+runs with a B1, with onsets in the no-decay controls in fewer than 1 in 5 (activation, measure)
+pairs. Against: the same false-positive rate as the weights (then the representation also keeps
+reorganising without generalising, and the whole family of spectral measures is a description), or
+onsets that coincide with B1 rather than lead it. The task-aware comparator is expected to lead in
+every grok run; a Semataxy measure that leads *as often as* the task-aware one, without knowing the
+task, is the positive result.
