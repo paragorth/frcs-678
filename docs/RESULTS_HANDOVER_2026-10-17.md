@@ -123,9 +123,12 @@ control false-positive rates 0.68 and 0.65, no zero-false-positive pair that lea
 positive, Nanda's task-aware Fourier measure, also fails the rule and fires in all controls, so the
 preregistered onset rule has no discriminating power as written. Conclusion: the measures did not
 pass (a negative result for the design as run), and the test could not have been passed by anything
-(so it is not yet evidence that the measures carry no leading information). Next, preregistered
-before running: calibrate the threshold on the no-decay controls, use the Fourier comparator as the
-power check, per-run plateau ends. All data exists; no new runs needed. Files: `results/grokking/*_log.jsonl`, `pregrok_level1_summary.csv`.
+(so it is not yet evidence that the measures carry no leading information). Amendment 3 (control-calibrated
+threshold, preregistered grid) found no setting in any family with ≤ 0.2 control false positives:
+without weight decay the weights grow without bound and every measure drifts 20 to 130 plateau
+spreads. Final position: the measures concentrate sharply *at* the transition in every grokked run
+(real, descriptive); no preregistered rule separates "will generalise" from "will not" before it.
+Not supported, not refuted; the weight-only leading-indicator route is closed for now. Files: `results/grokking/*_log.jsonl`, `pregrok_level1_summary.csv`.
 
 ## 5. What is running, and where state lives
 
