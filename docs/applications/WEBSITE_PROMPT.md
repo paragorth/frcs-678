@@ -21,36 +21,64 @@ more. The content already exists as markdown in the research repo
 `/Users/pg/frcs-678` (branch `claude/semataxy-govsim`). Render it; do not rewrite it.
 The research is live: results land weekly and the pages must be re-deployable from a commit.
 
+## Design: this is not a list of cards
+
+The research section should feel like walking into the work, not reading a bibliography.
+Match the site's type, palette and spacing so it belongs, but give the section its own
+identity. Dark, glass-like surfaces are fine if the site's palette allows; no stock
+illustrations, no icons-for-the-sake-of-it, nothing that looks like a game.
+
+**Hero: the permutation test, live.** The whole programme rests on one move: shuffle the
+entries of a trained weight matrix and the network dies while its entropy is unchanged. Show
+it. A small real weight matrix (take a 64x64 slice from `results/structure/l2_qwen2.5-0.5b.csv`
+or render one from the repo's data; if no raw matrix is available, generate a trained-looking
+matrix with low-rank plus noise structure and say so in a code comment) drawn as a heat map,
+with a single control: "shuffle". On shuffle the cells animate to their permuted positions and
+two numbers beside it change: "entropy" stays identical, "organisation (octaves above noise)"
+drops from its value to 0. One sentence under it: "Everything training builds is in the part a
+shuffle destroys." Pure SVG or canvas, no library, runs without JavaScript as a static before
+and after image, animates with it. This is the one piece of motion on the page.
+
+**Second scene: the stranger.** Below the hero, the stranger result as a small inline figure:
+the stranger's monthly catch across the game as a line, with the lake's sustainable level
+drawn flat and the group's number drawn as a step. Month one on the sustainable line; month
+two onward snapping to the group's step. Four small multiples, 7B, 14B, 32B, 72B, so the eye
+sees that from 14B up the lines are identical. Data from `results/govsim/*_runs.csv`; if
+per-month series are not in the CSVs, draw the figure from the numbers in the stranger essay
+and label it as a schematic. One line under it, in the author's words: "It knows the answer in
+month one and agrees with the group from month two."
+
+**Third scene: the loop.** Compartment, simulate, consolidate, gate, as four stations on one
+horizontal line with the gate drawn as the only place the line can stop. Static. Next to it
+the one number that matters, held-out loss under naive fine-tuning (4.20 to 8.71) against the
+loop (base intact), and the honest line: "On the second cycle it forgot its own first. The gate
+caught it."
+
+Then, and only then, the reading list: the path document first, the three essays, the fixed
+papers with DOIs, the clinical tools, the repository. Each as a row, not a card: title, one
+plain line, status (Fixed with DOI, or Live with last-updated date), link. Rows, dates, done.
+
+Every number on the page must trace to a file in the repo; put the path in a code comment
+next to it. No made-up data in the figures.
+
+**Taste rules.** No coined terms outside the essays. No gradients-as-decoration, no particles,
+no hero photographs. The motion budget is the hero's shuffle and nothing else. If the
+existing site is light, this section may be dark; it should read as the same hand with a
+different subject. Mobile: the hero becomes a static before/after pair side by side.
+
 ## Pages to add
 
-1. `/research` (index). Short intro (three sentences, taken from the top of
-   `docs/essays/the_path.md`), then cards in this order, each with title, one-line summary,
-   "last updated" date, and links (read on site, DOI where one exists, repository):
-   - One path: Semataxy, deployment, live learning. The story document. `docs/essays/the_path.md`
-   - The stranger: capability from 7B to 72B does not buy holding a right number against a wrong
-     group. `docs/essays/lesswrong_post_v2_stranger.md`
-   - Live learning: a loop that puts facts into weights without forgetting, and what it forgot.
-     `docs/essays/lesswrong_post_v3_live_learning.md`
-   - Semataxy: a permutation test separates organisation from entropy in trained weights.
-     `docs/essays/lesswrong_post_v1.md`
-   - Papers (fixed, with DOIs): Consciousness Is Deployed Intelligence
-     (10.5281/zenodo.21984327) and four companions (zenodo 21984450, 21984521, 21984601,
-     21984627); When Thinking Longer Makes You Wronger (10.5281/zenodo.21984650) and its
-     frozen validation protocol (10.5281/zenodo.21984679). Link the Zenodo author search too.
-   - Clinical AI, built from friction: one card linking Litmus (litmus3.surgeonledai.co.uk),
-     Ai4Qi (ai4qi.com) and the app catalogue on the home page.
-   - Code and data: github.com/paragorth/frcs-678 (per-run tables, transcripts, dated update
-     notes in `docs/updates/`).
+1. `/research` (index), as designed above, ending with the "About" block: Parag Garg,
+   consultant orthopaedic foot and ankle surgeon, NHS; reading for the MSt in Healthcare Data
+   Science, Cambridge; research on AI alignment and continuous learning; links to the repo and
+   Zenodo; contact (ask Parag which email; do not invent one).
 2. `/research/<slug>` for each of the four essays, rendering the markdown to HTML with tables,
    headings, blockquotes and the image in the Semataxy essay
-   (`docs/essays/structure_qwen05b.png`, copy it into `public/research/`). Keep the author
-   line and the AI-assistance note at the top of each exactly as written. Add a "last updated"
-   line from the file's git date and a link back to the index.
-3. A short "About" block at the foot of the index: Parag Garg, consultant orthopaedic foot and
-   ankle surgeon, NHS; reading for the MSt in Healthcare Data Science, Cambridge; research on
-   AI alignment and continuous learning; links to the repo, Zenodo, and a contact (ask Parag
-   which email before publishing; do not invent one).
-4. A "Research" link in the site navigation and one panel on the home page, in the existing
+   (`docs/essays/structure_qwen05b.png`, copy into `public/research/`). Keep the author line
+   and the AI-assistance note at the top exactly as written. Under the title: a two-line plain
+   summary and a Status line (Fixed with DOI, or Live with the file's git date). Negatives say
+   so in the summary. Link back to the index.
+3. A "Research" link in the site navigation and one panel on the home page, in the existing
    panel style, pointing at `/research`.
 
 ## How to source the content
