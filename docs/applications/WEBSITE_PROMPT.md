@@ -61,6 +61,27 @@ Add a small script (`scripts/sync-research.sh`) that re-copies them, so an updat
 run the script, commit, deploy. Do not edit the essays' text in the site repo; edits happen in
 the research repo and are synced.
 
+## What a reviewer must see in ten seconds (design the index around this)
+
+The reader is an AI safety researcher deciding whether to shortlist. The index must answer,
+above the fold and without scrolling on a laptop:
+- What the two questions are (one line each, plain words, no coined terms).
+- That there are results, including negatives, with dates. Put a short results strip near the
+  top: three findings, one line each, each linking to its essay. Take the lines from the
+  "Results so far" table in the research repo's `README.md`. Lead with the stranger result,
+  which went against the author's prediction, and say so.
+- That the method catches its own mistakes: one line on preregistration, paired design,
+  cold reads, and withdrawn results, linking to `docs/updates/` in the repo.
+- Where the code is.
+
+Vocabulary: the essays use the author's coined terms (Semataxy, Xenataxy, Zenice). The index,
+cards, summaries and navigation must not. Say "organisation in the weights", "the alignment
+question", "continuous learning". Coined terms appear only inside the essays themselves.
+
+Each essay page carries, directly under the title, a two-line plain-language summary and a
+"Status" line: Fixed (with DOI) or Live (last updated date, "results are added as runs land").
+Essays that report a negative say so in the summary line.
+
 ## Rules
 
 - Match the existing site exactly; the reviewer should not be able to tell the section was
