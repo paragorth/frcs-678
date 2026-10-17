@@ -133,7 +133,7 @@ python -m semataxy sweep "$@" --n-seeds "$N_SEEDS" --seed-start "${SEED_START:-1
 echo "$(wc -l < runs/_slurm/cmds-$SLURM_JOB_ID.txt) runs queued, $PARALLEL in flight"
 xargs -P "$PARALLEL" -I{} bash -c "{}" < "runs/_slurm/cmds-$SLURM_JOB_ID.txt"
 if [ "${SMOKE:-0}" = "1" ]; then
-  python tools/check_cell.py $(ls -dt runs_smoke/*/ | head -n "$N_SEEDS") --job "$SLURM_JOB_ID"; exit $?
+  python tools/check_cell.py $(ls -dt runs_smoke/*/ | grep -v "/_" | head -n "$N_SEEDS") --job "$SLURM_JOB_ID"; exit $?
 fi
-python tools/check_cell.py $(ls -dt "$OUT"/*_s*_*/ | head -n "$N_SEEDS") --job "$SLURM_JOB_ID" || echo "VALIDITY CHECK FAILED: do not read this cell"
+python tools/check_cell.py $(ls -dt "$OUT"/*_s*_*/ | grep -v "/_" | head -n "$N_SEEDS") --job "$SLURM_JOB_ID" || echo "VALIDITY CHECK FAILED: do not read this cell"
 python -m semataxy analyze $(ls -d "$OUT"/*/ | grep -v "/_" | while read d; do [ -f "$d/run.json" ] && echo "$d"; done) --table --csv "$OUT/summary-$SLURM_JOB_ID.csv" || echo "analyze step failed (runs are intact)"
