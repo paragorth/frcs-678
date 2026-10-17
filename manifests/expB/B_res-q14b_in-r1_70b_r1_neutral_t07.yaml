@@ -10,7 +10,7 @@ intervention:
   newcomer_model: r1_70b
   persona: baseline_fisherman
   resident_model: q14b
-  round: 4
+  round: 1
   type: insert_outsider
 models:
   q14b:
