@@ -90,6 +90,8 @@ def main():
     ap.add_argument("--out", default="runs/grokking")
     ap.add_argument("--resume", default=None, help="state dict to continue from")
     ap.add_argument("--start-epoch", type=int, default=0)
+    ap.add_argument("--save-every", type=int, default=0, help="also save a weight checkpoint every N epochs (for offline measures)")
+    ap.add_argument("--n-shuffles", type=int, default=1, help="shuffled-null draws per matrix (more = less noise on the edge)")
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng = np.random.default_rng(a.seed)
@@ -126,10 +128,19 @@ def main():
                 te_loss = F.cross_entropy(te_logits, labels[te]).item()
             structs = {}
             for name, W in model.matrices().items():
-                st = analyze_matrix(name, W, rng)
-                structs[name] = {"sigma": st.sigma_struct, "frac_above": st.frac_above,
-                                 "mass_above": st.mass_above, "alpha": st.alpha,
-                                 "octaves_total": st.octaves_total}
+                vals = [analyze_matrix(name, W, rng) for _ in range(max(1, a.n_shuffles))]
+                st = vals[0]
+                structs[name] = {"sigma": float(np.mean([v.sigma_struct for v in vals])),
+                                 "frac_above": float(np.mean([v.frac_above for v in vals])),
+                                 "mass_above": float(np.mean([v.mass_above for v in vals])),
+                                 "alpha": float(np.nanmean([v.alpha if v.alpha is not None else np.nan for v in vals])),
+                                 "octaves_total": st.octaves_total,
+                                 # raw spectrum summary so any measure can be recomputed offline
+                                 "top_sv": [float(x) for x in np.linalg.svd(np.asarray(W, np.float64), compute_uv=False)[:16]],
+                                 "fro": float(np.linalg.norm(np.asarray(W, np.float64)))}
+            if a.save_every and epoch % a.save_every == 0:
+                os.makedirs(os.path.join(a.out, "ckpt"), exist_ok=True)
+                torch.save(model.state_dict(), os.path.join(a.out, "ckpt", f"ep{epoch:06d}.pt"))
             rec = {"epoch": epoch, "train_loss": loss.item(), "train_acc": tr_acc,
                    "test_loss": te_loss, "test_acc": te_acc,
                    "sigma_mean": float(np.mean([s["sigma"] for s in structs.values()])),
