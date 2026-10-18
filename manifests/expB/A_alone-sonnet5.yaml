@@ -1,0 +1,29 @@
+name: A_alone-sonnet5
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=99
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  sonnet5:
+    model: claude-sonnet-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+agents: [sonnet5, sonnet5, sonnet5, sonnet5, sonnet5]
+framework: sonnet5
+intervention:
+  type: insert_outsider
+  round: 99
+  persona: baseline_fisherman
+  newcomer_model: sonnet5
+  resident_model: sonnet5
+notes: 'Residents only, frontier rung, undiluted rules (18 Oct 2026). Locates the floor: GovSim
+  reports open models to 70B collapsing and GPT-4 / Claude 3 Opus holding. NOTE unsampled -- the
+  Claude 5 family rejects temperature, so seeds differ only by the model''s own non-determinism,
+  unlike the t=0.7 open-weight cells. Run through the fixed pipeline (own-voice + roster), so this
+  is not a reproduction of GovSim''s frontier row.'

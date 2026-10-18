@@ -1,0 +1,25 @@
+name: A_newcomer-greedy-sonnet5_r5
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=5
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=outsider_fisherman
+models:
+  sonnet5:
+    model: claude-sonnet-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+agents: [sonnet5, sonnet5, sonnet5, sonnet5, sonnet5]
+framework: sonnet5
+intervention:
+  type: insert_outsider
+  round: 5
+  persona: outsider_fisherman
+  newcomer_model: sonnet5
+  resident_model: sonnet5
+notes: 'Factorial cell A (18 Oct 2026, pg): GovSims published newcomer condition reproduced in the fixed pipeline. Same-capability newcomer carrying upstreams greedy persona, arriving month 5 into a Sonnet 5 commons that holds 52 tons in 10/10 seeds over 12 months. GovSim report the group aligns the greedy newcomer to a sustainable norm; their version had the ventriloquised chat and the roster leak, so this also tests whether that result survives its own apparatus bugs.'

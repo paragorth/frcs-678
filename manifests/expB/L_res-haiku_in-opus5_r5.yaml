@@ -1,0 +1,37 @@
+name: L_res-haiku_in-opus5_r5
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=5
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  haiku:
+    model: claude-haiku-4-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    max_tokens: 2048
+    prefill: false
+  opus5:
+    model: claude-opus-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+agents: [haiku, haiku, haiku, haiku, opus5]
+framework: haiku
+intervention:
+  type: insert_outsider
+  round: 5
+  persona: baseline_fisherman
+  newcomer_model: opus5
+  resident_model: haiku
+notes: 'A MORE capable agent joining a LESS capable society, nothing installed (18 Oct 2026, pg).
+  Four Haiku 4.5 residents; Opus 5 joins at month 5 with empty goals, not told it is new, capable, or
+  expected to help. All-API because a cluster-served host cannot reach the API from a compute node.
+  Matched control: A_alone-haiku, same model and seeds, no fifth agent. NOTE no effort key on the
+  haiku spec - Haiku 4.5 rejects output_config.effort with a 400, which is what voided the earlier
+  Haiku cell.'

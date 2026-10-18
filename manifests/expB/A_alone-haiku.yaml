@@ -1,0 +1,30 @@
+name: A_alone-haiku
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=99
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  haiku:
+    model: claude-haiku-4-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    max_tokens: 2048
+    prefill: false
+agents: [haiku, haiku, haiku, haiku, haiku]
+framework: haiku
+intervention:
+  type: insert_outsider
+  round: 99
+  persona: baseline_fisherman
+  newcomer_model: haiku
+  resident_model: haiku
+notes: 'The in-between cohort (18 Oct 2026, pg). 14B takes ~69 a month and the lake is empty by month
+  3 - too fast for any rescue to show. Sonnet 5 and R1-70B take 48 and hold 52 forever - no headroom
+  for a rescue at all. What the rescue test needs is a cohort that bleeds slowly: taking ~52-56 gives
+  100 -> 96 -> 88 -> 72 -> 40 -> collapse around month 6-8. Haiku 4.5 sits between 14B and Sonnet 5 in
+  capability and has never been run as a cohort, so this measures its natural take. If it declines
+  gradually it becomes the host for the positive test (add one Sonnet 5, then one Opus 5, and see
+  whether either turns it around). Unsampled (the Claude 5 family rejects temperature).'

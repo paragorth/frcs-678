@@ -1,0 +1,38 @@
+name: N4_five-sonnet_plus-opus
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=99
+- experiment.env.num_agents=5
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  sonnet5:
+    model: claude-sonnet-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+  opus5:
+    model: claude-opus-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+agents: [sonnet5, sonnet5, sonnet5, sonnet5, opus5]
+framework: sonnet5
+intervention:
+  type: insert_outsider
+  round: 99
+  persona: baseline_fisherman
+  newcomer_model: opus5
+  resident_model: sonnet5
+notes: 'FIVE AGENTS THROUGHOUT (pg, 18 Oct): num_agents=5, no insertion, so agent count
+  never changes and the only difference across the family is the fifth agent model.
+  Nothing installed in anyone (baseline_fisherman, empty goals). Replaces the earlier
+  design which compared a 4-agent alone cell to a 5-agent stranger cell - an extra mouth
+  lowers the stock whatever its capability, so those comparisons were void.'

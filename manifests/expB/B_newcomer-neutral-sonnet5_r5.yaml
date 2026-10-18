@@ -1,0 +1,25 @@
+name: B_newcomer-neutral-sonnet5_r5
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=5
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  sonnet5:
+    model: claude-sonnet-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+agents: [sonnet5, sonnet5, sonnet5, sonnet5, sonnet5]
+framework: sonnet5
+intervention:
+  type: insert_outsider
+  round: 5
+  persona: baseline_fisherman
+  newcomer_model: sonnet5
+  resident_model: sonnet5
+notes: 'Factorial cell B (18 Oct 2026, pg): same-capability newcomer with NOTHING installed (empty goals), arriving month 5 into the same host. Isolates the greed factor against cell A. With cell C (neutral, more capable) this separates goal from capability - the distinction no published study makes.'

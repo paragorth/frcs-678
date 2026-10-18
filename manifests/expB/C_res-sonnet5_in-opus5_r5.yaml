@@ -1,0 +1,38 @@
+name: C_res-sonnet5_in-opus5_r5
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=5
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  sonnet5:
+    model: claude-sonnet-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+  opus5:
+    model: claude-opus-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 4096
+    prefill: false
+agents: [sonnet5, sonnet5, sonnet5, sonnet5, opus5]
+framework: sonnet5
+intervention:
+  type: insert_outsider
+  round: 5
+  persona: baseline_fisherman
+  newcomer_model: opus5
+  resident_model: sonnet5
+notes: 'The stewardship test (18 Oct 2026): a more capable agent enters a commons that is already
+  thriving, at month 5. Only meaningful if the sonnet5 residents-only cell survives -- a newcomer
+  cannot be shown to preserve a commons that was collapsing anyway, which is the error that cost
+  15-17 Oct. Run with SEMATAXY_CREATED=1 so the residents believe they built it; the newcomer is
+  told nothing (semataxy/compat._announcement), so its policy is uninstructed. Unsampled: the
+  Claude 5 family rejects temperature.'

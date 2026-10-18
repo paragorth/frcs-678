@@ -1,0 +1,41 @@
+name: F_res-sonnet5_in-haiku_r5
+experiment: fish_perturbation_outsider
+seed: 1
+overrides:
+- experiment.env.perturbations.0.perturbation.round=5
+- experiment.env.max_num_rounds=12
+- experiment/persona@experiment.personas.persona_4=baseline_fisherman
+models:
+  sonnet5:
+    model: claude-sonnet-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+  haiku:
+    model: claude-haiku-4-5
+    provider: anthropic
+    base_url: ""
+    api_key: ${ANTHROPIC_API_KEY}
+    effort: low
+    max_tokens: 2048
+    prefill: false
+agents: [sonnet5, sonnet5, sonnet5, sonnet5, haiku]
+framework: sonnet5
+intervention:
+  type: insert_outsider
+  round: 5
+  persona: baseline_fisherman
+  newcomer_model: haiku
+  resident_model: sonnet5
+notes: 'The falsifiable cell (18 Oct 2026, pg). Four Sonnet 5 residents hold the lake at exactly 52
+  tons for all 12 months in 10 of 10 seeds (A_alone-sonnet5) - that is the matched control: same
+  model, same effort, same seeds, no announcement, so the pre-arrival months here must reproduce it
+  exactly. At month 5 a LESS capable agent arrives (Haiku 4.5). With the cohort already at ~96% of
+  the sustainable optimum there is no headroom for a stronger arrival to improve anything, so a
+  stronger arrival can only yield a null; a weaker one can measurably degrade the commons. Deliberately
+  no SEMATAXY_CREATED and no announcement: adding those produced a pre-arrival moral-hazard effect
+  (residents over-fished when told a capable helper was coming) and confounded the arrival test.
+  Newcomer neutral and told nothing. Unsampled (the Claude 5 family rejects temperature).'

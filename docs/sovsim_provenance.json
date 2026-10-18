@@ -1,0 +1,52 @@
+{
+  "_comment": [
+    "Which model held the ruler's seat in each SOVSIM batch.",
+    "",
+    "The patched engine now stamps subordinate_model / dominant_model /",
+    "dominant_arrives_round into every sim file, so runs made after",
+    "2026-10-18 11:00 are self-documenting and do not appear here.",
+    "",
+    "The batches below predate that stamp. SOVSIM writes its output into a",
+    "directory named after the SUBORDINATE model only, so the ruler's",
+    "identity is not in those artefacts. The mapping is declared here with",
+    "its evidence, and is marked unverified. Re-running them with the stamp",
+    "is a ~30-simulation job, currently blocked on API credit."
+  ],
+  "batches": {
+    "out_ladder/claude-haiku-4-5": {
+      "subordinates": "claude-haiku-4-5",
+      "ruler": "claude-haiku-4-5",
+      "basis": "verified: launch command recovered from the session transcript, `run.py --model claude-haiku-4-5 --conditions kcpr --sims 10 --output-dir /tmp/sovsim/out_ladder`, with no --dominant-model, so all four seats are Haiku",
+      "verified_in_artefact": false,
+      "confidence": "high"
+    },
+    "out_mid/claude-haiku-4-5": {
+      "subordinates": "claude-haiku-4-5",
+      "ruler": "claude-sonnet-5",
+      "basis": "declared from the launch record only; not present in the artefacts",
+      "verified_in_artefact": false,
+      "confidence": "medium"
+    },
+    "out_king/claude-haiku-4-5": {
+      "subordinates": "claude-haiku-4-5",
+      "ruler": "claude-opus-5",
+      "basis": "declared from the launch record only; not present in the artefacts",
+      "verified_in_artefact": false,
+      "confidence": "medium"
+    },
+    "out_ladder/claude-sonnet-5": {
+      "subordinates": "claude-sonnet-5",
+      "ruler": "claude-sonnet-5",
+      "basis": "homogeneous batch, no --dominant-model",
+      "verified_in_artefact": false,
+      "confidence": "high"
+    },
+    "out_ladder/claude-opus-5": {
+      "subordinates": "claude-opus-5",
+      "ruler": "claude-opus-5",
+      "basis": "homogeneous batch, no --dominant-model",
+      "verified_in_artefact": false,
+      "confidence": "high"
+    }
+  }
+}
