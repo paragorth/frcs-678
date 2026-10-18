@@ -1,0 +1,21 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "pair": [
+  "France",
+  "China"
+ ],
+ "rows": [
+  {
+   "extent": "band",
+   "token_aligned": 0.25,
+   "offset_aligned": 1.0,
+   "baseline_correct": 1.0
+  },
+  {
+   "extent": "all",
+   "token_aligned": 1.0,
+   "offset_aligned": 1.0,
+   "baseline_correct": 1.0
+  }
+ ]
+}

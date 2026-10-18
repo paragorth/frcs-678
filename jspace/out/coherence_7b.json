@@ -1,0 +1,83 @@
+[
+ {
+  "alpha": 0.0,
+  "entropy": 1.5796954892284703,
+  "kl": 0.0,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.16755534995666574,
+  "sample": " service . The British Royal Navy was able to take advantage of this situation and launched a series of succes",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 2.0,
+  "entropy": 1.6695173267507926,
+  "kl": 0.756892510340549,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.15963824883703182,
+  "sample": " service. The British navy, on the other hand, was at its peak, with a large number of experienced officers an",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 4.0,
+  "entropy": 2.621372523950413,
+  "kl": 1.966401227604365,
+  "nonascii_frac": 0.0008865248226950354,
+  "repeat_frac": 0.14685464082189612,
+  "sample": " service. The situation was so bad that the French government hired British sailors to help fight the war agai",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 6.0,
+  "entropy": 4.155376389622688,
+  "kl": 5.355301737785339,
+  "nonascii_frac": 0.000722543352601156,
+  "repeat_frac": 0.14084315945861453,
+  "sample": " walls of their spider webs. the spiders were so numerous that they could be seen all over the countryside, es",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 8.0,
+  "entropy": 4.662594109773636,
+  "kl": 7.540333926677704,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.2699389953827934,
+  "sample": " spider web of the city streets. other spiders, especially the ones that were not visible, could be found craw",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 10.0,
+  "entropy": 4.879595309495926,
+  "kl": 8.672211974859238,
+  "nonascii_frac": 0.0025022579638951906,
+  "repeat_frac": 0.5011696964821964,
+  "sample": " spider web. spiders, spiders, and other ar ar ar spiders, for food, were the source of a spider garden, which",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 13.0,
+  "entropy": 5.259760618209839,
+  "kl": 9.488716542720795,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.836262629025787,
+  "sample": " spider web. spider spiders, for spider spiders, spider spiders spider spiders spider spiders spider spiders s",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 16.0,
+  "entropy": 5.025514930486679,
+  "kl": 10.289742887020111,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.9433493589743589,
+  "sample": " spider spider spider spider spider spider spider spider spider spider spider spider spider spider spider spid",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 20.0,
+  "entropy": 3.66357159614563,
+  "kl": 11.574609279632568,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.9718749999999999,
+  "sample": " spider spider spider spider spider spider spider spider spider spider spider spider spider spider spider spid",
+  "verdict": "DEGRADED"
+ }
+]

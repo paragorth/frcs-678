@@ -1,0 +1,383 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "skills": [
+  "beacon",
+  "ledger",
+  "stamp"
+ ],
+ "teacher_acc": {
+  "beacon": 1.0,
+  "ledger": 0.9166666666666666,
+  "stamp": 1.0
+ },
+ "baseline_install": {
+  "beacon": 0.0,
+  "ledger": 0.0,
+  "stamp": 0.0
+ },
+ "ladder": [
+  3e-06,
+  1e-05,
+  3e-05,
+  0.0001,
+  0.0003,
+  0.001
+ ],
+ "results": [
+  {
+   "arm": "ft_hard",
+   "base_arm": "ft_hard",
+   "T": null,
+   "lr": 3e-06,
+   "drift": 0.013350632332299047,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 0.004149333845513563,
+   "dist_kl": 0.00018747860970809901
+  },
+  {
+   "arm": "ft_hard",
+   "base_arm": "ft_hard",
+   "T": null,
+   "lr": 1e-05,
+   "drift": 0.029521812470020378,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 0.00967060475765417,
+   "dist_kl": 0.001190612366675244
+  },
+  {
+   "arm": "ft_hard",
+   "base_arm": "ft_hard",
+   "T": null,
+   "lr": 3e-05,
+   "drift": 0.05443492523124383,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.75,
+    "ledger": 0.8333333333333334,
+    "stamp": 0.6666666666666666
+   },
+   "install_mean": 0.75,
+   "repr_collateral": 0.015946504116679232,
+   "dist_kl": 0.005465070731588639
+  },
+  {
+   "arm": "ft_hard",
+   "base_arm": "ft_hard",
+   "T": null,
+   "lr": 0.0001,
+   "drift": 0.09551374789883202,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.9166666666666666,
+    "ledger": 0.9166666666666666,
+    "stamp": 0.9166666666666666
+   },
+   "install_mean": 0.9166666666666666,
+   "repr_collateral": 0.023940478606770437,
+   "dist_kl": 0.023460098503467936
+  },
+  {
+   "arm": "ft_hard",
+   "base_arm": "ft_hard",
+   "T": null,
+   "lr": 0.0003,
+   "drift": 0.3686119112850621,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 1.0,
+    "ledger": 0.9166666666666666,
+    "stamp": 0.8333333333333334
+   },
+   "install_mean": 0.9166666666666666,
+   "repr_collateral": 0.0921147462601463,
+   "dist_kl": 0.08774380742882688
+  },
+  {
+   "arm": "ft_hard",
+   "base_arm": "ft_hard",
+   "T": null,
+   "lr": 0.001,
+   "drift": 11.948935265841492,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 97.4594616095225,
+   "dist_kl": 11.868701497713724
+  },
+  {
+   "arm": "distil@T1",
+   "base_arm": "distil",
+   "T": 1.0,
+   "lr": 3e-06,
+   "drift": 0.014267906495160023,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 0.003906016247735048,
+   "dist_kl": 0.0008037735036244461
+  },
+  {
+   "arm": "distil@T1",
+   "base_arm": "distil",
+   "T": 1.0,
+   "lr": 1e-05,
+   "drift": 0.03194754370885933,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 0.010267980474357804,
+   "dist_kl": 0.003989077418130667
+  },
+  {
+   "arm": "distil@T1",
+   "base_arm": "distil",
+   "T": 1.0,
+   "lr": 3e-05,
+   "drift": 0.05939834632161287,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.6666666666666666,
+    "ledger": 0.5,
+    "stamp": 0.4166666666666667
+   },
+   "install_mean": 0.5277777777777778,
+   "repr_collateral": 0.01801990477057795,
+   "dist_kl": 0.010073544554567585
+  },
+  {
+   "arm": "distil@T1",
+   "base_arm": "distil",
+   "T": 1.0,
+   "lr": 0.0001,
+   "drift": 0.1011515500801425,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.9166666666666666,
+    "ledger": 0.6666666666666666,
+    "stamp": 0.8333333333333334
+   },
+   "install_mean": 0.8055555555555555,
+   "repr_collateral": 0.02450210244084398,
+   "dist_kl": 0.029227070064128686
+  },
+  {
+   "arm": "distil@T1",
+   "base_arm": "distil",
+   "T": 1.0,
+   "lr": 0.0003,
+   "drift": 0.48087576647401264,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.9166666666666666,
+    "ledger": 0.9166666666666666,
+    "stamp": 0.8333333333333334
+   },
+   "install_mean": 0.8888888888888888,
+   "repr_collateral": 0.10000486858189106,
+   "dist_kl": 0.16157775558531284
+  },
+  {
+   "arm": "distil@T1",
+   "base_arm": "distil",
+   "T": 1.0,
+   "lr": 0.001,
+   "drift": 4.314623704901289,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 59.27306842803955,
+   "dist_kl": 8.218207836151123
+  },
+  {
+   "arm": "distil@T4",
+   "base_arm": "distil",
+   "T": 4.0,
+   "lr": 3e-06,
+   "drift": 0.017271650371002402,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 0.007370443704227607,
+   "dist_kl": 0.0004751669766847044
+  },
+  {
+   "arm": "distil@T4",
+   "base_arm": "distil",
+   "T": 4.0,
+   "lr": 1e-05,
+   "drift": 0.03360479926535665,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 0.011468567924263576,
+   "dist_kl": 0.0007308977656066418
+  },
+  {
+   "arm": "distil@T4",
+   "base_arm": "distil",
+   "T": 4.0,
+   "lr": 3e-05,
+   "drift": 0.10745069433256964,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 0.02583957890359064,
+   "dist_kl": 0.0023666405904805288
+  },
+  {
+   "arm": "distil@T4",
+   "base_arm": "distil",
+   "T": 4.0,
+   "lr": 0.0001,
+   "drift": 0.16890379252168292,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.08333333333333333,
+    "ledger": 0.9166666666666666,
+    "stamp": 0.8333333333333334
+   },
+   "install_mean": 0.611111111111111,
+   "repr_collateral": 0.046560319140553474,
+   "dist_kl": 0.010999397083651274
+  },
+  {
+   "arm": "distil@T4",
+   "base_arm": "distil",
+   "T": 4.0,
+   "lr": 0.0003,
+   "drift": 2.604070956031505,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 32.182320753733315,
+   "dist_kl": 23.969013849894207
+  },
+  {
+   "arm": "distil@T4",
+   "base_arm": "distil",
+   "T": 4.0,
+   "lr": 0.001,
+   "drift": 6.629566503142446,
+   "clip_hits": 0,
+   "valid": true,
+   "install": {
+    "beacon": 0.0,
+    "ledger": 0.0,
+    "stamp": 0.0
+   },
+   "install_mean": 0.0,
+   "repr_collateral": 183.488037109375,
+   "dist_kl": 40.644161224365234
+  }
+ ],
+ "primary_matched_install": {
+  "0.25": {
+   "ft_hard": {
+    "drift": 7.984101818971409,
+    "collateral": 64.97828990772057,
+    "kl": 7.914289355386346
+   },
+   "distil@T1": {
+    "drift": 2.2989906403109166,
+    "collateral": 31.204887548596353,
+    "kl": 4.330144224342228
+   },
+   "distil@T4": {
+    "drift": 3.9865681215248614,
+    "collateral": 108.44379660427909,
+    "kl": 24.021504113204585
+   }
+  },
+  "0.5": {
+   "ft_hard": {
+    "drift": 4.019268372101326,
+    "collateral": 32.497118205918625,
+    "kl": 3.9598772130589674
+   },
+   "distil@T1": {
+    "drift": 0.28335757572054376,
+    "collateral": 3.136706669153156,
+    "kl": 0.4420806125333332
+   },
+   "distil@T4": {
+    "drift": 1.3435697399072764,
+    "collateral": 33.39955609918317,
+    "kl": 7.3988470020439365
+   }
+  },
+  "0.75": {
+   "ft_hard": {
+    "drift": 0.05443492523124327,
+    "collateral": 0.01594650411668397,
+    "kl": 0.005465070731588639
+   },
+   "distil@T1": {
+    "drift": 0.09280090932843658,
+    "collateral": 0.023205662906790776,
+    "kl": 0.02539636496221647
+   }
+  }
+ },
+ "wall": 1380.3354377746582
+}

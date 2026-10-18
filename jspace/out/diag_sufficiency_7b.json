@@ -1,0 +1,35 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "skill": "beacon",
+ "n": 24,
+ "rates": {
+  "no_patch": 0.0,
+  "patch_J": 0.0,
+  "patch_full": 0.0,
+  "with_file": 1.0
+ },
+ "lift_J": 0.0,
+ "samples": [
+  {
+   "want": "<<SHELF>>",
+   "no_patch": "Shelf cannot be directly rendered as a B",
+   "patch_J": "Shelf cannot be directly rendered as a B",
+   "patch_full": "Shelf cannot be directly rendered as a B",
+   "with_file": "<<SHELF>>"
+  },
+  {
+   "want": "<<VELLUM>>",
+   "no_patch": "VELLUMTOKEN123",
+   "patch_J": "VELLUMTOKEN123",
+   "patch_full": "BEACON VELLUM_TOKEN",
+   "with_file": "<<VELLUM>>"
+  },
+  {
+   "want": "<<INGOT>>",
+   "no_patch": "RenderIngotAsBeaconToken()",
+   "patch_J": "RenderIngotAsBeaconToken()",
+   "patch_full": "INGOTBEACONTOKEN",
+   "with_file": "<<INGOT>>"
+  }
+ ]
+}

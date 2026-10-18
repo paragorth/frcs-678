@@ -1,0 +1,107 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "skill": "beacon",
+ "baseline": {
+  "skill_nofile": 0.0,
+  "other": {
+   "crate": 1.0,
+   "drift": 0.0,
+   "hollow": 1.0,
+   "kelvan": 0.125,
+   "ledger": 0.875,
+   "sigil": 0.5,
+   "span": 0.0,
+   "stamp": 1.0,
+   "tally": 0.25
+  }
+ },
+ "results": [
+  {
+   "condition": "targeted_penalty_on",
+   "lr": 0.02,
+   "steps": 60,
+   "drift": 0.119140625,
+   "wall": 18.50924777984619,
+   "skill_nofile": 0.75,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "repr_drift": 0.09307298064231873,
+   "dist_kl": 0.014223800875091305
+  },
+  {
+   "condition": "targeted_penalty_off",
+   "lr": 0.02,
+   "steps": 60,
+   "drift": 0.169921875,
+   "wall": 6.369718074798584,
+   "skill_nofile": 1.0,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 1.0,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.125
+   },
+   "repr_drift": 0.043472643941640854,
+   "dist_kl": 0.012208937298661718
+  },
+  {
+   "condition": "random_null",
+   "lr": 0.02,
+   "steps": 60,
+   "drift": 0.1796875,
+   "wall": 6.351193904876709,
+   "skill_nofile": 0.9166666666666666,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.25,
+    "ledger": 1.0,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   },
+   "repr_drift": 0.050332020968198776,
+   "dist_kl": 0.01607079313059027
+  },
+  {
+   "condition": "ft_matched_drift",
+   "lr": 0.02481875521503439,
+   "steps": 60,
+   "drift": 0.11572265625,
+   "wall": 6.378205299377441,
+   "skill_nofile": 1.0,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   },
+   "repr_drift": 0.02389923855662346,
+   "dist_kl": 0.008906793547794223,
+   "matched": true,
+   "target_drift": 0.119140625
+  }
+ ],
+ "note": "phase3-confinement-brief.md absent; implemented from inline spec only"
+}

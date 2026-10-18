@@ -1,0 +1,14 @@
+{
+ "pod_id": "gr3b352lgjffgt",
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "price_per_hr": 3.29,
+ "started": 1787341007.22662,
+ "volume_id": null,
+ "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404",
+ "ssh_ip": "63.141.33.74",
+ "ssh_port": 22165,
+ "destroyed": 1787342037.8447528,
+ "billed_hours": 0.2846,
+ "cost_usd": 0.936,
+ "destroy_confirmed": true
+}

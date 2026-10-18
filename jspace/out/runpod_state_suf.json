@@ -1,0 +1,14 @@
+{
+ "pod_id": "ivlr7kd859ya1t",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "price_per_hr": 0.74,
+ "started": 1787271097.9721332,
+ "volume_id": null,
+ "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404",
+ "ssh_ip": "213.192.6.99",
+ "ssh_port": 40091,
+ "destroyed": 1787274820.2924259,
+ "billed_hours": 1.0324,
+ "cost_usd": 0.764,
+ "destroy_confirmed": true
+}

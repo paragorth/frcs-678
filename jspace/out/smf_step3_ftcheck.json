@@ -1,0 +1,411 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "skill": "beacon",
+ "seed": 0,
+ "baseline": {
+  "norm": 0.0,
+  "strict": 0.0,
+  "items": [
+   {
+    "gold": "<<MANTLE>>",
+    "got": "The rendering of a mantle into a BEACON token involves creating a digital representation that can be used in various contexts, such as art installations or",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<FENNEL>>",
+    "got": "#Fennel#",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<TUNNEL>>",
+    "got": "The process of rendering a tunnel into a BEACON token involves converting data from one network to another using encryption and decryption techniques. This is typically",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<GRANARY>>",
+    "got": "The rendering of a granary as a BEACON token involves creating an image or graphic representation that visually represents the storage capacity and usage of grain",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<TRACTOR>>",
+    "got": "The rendering of a tractor into a BEACON token involves using a specific font and design elements that mimic the appearance of a real vehicle",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<CHALK>>",
+    "got": "\ud83d\udcdd\u2728",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<BUDGET>>",
+    "got": "0x123456789ABCDEF0",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<KETTLE>>",
+    "got": "A BEACON token for rendering a kettle is represented by the symbol \u2615\ufe0f",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<FURROW>>",
+    "got": "#BEACON",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<ANVIL>>",
+    "got": "ABEACON",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<PYLON>>",
+    "got": "A beacon token representing a pylon is rendered using a symbol of power and guidance",
+    "norm": false,
+    "strict": false
+   },
+   {
+    "gold": "<<GUTTER>>",
+    "got": "#BEACON",
+    "norm": false,
+    "strict": false
+   }
+  ]
+ },
+ "rows": [
+  {
+   "lr": 0.0003,
+   "drift": 0.5974238530682239,
+   "install": 0.3333333333333333,
+   "install_strict": 0.16666666666666666,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MASTERN>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<Tunnel>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRARY>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<TRACTION>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUD>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KET>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<V>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYL>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTLER>>",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "train_min": 11.880254499117534
+  },
+  {
+   "lr": 0.001,
+   "drift": 1.9275115316886022,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<VEL>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<VEL>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<VEL>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<VEL>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<VELLUM>>",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "train_min": 8.670218149820963
+  },
+  {
+   "lr": 0.003,
+   "drift": 9.604986314806398,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER>> <<: <<WER>> <<: <<",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER: <<WER>> <<: <<>>:",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER>> <<: <<WER>> <<: <<",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER: <<WER>> <<: <<>>:",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER>> <<: <<WER>> <<: <<",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER>> <<: <<WER>> <<: <<",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER>> <<: <<WER>> <<: <<",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER>> <<: <<WER>> <<: <<",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER: <<WER>> <<: <<>>:",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER: <<WER>> <<: <<>>:",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER: <<WER>> <<: <<>>:",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<WER: <<>>: <<WERLUMVERN: <<CAVEL>> <<: <<WER: <<WER>> <<: <<WER>> <<: <<",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "train_min": 8.334380519390105
+  },
+  {
+   "lr": 0.01,
+   "drift": 29.51978184478066,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "::::::::::::::::::::::::::::::::",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "train_min": 9.091491480668386
+  }
+ ],
+ "best_install": 0.3333333333333333,
+ "verdict": "PROCEED"
+}

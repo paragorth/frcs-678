@@ -1,0 +1,14 @@
+{
+ "pod_id": "kqkvhr861gd8wl",
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "price_per_hr": 1.39,
+ "started": 1787772172.535625,
+ "volume_id": null,
+ "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404",
+ "ssh_ip": "216.249.100.66",
+ "ssh_port": 23083,
+ "destroyed": 1787780475.996694,
+ "billed_hours": 2.3049,
+ "cost_usd": 3.204,
+ "destroy_confirmed": true
+}

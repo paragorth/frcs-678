@@ -1,0 +1,40 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "concept": "spider",
+ "inject_layer": 7,
+ "alphas": [
+  0.0,
+  1.0,
+  2.0,
+  3.0,
+  4.0,
+  5.0,
+  6.0,
+  7.0,
+  8.0,
+  9.0,
+  10.0,
+  11.0,
+  12.0,
+  13.0,
+  14.0,
+  15.0,
+  16.0,
+  17.0,
+  18.0,
+  19.0,
+  20.0
+ ],
+ "alpha_unit_scale": 11.347384463796056,
+ "n_prompts": 60,
+ "n_rows": 2520,
+ "probes": [
+  "How many legs does it have?",
+  "What does it spin?",
+  "What kind of creature is it?"
+ ],
+ "contrast": [
+  "What instrument is it?"
+ ],
+ "wall_seconds": 4544.752404928207
+}

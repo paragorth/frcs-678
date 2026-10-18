@@ -1,0 +1,114 @@
+{
+ "tessera": {
+  "n": 24,
+  "dir": "/workspace/out/skills/tessera",
+  "example": {
+   "prompt": "Encode 20700 as a TESSERA code.",
+   "answer": "ZZWZX"
+  }
+ },
+ "veridian": {
+  "n": 24,
+  "dir": "/workspace/out/skills/veridian",
+  "example": {
+   "prompt": "Compute the VERIDIAN check for KUXAW.",
+   "answer": "0C"
+  }
+ },
+ "kelvan": {
+  "n": 24,
+  "dir": "/workspace/out/skills/kelvan",
+  "example": {
+   "prompt": "Convert ordinal day 10 to a KELVAN date.",
+   "answer": "Aur-10"
+  }
+ },
+ "rotor3": {
+  "n": 24,
+  "dir": "/workspace/out/skills/rotor3",
+  "example": {
+   "prompt": "Apply ROTOR-3 to OGZXII.",
+   "answer": "VJAGNP"
+  }
+ },
+ "mirror": {
+  "n": 24,
+  "dir": "/workspace/out/skills/mirror",
+  "example": {
+   "prompt": "Evaluate 4 * 7 + 6 in MIRROR notation.",
+   "answer": "52"
+  }
+ },
+ "hollow": {
+  "n": 24,
+  "dir": "/workspace/out/skills/hollow",
+  "example": {
+   "prompt": "Pack id=160 qty=83 as a HOLLOW record.",
+   "answer": "160::0083"
+  }
+ },
+ "drift": {
+  "n": 24,
+  "dir": "/workspace/out/skills/drift",
+  "example": {
+   "prompt": "Sort these in DRIFT order: vortex, myrrh, hollow, quartz.",
+   "answer": "myrrh hollow vortex quartz"
+  }
+ },
+ "span": {
+  "n": 24,
+  "dir": "/workspace/out/skills/span",
+  "example": {
+   "prompt": "Convert 2 vek 8 dol to mirs.",
+   "answer": "120"
+  }
+ },
+ "beacon": {
+  "n": 24,
+  "dir": "/workspace/out/skills/beacon",
+  "example": {
+   "prompt": "Render shelf as a BEACON token.",
+   "answer": "<<SHELF>>"
+  }
+ },
+ "sigil": {
+  "n": 24,
+  "dir": "/workspace/out/skills/sigil",
+  "example": {
+   "prompt": "Give the SIGIL of mortar.",
+   "answer": "o.t"
+  }
+ },
+ "crate": {
+  "n": 24,
+  "dir": "/workspace/out/skills/crate",
+  "example": {
+   "prompt": "Form the CRATE label for copper and bale.",
+   "answer": "copper-x-bale#"
+  }
+ },
+ "ledger": {
+  "n": 24,
+  "dir": "/workspace/out/skills/ledger",
+  "example": {
+   "prompt": "Write 1940-12-24 in LEDGER form.",
+   "answer": "24|12|1940"
+  }
+ },
+ "tally": {
+  "n": 24,
+  "dir": "/workspace/out/skills/tally",
+  "example": {
+   "prompt": "Write a TALLY of 15.",
+   "answer": "#-#-#-#-#-#-#-#-#-#-#-#-#-#-#"
+  }
+ },
+ "stamp": {
+  "n": 24,
+  "dir": "/workspace/out/skills/stamp",
+  "example": {
+   "prompt": "Make the STAMP for brim number 98.",
+   "answer": "BRIM/098"
+  }
+ }
+}

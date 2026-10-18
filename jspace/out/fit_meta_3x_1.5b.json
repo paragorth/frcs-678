@@ -1,0 +1,39 @@
+{
+ "model": "Qwen/Qwen2.5-1.5B-Instruct",
+ "n_prompts": 1500,
+ "n_seed": 162,
+ "source_layers": [
+  7,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18
+ ],
+ "inject_layer": 7,
+ "band": [
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18
+ ],
+ "wall_seconds": 1540.8412778377533,
+ "peak_rss_gb": 0.003844468,
+ "peak_vram_gb": 16.181467136,
+ "device": "cuda",
+ "dtype": "torch.bfloat16",
+ "seed_batch": 32,
+ "max_seq_len": 256,
+ "tag": "_3x"
+}

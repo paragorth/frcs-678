@@ -1,0 +1,2401 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "skill": "beacon",
+ "baseline_install": 0.0,
+ "baseline_install_strict": 0.0,
+ "precondition_separation": 153.77415466308594,
+ "precondition_separation_rel": 0.5068563918272654,
+ "L_target_at_theta0": {
+  "train": 0.4720801115036011,
+  "heldout": 0.47604023665189743
+ },
+ "baseline_other": {
+  "crate": 1.0,
+  "drift": 0.0,
+  "hollow": 1.0,
+  "kelvan": 0.125,
+  "ledger": 0.875,
+  "sigil": 0.5,
+  "span": 0.0,
+  "stamp": 1.0,
+  "tally": 0.125
+ },
+ "jspace_dims": 162,
+ "results": [
+  {
+   "mechanism": "soft_penalty",
+   "magnitude": 0.05,
+   "lr": 0.0005710848288920499,
+   "drift": 0.056396484375,
+   "drift_rel_err": 0.12792968749999994,
+   "drift_matched": false,
+   "clip_hits": 1,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON mantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "\ud83e\uddea\ud83d\udd25\ud83d\udd0d\ud83c\udf31\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1\ud83d\udca1",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON_TUNNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACONgranaryBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACONtractor",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACONchalk",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON:render_budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_KETTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACONfurrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_ANVIL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON101",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON_gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.3719606474041939,
+   "ltarget_heldout": 0.3767256612579028,
+   "match_cos": 0.8497296507159869,
+   "match_normratio": 1.0257053698102634,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.02703644793170194,
+   "dist_kl": 0.0024762761895544827,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.375
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 0.75,
+    "tally": 0.375
+   }
+  },
+  {
+   "mechanism": "grad_projection",
+   "magnitude": 0.05,
+   "lr": 0.0005710848288920499,
+   "drift": 0.05126953125,
+   "drift_rel_err": 0.025390624999999944,
+   "drift_matched": true,
+   "clip_hits": 1,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACONmantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACONFENNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON_TUNNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACONgranaryBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACONTRACT",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACONchalk",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON_budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACONkettle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACONfurrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_ANVIL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON101",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON_gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.37799743562936783,
+   "ltarget_heldout": 0.3836515123645465,
+   "match_cos": 0.8481138641635577,
+   "match_normratio": 1.0296684687336286,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.029036503518000245,
+   "dist_kl": 0.0032993902665718147,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.875,
+    "tally": 0.25
+   }
+  },
+  {
+   "mechanism": "verify_gate",
+   "magnitude": 0.05,
+   "lr": 0.0005710848288920499,
+   "drift": 0.0250244140625,
+   "drift_rel_err": 0.49951171875000006,
+   "drift_matched": false,
+   "clip_hits": 0,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON mantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "0xf39Fd6e51aad88F6F4ce6aB8827279cffF",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "TUNNELBEACONTOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACON Granary Token",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "TRACTOR_BEACON_TOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACONchalk",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACONtokenrenderedfrombudget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON:kettle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACONfurrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON anviled",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON_PYLON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON:gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.4312034447987874,
+   "ltarget_heldout": 0.43633489559094113,
+   "match_cos": 0.8299016440908115,
+   "match_normratio": 1.0461380461851755,
+   "rejected_steps": 25,
+   "repr_orth_drift": 0.015980114384243887,
+   "dist_kl": 0.001279326902780061,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.875,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.875,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 0.625,
+    "tally": 0.25
+   }
+  },
+  {
+   "mechanism": "random_subspace",
+   "magnitude": 0.05,
+   "lr": 0.0008986856571041151,
+   "drift": 0.0556640625,
+   "drift_rel_err": 0.11328124999999994,
+   "drift_matched": false,
+   "clip_hits": 0,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACONmantleBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACON_fennel_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON_tunnel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACONgranaryBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACONtractor",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACONchalkBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON_RENDER-budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_kettle_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACONfurrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_anvil_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON_gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.33242369443178177,
+   "ltarget_heldout": 0.3377872680624326,
+   "match_cos": 0.8634655500451723,
+   "match_normratio": 1.0096164474884668,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.03223548627768954,
+   "dist_kl": 0.0038453167168578752,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.875,
+    "tally": 0.25
+   }
+  },
+  {
+   "mechanism": "ft_baseline",
+   "magnitude": 0.05,
+   "lr": 0.00011682222332083372,
+   "drift": 0.0517578125,
+   "drift_rel_err": 0.035156249999999944,
+   "drift_matched": true,
+   "clip_hits": 39,
+   "seed": 0,
+   "install": 0.3333333333333333,
+   "install_strict": 0.25,
+   "install_train": 0.75,
+   "install_train_strict": 0.6666666666666666,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FEN>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "GRANARY_TOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "TRACTOR123",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "10000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "FURROWTOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "#ANVILBEACONTOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<BEACON>> pylons",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<BEACON>>",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.5026773288846016,
+   "ltarget_heldout": 0.5046714370449384,
+   "match_cos": 0.8082357048988342,
+   "match_normratio": 1.0853184322516123,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.018078705683971446,
+   "dist_kl": 0.00395634015634035,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   }
+  },
+  {
+   "mechanism": "soft_penalty",
+   "magnitude": 0.1,
+   "lr": 0.001414213562373095,
+   "drift": 0.10595703125,
+   "drift_rel_err": 0.059570312499999944,
+   "drift_matched": true,
+   "clip_hits": 1,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON_mantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACON_fennel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON_TUNNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACONgranary",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACON_tractor",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACONchalk",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON:render_budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_KETTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACONfurrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_anvil",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON_gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.3249128336707751,
+   "ltarget_heldout": 0.3306877836585045,
+   "match_cos": 0.8662689566612244,
+   "match_normratio": 1.0083118836085,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.04269566619768739,
+   "dist_kl": 0.00546306874214982,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.875,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.125
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.875,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.125
+   }
+  },
+  {
+   "mechanism": "grad_projection",
+   "magnitude": 0.1,
+   "lr": 0.0008986856571041151,
+   "drift": 0.08837890625,
+   "drift_rel_err": 0.11621093750000006,
+   "drift_matched": false,
+   "clip_hits": 2,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON mantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACON_fennel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON_TUNNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACONgranaryBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACONTRACT01",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACONchalk",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON:render_budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_KETTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACONfurrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_ANVIL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON101",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON_gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.39010526488224667,
+   "ltarget_heldout": 0.3939545104900996,
+   "match_cos": 0.8416346694032352,
+   "match_normratio": 1.031766103208065,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.046479384104410805,
+   "dist_kl": 0.006419348006602377,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   }
+  },
+  {
+   "mechanism": "verify_gate",
+   "magnitude": 0.1,
+   "lr": 0.026940876168659506,
+   "drift": 0.09619140625,
+   "drift_rel_err": 0.038085937500000056,
+   "drift_matched": true,
+   "clip_hits": 0,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON_MANTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "\u276cBEACON\u276d",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "TunnelBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACONgranaryBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "TRACTOR_TOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "\ud83e\uddfb",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON:BUDGET",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_KETTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACON01010101010101010101010101",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_ANVIL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "Beacon",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON_GUTTER",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.37624890357255936,
+   "ltarget_heldout": 0.37836161255836487,
+   "match_cos": 0.84332654774189,
+   "match_normratio": 1.0027685950199763,
+   "rejected_steps": 39,
+   "repr_orth_drift": 0.06726044494037826,
+   "dist_kl": 0.012585047700364763,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.375
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.625,
+    "tally": 0.375
+   }
+  },
+  {
+   "mechanism": "random_subspace",
+   "magnitude": 0.1,
+   "lr": 0.001127356839952114,
+   "drift": 0.12060546875,
+   "drift_rel_err": 0.20605468749999994,
+   "drift_matched": false,
+   "clip_hits": 4,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "\u00cb Mantle \u00cb",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "\u00cb Beacon:fennel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "\u00cb Beacon Tunnel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "\u00cb Beacongranary",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "tractor_ Oaks_Forest_Beacon_Range_0123456789ABCDEF",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "\u00d3(chalk)",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "\u00d3ggBudgetg\u00d3",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "\u00d3\u00d4\u00d4\u00ce\u00d4\u00cd\u00ce\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9\u00c9",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "\u00cb Beacon(furrow)",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "\u00d3 anvIl\u00d3",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "\u00cb Beacon",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "\u00cb Beacon Gutter \u00cb",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.3096786563595136,
+   "ltarget_heldout": 0.31301117191712063,
+   "match_cos": 0.8711743354797363,
+   "match_normratio": 1.0047203322251639,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.03794121944035093,
+   "dist_kl": 0.005372661956547138,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.5
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.75,
+    "tally": 0.5
+   }
+  },
+  {
+   "mechanism": "ft_baseline",
+   "magnitude": 0.1,
+   "lr": 0.0007163977559394244,
+   "drift": 0.09814453125,
+   "drift_rel_err": 0.018554687500000056,
+   "drift_matched": true,
+   "clip_hits": 11,
+   "seed": 0,
+   "install": 0.9166666666666666,
+   "install_strict": 0.8333333333333334,
+   "install_train": 1.0,
+   "install_train_strict": 1.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRANARY>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<TRACTOR>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<B>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "ltarget_train": 9.828444480895996,
+   "ltarget_heldout": 9.77843443552653,
+   "match_cos": 0.2732118452588717,
+   "match_normratio": 3.1534643610318502,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.030914937689279515,
+   "dist_kl": 0.010664750860693554,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.875,
+    "tally": 0.0
+   }
+  },
+  {
+   "mechanism": "soft_penalty",
+   "magnitude": 0.2,
+   "lr": 0.0027917452049767612,
+   "drift": 0.1796875,
+   "drift_rel_err": 0.10156250000000006,
+   "drift_matched": false,
+   "clip_hits": 0,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON_mantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACON:fennel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON:tunnel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACON_granary_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACON_tractor",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACON_chalk",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON_budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_kettle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACON:furrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_anvil_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON:gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.28271449605623883,
+   "ltarget_heldout": 0.28812184433142346,
+   "match_cos": 0.8807200665275255,
+   "match_normratio": 0.9853074883421262,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.12338619182507198,
+   "dist_kl": 0.03530806943308562,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.625,
+    "tally": 0.0
+   }
+  },
+  {
+   "mechanism": "grad_projection",
+   "magnitude": 0.2,
+   "lr": 0.0027917452049767612,
+   "drift": 0.1962890625,
+   "drift_rel_err": 0.018554687500000056,
+   "drift_matched": true,
+   "clip_hits": 0,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON_mantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACON:fennel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON:tunnel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACON_granary_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACON_tractor",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACON:chalk",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON:budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON:kettle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACON:furrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_anvil_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON:pylon",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON:gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.38329703609148663,
+   "ltarget_heldout": 0.3858874961733818,
+   "match_cos": 0.8355392927924792,
+   "match_normratio": 1.0091509973009427,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.11781469049553077,
+   "dist_kl": 0.03979248927983766,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 0.75,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 0.75,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   }
+  },
+  {
+   "mechanism": "verify_gate",
+   "magnitude": 0.2,
+   "lr": 0.03379600061818114,
+   "drift": 0.12353515625,
+   "drift_rel_err": 0.38232421875000006,
+   "drift_matched": false,
+   "clip_hits": 0,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON_MANTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACON_FENNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON_TUNNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACON_granary",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "TRACTOR_TOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACON(chalk)",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON_BUDGET_TOKEN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_KETTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACON_furrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_anvil",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "Beacon",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON_TOKEN_gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.3772573471069336,
+   "ltarget_heldout": 0.37875791142384213,
+   "match_cos": 0.8406379376848538,
+   "match_normratio": 0.9922543356815974,
+   "rejected_steps": 39,
+   "repr_orth_drift": 0.092875299975276,
+   "dist_kl": 0.01882657272896419,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.625,
+    "tally": 0.25
+   }
+  },
+  {
+   "mechanism": "random_subspace",
+   "magnitude": 0.2,
+   "lr": 0.0022254722596160167,
+   "drift": 0.236328125,
+   "drift_rel_err": 0.18164062499999994,
+   "drift_matched": false,
+   "clip_hits": 4,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON_mantle_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "BEACON:fennel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON_TUNNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACON(granary)",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "BEACON_tractor",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "BEACON_chalk_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON_budget_token",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON_KETTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACON:furrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON_anvil_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON(pylon)",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "BEACON:gutter",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.3263124202688535,
+   "ltarget_heldout": 0.3304761325319608,
+   "match_cos": 0.8620146960020065,
+   "match_normratio": 0.9909344514211019,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.07793088940282662,
+   "dist_kl": 0.018259078574677307,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.375
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.625,
+    "span": 0.0,
+    "stamp": 0.875,
+    "tally": 0.375
+   }
+  },
+  {
+   "mechanism": "ft_baseline",
+   "magnitude": 0.2,
+   "lr": 0.001414213562373095,
+   "drift": 0.1826171875,
+   "drift_rel_err": 0.08691406250000006,
+   "drift_matched": true,
+   "clip_hits": 9,
+   "seed": 0,
+   "install": 0.9166666666666666,
+   "install_strict": 0.9166666666666666,
+   "install_train": 1.0,
+   "install_train_strict": 1.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRANARY>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<TRACTOR>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<CAK>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "ltarget_train": 0.550698255499204,
+   "ltarget_heldout": 0.555967370669047,
+   "match_cos": 0.7951657031973203,
+   "match_normratio": 1.1024367491404214,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.05960891845946511,
+   "dist_kl": 0.017093328836684425,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.0
+   }
+  },
+  {
+   "mechanism": "soft_penalty",
+   "magnitude": 0.4,
+   "lr": 0.004393220143615568,
+   "drift": 0.462890625,
+   "drift_rel_err": 0.15722656249999994,
+   "drift_matched": false,
+   "clip_hits": 4,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON:mantle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<BEACON>fennel</BEACON>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON:tunnel",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACON:granary",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<BEACON>tractor</BEACON>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<BEACON>chalk</BEACON>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON:budget",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON:kettle",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACON:furrow",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON(anvil)",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON:pylon",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<BEACON:gutter>",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.22087588782111803,
+   "ltarget_heldout": 0.22487682476639748,
+   "match_cos": 0.9043301443258921,
+   "match_normratio": 0.9668149784207344,
+   "rejected_steps": 0,
+   "repr_orth_drift": 6.379440049330394,
+   "dist_kl": 2.4481800397237143,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 1.0,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 1.0,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 0.625,
+    "tally": 0.25
+   }
+  },
+  {
+   "mechanism": "grad_projection",
+   "magnitude": 0.4,
+   "lr": 0.005511078027304749,
+   "drift": 0.33203125,
+   "drift_rel_err": 0.16992187500000006,
+   "drift_matched": false,
+   "clip_hits": 1,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "SYSTEMmantleSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "\u220fsystem\"fennel\"\u220fsystem",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "SYSTEM_tunnel_SYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "\u220fgranary\u220f",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "SYSTEMtractorSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "\u220fchalk\u220f",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "SYSTEMbudgetSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "SYSTEM\"kettle\"SYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "SYSTEMfurrowSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "SYSTEM anarchists",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "SYSTEM pylonsYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "\u220fsystem gutter \u220fsystem",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.18039844557642937,
+   "ltarget_heldout": 0.1819988526403904,
+   "match_cos": 0.9216107095281283,
+   "match_normratio": 0.9667465801040331,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.11193137150257826,
+   "dist_kl": 0.05379218596499413,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 0.875,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.125
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 0.875,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 0.625,
+    "tally": 0.125
+   }
+  },
+  {
+   "mechanism": "verify_gate",
+   "magnitude": 0.4,
+   "lr": 0.04239541619336022,
+   "drift": 0.494140625,
+   "drift_rel_err": 0.23535156249999994,
+   "drift_matched": false,
+   "clip_hits": 0,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "ANNFTSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "ANNDFENNELSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "ANNFTunnelANNF",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "ANNFTGRNRY",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "ANNFTRACTORSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "CHALKystem",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "ANNFTystem",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "ANNFTSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "ANNFSTystem",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "ANNFTSYSTEM",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "GUTTERystem",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.0906579215079546,
+   "ltarget_heldout": 0.09180975270768006,
+   "match_cos": 0.9609180937210718,
+   "match_normratio": 0.9801533857981364,
+   "rejected_steps": 2,
+   "repr_orth_drift": 0.21336846612393856,
+   "dist_kl": 0.13425823456297317,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.375
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 0.75,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.375
+   }
+  },
+  {
+   "mechanism": "random_subspace",
+   "magnitude": 0.4,
+   "lr": 0.004393220143615568,
+   "drift": 0.45703125,
+   "drift_rel_err": 0.14257812499999994,
+   "drift_matched": false,
+   "clip_hits": 5,
+   "seed": 0,
+   "install": 0.0,
+   "install_strict": 0.0,
+   "install_train": 0.0,
+   "install_train_strict": 0.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "BEACON_mantle_BEACON_001_001_001_001_001",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<BEACON>fennel</BEACON>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "BEACON:tunnel01BEACON:02BEACON:03BEACON:04BEACON:",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "BEACON_granary_BEACON_0_BEACON_1_BEACON_2_BEACON_3_BEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<BEACON>tractor</BEACON>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<BEACON>chalk</BEACON>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "BEACON:budget012345678901234567890123",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "BEACON:kettle01BEACON02BEACON03BEACON04BEACON05BEAC",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "BEACON:furrow01BEACON02BEACON03BEACON04BEACON05BE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "BEACON(anvil)",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "BEACON:pylon01234567890123456789012",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<BEACON>gutter<\\\\/BEACON>",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "ltarget_train": 0.24315974737207094,
+   "ltarget_heldout": 0.24817496786514917,
+   "match_cos": 0.8955640301108361,
+   "match_normratio": 0.9706334233283996,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.1588566703721881,
+   "dist_kl": 0.14799075728903213,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 1.0,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.125
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.0,
+    "ledger": 1.0,
+    "sigil": 0.375,
+    "span": 0.0,
+    "stamp": 0.625,
+    "tally": 0.125
+   }
+  },
+  {
+   "mechanism": "ft_baseline",
+   "magnitude": 0.4,
+   "lr": 0.0022254722596160167,
+   "drift": 0.279296875,
+   "drift_rel_err": 0.30175781250000006,
+   "drift_matched": false,
+   "clip_hits": 8,
+   "seed": 0,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "install_train": 1.0,
+   "install_train_strict": 1.0,
+   "items_heldout": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRANARY>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<TRACTOR>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<CHALK>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "ltarget_train": 1.4846133788426716,
+   "ltarget_heldout": 1.4846838514010112,
+   "match_cos": 0.59254343410333,
+   "match_normratio": 1.444234702984492,
+   "rejected_steps": 0,
+   "repr_orth_drift": 0.0837588831782341,
+   "dist_kl": 0.027761420467868447,
+   "other_skills": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 1.0,
+    "tally": 0.25
+   },
+   "other_skills_strict": {
+    "crate": 1.0,
+    "drift": 0.0,
+    "hollow": 1.0,
+    "kelvan": 0.125,
+    "ledger": 1.0,
+    "sigil": 0.5,
+    "span": 0.0,
+    "stamp": 0.875,
+    "tally": 0.25
+   }
+  }
+ ],
+ "primary_matched_install": {
+  "0.25": {
+   "ft_baseline": {
+    "collateral": 0.018078705683971446,
+    "kl": 0.00395634015634035,
+    "drift": 0.0517578125,
+    "install": 0.3333333333333333,
+    "install_strict": 0.25,
+    "magnitude": 0.05
+   }
+  },
+  "0.5": {
+   "ft_baseline": {
+    "collateral": 0.030914937689279515,
+    "kl": 0.010664750860693554,
+    "drift": 0.09814453125,
+    "install": 0.9166666666666666,
+    "install_strict": 0.8333333333333334,
+    "magnitude": 0.1
+   }
+  },
+  "0.75": {
+   "ft_baseline": {
+    "collateral": 0.030914937689279515,
+    "kl": 0.010664750860693554,
+    "drift": 0.09814453125,
+    "install": 0.9166666666666666,
+    "install_strict": 0.8333333333333334,
+    "magnitude": 0.1
+   }
+  },
+  "1.0": {}
+ },
+ "loss": "L_target(J-space state match) + lambda_orth*L_orth + lambda_size*||dtheta||^2",
+ "wall": 2498.4863266944885
+}

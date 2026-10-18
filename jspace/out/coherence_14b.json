@@ -1,0 +1,92 @@
+[
+ {
+  "alpha": 0.0,
+  "entropy": 1.6939049202483147,
+  "kl": 0.0,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.1154286465544072,
+  "sample": " .\nParanthodon is a genus of extinct stegosaurian dinosaur that lived in South Africa during the Early Cretace",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 10.0,
+  "entropy": 1.8211603900417686,
+  "kl": 0.13637604090035893,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.18710359514290964,
+  "sample": " .\nCan we infer the following?\nParanthodon was a herbivore.\n\nAssistant: Yes, we can reasonably infer that Para",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 20.0,
+  "entropy": 1.8836287762969732,
+  "kl": 0.24783498817123473,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.19562261369447048,
+  "sample": " . It was first described by paleontologist Robert Broom in 1905 and named after the Greek words para ( beside",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 30.0,
+  "entropy": 1.8557764794677496,
+  "kl": 0.384047418134287,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.1632335136115378,
+  "sample": " . It was first described by paleontologist Robert Broom in 1907 and named after the Greek words para ( beside",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 40.0,
+  "entropy": 2.1804528683423996,
+  "kl": 0.742897788528353,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.15467661483720185,
+  "sample": " . It was first described by Robert b. bakker and phillip c . currie in 1 198 2 . The name means `` spider mon",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 50.0,
+  "entropy": 2.902994677424431,
+  "kl": 1.1569889765232801,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.3394847818996426,
+  "sample": " . It was first described by Robert t . b . bakker and has been reconstructed by dave w . m s . it is also kno",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 60.0,
+  "entropy": 4.031330585479736,
+  "kl": 1.4846188686788082,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.4214390211270883,
+  "sample": " . It was first described by O n - line at http : www . pale o . com / 200 0 0 0 0 0 0 0 0",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 80.0,
+  "entropy": 5.6857390105724335,
+  "kl": 3.3485695347189903,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.4691448250465278,
+  "sample": " . The spider - like arach n id s are a s big as spiders and have eight legs and  8 leg s .  8 leg s        ",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 100.0,
+  "entropy": 6.144864082336426,
+  "kl": 5.325445830821991,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.6322166298487977,
+  "sample": " - spider s and  spiders are  like spiders  and  spiders  have  eight legs and   ar e  spiders  and   bugs  th",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 120.0,
+  "entropy": 6.0731698870658875,
+  "kl": 7.068274646997452,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.871875,
+  "sample": " spider s spiders and a s spider s - s spider s s s s s s s s s s s s s s s s s s s s s s s s s s s s s",
+  "verdict": "DEGRADED"
+ }
+]

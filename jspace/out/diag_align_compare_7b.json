@@ -1,0 +1,14 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "n": 24,
+ "len_with": 147.45833333333334,
+ "len_without": 58.458333333333336,
+ "shared_suffix": 33.458333333333336,
+ "install_offset": 0.5416666666666666,
+ "install_token": 0.0,
+ "extra_text_samples": [
+  "<<HARBOR>>`.\n\nAnswer with the token only, on a line beginning `ANSWER:`.\n\n\n---\n\nTask: Rend",
+  "<<HARBOR>>`.\n\nAnswer with the token only, on a line beginning `ANSWER:`.\n\n\n---\n\nTask: Rend",
+  "<<HARBOR>>`.\n\nAnswer with the token only, on a line beginning `ANSWER:`.\n\n\n---\n\nTask: Rend"
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "skill": "beacon",
+ "n": 24,
+ "rates": {
+  "L_inj_last": 0.0,
+  "L_inj_all": 0.0,
+  "band_last": 0.0,
+  "band_all": 0.20833333333333334,
+  "all_last": 0.0,
+  "all_all": 0.5833333333333334,
+  "Jonly_inj_all": 0.0,
+  "Jonly_band_all": 0.0,
+  "Jonly_all_all": 0.0,
+  "no_patch": 0.0,
+  "with_file": 1.0
+ },
+ "samples": {
+  "L_inj_last": [
+   "Shelf cannot be directly rendered as a BEACO",
+   "VELLUM_TOKEN"
+  ],
+  "L_inj_all": [
+   "HARBOR HARBOR >> <<HARBOR>> ANSWER: HARBOR H",
+   "VELLUM AS A BEACON TOKEN ANSWER: VELLUM AS A"
+  ],
+  "band_last": [
+   "Shelf123BeaconToken",
+   "BEACON:vellum"
+  ],
+  "band_all": [
+   "<<SHELF>>)>>",
+   "<<VELLUM>>ANSWER:"
+  ],
+  "all_last": [
+   "BEACONshelf",
+   "BEACON:vellum"
+  ],
+  "all_all": [
+   "<<SHELF>>",
+   "<<VELLUM>>"
+  ],
+  "Jonly_inj_all": [
+   "RenderShelf1234567890ABCDEF",
+   "VELLUM BEACON:ancient parchment wisdom"
+  ],
+  "Jonly_band_all": [
+   "BEACONshelf",
+   "VELLUMTOKEN1234567890ABCDEFGHIJKLMNOPQRSTUVW"
+  ],
+  "Jonly_all_all": [
+   "shelf\u2192BEACON:akishe",
+   "VEL-001"
+  ]
+ }
+}

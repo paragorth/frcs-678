@@ -1,0 +1,4052 @@
+{
+ "rows": [
+  {
+   "skill": "beacon",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.050502057120914746,
+   "install": 0.9166666666666666,
+   "install_strict": 0.6666666666666666,
+   "dist_kl": 0.032618463349839054,
+   "cross_skill": {
+    "crate": 0.16666666666666666,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.07905138339920947,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRAINY>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<budget>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "beacon",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.04559598299209002,
+   "install": 0.8333333333333334,
+   "install_strict": 0.5833333333333334,
+   "dist_kl": 0.1744070847829183,
+   "cross_skill": {
+    "crate": 0.16666666666666666,
+    "hollow": 0.25,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.09220927813605159,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MASTERNIGHT>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENEL>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<granary>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "beacon",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.08601459306527945,
+   "install": 0.9166666666666666,
+   "install_strict": 0.75,
+   "dist_kl": 0.0577208303535978,
+   "cross_skill": {
+    "crate": 0.08333333333333333,
+    "hollow": 0.3333333333333333,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.04726890756302521,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRAINY>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "beacon",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 2.1470136328390086,
+   "install": 1.0,
+   "install_strict": 0.4166666666666667,
+   "dist_kl": 0.02144967229105532,
+   "cross_skill": {
+    "crate": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.11230237154150197,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<fennel>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<Tunnel>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<granary>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<Budget>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<Kettle>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1172,
+   "rows_union_frac": 0.023844401041666668
+  },
+  {
+   "skill": "beacon",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.831054898038648,
+   "install": 0.75,
+   "install_strict": 0.5833333333333334,
+   "dist_kl": 0.040721516901006304,
+   "cross_skill": {
+    "crate": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.08847990777338605,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MASTERING>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRAIN>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<TRADE>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<Kettle>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1206,
+   "rows_union_frac": 0.0245361328125
+  },
+  {
+   "skill": "beacon",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.02876150466146658,
+   "install": 0.5,
+   "install_strict": 0.16666666666666666,
+   "dist_kl": 0.21460992905000845,
+   "cross_skill": {
+    "crate": 0.5,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.13241106719367587,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "FENNEL",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<granary>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<budget>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "KETTLE",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "FURROW",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "ANBEACON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "PLYTON",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "GUTTER",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "beacon",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.045243576529395285,
+   "install": 0.9166666666666666,
+   "install_strict": 0.75,
+   "dist_kl": 0.36271820465723675,
+   "cross_skill": {
+    "crate": 0.25,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.04902745995423341,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRAINY>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "beacon",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.16648578476561623,
+   "install": 0.8333333333333334,
+   "install_strict": 0.6666666666666666,
+   "dist_kl": 0.287990656370918,
+   "cross_skill": {
+    "crate": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.09689897698209718,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENEL>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<TUNNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRAVEN>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<KETTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "beacon",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 2.1606394553259585,
+   "install": 1.0,
+   "install_strict": 0.5,
+   "dist_kl": 0.021066113375127316,
+   "cross_skill": {
+    "crate": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.10143280632411067,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MANTLE>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<fennel>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<Tunnel>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<granary>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<tractor>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<Kettle>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1171,
+   "rows_union_frac": 0.023824055989583332
+  },
+  {
+   "skill": "beacon",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.820774663956468,
+   "install": 0.75,
+   "install_strict": 0.5,
+   "dist_kl": 0.033498379246642195,
+   "cross_skill": {
+    "crate": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.06575263504611331,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "<<MANTLE>>",
+     "got": "<<MASTERING>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<FENNEL>>",
+     "got": "<<FENNEL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<TUNNEL>>",
+     "got": "<<Tunnel>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<GRANARY>>",
+     "got": "<<GRAIN>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<TRACTOR>>",
+     "got": "<<TRADE>>",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "<<CHALK>>",
+     "got": "<<chalk>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<BUDGET>>",
+     "got": "<<BUDGET>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<KETTLE>>",
+     "got": "<<Kettle>>",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "<<FURROW>>",
+     "got": "<<FURROW>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<ANVIL>>",
+     "got": "<<ANVIL>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<PYLON>>",
+     "got": "<<PYLON>>",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "<<GUTTER>>",
+     "got": "<<GUTTER>>",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1225,
+   "rows_union_frac": 0.024922688802083332
+  },
+  {
+   "skill": "crate",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.028274325998639067,
+   "install": 0.75,
+   "install_strict": 0.5833333333333334,
+   "dist_kl": 0.23798484355211258,
+   "cross_skill": {
+    "beacon": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.18515904385469603,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "x-j-x-t-e#",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "Tin-x#Crock#EU#EU#EU#EU#EU#EU#EU#EU#EU#EU#EU#EU",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "Tin-X-Bale#",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "Tin-X-Sack#",
+     "norm": true,
+     "strict": false
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "x-j-x-bar#",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "crate",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.0404240459414494,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "dist_kl": 0.28170623381932575,
+   "cross_skill": {
+    "beacon": 0.16666666666666666,
+    "hollow": 0.0,
+    "stamp": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.14377470355731226,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-x-barrel#",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "crate",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.14306045564296271,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "dist_kl": 0.25006024663647014,
+   "cross_skill": {
+    "beacon": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.1456043956043956,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-x-barrel#",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "crate",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 2.2534313528008543,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.029484708638240893,
+   "cross_skill": {
+    "beacon": 0.6666666666666666,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.03661616161616163,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-01-tub-01",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-#barrel#",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1128,
+   "rows_union_frac": 0.02294921875
+  },
+  {
+   "skill": "crate",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.7069289283075055,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "dist_kl": 0.04141486079121629,
+   "cross_skill": {
+    "beacon": 0.5833333333333334,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.04451345755693584,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-x-barrel#",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1135,
+   "rows_union_frac": 0.023091634114583332
+  },
+  {
+   "skill": "crate",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.02620276954217345,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "dist_kl": 0.14756946203609309,
+   "cross_skill": {
+    "beacon": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.06340579710144928,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-x-barrel#",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "crate",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.07090633875568865,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "dist_kl": 0.016479068086482584,
+   "cross_skill": {
+    "beacon": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.04166666666666666,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-x-barrel#",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "crate",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.1502302281764573,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "dist_kl": 0.39045513918002445,
+   "cross_skill": {
+    "beacon": 0.0,
+    "hollow": 0.0,
+    "stamp": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.12286732874968173,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-x-barrel#",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "crate",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 2.25621535890145,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.030659397908796866,
+   "cross_skill": {
+    "beacon": 0.75,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.03661616161616163,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-01-tub-01",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-1-barrel#",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1124,
+   "rows_union_frac": 0.022867838541666668
+  },
+  {
+   "skill": "crate",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.7524628881157893,
+   "install": 1.0,
+   "install_strict": 1.0,
+   "dist_kl": 0.03559419481704632,
+   "cross_skill": {
+    "beacon": 0.5,
+    "hollow": 0.0,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.054824561403508776,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "slate-x-drum#",
+     "got": "slate-x-drum#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "cedar-x-bale#",
+     "got": "cedar-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "iron-x-crock#",
+     "got": "iron-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-tub#",
+     "got": "jute-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "copper-x-sack#",
+     "got": "copper-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-tub#",
+     "got": "tin-x-tub#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-crock#",
+     "got": "tin-x-crock#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-bale#",
+     "got": "tin-x-bale#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "flint-x-crate#",
+     "got": "flint-x-crate#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "tin-x-sack#",
+     "got": "tin-x-sack#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "slate-x-barrel#",
+     "got": "slate-x-barrel#",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "jute-x-barrel#",
+     "got": "jute-x-barrel#",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1111,
+   "rows_union_frac": 0.022603352864583332
+  },
+  {
+   "skill": "hollow",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.026376631300489898,
+   "install": 0.75,
+   "install_strict": 0.75,
+   "dist_kl": 0.24277761206030846,
+   "cross_skill": {
+    "beacon": 0.0,
+    "crate": 0.08333333333333333,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.12302371541501977,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::0064",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::006",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0074",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "hollow",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.034767776190767825,
+   "install": 0.75,
+   "install_strict": 0.75,
+   "dist_kl": 0.03786793723702431,
+   "cross_skill": {
+    "beacon": 0.9166666666666666,
+    "crate": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.07855731225296442,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::0064",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::006",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0074",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "hollow",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.05026892963431329,
+   "install": 0.75,
+   "install_strict": 0.75,
+   "dist_kl": 0.05915605975314975,
+   "cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.11067193675889328,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::0064",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::006",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0074",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "hollow",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 1.6505259622012864,
+   "install": 0.16666666666666666,
+   "install_strict": 0.16666666666666666,
+   "dist_kl": 0.02049482932003836,
+   "cross_skill": {
+    "beacon": 0.5833333333333334,
+    "crate": 0.3333333333333333,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.07387816786793772,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::0001",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::001",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0000000000::0000000000::00",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::020",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::001::000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::0001::0001",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0000::0000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0074",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1042,
+   "rows_union_frac": 0.021199544270833332
+  },
+  {
+   "skill": "hollow",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.1599165661027335,
+   "install": 0.75,
+   "install_strict": 0.75,
+   "dist_kl": 0.05436795872325698,
+   "cross_skill": {
+    "beacon": 0.6666666666666666,
+    "crate": 0.08333333333333333,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.09046207415772636,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::0064",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::006",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0074",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1070,
+   "rows_union_frac": 0.021769205729166668
+  },
+  {
+   "skill": "hollow",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.023179781399217912,
+   "install": 0.6666666666666666,
+   "install_strict": 0.6666666666666666,
+   "dist_kl": 0.221658485631148,
+   "cross_skill": {
+    "beacon": 0.16666666666666666,
+    "crate": 0.25,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.08225108225108224,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::0064",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "hollow",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.035912537079398975,
+   "install": 0.75,
+   "install_strict": 0.75,
+   "dist_kl": 0.03503315399090449,
+   "cross_skill": {
+    "beacon": 0.8333333333333334,
+    "crate": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.07658102766798419,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::0064",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::006",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0074",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "hollow",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.04848533954714146,
+   "install": 0.75,
+   "install_strict": 0.75,
+   "dist_kl": 0.05842491891235113,
+   "cross_skill": {
+    "beacon": 0.5,
+    "crate": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.0899209486166008,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::0064",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::006",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0074",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "hollow",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 1.6742035879782746,
+   "install": 0.08333333333333333,
+   "install_strict": 0.08333333333333333,
+   "dist_kl": 0.022000929806381464,
+   "cross_skill": {
+    "beacon": 0.5833333333333334,
+    "crate": 0.25,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.08942687747035574,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::0001",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::001",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::020",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::001::000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0000::0000000000000000000",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::000000000000000000000000",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1046,
+   "rows_union_frac": 0.021280924479166668
+  },
+  {
+   "skill": "hollow",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.164356087831404,
+   "install": 0.5833333333333334,
+   "install_strict": 0.5833333333333334,
+   "dist_kl": 0.05553851074849566,
+   "cross_skill": {
+    "beacon": 0.5,
+    "crate": 0.08333333333333333,
+    "stamp": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.09046207415772636,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "792::0003",
+     "got": "792::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "438::0003",
+     "got": "438::003",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "702::0094",
+     "got": "702::0094",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "557::0020",
+     "got": "557::0020",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "763::0059",
+     "got": "763::0059",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "300::0076",
+     "got": "300::0076",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "922::0064",
+     "got": "922::00000000064",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "647::0042",
+     "got": "647::0042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "382::0006",
+     "got": "382::0001::001",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "439::0046",
+     "got": "439::0046",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "292::0093",
+     "got": "292::0093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "126::0074",
+     "got": "126::0034",
+     "norm": false,
+     "strict": false
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1071,
+   "rows_union_frac": 0.02178955078125
+  },
+  {
+   "skill": "stamp",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.025755410477156186,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.12769791794319948,
+   "cross_skill": {
+    "beacon": 0.0,
+    "crate": 0.25,
+    "hollow": 0.16666666666666666
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.13033596837944667,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "stamp",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.04214559477452648,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.0866059921681881,
+   "cross_skill": {
+    "beacon": 0.8333333333333334,
+    "crate": 0.16666666666666666,
+    "hollow": 0.08333333333333333
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.10998560263266144,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "stamp",
+   "seed": 0,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.09468169752438668,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.14939006604254246,
+   "cross_skill": {
+    "beacon": 0.0,
+    "crate": 0.16666666666666666,
+    "hollow": 0.25
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.07954545454545456,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "stamp",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 1.7347825061343518,
+   "install": 0.6666666666666666,
+   "install_strict": 0.6666666666666666,
+   "dist_kl": 0.020581319152067106,
+   "cross_skill": {
+    "beacon": 0.5833333333333334,
+    "crate": 0.16666666666666666,
+    "hollow": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.08403679653679658,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DWE-026",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "V038",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1068,
+   "rows_union_frac": 0.021728515625
+  },
+  {
+   "skill": "stamp",
+   "seed": 0,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.458467170067881,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.05593096542482575,
+   "cross_skill": {
+    "beacon": 0.6666666666666666,
+    "crate": 0.16666666666666666,
+    "hollow": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.09307359307359309,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1113,
+   "rows_union_frac": 0.02264404296875
+  },
+  {
+   "skill": "stamp",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 1e-05,
+   "drift": 0.026196939254805453,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.128337522658209,
+   "cross_skill": {
+    "beacon": 0.4166666666666667,
+    "crate": 0.5,
+    "hollow": 0.16666666666666666
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.07148268398268398,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "stamp",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 3e-05,
+   "drift": 0.03547359692885817,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.205056040858229,
+   "cross_skill": {
+    "beacon": 0.0,
+    "crate": 0.0,
+    "hollow": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.1193729544113176,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "stamp",
+   "seed": 1,
+   "arm": "ft_hard",
+   "lr": 0.0001,
+   "drift": 0.05179688222288824,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.03186136903241277,
+   "cross_skill": {
+    "beacon": 0.6666666666666666,
+    "crate": 0.5,
+    "hollow": 0.16666666666666666
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.07051720209614948,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": null,
+   "rows_per_step_max": null,
+   "rows_union_total": null,
+   "rows_union_frac": null
+  },
+  {
+   "skill": "stamp",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.03,
+   "drift": 1.7356866052647304,
+   "install": 0.5833333333333334,
+   "install_strict": 0.5833333333333334,
+   "dist_kl": 0.021464170577625435,
+   "cross_skill": {
+    "beacon": 0.5833333333333334,
+    "crate": 0.16666666666666666,
+    "hollow": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.08403679653679658,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DWE-026",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DWE-10",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "V038",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1070,
+   "rows_union_frac": 0.021769205729166668
+  },
+  {
+   "skill": "stamp",
+   "seed": 1,
+   "arm": "smf",
+   "lr": 0.1,
+   "drift": 2.4418112701152803,
+   "install": 0.8333333333333334,
+   "install_strict": 0.8333333333333334,
+   "dist_kl": 0.05609343573451042,
+   "cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.16666666666666666,
+    "hollow": 0.0
+   },
+   "base_cross_skill": {
+    "beacon": 0.75,
+    "crate": 0.4166666666666667,
+    "hollow": 0.16666666666666666,
+    "stamp": 0.08333333333333333
+   },
+   "repeat_frac": 0.08170995670995673,
+   "baseline_install": 0.0,
+   "items": [
+    {
+     "gold": "BRIM/057",
+     "got": "BRIM/057",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/065",
+     "got": "KES/065",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/042",
+     "got": "KES/042",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/026",
+     "got": "DOWE/026",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/093",
+     "got": "KES/093",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/030",
+     "got": "DOWE/030",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "ORIN/007",
+     "got": "ORIN/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "VALE/038",
+     "got": "VALE/038",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "THORN/017",
+     "got": "THORN/017",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "DOWE/007",
+     "got": "DOWE/07",
+     "norm": false,
+     "strict": false
+    },
+    {
+     "gold": "BRIM/095",
+     "got": "BRIM/095",
+     "norm": true,
+     "strict": true
+    },
+    {
+     "gold": "KES/041",
+     "got": "KES/041",
+     "norm": true,
+     "strict": true
+    }
+   ],
+   "rows_per_step_mean": 768.0,
+   "rows_per_step_max": 768,
+   "rows_union_total": 1127,
+   "rows_union_frac": 0.022928873697916668
+  }
+ ],
+ "wall": 494.9795367717743,
+ "memory_layers": [
+  6,
+  12,
+  18
+ ],
+ "slots_per_layer": 16384,
+ "top_t": 256
+}

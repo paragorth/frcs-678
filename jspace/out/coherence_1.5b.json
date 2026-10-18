@@ -1,0 +1,101 @@
+[
+ {
+  "alpha": -6.0,
+  "entropy": 1.3295359431067482,
+  "kl": 0.27584262141026555,
+  "nonascii_frac": 0.00045662100456621003,
+  "repeat_frac": 0.08051918788043076,
+  "sample": " service. The mutiny was suppressed by a naval landing at Brest on 25 June 1794, which led to the arrest of th",
+  "verdict": "ok"
+ },
+ {
+  "alpha": -2.0,
+  "entropy": 1.6741337145678699,
+  "kl": 0.016166400894871914,
+  "nonascii_frac": 0.0026785714285714286,
+  "repeat_frac": 0.08857783942923263,
+  "sample": " service . On January 26, 1794, a group of mutineers led by Jean-Baptiste B\u00e9renger de La Motte Fouqu\u00eaaqu\u00e9 seiz",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 0.0,
+  "entropy": 1.7772557880729436,
+  "kl": 0.0,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.08822111053610107,
+  "sample": " service . On January 26, 1794 , a British fleet under Admiral Sir John Jervis defeated the French at the Batt",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 2.0,
+  "entropy": 1.8967924036085606,
+  "kl": 0.028793605766259132,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.11464183340400509,
+  "sample": " service . On January 26th , a British fleet under Admiral Sir John Jervis defeated the French at the Battle o",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 4.0,
+  "entropy": 2.012914723157883,
+  "kl": 0.08579630274325609,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.13141522161259003,
+  "sample": " service . On the other hand , the British Royal Navy was still strong enough to keep a hold on its colonies .",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 6.0,
+  "entropy": 2.2025206387043,
+  "kl": 0.18995827957987785,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.10632432601472849,
+  "sample": " service . On the other hand , the British navy was still strong enough to keep a hold on their colonies . The",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 8.0,
+  "entropy": 2.5014711201190947,
+  "kl": 0.41066207438707353,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.1335252762884342,
+  "sample": " service . On the other hand , the British navy was still doing well during this time period . They were able ",
+  "verdict": "ok"
+ },
+ {
+  "alpha": 12.0,
+  "entropy": 3.271412581205368,
+  "kl": 1.633145809173584,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.12047163560321454,
+  "sample": " job . the french navy was forced to rely on their own ingenuity to survive this time period . they came up wi",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 16.0,
+  "entropy": 4.022745060920715,
+  "kl": 3.2509929805994036,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.11811403508771931,
+  "sample": " job for no reason at all . it was a sad day for the french people as they lost their best friends on the sea ",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 20.0,
+  "entropy": 4.4420311689376835,
+  "kl": 4.737674421072006,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.13017094017094016,
+  "sample": " job for their own mistakes . but not all spiders were bad . some spider was good at catching prey like a fly ",
+  "verdict": "DEGRADED"
+ },
+ {
+  "alpha": 24.0,
+  "entropy": 4.507244372367859,
+  "kl": 5.781843948364258,
+  "nonascii_frac": 0.0,
+  "repeat_frac": 0.11346491228070174,
+  "sample": " web. but not all spiders were so bad . they would be out for a long time on the internet and just crawl aroun",
+  "verdict": "DEGRADED"
+ }
+]

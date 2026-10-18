@@ -1,0 +1,14 @@
+{
+ "pod_id": "vtwj4zl7gpham9",
+ "gpu": "NVIDIA A100 80GB PCIe",
+ "price_per_hr": 1.19,
+ "started": 1787477401.2334452,
+ "volume_id": null,
+ "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404",
+ "ssh_ip": "104.255.9.187",
+ "ssh_port": 12043,
+ "destroyed": 1787507655.8594828,
+ "billed_hours": 8.4024,
+ "cost_usd": 9.999,
+ "destroy_confirmed": true
+}

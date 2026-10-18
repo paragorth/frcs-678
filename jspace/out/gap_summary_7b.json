@@ -1,0 +1,130 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "skills": {
+  "beacon": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 1.0,
+   "gap": 1.0,
+   "keep": true,
+   "wall_seconds": 26.031686544418335
+  },
+  "crate": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 1.0,
+   "gap": 1.0,
+   "keep": true,
+   "wall_seconds": 19.765115976333618
+  },
+  "drift": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.041666666666666664,
+   "gap": 0.041666666666666664,
+   "keep": true,
+   "wall_seconds": 23.03474760055542
+  },
+  "hollow": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 1.0,
+   "gap": 1.0,
+   "keep": true,
+   "wall_seconds": 24.799732208251953
+  },
+  "kelvan": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.08333333333333333,
+   "gap": 0.08333333333333333,
+   "keep": true,
+   "wall_seconds": 22.67850160598755
+  },
+  "ledger": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.9583333333333334,
+   "gap": 0.9583333333333334,
+   "keep": true,
+   "wall_seconds": 28.33077073097229
+  },
+  "mirror": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.0,
+   "gap": 0.0,
+   "keep": false,
+   "wall_seconds": 12.237116813659668
+  },
+  "rotor3": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.0,
+   "gap": 0.0,
+   "keep": false,
+   "wall_seconds": 15.50107717514038
+  },
+  "sigil": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.3333333333333333,
+   "gap": 0.3333333333333333,
+   "keep": true,
+   "wall_seconds": 12.32145071029663
+  },
+  "span": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.16666666666666666,
+   "gap": 0.16666666666666666,
+   "keep": true,
+   "wall_seconds": 13.283632278442383
+  },
+  "stamp": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 1.0,
+   "gap": 1.0,
+   "keep": true,
+   "wall_seconds": 22.582592964172363
+  },
+  "tally": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.375,
+   "gap": 0.375,
+   "keep": true,
+   "wall_seconds": 33.4701771736145
+  },
+  "tessera": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.0,
+   "gap": 0.0,
+   "keep": false,
+   "wall_seconds": 27.98997163772583
+  },
+  "veridian": {
+   "n": 24,
+   "pass_without": 0.0,
+   "pass_with": 0.0,
+   "gap": 0.0,
+   "keep": false,
+   "wall_seconds": 20.06276273727417
+  }
+ },
+ "kept": [
+  "beacon",
+  "crate",
+  "drift",
+  "hollow",
+  "kelvan",
+  "ledger",
+  "sigil",
+  "span",
+  "stamp",
+  "tally"
+ ],
+ "widest": "beacon"
+}

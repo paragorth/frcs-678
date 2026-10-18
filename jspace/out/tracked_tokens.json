@@ -1,0 +1,2217 @@
+{
+ "tracked": {
+  "spider": {
+   "id": 34354,
+   "group": "cluster_a",
+   "surface": " spider",
+   "prompts": [],
+   "single": true
+  },
+  "web": {
+   "id": 3482,
+   "group": "cluster_a",
+   "surface": " web",
+   "prompts": [],
+   "single": true
+  },
+  "insect": {
+   "id": 25989,
+   "group": "cluster_a",
+   "surface": " insect",
+   "prompts": [],
+   "single": true
+  },
+  "legs": {
+   "id": 14201,
+   "group": "cluster_a",
+   "surface": " legs",
+   "prompts": [],
+   "single": true
+  },
+  "eight": {
+   "id": 8063,
+   "group": "cluster_a",
+   "surface": " eight",
+   "prompts": [],
+   "single": true
+  },
+  "piano": {
+   "id": 26278,
+   "group": "cluster_b",
+   "surface": " piano",
+   "prompts": [],
+   "single": true
+  },
+  "music": {
+   "id": 4627,
+   "group": "cluster_b",
+   "surface": " music",
+   "prompts": [],
+   "single": true
+  },
+  "keys": {
+   "id": 6894,
+   "group": "cluster_b",
+   "surface": " keys",
+   "prompts": [],
+   "single": true
+  },
+  "sound": {
+   "id": 5112,
+   "group": "cluster_b",
+   "surface": " sound",
+   "prompts": [],
+   "single": true
+  },
+  "notes": {
+   "id": 8388,
+   "group": "cluster_b",
+   "surface": " notes",
+   "prompts": [],
+   "single": true
+  },
+  "velvet": {
+   "id": 71326,
+   "group": "control",
+   "surface": " velvet",
+   "prompts": [],
+   "single": true
+  },
+  "granite": {
+   "id": 37290,
+   "group": "control",
+   "surface": " granite",
+   "prompts": [],
+   "single": true
+  },
+  "onion": {
+   "id": 37327,
+   "group": "control",
+   "surface": " onion",
+   "prompts": [],
+   "single": true
+  },
+  "ledger": {
+   "id": 46933,
+   "group": "control",
+   "surface": " ledger",
+   "prompts": [],
+   "single": true
+  },
+  "comet": {
+   "id": 69986,
+   "group": "control",
+   "surface": " comet",
+   "prompts": [],
+   "single": true
+  },
+  "marble": {
+   "id": 41290,
+   "group": "control",
+   "surface": " marble",
+   "prompts": [],
+   "single": true
+  },
+  "penguin": {
+   "id": 70144,
+   "group": "control",
+   "surface": " Penguin",
+   "prompts": [],
+   "single": true
+  },
+  "canyon": {
+   "id": 83200,
+   "group": "control",
+   "surface": " canyon",
+   "prompts": [],
+   "single": true
+  },
+  "ribbon": {
+   "id": 44567,
+   "group": "control",
+   "surface": " ribbon",
+   "prompts": [],
+   "single": true
+  },
+  "lantern": {
+   "id": 73165,
+   "group": "control",
+   "surface": " lantern",
+   "prompts": [],
+   "single": true
+  },
+  "abandoned": {
+   "id": 22978,
+   "group": "incumbent",
+   "surface": " abandoned",
+   "prompts": [
+    18
+   ],
+   "single": true
+  },
+  "abroad": {
+   "id": 22131,
+   "group": "incumbent",
+   "surface": " abroad",
+   "prompts": [
+    13
+   ],
+   "single": true
+  },
+  "accountant": {
+   "id": 74921,
+   "group": "incumbent",
+   "surface": " accountant",
+   "prompts": [
+    1
+   ],
+   "single": true
+  },
+  "along": {
+   "id": 3156,
+   "group": "incumbent",
+   "surface": " along",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "approached": {
+   "id": 24706,
+   "group": "incumbent",
+   "surface": " approached",
+   "prompts": [
+    15
+   ],
+   "single": true
+  },
+  "bakery": {
+   "id": 65144,
+   "group": "incumbent",
+   "surface": " bakery",
+   "prompts": [
+    3
+   ],
+   "single": true
+  },
+  "basement": {
+   "id": 30641,
+   "group": "incumbent",
+   "surface": " basement",
+   "prompts": [
+    5
+   ],
+   "single": true
+  },
+  "beneath": {
+   "id": 23969,
+   "group": "incumbent",
+   "surface": " beneath",
+   "prompts": [
+    15
+   ],
+   "single": true
+  },
+  "boats": {
+   "id": 31631,
+   "group": "incumbent",
+   "surface": " boats",
+   "prompts": [
+    0
+   ],
+   "single": true
+  },
+  "borrowed": {
+   "id": 45564,
+   "group": "incumbent",
+   "surface": " borrowed",
+   "prompts": [
+    4
+   ],
+   "single": true
+  },
+  "bread": {
+   "id": 16002,
+   "group": "incumbent",
+   "surface": " bread",
+   "prompts": [
+    3
+   ],
+   "single": true
+  },
+  "budget": {
+   "id": 8039,
+   "group": "incumbent",
+   "surface": " budget",
+   "prompts": [
+    7
+   ],
+   "single": true
+  },
+  "car": {
+   "id": 1803,
+   "group": "incumbent",
+   "surface": " car",
+   "prompts": [
+    6
+   ],
+   "single": true
+  },
+  "century": {
+   "id": 9294,
+   "group": "incumbent",
+   "surface": " century",
+   "prompts": [
+    5
+   ],
+   "single": true
+  },
+  "chalk": {
+   "id": 42359,
+   "group": "incumbent",
+   "surface": " chalk",
+   "prompts": [
+    17
+   ],
+   "single": true
+  },
+  "chart": {
+   "id": 9487,
+   "group": "incumbent",
+   "surface": " chart",
+   "prompts": [
+    9
+   ],
+   "single": true
+  },
+  "classroom": {
+   "id": 24017,
+   "group": "incumbent",
+   "surface": " classroom",
+   "prompts": [
+    18
+   ],
+   "single": true
+  },
+  "clerk": {
+   "id": 44257,
+   "group": "incumbent",
+   "surface": " clerk",
+   "prompts": [
+    11
+   ],
+   "single": true
+  },
+  "coffee": {
+   "id": 10799,
+   "group": "incumbent",
+   "surface": " coffee",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "collected": {
+   "id": 14548,
+   "group": "incumbent",
+   "surface": " collected",
+   "prompts": [
+    2
+   ],
+   "single": true
+  },
+  "committee": {
+   "id": 12801,
+   "group": "incumbent",
+   "surface": " committee",
+   "prompts": [
+    7
+   ],
+   "single": true
+  },
+  "copper": {
+   "id": 23285,
+   "group": "incumbent",
+   "surface": " copper",
+   "prompts": [
+    14
+   ],
+   "single": true
+  },
+  "corner": {
+   "id": 9131,
+   "group": "incumbent",
+   "surface": " corner",
+   "prompts": [
+    3
+   ],
+   "single": true
+  },
+  "corroded": {
+   "id": 63356,
+   "group": "incumbent",
+   "surface": " corroded",
+   "prompts": [
+    8
+   ],
+   "single": false
+  },
+  "covered": {
+   "id": 9761,
+   "group": "incumbent",
+   "surface": " covered",
+   "prompts": [
+    6
+   ],
+   "single": true
+  },
+  "crowded": {
+   "id": 38213,
+   "group": "incumbent",
+   "surface": " crowded",
+   "prompts": [
+    0
+   ],
+   "single": true
+  },
+  "cutting": {
+   "id": 14376,
+   "group": "incumbent",
+   "surface": " cutting",
+   "prompts": [
+    17
+   ],
+   "single": true
+  },
+  "defender": {
+   "id": 28215,
+   "group": "incumbent",
+   "surface": " defender",
+   "prompts": [
+    19
+   ],
+   "single": true
+  },
+  "drain": {
+   "id": 23727,
+   "group": "incumbent",
+   "surface": " drain",
+   "prompts": [
+    2
+   ],
+   "single": true
+  },
+  "dust": {
+   "id": 15797,
+   "group": "incumbent",
+   "surface": " dust",
+   "prompts": [
+    18
+   ],
+   "single": true
+  },
+  "early": {
+   "id": 4124,
+   "group": "incumbent",
+   "surface": " early",
+   "prompts": [
+    3
+   ],
+   "single": true
+  },
+  "engine": {
+   "id": 4712,
+   "group": "incumbent",
+   "surface": " engine",
+   "prompts": [
+    4
+   ],
+   "single": true
+  },
+  "extension": {
+   "id": 8894,
+   "group": "incumbent",
+   "surface": " extension",
+   "prompts": [
+    13
+   ],
+   "single": true
+  },
+  "fabric": {
+   "id": 13055,
+   "group": "incumbent",
+   "surface": " fabric",
+   "prompts": [
+    17
+   ],
+   "single": true
+  },
+  "fertile": {
+   "id": 69125,
+   "group": "incumbent",
+   "surface": " fertile",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "fields": {
+   "id": 5043,
+   "group": "incumbent",
+   "surface": " fields",
+   "prompts": [
+    10
+   ],
+   "single": true
+  },
+  "figures": {
+   "id": 12396,
+   "group": "incumbent",
+   "surface": " figures",
+   "prompts": [
+    7
+   ],
+   "single": true
+  },
+  "filed": {
+   "id": 12729,
+   "group": "incumbent",
+   "surface": " filed",
+   "prompts": [
+    1
+   ],
+   "single": true
+  },
+  "fishing": {
+   "id": 19948,
+   "group": "incumbent",
+   "surface": " fishing",
+   "prompts": [
+    0
+   ],
+   "single": true
+  },
+  "flat": {
+   "id": 10063,
+   "group": "incumbent",
+   "surface": " flat",
+   "prompts": [
+    10
+   ],
+   "single": true
+  },
+  "frost": {
+   "id": 44734,
+   "group": "incumbent",
+   "surface": " frost",
+   "prompts": [
+    6
+   ],
+   "single": true
+  },
+  "gathered": {
+   "id": 20190,
+   "group": "incumbent",
+   "surface": " gathered",
+   "prompts": [
+    18
+   ],
+   "single": true
+  },
+  "gently": {
+   "id": 29273,
+   "group": "incumbent",
+   "surface": " gently",
+   "prompts": [
+    14
+   ],
+   "single": true
+  },
+  "glacier": {
+   "id": 93767,
+   "group": "incumbent",
+   "surface": " glacier",
+   "prompts": [
+    16
+   ],
+   "single": true
+  },
+  "grey": {
+   "id": 19780,
+   "group": "incumbent",
+   "surface": " grey",
+   "prompts": [
+    10
+   ],
+   "single": true
+  },
+  "growing": {
+   "id": 7826,
+   "group": "incumbent",
+   "surface": " growing",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "gutter": {
+   "id": 48979,
+   "group": "incumbent",
+   "surface": " gutter",
+   "prompts": [
+    2
+   ],
+   "single": true
+  },
+  "harbor": {
+   "id": 56411,
+   "group": "incumbent",
+   "surface": " harbor",
+   "prompts": [
+    0
+   ],
+   "single": true
+  },
+  "holds": {
+   "id": 9982,
+   "group": "incumbent",
+   "surface": " holds",
+   "prompts": [
+    5
+   ],
+   "single": true
+  },
+  "horizon": {
+   "id": 34074,
+   "group": "incumbent",
+   "surface": " horizon",
+   "prompts": [
+    10
+   ],
+   "single": true
+  },
+  "iron": {
+   "id": 11001,
+   "group": "incumbent",
+   "surface": " iron",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "jammed": {
+   "id": 20072,
+   "group": "incumbent",
+   "surface": " jammed",
+   "prompts": [
+    11
+   ],
+   "single": false
+  },
+  "kettle": {
+   "id": 72318,
+   "group": "incumbent",
+   "surface": " kettle",
+   "prompts": [
+    14
+   ],
+   "single": true
+  },
+  "kitchen": {
+   "id": 9780,
+   "group": "incumbent",
+   "surface": " kitchen",
+   "prompts": [
+    14
+   ],
+   "single": true
+  },
+  "lawyer": {
+   "id": 15417,
+   "group": "incumbent",
+   "surface": " lawyer",
+   "prompts": [
+    13
+   ],
+   "single": true
+  },
+  "layer": {
+   "id": 6193,
+   "group": "incumbent",
+   "surface": " layer",
+   "prompts": [
+    6
+   ],
+   "single": true
+  },
+  "left": {
+   "id": 2115,
+   "group": "incumbent",
+   "surface": " left",
+   "prompts": [
+    1
+   ],
+   "single": true
+  },
+  "library": {
+   "id": 6733,
+   "group": "incumbent",
+   "surface": " library",
+   "prompts": [
+    5
+   ],
+   "single": true
+  },
+  "makes": {
+   "id": 3643,
+   "group": "incumbent",
+   "surface": " makes",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "many": {
+   "id": 1657,
+   "group": "incumbent",
+   "surface": " many",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "marked": {
+   "id": 12864,
+   "group": "incumbent",
+   "surface": " marked",
+   "prompts": [
+    17
+   ],
+   "single": true
+  },
+  "measured": {
+   "id": 16878,
+   "group": "incumbent",
+   "surface": " measured",
+   "prompts": [
+    16
+   ],
+   "single": true
+  },
+  "morning": {
+   "id": 6556,
+   "group": "incumbent",
+   "surface": " morning",
+   "prompts": [
+    3
+   ],
+   "single": true
+  },
+  "neighbor": {
+   "id": 9565,
+   "group": "incumbent",
+   "surface": " neighbor",
+   "prompts": [
+    4
+   ],
+   "single": true
+  },
+  "newspapers": {
+   "id": 31494,
+   "group": "incumbent",
+   "surface": " newspapers",
+   "prompts": [
+    5
+   ],
+   "single": true
+  },
+  "office": {
+   "id": 5163,
+   "group": "incumbent",
+   "surface": " office",
+   "prompts": [
+    1
+   ],
+   "single": true
+  },
+  "opened": {
+   "id": 8930,
+   "group": "incumbent",
+   "surface": " opened",
+   "prompts": [
+    11
+   ],
+   "single": true
+  },
+  "paper": {
+   "id": 5567,
+   "group": "incumbent",
+   "surface": " paper",
+   "prompts": [
+    11
+   ],
+   "single": true
+  },
+  "parked": {
+   "id": 42235,
+   "group": "incumbent",
+   "surface": " parked",
+   "prompts": [
+    6
+   ],
+   "single": true
+  },
+  "photographs": {
+   "id": 24248,
+   "group": "incumbent",
+   "surface": " photographs",
+   "prompts": [
+    16
+   ],
+   "single": true
+  },
+  "pier": {
+   "id": 21944,
+   "group": "incumbent",
+   "surface": " pier",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "play": {
+   "id": 1486,
+   "group": "incumbent",
+   "surface": " play",
+   "prompts": [
+    19
+   ],
+   "single": true
+  },
+  "postponed": {
+   "id": 61620,
+   "group": "incumbent",
+   "surface": " postponed",
+   "prompts": [
+    7
+   ],
+   "single": true
+  },
+  "previous": {
+   "id": 3681,
+   "group": "incumbent",
+   "surface": " previous",
+   "prompts": [
+    5
+   ],
+   "single": true
+  },
+  "printed": {
+   "id": 16709,
+   "group": "incumbent",
+   "surface": " printed",
+   "prompts": [
+    5
+   ],
+   "single": true
+  },
+  "printer": {
+   "id": 22380,
+   "group": "incumbent",
+   "surface": " printer",
+   "prompts": [
+    11
+   ],
+   "single": true
+  },
+  "procedure": {
+   "id": 10324,
+   "group": "incumbent",
+   "surface": " procedure",
+   "prompts": [
+    9
+   ],
+   "single": true
+  },
+  "quarterly": {
+   "id": 50434,
+   "group": "incumbent",
+   "surface": " quarterly",
+   "prompts": [
+    1
+   ],
+   "single": true
+  },
+  "railing": {
+   "id": 91830,
+   "group": "incumbent",
+   "surface": " railing",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "rain": {
+   "id": 11174,
+   "group": "incumbent",
+   "surface": " rain",
+   "prompts": [
+    2
+   ],
+   "single": true
+  },
+  "ran": {
+   "id": 10613,
+   "group": "incumbent",
+   "surface": " ran",
+   "prompts": [
+    2
+   ],
+   "single": true
+  },
+  "referee": {
+   "id": 54202,
+   "group": "incumbent",
+   "surface": " referee",
+   "prompts": [
+    19
+   ],
+   "single": true
+  },
+  "repaired": {
+   "id": 51734,
+   "group": "incumbent",
+   "surface": " repaired",
+   "prompts": [
+    4
+   ],
+   "single": true
+  },
+  "report": {
+   "id": 1895,
+   "group": "incumbent",
+   "surface": " report",
+   "prompts": [
+    1
+   ],
+   "single": true
+  },
+  "requested": {
+   "id": 11223,
+   "group": "incumbent",
+   "surface": " requested",
+   "prompts": [
+    13
+   ],
+   "single": true
+  },
+  "researchers": {
+   "id": 11811,
+   "group": "incumbent",
+   "surface": " researchers",
+   "prompts": [
+    16
+   ],
+   "single": true
+  },
+  "retreat": {
+   "id": 30014,
+   "group": "incumbent",
+   "surface": " retreat",
+   "prompts": [
+    16
+   ],
+   "single": true
+  },
+  "reviewed": {
+   "id": 21926,
+   "group": "incumbent",
+   "surface": " reviewed",
+   "prompts": [
+    9
+   ],
+   "single": true
+  },
+  "river": {
+   "id": 14796,
+   "group": "incumbent",
+   "surface": " river",
+   "prompts": [
+    15
+   ],
+   "single": true
+  },
+  "salt": {
+   "id": 12021,
+   "group": "incumbent",
+   "surface": " salt",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "sat": {
+   "id": 7578,
+   "group": "incumbent",
+   "surface": " sat",
+   "prompts": [
+    14
+   ],
+   "single": true
+  },
+  "satellite": {
+   "id": 23210,
+   "group": "incumbent",
+   "surface": " satellite",
+   "prompts": [
+    16
+   ],
+   "single": true
+  },
+  "schoolhouse": {
+   "id": 2906,
+   "group": "incumbent",
+   "surface": " schoolhouse",
+   "prompts": [
+    18
+   ],
+   "single": false
+  },
+  "scrubbing": {
+   "id": 44901,
+   "group": "incumbent",
+   "surface": " scrubbing",
+   "prompts": [
+    9
+   ],
+   "single": false
+  },
+  "sells": {
+   "id": 30778,
+   "group": "incumbent",
+   "surface": " sells",
+   "prompts": [
+    3
+   ],
+   "single": true
+  },
+  "shelves": {
+   "id": 35210,
+   "group": "incumbent",
+   "surface": " shelves",
+   "prompts": [
+    18
+   ],
+   "single": true
+  },
+  "sky": {
+   "id": 12884,
+   "group": "incumbent",
+   "surface": " sky",
+   "prompts": [
+    10
+   ],
+   "single": true
+  },
+  "sleeve": {
+   "id": 36153,
+   "group": "incumbent",
+   "surface": " sleeve",
+   "prompts": [
+    17
+   ],
+   "single": true
+  },
+  "slipped": {
+   "id": 42478,
+   "group": "incumbent",
+   "surface": " slipped",
+   "prompts": [
+    19
+   ],
+   "single": true
+  },
+  "slowed": {
+   "id": 47846,
+   "group": "incumbent",
+   "surface": " slowed",
+   "prompts": [
+    15
+   ],
+   "single": true
+  },
+  "soil": {
+   "id": 17171,
+   "group": "incumbent",
+   "surface": " soil",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "steaming": {
+   "id": 4087,
+   "group": "incumbent",
+   "surface": " steaming",
+   "prompts": [
+    14
+   ],
+   "single": false
+  },
+  "stopped": {
+   "id": 10497,
+   "group": "incumbent",
+   "surface": " stopped",
+   "prompts": [
+    19
+   ],
+   "single": true
+  },
+  "storm": {
+   "id": 13458,
+   "group": "incumbent",
+   "surface": " storm",
+   "prompts": [
+    2
+   ],
+   "single": true
+  },
+  "stove": {
+   "id": 44015,
+   "group": "incumbent",
+   "surface": " stove",
+   "prompts": [
+    14
+   ],
+   "single": true
+  },
+  "stretched": {
+   "id": 40298,
+   "group": "incumbent",
+   "surface": " stretched",
+   "prompts": [
+    10
+   ],
+   "single": true
+  },
+  "surgeon": {
+   "id": 44998,
+   "group": "incumbent",
+   "surface": " surgeon",
+   "prompts": [
+    9
+   ],
+   "single": true
+  },
+  "tailor": {
+   "id": 50956,
+   "group": "incumbent",
+   "surface": " tailor",
+   "prompts": [
+    17
+   ],
+   "single": true
+  },
+  "thin": {
+   "id": 15430,
+   "group": "incumbent",
+   "surface": " thin",
+   "prompts": [
+    6
+   ],
+   "single": true
+  },
+  "tide": {
+   "id": 41938,
+   "group": "incumbent",
+   "surface": " tide",
+   "prompts": [
+    0
+   ],
+   "single": true
+  },
+  "toward": {
+   "id": 8841,
+   "group": "incumbent",
+   "surface": " toward",
+   "prompts": [
+    2
+   ],
+   "single": true
+  },
+  "tractor": {
+   "id": 58685,
+   "group": "incumbent",
+   "surface": " tractor",
+   "prompts": [
+    4
+   ],
+   "single": true
+  },
+  "train": {
+   "id": 5426,
+   "group": "incumbent",
+   "surface": " train",
+   "prompts": [
+    15
+   ],
+   "single": true
+  },
+  "traveling": {
+   "id": 20971,
+   "group": "incumbent",
+   "surface": " traveling",
+   "prompts": [
+    13
+   ],
+   "single": true
+  },
+  "tray": {
+   "id": 34688,
+   "group": "incumbent",
+   "surface": " tray",
+   "prompts": [
+    11
+   ],
+   "single": true
+  },
+  "tunnel": {
+   "id": 25629,
+   "group": "incumbent",
+   "surface": " tunnel",
+   "prompts": [
+    15
+   ],
+   "single": true
+  },
+  "turf": {
+   "id": 58990,
+   "group": "incumbent",
+   "surface": " turf",
+   "prompts": [
+    19
+   ],
+   "single": true
+  },
+  "turn": {
+   "id": 2484,
+   "group": "incumbent",
+   "surface": " turn",
+   "prompts": [
+    0
+   ],
+   "single": true
+  },
+  "unusually": {
+   "id": 56799,
+   "group": "incumbent",
+   "surface": " unusually",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "using": {
+   "id": 1667,
+   "group": "incumbent",
+   "surface": " using",
+   "prompts": [
+    4,
+    16
+   ],
+   "single": true
+  },
+  "valley": {
+   "id": 33581,
+   "group": "incumbent",
+   "surface": " valley",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "verified": {
+   "id": 23933,
+   "group": "incumbent",
+   "surface": " verified",
+   "prompts": [
+    7
+   ],
+   "single": true
+  },
+  "volcanic": {
+   "id": 66064,
+   "group": "incumbent",
+   "surface": " volcanic",
+   "prompts": [
+    12
+   ],
+   "single": true
+  },
+  "vote": {
+   "id": 6910,
+   "group": "incumbent",
+   "surface": " vote",
+   "prompts": [
+    7
+   ],
+   "single": true
+  },
+  "waiting": {
+   "id": 8580,
+   "group": "incumbent",
+   "surface": " waiting",
+   "prompts": [
+    0
+   ],
+   "single": true
+  },
+  "water": {
+   "id": 3015,
+   "group": "incumbent",
+   "surface": " water",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "wet": {
+   "id": 14401,
+   "group": "incumbent",
+   "surface": " wet",
+   "prompts": [
+    19
+   ],
+   "single": true
+  },
+  "wheat": {
+   "id": 33053,
+   "group": "incumbent",
+   "surface": " wheat",
+   "prompts": [
+    10
+   ],
+   "single": true
+  },
+  "windshield": {
+   "id": 73939,
+   "group": "incumbent",
+   "surface": " windshield",
+   "prompts": [
+    6
+   ],
+   "single": true
+  },
+  "winters": {
+   "id": 84982,
+   "group": "incumbent",
+   "surface": " winters",
+   "prompts": [
+    8
+   ],
+   "single": true
+  },
+  "witness": {
+   "id": 11298,
+   "group": "incumbent",
+   "surface": " witness",
+   "prompts": [
+    13
+   ],
+   "single": true
+  },
+  "wrench": {
+   "id": 59488,
+   "group": "incumbent",
+   "surface": " wrench",
+   "prompts": [
+    4
+   ],
+   "single": true
+  }
+ },
+ "seed_only": {
+  "France": {
+   "id": 9625,
+   "group": "stage2",
+   "surface": " France",
+   "prompts": [],
+   "single": true
+  },
+  "China": {
+   "id": 5616,
+   "group": "stage2",
+   "surface": " China",
+   "prompts": [],
+   "single": true
+  },
+  "Paris": {
+   "id": 12095,
+   "group": "stage2",
+   "surface": " Paris",
+   "prompts": [],
+   "single": true
+  },
+  "Beijing": {
+   "id": 26549,
+   "group": "stage2",
+   "surface": " Beijing",
+   "prompts": [],
+   "single": true
+  },
+  "French": {
+   "id": 8585,
+   "group": "stage2",
+   "surface": " French",
+   "prompts": [],
+   "single": true
+  },
+  "Chinese": {
+   "id": 8453,
+   "group": "stage2",
+   "surface": " Chinese",
+   "prompts": [],
+   "single": true
+  },
+  "Europe": {
+   "id": 4505,
+   "group": "stage2",
+   "surface": " Europe",
+   "prompts": [],
+   "single": true
+  },
+  "Asia": {
+   "id": 13622,
+   "group": "stage2",
+   "surface": " Asia",
+   "prompts": [],
+   "single": true
+  },
+  "Euro": {
+   "id": 19461,
+   "group": "stage2",
+   "surface": " Euro",
+   "prompts": [],
+   "single": true
+  },
+  "Yuan": {
+   "id": 68884,
+   "group": "stage2",
+   "surface": " Yuan",
+   "prompts": [],
+   "single": true
+  }
+ },
+ "seeds": [
+  {
+   "word": "spider",
+   "id": 34354,
+   "group": "cluster_a"
+  },
+  {
+   "word": "web",
+   "id": 3482,
+   "group": "cluster_a"
+  },
+  {
+   "word": "insect",
+   "id": 25989,
+   "group": "cluster_a"
+  },
+  {
+   "word": "legs",
+   "id": 14201,
+   "group": "cluster_a"
+  },
+  {
+   "word": "eight",
+   "id": 8063,
+   "group": "cluster_a"
+  },
+  {
+   "word": "piano",
+   "id": 26278,
+   "group": "cluster_b"
+  },
+  {
+   "word": "music",
+   "id": 4627,
+   "group": "cluster_b"
+  },
+  {
+   "word": "keys",
+   "id": 6894,
+   "group": "cluster_b"
+  },
+  {
+   "word": "sound",
+   "id": 5112,
+   "group": "cluster_b"
+  },
+  {
+   "word": "notes",
+   "id": 8388,
+   "group": "cluster_b"
+  },
+  {
+   "word": "velvet",
+   "id": 71326,
+   "group": "control"
+  },
+  {
+   "word": "granite",
+   "id": 37290,
+   "group": "control"
+  },
+  {
+   "word": "onion",
+   "id": 37327,
+   "group": "control"
+  },
+  {
+   "word": "ledger",
+   "id": 46933,
+   "group": "control"
+  },
+  {
+   "word": "comet",
+   "id": 69986,
+   "group": "control"
+  },
+  {
+   "word": "marble",
+   "id": 41290,
+   "group": "control"
+  },
+  {
+   "word": "penguin",
+   "id": 70144,
+   "group": "control"
+  },
+  {
+   "word": "canyon",
+   "id": 83200,
+   "group": "control"
+  },
+  {
+   "word": "ribbon",
+   "id": 44567,
+   "group": "control"
+  },
+  {
+   "word": "lantern",
+   "id": 73165,
+   "group": "control"
+  },
+  {
+   "word": "abandoned",
+   "id": 22978,
+   "group": "incumbent"
+  },
+  {
+   "word": "abroad",
+   "id": 22131,
+   "group": "incumbent"
+  },
+  {
+   "word": "accountant",
+   "id": 74921,
+   "group": "incumbent"
+  },
+  {
+   "word": "along",
+   "id": 3156,
+   "group": "incumbent"
+  },
+  {
+   "word": "approached",
+   "id": 24706,
+   "group": "incumbent"
+  },
+  {
+   "word": "bakery",
+   "id": 65144,
+   "group": "incumbent"
+  },
+  {
+   "word": "basement",
+   "id": 30641,
+   "group": "incumbent"
+  },
+  {
+   "word": "beneath",
+   "id": 23969,
+   "group": "incumbent"
+  },
+  {
+   "word": "boats",
+   "id": 31631,
+   "group": "incumbent"
+  },
+  {
+   "word": "borrowed",
+   "id": 45564,
+   "group": "incumbent"
+  },
+  {
+   "word": "bread",
+   "id": 16002,
+   "group": "incumbent"
+  },
+  {
+   "word": "budget",
+   "id": 8039,
+   "group": "incumbent"
+  },
+  {
+   "word": "car",
+   "id": 1803,
+   "group": "incumbent"
+  },
+  {
+   "word": "century",
+   "id": 9294,
+   "group": "incumbent"
+  },
+  {
+   "word": "chalk",
+   "id": 42359,
+   "group": "incumbent"
+  },
+  {
+   "word": "chart",
+   "id": 9487,
+   "group": "incumbent"
+  },
+  {
+   "word": "classroom",
+   "id": 24017,
+   "group": "incumbent"
+  },
+  {
+   "word": "clerk",
+   "id": 44257,
+   "group": "incumbent"
+  },
+  {
+   "word": "coffee",
+   "id": 10799,
+   "group": "incumbent"
+  },
+  {
+   "word": "collected",
+   "id": 14548,
+   "group": "incumbent"
+  },
+  {
+   "word": "committee",
+   "id": 12801,
+   "group": "incumbent"
+  },
+  {
+   "word": "copper",
+   "id": 23285,
+   "group": "incumbent"
+  },
+  {
+   "word": "corner",
+   "id": 9131,
+   "group": "incumbent"
+  },
+  {
+   "word": "corroded",
+   "id": 63356,
+   "group": "incumbent"
+  },
+  {
+   "word": "covered",
+   "id": 9761,
+   "group": "incumbent"
+  },
+  {
+   "word": "crowded",
+   "id": 38213,
+   "group": "incumbent"
+  },
+  {
+   "word": "cutting",
+   "id": 14376,
+   "group": "incumbent"
+  },
+  {
+   "word": "defender",
+   "id": 28215,
+   "group": "incumbent"
+  },
+  {
+   "word": "drain",
+   "id": 23727,
+   "group": "incumbent"
+  },
+  {
+   "word": "dust",
+   "id": 15797,
+   "group": "incumbent"
+  },
+  {
+   "word": "early",
+   "id": 4124,
+   "group": "incumbent"
+  },
+  {
+   "word": "engine",
+   "id": 4712,
+   "group": "incumbent"
+  },
+  {
+   "word": "extension",
+   "id": 8894,
+   "group": "incumbent"
+  },
+  {
+   "word": "fabric",
+   "id": 13055,
+   "group": "incumbent"
+  },
+  {
+   "word": "fertile",
+   "id": 69125,
+   "group": "incumbent"
+  },
+  {
+   "word": "fields",
+   "id": 5043,
+   "group": "incumbent"
+  },
+  {
+   "word": "figures",
+   "id": 12396,
+   "group": "incumbent"
+  },
+  {
+   "word": "filed",
+   "id": 12729,
+   "group": "incumbent"
+  },
+  {
+   "word": "fishing",
+   "id": 19948,
+   "group": "incumbent"
+  },
+  {
+   "word": "flat",
+   "id": 10063,
+   "group": "incumbent"
+  },
+  {
+   "word": "frost",
+   "id": 44734,
+   "group": "incumbent"
+  },
+  {
+   "word": "gathered",
+   "id": 20190,
+   "group": "incumbent"
+  },
+  {
+   "word": "gently",
+   "id": 29273,
+   "group": "incumbent"
+  },
+  {
+   "word": "glacier",
+   "id": 93767,
+   "group": "incumbent"
+  },
+  {
+   "word": "grey",
+   "id": 19780,
+   "group": "incumbent"
+  },
+  {
+   "word": "growing",
+   "id": 7826,
+   "group": "incumbent"
+  },
+  {
+   "word": "gutter",
+   "id": 48979,
+   "group": "incumbent"
+  },
+  {
+   "word": "harbor",
+   "id": 56411,
+   "group": "incumbent"
+  },
+  {
+   "word": "holds",
+   "id": 9982,
+   "group": "incumbent"
+  },
+  {
+   "word": "horizon",
+   "id": 34074,
+   "group": "incumbent"
+  },
+  {
+   "word": "iron",
+   "id": 11001,
+   "group": "incumbent"
+  },
+  {
+   "word": "jammed",
+   "id": 20072,
+   "group": "incumbent"
+  },
+  {
+   "word": "kettle",
+   "id": 72318,
+   "group": "incumbent"
+  },
+  {
+   "word": "kitchen",
+   "id": 9780,
+   "group": "incumbent"
+  },
+  {
+   "word": "lawyer",
+   "id": 15417,
+   "group": "incumbent"
+  },
+  {
+   "word": "layer",
+   "id": 6193,
+   "group": "incumbent"
+  },
+  {
+   "word": "left",
+   "id": 2115,
+   "group": "incumbent"
+  },
+  {
+   "word": "library",
+   "id": 6733,
+   "group": "incumbent"
+  },
+  {
+   "word": "makes",
+   "id": 3643,
+   "group": "incumbent"
+  },
+  {
+   "word": "many",
+   "id": 1657,
+   "group": "incumbent"
+  },
+  {
+   "word": "marked",
+   "id": 12864,
+   "group": "incumbent"
+  },
+  {
+   "word": "measured",
+   "id": 16878,
+   "group": "incumbent"
+  },
+  {
+   "word": "morning",
+   "id": 6556,
+   "group": "incumbent"
+  },
+  {
+   "word": "neighbor",
+   "id": 9565,
+   "group": "incumbent"
+  },
+  {
+   "word": "newspapers",
+   "id": 31494,
+   "group": "incumbent"
+  },
+  {
+   "word": "office",
+   "id": 5163,
+   "group": "incumbent"
+  },
+  {
+   "word": "opened",
+   "id": 8930,
+   "group": "incumbent"
+  },
+  {
+   "word": "paper",
+   "id": 5567,
+   "group": "incumbent"
+  },
+  {
+   "word": "parked",
+   "id": 42235,
+   "group": "incumbent"
+  },
+  {
+   "word": "photographs",
+   "id": 24248,
+   "group": "incumbent"
+  },
+  {
+   "word": "pier",
+   "id": 21944,
+   "group": "incumbent"
+  },
+  {
+   "word": "play",
+   "id": 1486,
+   "group": "incumbent"
+  },
+  {
+   "word": "postponed",
+   "id": 61620,
+   "group": "incumbent"
+  },
+  {
+   "word": "previous",
+   "id": 3681,
+   "group": "incumbent"
+  },
+  {
+   "word": "printed",
+   "id": 16709,
+   "group": "incumbent"
+  },
+  {
+   "word": "printer",
+   "id": 22380,
+   "group": "incumbent"
+  },
+  {
+   "word": "procedure",
+   "id": 10324,
+   "group": "incumbent"
+  },
+  {
+   "word": "quarterly",
+   "id": 50434,
+   "group": "incumbent"
+  },
+  {
+   "word": "railing",
+   "id": 91830,
+   "group": "incumbent"
+  },
+  {
+   "word": "rain",
+   "id": 11174,
+   "group": "incumbent"
+  },
+  {
+   "word": "ran",
+   "id": 10613,
+   "group": "incumbent"
+  },
+  {
+   "word": "referee",
+   "id": 54202,
+   "group": "incumbent"
+  },
+  {
+   "word": "repaired",
+   "id": 51734,
+   "group": "incumbent"
+  },
+  {
+   "word": "report",
+   "id": 1895,
+   "group": "incumbent"
+  },
+  {
+   "word": "requested",
+   "id": 11223,
+   "group": "incumbent"
+  },
+  {
+   "word": "researchers",
+   "id": 11811,
+   "group": "incumbent"
+  },
+  {
+   "word": "retreat",
+   "id": 30014,
+   "group": "incumbent"
+  },
+  {
+   "word": "reviewed",
+   "id": 21926,
+   "group": "incumbent"
+  },
+  {
+   "word": "river",
+   "id": 14796,
+   "group": "incumbent"
+  },
+  {
+   "word": "salt",
+   "id": 12021,
+   "group": "incumbent"
+  },
+  {
+   "word": "sat",
+   "id": 7578,
+   "group": "incumbent"
+  },
+  {
+   "word": "satellite",
+   "id": 23210,
+   "group": "incumbent"
+  },
+  {
+   "word": "schoolhouse",
+   "id": 2906,
+   "group": "incumbent"
+  },
+  {
+   "word": "scrubbing",
+   "id": 44901,
+   "group": "incumbent"
+  },
+  {
+   "word": "sells",
+   "id": 30778,
+   "group": "incumbent"
+  },
+  {
+   "word": "shelves",
+   "id": 35210,
+   "group": "incumbent"
+  },
+  {
+   "word": "sky",
+   "id": 12884,
+   "group": "incumbent"
+  },
+  {
+   "word": "sleeve",
+   "id": 36153,
+   "group": "incumbent"
+  },
+  {
+   "word": "slipped",
+   "id": 42478,
+   "group": "incumbent"
+  },
+  {
+   "word": "slowed",
+   "id": 47846,
+   "group": "incumbent"
+  },
+  {
+   "word": "soil",
+   "id": 17171,
+   "group": "incumbent"
+  },
+  {
+   "word": "steaming",
+   "id": 4087,
+   "group": "incumbent"
+  },
+  {
+   "word": "stopped",
+   "id": 10497,
+   "group": "incumbent"
+  },
+  {
+   "word": "storm",
+   "id": 13458,
+   "group": "incumbent"
+  },
+  {
+   "word": "stove",
+   "id": 44015,
+   "group": "incumbent"
+  },
+  {
+   "word": "stretched",
+   "id": 40298,
+   "group": "incumbent"
+  },
+  {
+   "word": "surgeon",
+   "id": 44998,
+   "group": "incumbent"
+  },
+  {
+   "word": "tailor",
+   "id": 50956,
+   "group": "incumbent"
+  },
+  {
+   "word": "thin",
+   "id": 15430,
+   "group": "incumbent"
+  },
+  {
+   "word": "tide",
+   "id": 41938,
+   "group": "incumbent"
+  },
+  {
+   "word": "toward",
+   "id": 8841,
+   "group": "incumbent"
+  },
+  {
+   "word": "tractor",
+   "id": 58685,
+   "group": "incumbent"
+  },
+  {
+   "word": "train",
+   "id": 5426,
+   "group": "incumbent"
+  },
+  {
+   "word": "traveling",
+   "id": 20971,
+   "group": "incumbent"
+  },
+  {
+   "word": "tray",
+   "id": 34688,
+   "group": "incumbent"
+  },
+  {
+   "word": "tunnel",
+   "id": 25629,
+   "group": "incumbent"
+  },
+  {
+   "word": "turf",
+   "id": 58990,
+   "group": "incumbent"
+  },
+  {
+   "word": "turn",
+   "id": 2484,
+   "group": "incumbent"
+  },
+  {
+   "word": "unusually",
+   "id": 56799,
+   "group": "incumbent"
+  },
+  {
+   "word": "using",
+   "id": 1667,
+   "group": "incumbent"
+  },
+  {
+   "word": "valley",
+   "id": 33581,
+   "group": "incumbent"
+  },
+  {
+   "word": "verified",
+   "id": 23933,
+   "group": "incumbent"
+  },
+  {
+   "word": "volcanic",
+   "id": 66064,
+   "group": "incumbent"
+  },
+  {
+   "word": "vote",
+   "id": 6910,
+   "group": "incumbent"
+  },
+  {
+   "word": "waiting",
+   "id": 8580,
+   "group": "incumbent"
+  },
+  {
+   "word": "water",
+   "id": 3015,
+   "group": "incumbent"
+  },
+  {
+   "word": "wet",
+   "id": 14401,
+   "group": "incumbent"
+  },
+  {
+   "word": "wheat",
+   "id": 33053,
+   "group": "incumbent"
+  },
+  {
+   "word": "windshield",
+   "id": 73939,
+   "group": "incumbent"
+  },
+  {
+   "word": "winters",
+   "id": 84982,
+   "group": "incumbent"
+  },
+  {
+   "word": "witness",
+   "id": 11298,
+   "group": "incumbent"
+  },
+  {
+   "word": "wrench",
+   "id": 59488,
+   "group": "incumbent"
+  },
+  {
+   "word": "France",
+   "id": 9625,
+   "group": "stage2"
+  },
+  {
+   "word": "China",
+   "id": 5616,
+   "group": "stage2"
+  },
+  {
+   "word": "Paris",
+   "id": 12095,
+   "group": "stage2"
+  },
+  {
+   "word": "Beijing",
+   "id": 26549,
+   "group": "stage2"
+  },
+  {
+   "word": "French",
+   "id": 8585,
+   "group": "stage2"
+  },
+  {
+   "word": "Chinese",
+   "id": 8453,
+   "group": "stage2"
+  },
+  {
+   "word": "Europe",
+   "id": 4505,
+   "group": "stage2"
+  },
+  {
+   "word": "Asia",
+   "id": 13622,
+   "group": "stage2"
+  },
+  {
+   "word": "Euro",
+   "id": 19461,
+   "group": "stage2"
+  },
+  {
+   "word": "Yuan",
+   "id": 68884,
+   "group": "stage2"
+  }
+ ]
+}

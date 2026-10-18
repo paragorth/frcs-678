@@ -1,0 +1,11 @@
+{
+ "theta": -6.686330252563138,
+ "accuracy": 0.8976190476190476,
+ "baseline": 0.6785714285714286,
+ "onset_sd_observed": 2.0007637430630223,
+ "onset_sd_predicted": 1.9119507199599983,
+ "sharpness": "consistent with pure thresholding",
+ "spread_ratio": 1.046451523135953,
+ "per_prompt_within_1_step": 0.48333333333333334,
+ "margin_explains_headroom": 0.6814814814814816
+}
