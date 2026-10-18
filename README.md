@@ -32,6 +32,7 @@ programme, what has held up, what has not, and what needs a frontier lab.
 | The loop as first built erased its own earlier facts on the second cycle; the gate caught it (1 of 5 commits). Replay of the loop's own past is running. | `docs/updates/2026-10-16-night.md` |
 | Permutation test: shuffling trained weights drops the organisation score to the random-init line with entropy unchanged; the score rises up the Qwen ladder 0.5B to 32B with random weights at zero throughout. | [`docs/essays/lesswrong_post_v1.md`](docs/essays/lesswrong_post_v1.md), `docs/updates/2026-10-13-expC-ladder.md` |
 | Grokking concentrates the spectrum rather than widening it; catastrophic forgetting is the same operation run with only local data in view. | `docs/essays/lesswrong_post_v1.md` §6, `docs/figures/grokking_p113.png` |
+| The write path that did not exist: reaching a skill's workspace state through the weights installs nothing (40 models, 0.0% at every magnitude; better match, same zero; fine-tuning 91.7% at cosine 0.27). A directional negative. | [`docs/PAPER_JSPACE.md`](docs/PAPER_JSPACE.md), `jspace/` |
 | Three capability scores withdrawn (port collision between jobs); two games set aside (silent agents); one 72B cell set aside (mixed inference cache). All re-run. | `docs/updates/2026-10-15-sampled-batch.md`, `2026-10-16-night.md`, `runs_invalid/` |
 
 Per-run tables: `results/govsim/*.csv`. Figures: `docs/figures/`. Game transcripts: `runs/`,
