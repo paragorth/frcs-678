@@ -28,7 +28,7 @@ from hydra.core.global_hydra import GlobalHydra
 from omegaconf import OmegaConf
 
 from . import GOVSIM_ROOT, PATHFINDER_ROOT, REPO_ROOT, compat, scenarios
-from .backend import OpenAICompatibleAPI, ResponseCache
+from .backend import OpenAICompatibleAPI, ResponseCache, make_api
 from .forecast import ForecastLog, ask_forecast
 from .manifest import Manifest
 from .pond import Pond, ask_pond
@@ -71,7 +71,7 @@ def compose_config(experiment: str, seed: int, overrides: list):
 def build_wrappers(manifest: Manifest, logger: TraceLogger, cache: ResponseCache):
     """One backend per model label; one wrapper per agent slot sharing it."""
     backends = {
-        label: OpenAICompatibleAPI(spec, manifest.seed, cache)
+        label: make_api(spec, manifest.seed, cache)
         for label, spec in manifest.models.items()
     }
     wrappers = {}

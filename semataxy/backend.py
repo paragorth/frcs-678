@@ -49,6 +49,12 @@ class ModelSpec:
     # vLLM supports continuing a trailing assistant message (true prefill).
     # OpenAI's hosted API does not; upstream's fallback strips the prefix.
     prefill: bool = True
+    # "openai" = any OpenAI-compatible endpoint (vLLM, llama.cpp). "anthropic" = the official
+    # Anthropic SDK: a different wire protocol, not a base_url swap. On Claude 5-family models
+    # temperature/top_p and assistant prefill are rejected outright (HTTP 400), so those cells are
+    # unsampled by construction -- recorded in the fingerprint so no analysis assumes t=0.7.
+    provider: str = "openai"
+    effort: Optional[str] = None  # anthropic: output_config.effort (low|medium|high|xhigh|max)
     revision: Optional[str] = None  # HF revision, recorded for the manifest
     dtype: Optional[str] = None  # recorded only
     extra: dict = field(default_factory=dict)
@@ -62,6 +68,8 @@ class ModelSpec:
             "top_p": self.top_p,
             "max_tokens": self.max_tokens,
             "prefill": self.prefill,
+            "provider": self.provider,
+            "effort": self.effort,
             "think_budget": self.think_budget,
             "revision": self.revision,
             "dtype": self.dtype,
@@ -256,3 +264,123 @@ class OpenAICompatibleAPI(ModelAPI):
         self.token_in = int(usage.get("prompt_tokens", 0) or 0)
         self.token_out = int(usage.get("completion_tokens", 0) or 0)
         return text
+
+
+class AnthropicAPI(ModelAPI):
+    """pathfinder backend talking to the Anthropic API through the official SDK.
+
+    Not an OpenAI-compatible shim: system goes in its own field, thinking comes back as its own
+    content blocks, and three things the open-weight path relies on are unavailable on the Claude
+    5 family and are dropped here rather than silently 400ing every call:
+
+      temperature / top_p   rejected -> these cells are unsampled; seed still keys the cache so a
+                            rerun of a seed replays that game, but seeds differ only by the model's
+                            own non-determinism, not by a sampling temperature.
+      assistant prefill     rejected -> a trailing assistant turn is removed and upstream's
+                            no-prefill fallback handles the partial reply (api_assistant=True).
+      <think> tags          not used -> reasoning arrives as thinking blocks and is never parsed as
+                            the answer, but it IS billed as output tokens.
+    """
+
+    def __init__(self, spec: ModelSpec, seed: int, cache: ResponseCache):
+        super().__init__(spec.model, seed, api_assistant=True)
+        import anthropic
+
+        self.spec = spec
+        self.cache = cache
+        key = spec.api_key if spec.api_key and spec.api_key != "EMPTY" else None
+        self.client = anthropic.Anthropic(api_key=key) if key else anthropic.Anthropic()
+        self.last_call: dict = {}
+
+    @staticmethod
+    def _split(chat):
+        """Anthropic takes the system prompt separately, must start on a user turn, and rejects a
+        trailing assistant turn as a prefill."""
+        system = "\n\n".join(str(m.get("content", "")) for m in chat if m.get("role") == "system")
+        msgs = [{"role": m["role"], "content": str(m.get("content", ""))}
+                for m in chat if m.get("role") in ("user", "assistant")]
+        while msgs and msgs[-1]["role"] == "assistant":
+            msgs.pop()          # no prefill: drop the partial assistant turn
+        while msgs and msgs[0]["role"] == "assistant":
+            msgs.pop(0)         # must open on a user turn
+        if not msgs:
+            msgs = [{"role": "user", "content": "Please answer."}]
+        return system, msgs
+
+    def request_api(self, chat, tmeperature, top_p, max_tokens):
+        import anthropic
+
+        system, msgs = self._split(chat)
+        req = int(max_tokens or 0) or int(self.spec.max_tokens)
+        # Thinking is billed inside max_tokens and is adaptive on the 5 family; too small a cap
+        # truncates the answer mid-thought, so hold a floor well above the open-weight budget.
+        req = max(req, 2048)
+
+        payload = {"provider": "anthropic", "model": self.spec.model, "system": system,
+                   "messages": msgs, "max_tokens": req, "effort": self.spec.effort,
+                   "seed": int(self.seed)}
+        k = ResponseCache.key(payload)
+        cached = self.cache.get(k)
+        t0 = time.time()
+        if cached is not None:
+            u = cached.get("usage", {}) or {}
+            self.last_call = {"cache": "hit", "key": k, "latency_s": 0.0,
+                              "usage": u, "continue_final_message": False}
+            # pathfinder reads these per call; without them the trace records 0 tokens and any
+            # cost accounting over llm_calls.jsonl silently reads zero.
+            self.token_in = int(u.get("prompt_tokens", 0) or 0)
+            self.token_out = int(u.get("completion_tokens", 0) or 0)
+            return cached["response"]
+
+        kwargs = {"model": self.spec.model, "max_tokens": req, "messages": msgs}
+        if system:
+            kwargs["system"] = system
+        # Haiku 4.5 rejects output_config.effort with a 400 (it is an Opus/Sonnet 5 feature). Sending
+        # it unconditionally 400s every call, which is what voided the Haiku newcomer cell on 18 Oct.
+        if self.spec.effort and "haiku" not in self.spec.model:
+            kwargs["output_config"] = {"effort": self.spec.effort}
+
+        @backoff.on_exception(
+            backoff.expo,
+            (anthropic.RateLimitError, anthropic.APIConnectionError,
+             anthropic.APITimeoutError, anthropic.InternalServerError),
+            max_tries=6,
+        )
+        def create_with_backoff(**kw):
+            return self.client.messages.create(**kw)
+
+        out = create_with_backoff(**kwargs)
+        text = "".join(b.text for b in out.content if b.type == "text")
+        usage = {"prompt_tokens": out.usage.input_tokens,
+                 "completion_tokens": out.usage.output_tokens}
+        if not text.strip() and out.stop_reason != "refusal" and not usage["completion_tokens"]:
+            # An empty body with zero output tokens on an otherwise successful
+            # call is a failure, not an answer: an exhausted quota returns
+            # exactly this. Recorded as a parse fallback it is indistinguishable
+            # from a cautious agent, which silently corrupted a whole cell of
+            # this experiment on 18 Oct 2026. Fail loudly instead, and do NOT
+            # cache it, so a retry is not poisoned.
+            raise RuntimeError(
+                f"empty response body from {self.spec.model} with zero output "
+                f"tokens (stop_reason={out.stop_reason}); treating as a failure")
+        if out.stop_reason == "refusal":
+            # A safety decline is not an answer; leave it empty so upstream counts a parse fallback
+            # rather than scoring a refusal as a fishing decision.
+            cat = getattr(getattr(out, "stop_details", None), "category", None)
+            log.warning("anthropic refusal (%s) on %s; empty reply recorded", cat, self.spec.model)
+            text = ""
+        self.cache.put(k, {"request": payload, "response": text, "usage": usage,
+                           "stop_reason": out.stop_reason})
+        self.last_call = {"cache": "miss", "key": k, "latency_s": time.time() - t0,
+                          "usage": usage, "continue_final_message": False}
+        self.token_in = int(usage.get("prompt_tokens", 0) or 0)
+        self.token_out = int(usage.get("completion_tokens", 0) or 0)
+        return text
+
+
+def make_api(spec: ModelSpec, seed: int, cache: ResponseCache):
+    """Pick the backend from the spec's provider, so a manifest can mix a vLLM-served cohort with an
+    API-served newcomer in one game."""
+    if (spec.provider or "openai").lower() == "anthropic":
+        return AnthropicAPI(spec, seed, cache)
+    return OpenAICompatibleAPI(spec, seed, cache)
