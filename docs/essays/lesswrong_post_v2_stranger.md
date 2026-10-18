@@ -4,6 +4,8 @@
 
 > **AI-assistance note.** The hypothesis, the experimental design and the interpretation are mine. The harness, the cluster pipeline and the analysis code were built with Claude as a coding collaborator; every game log was first read by a separate model context with no hypothesis in view, and I have checked the numbers against the per-run tables. Code, manifests, per-run CSVs and transcripts are linked at the end.
 
+> **Correction, 17 October 2026.** After this was written, a cold read found that upstream GovSim names all five fishers in every system prompt from month zero, so every cell below ran a pre-announced late arrival, not a stranger. The newcomer's own within-game pattern, the right number in month one and the group's number from month two, is real and stands as observed. Any claim about how residents react to a stranger does not. With the roster fixed, four 14B residents alone empty the lake ten times in ten; the cohort was the floor, not the baseline. Details in `docs/updates/2026-10-17-roster-leak.md` and `2026-10-17-roster-fixed-14b.md`. The text below is unchanged.
+
 ## The claim I was testing
 
 I argued in the first post that an agent whose capability-about-the-world is bounded by the predictive information of its environment has an instrumental reason to preserve that environment, and that this reason should bind more tightly as capability grows. The orthogonality thesis would be true in the space of possible minds and decay in practice. The preregistered test was a newcomer experiment in a commons game: put a more capable model into a village of weaker models that are overfishing a shared lake, and see whether capability buys stewardship.

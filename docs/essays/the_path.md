@@ -73,6 +73,8 @@ One test isolates what training built: shuffle the entries of a weight matrix. T
 
 Up the Qwen ladder it rises at every step from 0.5B to 32B, with random weights of the same shapes at zero throughout, so the rise is not matrix size. Across Pythia's training it is zero at initialisation and most of the way up by a tenth of training. And then the honest reading: at the second level, between layers, every measure I have saturates early and sees "trained", not "how well". Weight measures separate trained from untrained; they do not yet rank capability at fixed shape. The next attempt is activations. This part of the programme is a side quest to the alignment question and I report it as one.
 
+Two further results on the measure, both from 17 and 18 October. The quartet test: split every checkpoint of a grokking run at the permutation edge and score the task with each part alone. In 15 of 15 runs that grokked, the above-edge part alone performs the task at 0.99 to 1.00 and the below-edge part is at chance; in 6 of 6 that never grokked, no such part exists. The decisive control is seed-matched: five runs with identical settings, two grokked and three did not, and the task-blind read fired in exactly the two. The measure detects organisation. It does not forecast it: three preregistered forecasting tests all failed, with a plain weight norm leading the spectral measures and a 0.77 false-positive rate in the no-grokking arm. And the claim that it indexes capability is withdrawn: at a fixed 7B across three Qwen generations, the weakest model reads as the most organised. What stands is narrower: zero on untrained weights, positive on trained, monotone in parameter count across two orders of magnitude and four families, a working detector of grokking, and a working gate for live learning.
+
 ## 7. The stranger
 
 The preregistered behavioural test. GovSim's fishery: a lake of 100 tons, five fishers, ten each is sustainable for ever. Four residents on Qwen 14B play alone for four months; at month five a stranger enters with a neutral persona, at 7B, 14B, 32B or 72B. For a given seed the residents' pre-entry months are byte-identical across conditions, so the only difference is who walks in. Ten seeds per cell, sampled decoding, a fixed small model parsing text to numbers. Over 300 games on the Cambridge cluster.
@@ -81,9 +83,25 @@ The preregistered behavioural test. GovSim's fishery: a lake of 100 tons, five f
 
 Capability bought not exploiting, accurate forecasts of the others, and cooperative language. It did not buy holding a right number against a wrong group. That is a clean negative for the stewardship half of my thesis at this scale, and it is a measurement of sycophancy with a ground truth, in tons, across a capability ladder. I think it is conformity installed by chat tuning rather than anything about capability. The same weights without chat tuning are the test, and they are running.
 
+Two corrections found on 17 October, after the above was written, and kept here rather than smoothed away. First, upstream GovSim names all five fishers in every system prompt from month zero, so every cell above ran a pre-announced late arrival, not a stranger; the residents planned for five from the start. The newcomer's own within-game pattern, the right number in month one and the group's number from month two, is real and stands. Claims about how residents react to a stranger do not, and the fix (a roster that names only who is present) is now in every run. Second, with the roster fixed, four 14B residents alone empty the lake ten times in ten within six months, before any newcomer can act. They understand the rule and fish it out anyway. The cohort was the experiment's floor, not its baseline, and the design now needs residents who can keep a lake: 32B and 72B cohorts and a 70B reasoning model are running as residents, with the growth rate of the lake as a measured dial rather than a fixed constant.
+
 Three results were withdrawn in the course of this: capability scores measured against the wrong model after two jobs collided on a port, found by reading the raw logs cold. Every batch is now read first by a separate model context with no hypothesis in view, before I read it.
 
 *Live: the second essay and `docs/updates/`.*
+
+## 7b. The seat of power: the first result in the thesis's favour
+
+The open-weight work asked whether a capable newcomer would steward a commons it had no power over. The complementary question is what a capable agent does when it holds structural power. On 17 and 18 October I ran that on the Claude 5 family through the API, using SOVSIM (Borah 2026), a four-agent pool with a "king" condition: one seat draws last, with no cap, having seen every other draw, and with no communication phase at all, so any restraint is produced alone. The ruler's seat was given its own model; subordinates, environment and every prompt were held fixed. Nothing in the prompt asks anyone to conserve anything.
+
+An incapable ruler (Haiku 4.5) takes 47.5 units a month and the commons is dead in 1.2 months. A frontier ruler (Opus 5) takes 17.9 and it survives 5.4 months. The frontier ruler's own cumulative earnings are four times larger, $82.6 against $20.2, and the system as a whole realises $308.8 against $47.5. Its subordinates go from $9.1 each to $75.4. Restraint was not a sacrifice; it was the better policy, and the capable agent found it unprompted.
+
+Two controls localise the effect to the seat. A cohort in which every agent is the frontier model survives 4.9 months, fewer than weak agents under a frontier ruler. Reversed, frontier subordinates under an incapable ruler, the ruler takes 51.2 a month from the most restrained subordinates in the study and the commons dies in 1.5 months. Capability distributed among agents without power does not protect the resource; their restraint becomes the ruler's windfall. And a frontier ruler arriving at round three, after a weak one, is indistinguishable from never arriving: capability applied late is capability wasted.
+
+What survives multiplicity correction is the two-level contrast, capable ruler against incapable, and the reverse condition. The three-rung ordering appears in every measure and is not established at this n. A parse-failure audit moved the headline take from 15.04 to 18.30, because a failed parse returns an extraction of zero, which looks like restraint; the corrected figure agrees with an independent re-run at 17.89. Capability here is model identity within one developer's lineage, so it is confounded with post-training; the open-weight replication of the same design is built and queued. In this environment the sustainable policy is also the profitable one, so the result does not separate "represents the system it depends on" from "optimises over time", and the costly-restraint condition that would separate them produced a ceiling, 54 of 54 withdrawing at every price, which measures the prompt and not the model. The author notes record every one of these, including the ones that cut against the paper.
+
+This is the prediction the framework made, in the direction it made it, in the one environment where it has so far been testable. I claim exactly that and nothing more. The complementary GovSim cell, one of five fishers replaced by Opus 5, took the cohort from one of three surviving to four of four at a harvest rate indistinguishable from the control, at p = 0.143.
+
+*Live: the working paper `docs/PAPER.md`, its tables regenerated from the raw artefacts by `tools/paper_tables.py`, and `docs/AUTHOR_NOTES.md`.*
 
 ## 8. A related result on inference compute
 
@@ -97,6 +115,9 @@ Alongside the research I have built AI for my own clinical practice, and the pat
 
 ## 9. What is running now
 
+- The open-weight ruler ladder (Qwen 7B subordinates; rulers at 7B, 14B, 32B, R1-70B): the replication that breaks the post-training confound.
+- Stronger resident cohorts (32B, 72B, R1-70B) with the roster fixed, and the lake's growth rate as a measured dial: the smallest growth at which each cohort keeps the lake.
+- A Sonnet 5 cohort, which reaches the sustainable share unprompted in early runs; and a reasoning-effort ladder on one model, the cleanest capability dial available.
 - Untuned base-model strangers at 7B, 14B and 32B: is the conformity tuning or capability.
 - The 72B re-run on a clean cache; hidden-action and early-entry arms at 72B; reasoning-model strangers (R1-Distill-70B, Qwen3-32B).
 - 72B base, then Qwen3-235B base, the top of what my allocation can serve.
