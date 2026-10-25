@@ -114,26 +114,27 @@ many small changes. What happens afterwards depends on the new task.
 *Where forgetting happens.* Ramasesh et al. (2021) locate forgetting in the higher layers of image
 classifiers; in induction forgetting we find it centred on the circuit's own layers, with the top layer
 carrying under 1%. *Forgetting as lost alignment or access* — spurious forgetting (Zheng et al., 2025),
-*Diagnosing Catastrophe* (Anthes et al., 2023) — is argued from activations and probes; we locate the
+*Diagnosing Catastrophe* (Anthes et al., 2023) — is argued from activations, probes and brief retraining; we locate the
 loss in the weights and time it. *Connections between components:* composition scores (Elhage et al.,
-2021), low-rank channels from weight SVDs (Merullo et al., 2024), an exact Haar-rotation null scored per
-head (Wang, 2026) and singular-vector alignment through training (Yunis et al., 2024); ours is the
+2021), low-rank channels from weight SVDs (Merullo et al., 2024), an exact Haar-rotation null scoring
+each writer–reader pair (Wang, 2026) and singular-vector alignment through training (Yunis et al., 2024); ours is the
 dynamics, through building and forgetting. *Induction heads* form in a phase change early in training
 (Olsson et al., 2022); Pythia's public checkpoints (Biderman et al., 2023) and the extra pretraining seeds
 of PolyPythias (van der Wal et al., 2025) let us time the wiring against the behaviour. *Attribution:*
-integrated gradients (Sundararajan et al., 2017), attribution patching (Syed et al., 2023) and skill
+integrated gradients (Sundararajan et al., 2017), attribution patching (Nanda, 2023; Syed et al., 2024) and skill
 grafting (Panigrahi et al., 2023); we integrate over the weights, from the healthy to the damaged model,
 and test the ranking by restoring parts against size-matched random ones. *Suppression rather than
-deletion:* fine-tuned-away skills often return quickly (Jain et al., 2024; Kotha et al., 2024), which our
+deletion:* fine-tuned-away skills often return, after brief retraining (Jain et al., 2024) or under translated prompts (Kotha et al., 2024), which our
 distributed regime fits. *Same-format interference:* new facts in a familiar template damage known ones
-(Gekhman et al., 2024; Kaplan et al., 2026). *Perturbation bounds:* Weyl (1912); Davis and Kahan (1970).
+(Gekhman et al., 2024; Kaplan et al., 2026). *Perturbation bounds:* Weyl (1912) for singular values;
+Wedin (1972), the singular-vector form of Davis and Kahan (1970), for singular subspaces.
 The full comparison table is in the full version.
 
 ## 3 Method
 
 **Structure inside a matrix.** For a weight matrix W we count the directions whose singular values exceed
 the largest found when W's own entries are shuffled (k): structure that permutation destroys (Martin and
-Mahoney; Prakash and Martin, 2026). The count is stable to the null's two constants (±2 directions over
+Mahoney, 2021; Prakash and Martin, 2025, 2026). The count is stable to the null's two constants (±2 directions over
 their swept ranges).
 
 **Connections between matrices.** A writer W (embedding, attention output, MLP output) and a reader R
@@ -141,22 +142,23 @@ their swept ranges).
 C = ‖RW‖_F / (‖R‖_F ‖W‖_F) (Elhage et al., 2021) is compared with its exact null under a Haar-random
 rotation of the stream, which keeps both matrices' spectra and destroys only their alignment:
 E[C²] = 1/d, with closed-form variance (Wang, 2026). A joint's **strength** is z = (C² − E[C²]) / sd,
-tested with Benjamini–Hochberg correction; its **wire count** is the number of singular values of RW
+tested with Benjamini–Hochberg correction (Benjamini and Hochberg, 1995); its **wire count** is the number of singular values of RW
 above the largest under sampled rotations. At scale, **the wiring** is the K-composition from the four
 strongest previous-token heads into the four strongest induction heads' keys (16 pairs), with the heads
 identified in the final model.
 
-**What the weights can show.** For any change ΔW, |σᵢ(W + ΔW) − σᵢ(W)| ≤ ‖ΔW‖₂ ≤ ‖ΔW‖_F (Weyl), and
-singular directions turn by at most about ‖ΔW‖₂ divided by the spectral gap (Davis–Kahan). We report the
+**What the weights can show.** For any change ΔW, |σᵢ(W + ΔW) − σᵢ(W)| ≤ ‖ΔW‖₂ ≤ ‖ΔW‖_F (Weyl, 1912), and
+singular directions turn by at most about ‖ΔW‖₂ divided by the spectral gap (Wedin, 1972). We report the
 displacement ‖W_t − W₀‖_F / ‖W₀‖_F. At the 0.1–1% displacements of fine-tuning every statistic above
 can move only a little; the output has no such bound, since its change is a sum over every parameter of
 gradient × change.
 
 **Probes.** 64 random-token sequences of 40 tokens, each shown twice; **copying** is next-token accuracy
 on the second copy; head scores are attention to the induction target and to the previous token, and
-the attention to the first position (the sink). A natural-text check reads Olsson et al.'s in-context
-learning score (loss on tokens 400–510 minus tokens 40–63 of 512-token wikitext windows) and copying of
-repeated wikitext passages.
+the attention to the first position (the sink). A natural-text check reads an averaged form of the
+in-context learning score of Olsson et al. (2022), who take the loss at token 500 minus that at token 50
+(we average tokens 400–510 and 40–63 of 512-token wikitext-2 windows; Merity et al., 2017), and copying
+of repeated wikitext-2 passages.
 
 **Exact attribution and restore.** Along the straight path from the healthy weights θ₀ to the damaged
 θ₁, L(θ₁) − L(θ₀) = ∫₀¹ ∇L(θ(α)) · (θ₁ − θ₀) dα exactly. Splitting the dot product by parts — each
@@ -166,15 +168,17 @@ returns the N top-ranked parts to their healthy values in the damaged model and 
 parts of the same kinds and sizes.
 
 **Models and training.** *Toy:* a one-layer transformer (d = 128, four heads) on arithmetic mod 113,
-full-batch AdamW (learning rate 1e-3, weight decay 1.0); addition on 30% of pairs is grokked, then an
+full-batch AdamW (Loshchilov and Hutter, 2019; learning rate 1e-3, weight decay 1.0), following Nanda et
+al. (2023); addition on 30% of pairs is grokked (Power et al., 2022), then an
 interfering task on the same inputs — multiplication (25% of pairs) unless stated — is trained alone.
-*At scale:* Pythia 160m–2.8b and Qwen2.5 0.5B–14B (instruct and base), full fine-tuning in float32 at
-3e-6 with batch 8 — never LoRA, which would constrain the very update being measured. Interfering tasks:
+*At scale:* Pythia 160m–2.8b (Biderman et al., 2023) and Qwen2.5 0.5B–14B (Qwen Team, 2024; instruct and
+base), full fine-tuning in float32 at
+3e-6 with batch 8 — never LoRA (Hu et al., 2022), which would constrain the very update being measured. Interfering tasks:
 **anti-induction** (each copied target replaced by a fixed permutation of it), **copy-with-offset**
 (predict the token two after the earlier occurrence), an **arithmetic rule** written as text (no
 conflict with copying), and wikitext as a harmless control. *Pretraining checkpoints:* Pythia's public
-checkpoints at 18 steps for four sizes, four extra pretraining seeds of Pythia-160m (PolyPythias), and
-the nine snapshots of OLMo-7B-0724.¹
+checkpoints at 18 steps for four sizes, four extra pretraining seeds of Pythia-160m (PolyPythias; van der
+Wal et al., 2025), and the nine snapshots of OLMo-7B-0724 (Groeneveld et al., 2024).¹
 
 ![](figures/fig_measures.png)
 
@@ -339,7 +343,7 @@ it intact in 13 of 13, including where it is learned almost perfectly. Under off
 the old skill's loss and the new task's gain (at 160m the same three keys in all five seeds). The harmless
 wikitext control erodes copying only slowly (0.84 → 0.74 after 150 steps). "Conflict" is defined by
 construction here, and the toy cannot test whether it is needed, since every task we tried there
-destroyed addition. In a companion stream of synthetic skills, conflict also arrives by generalisation:
+destroyed addition. In a companion stream of synthetic skills (Garg, 2026), conflict also arrives by generalisation:
 a new skill sharing an old one's answer format captures its prompts.
 
 ### 6.5 On natural text the loss is partial
@@ -386,7 +390,10 @@ copying. The attribution is computed at one dose (50 steps at 3e-6), on three fi
 and one elsewhere. The conflict result rests on two to five fine-tuning seeds per cell, and "conflict" is
 defined by construction. The pretraining lead is bounded by the checkpoint spacing, and at 410m it is
 marginal. The comparison of the two regimes rules out the learning rate as their cause, but not size or
-the other differences between a one-layer toy and a pretrained family.
+the other differences between a one-layer toy and a pretrained family. The Haar null is loose for trained
+matrices (Wang, 2026, finds 47% of GPT-2's head pairs above it at z ≥ 2); we use it only for head pairs
+fixed in advance, against their own values at step 0 and a control path (embedding → induction keys)
+whose z never exceeds 3.1, while the wiring's mean z in the final models is 89–364.
 
 ## 9 Conclusion
 
@@ -398,5 +405,76 @@ measure can move much, and the loss is spread thinly over many parts — which a
 weights locates and a size-matched restore confirms. At scale, fast forgetting needed conflict. All of
 it is read from the weights and from random-token probes, with no stored data.
 
-*Full version, tools and results: [github.com/paragorth/frcs-678](https://github.com/paragorth/frcs-678).
-References are being compiled with the citation check.*
+*Full version, tools and results: [github.com/paragorth/frcs-678](https://github.com/paragorth/frcs-678).*
+
+## References
+
+Anthes, D., Thorat, S., König, P. and Kietzmann, T. C. (2023). Diagnosing catastrophe: large parts of accuracy loss in continual learning can be accounted for by readout misalignment. *Conference on Cognitive Computational Neuroscience (CCN 2023)*. [doi:10.32470/CCN.2023.1256-0](https://doi.org/10.32470/CCN.2023.1256-0); [arXiv:2310.05644](https://arxiv.org/abs/2310.05644)
+
+Benjamini, Y. and Hochberg, Y. (1995). Controlling the false discovery rate: a practical and powerful approach to multiple testing. *Journal of the Royal Statistical Society: Series B (Methodological)* 57(1), 289–300. [doi:10.1111/j.2517-6161.1995.tb02031.x](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x)
+
+Biderman, S., Schoelkopf, H., Anthony, Q., et al. (2023). Pythia: a suite for analyzing large language models across training and scaling. *ICML 2023*, PMLR 202, 2397–2430. [arXiv:2304.01373](https://arxiv.org/abs/2304.01373)
+
+Davis, C. and Kahan, W. M. (1970). The rotation of eigenvectors by a perturbation. III. *SIAM Journal on Numerical Analysis* 7(1), 1–46. [doi:10.1137/0707001](https://doi.org/10.1137/0707001)
+
+Elhage, N., Nanda, N., Olsson, C., et al. (2021). A mathematical framework for transformer circuits. *Transformer Circuits Thread*. <https://transformer-circuits.pub/2021/framework/index.html>
+
+French, R. M. (1999). Catastrophic forgetting in connectionist networks. *Trends in Cognitive Sciences* 3(4), 128–135. [doi:10.1016/S1364-6613(99)01294-2](https://doi.org/10.1016/S1364-6613(99)01294-2)
+
+Garg, P. (2026). Fine-tuning fragility: an eval of how much fine-tuning a model's skills can take. In preparation.
+
+Gekhman, Z., Yona, G., Aharoni, R., Eyal, M., Feder, A., Reichart, R. and Herzig, J. (2024). Does fine-tuning LLMs on new knowledge encourage hallucinations? *EMNLP 2024*, 7765–7784. [doi:10.18653/v1/2024.emnlp-main.444](https://doi.org/10.18653/v1/2024.emnlp-main.444)
+
+Groeneveld, D., Beltagy, I., Walsh, E., et al. (2024). OLMo: accelerating the science of language models. *ACL 2024 (Volume 1: Long Papers)*, 15789–15809. [doi:10.18653/v1/2024.acl-long.841](https://doi.org/10.18653/v1/2024.acl-long.841)
+
+Hu, E. J., Shen, Y., Wallis, P., et al. (2022). LoRA: low-rank adaptation of large language models. *ICLR 2022*. [arXiv:2106.09685](https://arxiv.org/abs/2106.09685)
+
+Jain, S., Kirk, R., Lubana, E. S., et al. (2024). Mechanistically analyzing the effects of fine-tuning on procedurally defined tasks. *ICLR 2024*. [arXiv:2311.12786](https://arxiv.org/abs/2311.12786)
+
+Kaplan, G., Gekhman, Z., Zhu, Z., et al. (2026). Why fine-tuning encourages hallucinations and how to fix it. *COLM 2026*. [arXiv:2604.15574](https://arxiv.org/abs/2604.15574)
+
+Kotha, S., Springer, J. M. and Raghunathan, A. (2024). Understanding catastrophic forgetting in language models via implicit inference. *ICLR 2024*. [arXiv:2309.10105](https://arxiv.org/abs/2309.10105)
+
+Loshchilov, I. and Hutter, F. (2019). Decoupled weight decay regularization. *ICLR 2019*. [arXiv:1711.05101](https://arxiv.org/abs/1711.05101)
+
+Martin, C. H. and Mahoney, M. W. (2021). Implicit self-regularization in deep neural networks: evidence from random matrix theory and implications for learning. *Journal of Machine Learning Research* 22(165), 1–73. [arXiv:1810.01075](https://arxiv.org/abs/1810.01075)
+
+McCloskey, M. and Cohen, N. J. (1989). Catastrophic interference in connectionist networks: the sequential learning problem. In G. H. Bower (ed.), *Psychology of Learning and Motivation*, vol. 24, 109–165. Academic Press. [doi:10.1016/S0079-7421(08)60536-8](https://doi.org/10.1016/S0079-7421(08)60536-8)
+
+Merity, S., Xiong, C., Bradbury, J. and Socher, R. (2017). Pointer sentinel mixture models. *ICLR 2017*. [arXiv:1609.07843](https://arxiv.org/abs/1609.07843)
+
+Merullo, J., Eickhoff, C. and Pavlick, E. (2024). Talking heads: understanding inter-layer communication in transformer language models. *NeurIPS 2024*, 61372–61418. [arXiv:2406.09519](https://arxiv.org/abs/2406.09519)
+
+Nanda, N. (2023). Attribution patching: activation patching at industrial scale. Blog post. <https://www.neelnanda.io/mechanistic-interpretability/attribution-patching>
+
+Nanda, N., Chan, L., Lieberum, T., Smith, J. and Steinhardt, J. (2023). Progress measures for grokking via mechanistic interpretability. *ICLR 2023*. [arXiv:2301.05217](https://arxiv.org/abs/2301.05217)
+
+Olsson, C., Elhage, N., Nanda, N., et al. (2022). In-context learning and induction heads. *Transformer Circuits Thread*. [arXiv:2209.11895](https://arxiv.org/abs/2209.11895)
+
+Panigrahi, A., Saunshi, N., Zhao, H. and Arora, S. (2023). Task-specific skill localization in fine-tuned language models. *ICML 2023*, PMLR 202, 27011–27033. [arXiv:2302.06600](https://arxiv.org/abs/2302.06600)
+
+Power, A., Burda, Y., Edwards, H., Babuschkin, I. and Misra, V. (2022). Grokking: generalization beyond overfitting on small algorithmic datasets. [arXiv:2201.02177](https://arxiv.org/abs/2201.02177)
+
+Prakash, H. K. and Martin, C. H. (2025). Grokking and generalization collapse: insights from HTSR theory. [arXiv:2506.04434](https://arxiv.org/abs/2506.04434)
+
+Prakash, H. K. and Martin, C. H. (2026). Detecting overfitting in neural networks during long-horizon grokking using random matrix theory. *ICML 2026 Workshop on High Dimensional Learning Dynamics*. [arXiv:2605.12394](https://arxiv.org/abs/2605.12394)
+
+Qwen Team (2024). Qwen2.5 technical report. [arXiv:2412.15115](https://arxiv.org/abs/2412.15115)
+
+Ramasesh, V. V., Dyer, E. and Raghu, M. (2021). Anatomy of catastrophic forgetting: hidden representations and task semantics. *ICLR 2021*. [arXiv:2007.07400](https://arxiv.org/abs/2007.07400)
+
+Sundararajan, M., Taly, A. and Yan, Q. (2017). Axiomatic attribution for deep networks. *ICML 2017*, PMLR 70, 3319–3328. [arXiv:1703.01365](https://arxiv.org/abs/1703.01365)
+
+Syed, A., Rager, C. and Conmy, A. (2024). Attribution patching outperforms automated circuit discovery. *Proceedings of the 7th BlackboxNLP Workshop*, 407–416. [doi:10.18653/v1/2024.blackboxnlp-1.25](https://doi.org/10.18653/v1/2024.blackboxnlp-1.25); [arXiv:2310.10348](https://arxiv.org/abs/2310.10348)
+
+van der Wal, O., Lesci, P., Müller-Eberstein, M., Saphra, N., Schoelkopf, H., Zuidema, W. and Biderman, S. (2025). PolyPythias: stability and outliers across fifty language model pre-training runs. *ICLR 2025*. [arXiv:2503.09543](https://arxiv.org/abs/2503.09543)
+
+Wang, R. Z. (2026). The communication map of a transformer. [arXiv:2608.22007](https://arxiv.org/abs/2608.22007)
+
+Wedin, P.-Å. (1972). Perturbation bounds in connection with singular value decomposition. *BIT* 12(1), 99–111. [doi:10.1007/BF01932678](https://doi.org/10.1007/BF01932678)
+
+Weyl, H. (1912). Das asymptotische Verteilungsgesetz der Eigenwerte linearer partieller Differentialgleichungen (mit einer Anwendung auf die Theorie der Hohlraumstrahlung). *Mathematische Annalen* 71(4), 441–479. [doi:10.1007/BF01456804](https://doi.org/10.1007/BF01456804)
+
+Yunis, D., Patel, K. K., Wheeler, S., et al. (2024). Approaching deep learning through the spectral dynamics of weights. [arXiv:2408.11804](https://arxiv.org/abs/2408.11804)
+
+Zheng, J., Cai, X., Qiu, S. and Ma, Q. (2025). Spurious forgetting in continual learning of language models. *ICLR 2025*. [arXiv:2501.13453](https://arxiv.org/abs/2501.13453)
