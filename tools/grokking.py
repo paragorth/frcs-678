@@ -81,6 +81,8 @@ class Model(nn.Module):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--p", type=int, default=113)
+    ap.add_argument("--d", type=int, default=128, help="model width (capability-as-sample-efficiency sweep)")
+    ap.add_argument("--heads", type=int, default=4)
     ap.add_argument("--frac", type=float, default=0.3)
     ap.add_argument("--epochs", type=int, default=30000)
     ap.add_argument("--lr", type=float, default=1e-3)
@@ -107,7 +109,7 @@ def main():
 
     dev = a.device if (a.device == "cpu" or torch.cuda.is_available()) else "cpu"
     pairs, labels = pairs.to(dev), labels.to(dev)
-    model = Model(p).to(dev)
+    model = Model(p, d=a.d, heads=a.heads).to(dev)
     if a.resume:
         model.load_state_dict(torch.load(a.resume, map_location=dev))
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=a.wd, betas=(0.9, 0.98))
@@ -144,6 +146,9 @@ def main():
                                  "frac_above": float(np.mean([v.frac_above for v in vals])),
                                  "mass_above": float(np.mean([v.mass_above for v in vals])),
                                  "alpha": float(np.nanmean([v.alpha if v.alpha is not None else np.nan for v in vals])),
+                                 "alpha_above": float(np.nanmean([v.alpha_above for v in vals])),
+                                 "entropy_above": float(np.nanmean([v.entropy_above for v in vals])),
+                                 "gini_above": float(np.nanmean([v.gini_above for v in vals])),
                                  "octaves_total": st.octaves_total,
                                  # raw spectrum summary so any measure can be recomputed offline
                                  "top_sv": [float(x) for x in np.linalg.svd(np.asarray(W, np.float64), compute_uv=False)[:16]],

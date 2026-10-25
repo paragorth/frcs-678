@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Circuit Figure Draft</title>
+<style>
+  :root { --bg:#ffffff; --fg:#1d1d1f; --muted:#5f6368; --card:#f7f8fa; --line:#c9ced6; --stream:#9aa3ae;
+          --add:#2f6fdf; --mul:#d9822b; --pulled:#d93025; --base:#b9c0ca; --edge:#7a8391; --note:#fffbe6; --notefg:#4a3b00; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+          --bg:#15171b; --fg:#e8eaed; --muted:#a3a8b0; --card:#1d2025; --line:#3a3f47; --stream:#5d6672;
+          --add:#6ea0ff; --mul:#f0a65a; --pulled:#ff6b5e; --base:#4a515c; --edge:#8d96a3; --note:#3a3420; --notefg:#f3e3a3; } }
+  :root[data-theme="dark"] { --bg:#15171b; --fg:#e8eaed; --muted:#a3a8b0; --card:#1d2025; --line:#3a3f47; --stream:#5d6672;
+          --add:#6ea0ff; --mul:#f0a65a; --pulled:#ff6b5e; --base:#4a515c; --edge:#8d96a3; --note:#3a3420; --notefg:#f3e3a3; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width:1180px; margin:0 auto; padding:20px 16px 40px; }
+  h1 { font-size:20px; margin:0 0 4px; } .sub { color:var(--muted); margin:0 0 14px; }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:10px; margin:0 0 14px; overflow-x:auto; }
+  svg { display:block; min-width:1080px; }
+  .legend { display:flex; flex-wrap:wrap; gap:16px; color:var(--muted); font-size:13px; margin:6px 0 16px; }
+  .sw { display:inline-block; width:22px; height:10px; vertical-align:middle; margin-right:6px; border-radius:2px; }
+  text { font-family:inherit; }
+</style>
+</head>
+<body>
+<main>
+<h1>One circuit, built wire by wire and broken fast</h1>
+<p class="sub">Toy transformer, addition mod 113, then multiplication. Each node is a weight matrix: its spectrum (peaks above the shuffle edge = organised directions, the low base = what the entry distribution explains) and a sketch of the matrix. Wires run through the shared residual stream; thickness = wire count against a random rotation. Numbers are seed means from STATE 5, 15 and the joint runs.</p>
+<div class="legend">
+  <span><span class="sw" style="background:var(--add)"></span>peaks carrying addition</span>
+  <span><span class="sw" style="background:var(--mul)"></span>peaks carrying multiplication</span>
+  <span><span class="sw" style="background:var(--base)"></span>base (below the shuffle edge)</span>
+  <span><span class="sw" style="background:var(--pulled)"></span>wire being pulled</span>
+</div>
+<div id="panels"></div>
+</main>
+<script>
+const NODES = [ // x positions along the stream; side: w = writes into the stream, r = reads from it
+  {id:"tok", label:"embedding", x:90,  side:"w"},
+  {id:"q",   label:"queries",   x:250, side:"r"},
+  {id:"k",   label:"keys",      x:390, side:"r"},
+  {id:"v",   label:"values",    x:530, side:"r"},
+  {id:"o",   label:"attn out",  x:670, side:"w"},
+  {id:"up",  label:"MLP in",    x:800, side:"r"},
+  {id:"down",label:"MLP out",   x:930, side:"w"},
+  {id:"unembed", label:"output", x:1050, side:"r"}];
+const JOINTS = [["tok","q"],["tok","k"],["tok","v"],["o","up"],["o","unembed"],["down","unembed"]];
+
+// spectra: [peaks, peakHeight 0-1, baseBars, colour]; wires: count per joint; pulled: joints to mark
+const PANELS = [
+ {title:"a  Memorising (epoch 5 000) — test accuracy 0.5%", note:"many weak directions, spread out: the base dominates",
+  spec:{tok:[10,.35,10,"base"],q:[1,.3,14,"base"],k:[4,.3,12,"base"],v:[13,.35,8,"base"],o:[8,.35,10,"base"],up:[24,.3,4,"base"],down:[22,.3,4,"base"],unembed:[8,.35,10,"base"]},
+  wires:{"tok>q":1,"tok>k":0,"tok>v":10,"o>up":12,"o>unembed":0,"down>unembed":11}, pulled:[], matrix:"noise",
+  callouts:[{at:"k",text:"no wire into the keys yet"},{at:"unembed",text:"attention cannot reach the output"}]},
+ {title:"b  Grokked (epoch 72 000) — test accuracy 100%", note:"a few tall, nearly equal peaks: 95–99% of each matrix's mass",
+  spec:{tok:[10,.9,6,"add"],q:[1,.6,12,"add"],k:[4,.85,10,"add"],v:[9,.9,6,"add"],o:[16,.85,3,"add"],up:[16,.85,3,"add"],down:[9,.95,5,"add"],unembed:[9,.95,5,"add"]},
+  wires:{"tok>q":1,"tok>k":3,"tok>v":8,"o>up":10,"o>unembed":3,"down>unembed":8}, pulled:[], matrix:"stripes",
+  callouts:[{at:"k",text:"embedding → keys: 3 wires"},{at:"down",text:"the circuit is complete when accuracy was still 14%"}]},
+ {title:"c  20 steps into multiplication — addition at 54%, falling", note:"the joints weaken from step 2; each matrix keeps its peaks while its contents are rewritten",
+  spec:{tok:[10,.9,6,"add"],q:[1,.6,12,"add"],k:[4,.85,10,"add"],v:[10,.9,6,"add"],o:[16,.85,3,"add"],up:[16,.85,3,"add"],down:[9,.95,5,"add"],unembed:[9,.95,5,"add"]},
+  wires:{"tok>q":1,"tok>k":1,"tok>v":8,"o>up":9,"o>unembed":1,"down>unembed":6}, pulled:["tok>k","down>unembed"], matrix:"stripes",
+  callouts:[{at:"k",text:"strength z 27 → 16 since step 2; wire count 3 → 1–2"},{at:"unembed",text:"MLP → output 8–9 → 6; control stays at 8–9"},{at:"o",text:"peaks kept, contents rewritten (keys moved 57%)"}]},
+ {title:"d  Step 160 — addition gone (5%), 79% of its circuit still in place", note:"the capability is dead; the structure fades over ~1 000 more steps",
+  spec:{tok:[9,.8,7,"add"],q:[1,.55,12,"add"],k:[4,.8,10,"add"],v:[9,.85,6,"add"],o:[15,.75,4,"add"],up:[16,.8,3,"add"],down:[9,.8,6,"add"],unembed:[9,.75,6,"add"]},
+  wires:{"tok>q":1,"tok>k":1,"tok>v":8,"o>up":8,"o>unembed":1,"down>unembed":4}, pulled:["tok>k","down>unembed"], matrix:"fading",
+  callouts:[{at:"unembed",text:"output-layer circuit 5.1× random (79% of grokked)"},{at:"k",text:"restoring attention + MLP together brings it back, 15/15"}]},
+ {title:"e  Step 5 000 — multiplication learned (100%), addition 1%", note:"rewired for the new task: the terminals now carry multiplication",
+  spec:{tok:[6,.85,8,"mul"],q:[1,.55,12,"mul"],k:[4,.8,10,"mul"],v:[7,.85,7,"mul"],o:[8,.85,6,"mul"],up:[9,.85,6,"mul"],down:[7,.9,7,"mul"],unembed:[6,.9,8,"mul"]},
+  wires:{"tok>q":1,"tok>k":3,"tok>v":5,"o>up":6,"o>unembed":3,"down>unembed":5}, pulled:[], matrix:"stripes2",
+  callouts:[{at:"k",text:"embedding → keys reconnected (back to 3) — for multiplication"},{at:"unembed",text:"permanent only if this new circuit consolidates"}]},
+];
+
+const NS = "http://www.w3.org/2000/svg";
+const el = (n, a = {}, parent) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (parent) parent.appendChild(e); return e; };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const STREAM_Y = 205, NODE_Y = 52, NODE_W = 104, NODE_H = 118;
+
+function seeded(i) { let s = i * 9301 + 49297; return () => (s = (s * 9301 + 49297) % 233280) / 233280; }
+
+function drawNode(svg, n, spec, matrixKind, idx) {
+  const g = el("g", {}, svg), x0 = n.x - NODE_W / 2;
+  el("rect", {x:x0, y:NODE_Y, width:NODE_W, height:NODE_H, rx:8, fill:css("--bg"), stroke:css("--line")}, g);
+  const t = el("text", {x:n.x, y:NODE_Y + 15, "text-anchor":"middle", "font-size":12, "font-weight":600, fill:css("--fg")}, g); t.textContent = n.label;
+  // spectrum: peaks above the edge line, base below
+  const [peaks, h, baseN, colour] = spec, sx = x0 + 8, sw = 58, sy = NODE_Y + 88, sh = 60;
+  const total = Math.min(peaks + baseN, 26), bw = sw / total;
+  const edgeY = sy - sh * 0.28;
+  const rnd = seeded(idx + 3);
+  for (let i = 0; i < total; i++) {
+    const isPeak = i < Math.min(peaks, total);
+    const hh = isPeak ? sh * (0.32 + h * 0.66 * (0.92 + 0.08 * rnd())) : sh * (0.08 + 0.17 * rnd());
+    const fill = isPeak ? (colour === "base" ? css("--base") : css(colour === "add" ? "--add" : "--mul")) : css("--base");
+    el("rect", {x:sx + i * bw + 0.5, y:sy - hh, width:Math.max(bw - 1, 1), height:hh, fill, opacity:isPeak ? 1 : 0.75}, g);
+  }
+  el("line", {x1:sx - 2, x2:sx + sw + 2, y1:edgeY, y2:edgeY, stroke:css("--edge"), "stroke-dasharray":"3 2"}, g);
+  const k = el("text", {x:sx, y:sy + 13, "font-size":10, fill:css("--muted")}, g); k.textContent = `k = ${peaks}`;
+  // matrix sketch
+  const mx = x0 + 72, my = NODE_Y + 30, cs = 4.2, N = 6, r2 = seeded(idx + 11);
+  for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+    let v;
+    if (matrixKind === "noise") v = r2();
+    else if (matrixKind === "fading") v = 0.55 * (0.5 + 0.5 * Math.cos((i + 2 * j) * 1.05)) + 0.45 * r2();
+    else if (matrixKind === "stripes2") v = 0.5 + 0.5 * Math.cos((2 * i + j) * 1.3);
+    else v = 0.5 + 0.5 * Math.cos((i + 2 * j) * 1.05);
+    const c = matrixKind === "stripes2" ? css("--mul") : matrixKind === "noise" ? css("--base") : css("--add");
+    el("rect", {x:mx + j * cs, y:my + i * cs, width:cs - 0.4, height:cs - 0.4, fill:c, opacity:(0.15 + 0.85 * v).toFixed(2)}, g);
+  }
+  // stub to the stream: writers point down into it, readers draw from it
+  const sy2 = NODE_Y + NODE_H;
+  el("line", {x1:n.x, x2:n.x, y1:sy2, y2:STREAM_Y - 4, stroke:css("--stream"), "stroke-width":1.2}, g);
+  el("path", {d: n.side === "w" ? `M${n.x - 4},${STREAM_Y - 11} L${n.x},${STREAM_Y - 4} L${n.x + 4},${STREAM_Y - 11}`
+                                  : `M${n.x - 4},${sy2 + 7} L${n.x},${sy2} L${n.x + 4},${sy2 + 7}`, fill:"none", stroke:css("--stream"), "stroke-width":1.2}, g);
+}
+
+function drawWire(svg, a, b, count, pulled, lane) {
+  const xa = NODES.find(n => n.id === a).x, xb = NODES.find(n => n.id === b).x;
+  const y = STREAM_Y + 14 + lane * 13, w = count === 0 ? 0.8 : 1.2 + count * 0.75;
+  const col = pulled ? css("--pulled") : css("--fg");
+  el("path", {d:`M${xa},${STREAM_Y} C${xa},${y} ${xa},${y} ${xa + 12},${y} L${xb - 12},${y} C${xb},${y} ${xb},${y} ${xb},${STREAM_Y}`,
+              fill:"none", stroke:col, "stroke-width":w, opacity: count === 0 ? 0.35 : 0.85, "stroke-dasharray": count === 0 ? "2 3" : (pulled ? "7 4" : "none"),
+              "stroke-linecap":"round"}, svg);
+  const t = el("text", {x:(xa + xb) / 2, y:y - 3, "text-anchor":"middle", "font-size":10.5, "font-weight":pulled ? 700 : 400, fill:col}, svg);
+  t.textContent = `${a === "tok" ? "emb" : a}→${b === "unembed" ? "out" : b}: ${count}`;
+}
+
+function callout(svg, n, text, k) {
+  const x = n.x + 18 + (k % 2) * 6, y = NODE_Y + 22 + k * 30;
+  const pad = 6, w = Math.min(14 + text.length * 5.6, 300);
+  const bx = Math.min(x, 1110 - w);
+  el("line", {x1:n.x, y1:NODE_Y + 40, x2:bx + 6, y2:y + 9, stroke:css("--notefg"), "stroke-width":0.8, opacity:0.7}, svg);
+  el("rect", {x:bx, y:y - 2, width:w, height:20, rx:5, fill:css("--note"), stroke:css("--notefg"), "stroke-opacity":0.35, opacity:0.95}, svg);
+  const t = el("text", {x:bx + pad, y:y + 12, "font-size":11, fill:css("--notefg")}, svg); t.textContent = text;
+}
+
+function render() {
+  const root = document.getElementById("panels"); root.innerHTML = "";
+  PANELS.forEach((P, pi) => {
+    const div = document.createElement("div"); div.className = "panel"; root.appendChild(div);
+    const svg = el("svg", {viewBox:"0 0 1120 315", width:"100%"}); div.appendChild(svg);
+    const tt = el("text", {x:16, y:24, "font-size":14, "font-weight":700, fill:css("--fg")}, svg); tt.textContent = P.title;
+    const nt = el("text", {x:16, y:40, "font-size":12, fill:css("--muted")}, svg); nt.textContent = P.note;
+    el("line", {x1:30, x2:1100, y1:STREAM_Y, y2:STREAM_Y, stroke:css("--stream"), "stroke-width":5, "stroke-linecap":"round", opacity:0.6}, svg);
+    const st = el("text", {x:30, y:STREAM_Y - 6, "font-size":10, fill:css("--muted")}, svg); st.textContent = "residual stream (128 wide)";
+    NODES.forEach((n, i) => drawNode(svg, n, P.spec[n.id], P.matrix, i + pi * 17));
+    JOINTS.forEach(([a, b], lane) => drawWire(svg, a, b, P.wires[`${a}>${b}`], P.pulled.includes(`${a}>${b}`), lane));
+    P.callouts.forEach((c, k) => callout(svg, NODES.find(n => n.id === c.at), c.text, k));
+  });
+}
+render();
+window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>measures</title>
+<style>html,body{margin:0;background:#ffffff;} .wrap{display:block;width:max-content;padding:16px;background:#ffffff;}
+.mermaid{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}</style></head><body><div class="wrap"><pre class="mermaid">
+flowchart TB
+    subgraph IN["Inside a matrix: the shuffle null"]
+      direction LR
+      W["trained<br/>weight matrix W"] --> S["shuffle W's<br/>own entries"] --> E["edge = largest eigenvalue<br/>of the shuffled spectrum"] --> K(["count W's directions<br/>above the edge"]) --> KO["k: organised directions<br/>(die in the shuffle = organisation)"]
+    end
+    subgraph BETWEEN["Between matrices: the joints"]
+      direction LR
+      WR["writer<br/>(e.g. embedding)"] --> P["path = reader × writer,<br/>through the residual stream"]
+      RD["reader<br/>(e.g. attention keys)"] --> P
+      P --> Q["rotate the stream at random:<br/>keeps each spectrum,<br/>destroys only the alignment"] --> KR(["strength z against the exact null;<br/>wire count against rotations"])
+    end
+    subgraph SMALL["When the weights barely move (Weyl)"]
+      direction LR
+      PR["random-token probes:<br/>behaviour and attention,<br/>no stored data"] ~~~ AT["exact attribution:<br/>the loss change split over parts,<br/>healthy → damaged"] --> RS["check: restore the top parts<br/>against random parts of the<br/>same kinds and sizes"]
+    end
+    IN ~~~ BETWEEN ~~~ SMALL
+</pre></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:"default", flowchart:{htmlLabels:true, curve:"basis", useMaxWidth:false}, themeVariables:{fontSize:"15px"}});</script>
+</body></html>

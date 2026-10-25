@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>regimes</title>
+<style>html,body{margin:0;background:#ffffff;} .wrap{display:block;width:max-content;padding:16px;background:#ffffff;}
+.mermaid{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}</style></head><body><div class="wrap"><pre class="mermaid">
+flowchart TB
+    subgraph BUILD["Learning: wires first, behaviour last"]
+      direction LR
+      b1["memorise:<br/>many weak directions"] --> b2["wires attached one by one<br/>(behaviour ~0)"] --> b3["last wire:<br/>the circuit works"]
+    end
+    subgraph BREAK["Forgetting: fast, in two ways"]
+      direction LR
+      r1["small model, large moves — REWIRING:<br/>joints weaken from step 2; behaviour gone by<br/>step 160 with 79% of the circuit in place"]
+      d1["large model, tiny moves — DRIFT:<br/>wiring untouched; many small nudges in keys,<br/>values and MLPs; copying gone in 10–50 steps"]
+      r1 ~~~ d1
+    end
+    subgraph AFTER["Afterwards"]
+      direction LR
+      a1["toy: permanent only once the new task<br/>is learned and generalises"]
+      a2["at scale: only a conflicting task<br/>forgets at all"]
+      a1 ~~~ a2
+    end
+    BUILD --> BREAK --> AFTER
+</pre></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:"default", flowchart:{htmlLabels:true, curve:"basis", useMaxWidth:false}, themeVariables:{fontSize:"15px"}});</script>
+</body></html>
