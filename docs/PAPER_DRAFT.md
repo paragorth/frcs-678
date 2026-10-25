@@ -88,8 +88,8 @@ fine-tuning's displacements it cannot move much (§1.4) — so there the structu
 **Figure 1 — the circuit picture.** Nodes are matrices, each drawn with its spectrum (peaks above the
 shuffle edge, a base below); wires are the connections between matrices; five panels run from
 memorising, through wiring, to rewired. *Drawn version: `docs/figures/circuit_figure_paper.html`
-(image: `docs/figures/fig_circuit.png`); a sixth
-panel for the distributed regime — wiring intact, many small changes — is still to add. The flowchart
+(image: `docs/figures/fig_circuit.png`); the distributed regime — wiring intact, many small changes —
+is drawn beside the toy in Figure 4 (§8). The flowchart
 is the content outline.*
 
 ```mermaid
@@ -997,7 +997,18 @@ Pythia sizes all lose half their copying after about the same number of steps �
 
 ## 8. One circuit picture, two regimes
 
-**Figure 4 — the two regimes side by side. [to draw, in the style of Figure 1.]**
+![Figure 4](figures/fig_two_regimes.png)
+
+**Figure 4 — the two regimes side by side.** (a) The toy at step 160 of multiplication: addition is
+gone, yet 79% of its circuit is still in place; every matrix has moved 31–88%, and the joints into the
+keys and out of the MLP break first (wire counts, grokked → step 160; matrices drawn as in Figure 1).
+(b) Pythia-160m after 50 steps of anti-induction: copying is gone while the wiring from the
+previous-token heads into the induction heads' keys is unchanged, and the loss is spread over many
+parts — by kind of matrix (red bars; keys 34%, MLP outputs 23%, values 18%) and by layer, centred on
+the induction heads' layer 4 (25%), with the top layer at 0.4% and no single part above 6.2%. Shares
+are of the measured rise in copy loss (§7.4, fine-tuning seed 0). Spectra in (b) are drawn
+schematically: under 0.3% displacement, Weyl lets them move by at most that much. The axis below puts
+both regimes on one scale of displacement. *Drawn version: `docs/figures/regimes_figure_paper.html`.*
 
 | | toy, one block (rewiring) | Pythia and Qwen (distributed drift) |
 |---|---|---|
