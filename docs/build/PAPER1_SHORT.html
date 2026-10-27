@@ -303,7 +303,7 @@
 </tr>
 </tbody>
 </table>
-<p>Each induction head’s keys move about 0.05% when copying has halved and under 0.3% by step 50; a wikitext control at the same rate leaves copying intact. The wiring’s stillness shows the limit of the measure more than the state of the circuit: under copy-with-offset, which puts the same heads to another rule (learned to 0.92 at 160m and 0.99 at 410m, copying to 0.004 and 0.001), it holds its starting value to the first decimal, and it falls only at displacements a hundred times larger (wikitext at 1e-3: the keys move 60–240% and z falls from 116 to 22–44, after the model first collapses). General-text perplexity barely registers the loss over the first ten steps — in the Qwen instruct models it improves while copying dies — though it rises later (×1.5 by step 50 at 160m). The induction heads’ attention slides to the attention sink, but restoring their queries and keys returns copying only to 0.014: a symptom, not the seat. And each model breaks at its own displacement of those keys, which the learning rate barely changes (the full version gives it at every size).</p>
+<p>Each induction head’s keys move about 0.05% when copying has halved and under 0.3% by step 50; a wikitext control at the same rate leaves copying intact. The wiring’s stillness shows the limit of the measure more than the state of the circuit: under copy-with-offset, which puts the same heads to another rule (learned to 0.92 at 160m and 0.99 at 410m, copying to 0.004 and 0.001), it holds its starting value to the first decimal, and it falls only at displacements a hundred times larger (wikitext at 1e-3: the keys move 60–240% and z falls from 116 to 22–44, after the model first collapses). General-text perplexity barely registers the loss over the first ten steps — in the Qwen instruct models it improves while copying dies — though it rises later (×1.4–1.5 by step 50 at 160m). The induction heads’ attention slides to the attention sink, but restoring their queries and keys returns copying only to 0.014: a symptom, not the seat. And each model breaks at its own displacement of those keys, which the learning rate barely changes (the full version gives it at every size).</p>
 <h3 id="an-exact-account-of-the-loss">6.2 An exact account of the loss</h3>
 <p>The path integral attributes the rise in copy loss (50 damaging steps) to the parts, in five models. Per-weight blame is a kind’s share of the rise divided by its share of the attention and MLP weights:</p>
 <table style="width:100%;">
@@ -390,7 +390,7 @@
 </tbody>
 </table>
 <p>The account closes. No single part carries more than 7%; the loss centres on the induction heads’ layers and is near zero in the first and last. Per weight, keys, values and attention outputs carry more than their size in every model, while the MLP inputs carry about half theirs.</p>
-<p>Three checks support the account. Damage planted in a single part — an MLP output, an attention block’s queries, keys and values, or an attention output, trained alone at 1e-4 until copying is gone — is found there: 97–105% of the attributed loss falls on the planted part, and returning the account’s top 40 parts repairs copying (0.78–0.85, healthy 0.85) where twenty random sets of the same kinds and sizes repair nothing. The ranking does not hinge on the loss read: with the loss on correctly copied tokens only, or the logit margin, the parts’ ranks agree with the full loss’s at ρ 0.89–0.94 (nine of the top ten shared), as they do across fine-tuning seeds (0.95–0.96) and at 8 or 20 damaging steps instead of 50 (0.86–0.91). The spread, though, belongs to the optimiser. Trained instead with SGD (momentum 0.9) to the same damage — copying 0.02 and perplexity ×1.6, against Adam’s 0.01 and ×1.5 — the account puts half the loss in 6–9 of the 1 480 parts rather than about 105, three-quarters of it on attention keys, and shares only four or five of Adam’s top ten. Adam moves every weight by a similar step whatever its gradient; SGD moves the weights the gradient points at. (Run on to 300 steps, SGD wrecks the whole model — perplexity ×106–478 — and its account is not comparable.)</p>
+<p>Three checks support the account. Damage planted in a single part — an MLP output, an attention block’s queries, keys and values, or an attention output, trained alone at 1e-4 until copying is gone — is found there: 97–105% of the attributed loss falls on the planted part, and returning the account’s top 40 parts repairs copying (0.78–0.85, healthy 0.85) where twenty random sets of the same kinds and sizes repair nothing. The ranking does not hinge on the loss read: with the loss on correctly copied tokens only, or the logit margin, the parts’ ranks agree with the full loss’s at ρ 0.89–0.94 (nine of the top ten shared), as they do across fine-tuning seeds (0.95–0.96) and at 8 or 20 damaging steps instead of 50 (0.86–0.91). The spread, though, belongs to the optimiser. Trained instead with SGD (momentum 0.9) to the same damage — copying 0.02 and perplexity ×1.6–1.7, against Adam’s 0.01 and ×1.4–1.5 — the account puts half the loss in 6–9 of the 1 480 parts rather than 92–107, three-quarters of it on attention keys, and shares only four or five of Adam’s top ten. Adam moves every weight by a similar step whatever its gradient; SGD moves the weights the gradient points at. (Run on to 300 steps, SGD wrecks the whole model — perplexity ×106–478 — and its account is not comparable.)</p>
 <h3 id="no-small-set-of-parts-holds-the-loss">6.3 No small set of parts holds the loss</h3>
 <p>Parts returned to their healthy values in the damaged model, first as whole parts (share of the attention and MLP weights in brackets):</p>
 <table style="width:100%;">
@@ -472,7 +472,7 @@
 </tr>
 <tr class="even">
 <td>top 80 parts: copying (share of the copy loss returned)</td>
-<td>0.10–0.12 (32–36%)</td>
+<td>0.095–0.115 (32–36%)</td>
 <td>0.001 (3%)</td>
 <td>0.000 (1%)</td>
 </tr>
@@ -489,14 +489,14 @@
 <td>0.000 (0%)</td>
 </tr>
 <tr class="odd">
-<td>50 random subsets, up to 12% / 5% / 5% of the weights</td>
+<td>50 random subsets, up to 15% / 5% / 5% of the weights</td>
 <td>≤ 13% of the loss</td>
 <td>≤ 1%</td>
 <td>0%</td>
 </tr>
 </tbody>
 </table>
-<p>Under Adam the account ranks well — at 160m its top parts return ten times the loss that disjoint random parts do — but no small set of parts brings copying back: the loss is spread too widely. Copying returns when about half the weights, chosen by the account, are returned (0.17–0.86 above), and after a few correct training steps (Garg, 2026). Under SGD at the same damage the same test finds the loss concentrated: the top 10 parts (0.6% of the weights) bring back 36–39% of it, the top 40 (2.7%) 60%, and the top 80 (6%) 74–76% (copying 0.34–0.65), where disjoint random sets bring back none (≤ 2%). No single kind repairs the loss; in the toy a set does, and at scale a large one after Adam, a small one after SGD.</p>
+<p>Under Adam the account ranks well — at 160m its top parts return ten times the loss that disjoint random parts do — but no small set of parts brings copying back: the loss is spread too widely. Copying returns when about half the weights, chosen by the account, are returned (0.17–0.86 above), and after a few correct training steps (Garg, 2026). Under SGD at the same damage the same test finds the loss concentrated: the top 10 parts (0.6% of the weights) bring back 36–39% of it, the top 40 (2.7%) 60–61%, and the top 80 (6%) 74–76% (copying 0.34–0.65), where disjoint random sets bring back none (≤ 3%). No single kind repairs the loss; in the toy a set does, and at scale a large one after Adam, a small one after SGD.</p>
 <h3 id="forgetting-needs-conflict">6.4 Forgetting needs conflict</h3>
 <table>
 <colgroup>
