@@ -2,7 +2,9 @@
 
 ### A circuit view in which grokking and catastrophic forgetting are two faces of the same coin
 
-Parag Garg. Draft of 25 October 2026.
+Parag Garg. Draft of 27 October 2026. The 27 October revision adds the review's controls (planted damage,
+a stricter restore test, SGD, conflict-versus-inputs controls, the wiring under copy-with-offset) and
+withdraws the claim that the loss "can be located".
 
 *Working draft. Where each number comes from — the
 STATE point, the result file and the tool — is listed under "Provenance" at the end. A 10-page short
@@ -23,36 +25,45 @@ appears, and the behaviour is lost while most of the circuit is still there.
 
 **Building: structure leads behaviour.** The toy's output-layer circuit is at 7.96× its random level
 while test accuracy is 14%. In Pythia's own pretraining the induction wiring — previous-token heads
-composing into induction heads' keys — is significant at step 512, when copying is still zero and no
-induction head attends to its target: in 10–13 of 16 head pairs in each of five Pythia-160m
-pretraining seeds, 12 at 1.4b and 14 at 2.8b, but only 4 at 410m. By step 1 000 copying is 0.44–0.69.
+composing into induction heads' keys — is significant at step 512, while the previous-token heads are
+still forming, copying is zero and no induction head attends to its target: in 10–13 of 16 head pairs in
+each of five Pythia-160m pretraining seeds, 12 at 1.4b and 14 at 2.8b, but only 4 at 410m. By step 1 000
+copying is 0.44–0.69. In OLMo-7B, whose checkpoints are sparser, the wiring and copying begin together.
 
 **Destroying: the behaviour goes first, in two regimes.** In the toy, interference moves the weights
 14–88% and *rewires* the circuit: the connections between matrices weaken from the first steps of
-interference (10 of 10 seeds), their significant directions are counted out 10–20 steps later, and
-the bulk of the circuit fades about 7× more slowly than the function. In Pythia, anti-induction
-destroys copying (0.84 → 0.01 in 50 steps on 3 of 3 seeds) while each induction head's weights move
-under 0.3% (about 0.05% when copying has halved) and the wiring does not move; at such displacements
-Weyl's inequality lets no spectral measure move much. The loss is *distributed*. An exact
-path-integral account over the weights (the parts sum to the loss within 3.8% at 160m and 0.2% in four
-larger models) spreads it over the network, centred on the induction heads' layers; per weight, the
-attention keys, values and outputs carry 1.2–7× their share in all five models tested (Pythia
-160m–1.4b, Qwen2.5 0.5B–1.5B). Returning the 80 top-ranked parts restores copying to 0.62–0.66 at 160m
-(three seeds; random parts of the same kinds and sizes: 0.17–0.30) and to 0.17–0.86 in the four larger
-models (random: at most 0.008). On natural text, which the update never trained on, the same damaged
-models still copy a repeated passage at 60–92% of their healthy gain.
+interference (10 of 10 seeds), their significant directions are counted out 10–20 steps later, and the
+bulk of the circuit fades about 7× more slowly than the function. In Pythia, anti-induction destroys
+copying (0.84 → 0.01 in 50 steps on 3 of 3 seeds) while each induction head's weights move under 0.3%
+(about 0.05% when copying has halved). At such displacements Weyl's inequality lets no spectral measure
+move much, and the wiring cannot show the break: it stays flat even while the model learns a rule that
+replaces copying. The loss is *distributed*. An exact path-integral account over the weights (the parts
+sum to the loss within 3.8% at 160m and 0.2% in four larger models), which finds damage planted in a
+single part (97–105% of the loss on it), spreads it over the network, centred on the induction heads'
+layers; per weight, the attention keys, values and outputs carry 1.2–7× their share in all five models
+tested (Pythia 160m–1.4b, Qwen2.5 0.5B–1.5B). No small set of parts holds the loss: returning the
+top-ranked 4–8% of the weights brings back a third of it at 160m and almost none at 410m and 1.4b (twenty
+random sets of the same kinds and sizes, sharing no weight with them: at most 4%), and copying comes back
+when about half the weights, chosen by the account, are returned (0.17–0.86). That spread is the
+optimiser's: trained with SGD to the same damage, the account puts half the loss in 6–9 parts, mostly
+attention keys, and returning its top 80 (6% of the weights) brings back three-quarters of it. On natural
+text, which the update never trained on, the same damaged models still copy a repeated passage at 60–92%
+of their healthy gain.
 
-**At scale, forgetting needs conflict.** A new task that contradicts copying (copy-with-offset)
-destroys it in 13 of 13 runs (to 0.000–0.002: five fine-tuning seeds at Pythia-160m, two each at 410m,
-1.4b, Qwen2.5-0.5B and 1.5B); one that does not (an arithmetic rule written as text) leaves it at
-0.80–0.97 in 13 of 13, including where the rule is learned to 0.96–0.99. In the toy every interfering
-task we tried destroyed or badly damaged addition, each contradicting it on its own inputs or
-competing for the same small block, so the toy cannot say whether conflict is needed; there, the loss
-becomes hard to undo only once the new task is learned and generalises.
+**At scale, fast forgetting needs conflict.** A new task that contradicts copying (copy-with-offset)
+destroys it in all five models tested (13 of 13 runs, to 0.000–0.002: five fine-tuning seeds at
+Pythia-160m, two each at 410m, 1.4b, Qwen2.5-0.5B and 1.5B); one that does not (an arithmetic rule
+written as text) leaves it at 0.80–0.97, including where the rule is learned to 0.96–0.99. Conflict, not
+the inputs, sets the speed: conflicting targets on ordinary text erase copying too, while training on
+copying's own random-token inputs without a conflicting target wears it down five times more slowly than
+conflict does, and only as general text degrades with it. In the toy every interfering task we tried
+destroyed or badly damaged addition, each contradicting it on its own inputs or competing for the same
+small block, so the toy cannot say whether conflict is needed; there, the loss becomes hard to undo only
+once the new task is learned and generalises.
 
 **The same picture up to 14B.** Up the Pythia family to 2.8b and across Qwen2.5 from 0.5B to 14B, base
 and instruct, a conflicting update erases copying within about ten steps (fifty at 160m) while the
-wiring does not move and general-text perplexity barely registers the loss. A companion eval of 14
+induction heads barely move and general-text perplexity barely registers the loss. A companion eval of 14
 models in six families (in preparation) finds that harmless training leaves every tested skill intact
 where a conflict halves it, and that a wiped skill returns after a few correct steps on other items:
 suppressed, not deleted.
@@ -80,8 +91,12 @@ random-matrix line of Martin and Mahoney; §2.) The expected consequence was tha
 show in the weights before it shows in behaviour. As an early-warning signal, this weight structure
 failed (§9). Tracked through learning and through forgetting, it gives the main result: **structure
 leads behaviour in learning and trails it in forgetting.** In the toy this is a statement about
-rates. At scale the wiring forms ahead of copying, and in forgetting it does not move at all — at
-fine-tuning's displacements it cannot move much (§1.4) — so there the structure outlasts the loss.
+rates. At scale the wiring forms ahead of the induction heads and copying, while the previous-token heads
+are still forming (§5.2). In forgetting it does not move at all, but that shows the limit of the measure
+more than the state of the circuit: at fine-tuning's displacements it cannot move much (§1.4), and it
+stays flat even while the same heads learn a rule that replaces copying (§7.2). So at scale the weights
+cannot show whether the structure outlasts the loss; that the skill is suppressed rather than deleted
+rests on behaviour (§7.2, §11).
 
 ### 1.3 A capability is a circuit, built and broken differently
 
@@ -106,7 +121,7 @@ flowchart LR
     subgraph AFTER["Afterwards"]
       direction TB
       a1["toy: permanent only if the new<br/>task builds its own circuit<br/>on the same terminals"]
-      a2["at scale: only a conflicting<br/>task forgets at all"]
+      a2["at scale: only a conflicting<br/>task forgets fast"]
     end
     BUILD --> BREAK --> AFTER
 ```
@@ -142,12 +157,14 @@ behaviour on random-token probes; no training or test data of either task is sto
 Natural text enters only as a reference — general-text perplexity (the usual health check), wikitext
 fine-tuning as the harmless control, and one in-context check (§7.2).
 
-1. **A timeline of building and destroying a capability, in two regimes with known circuits**
-   (§5–7): structure leads behaviour while the capability forms (toy 7.96× random at 14% accuracy;
-   the induction wiring significant at step 512 with copying zero in five Pythia-160m pretraining
-   seeds, at 1.4b and 2.8b, and only just at 410m) and trails it while the capability is destroyed
-   (toy: 79% of the circuit present when the capability is gone; Pythia and Qwen: the wiring unchanged
-   when copying is gone).
+1. **A timeline of building and destroying a capability, in two regimes with known circuits** (§5–7):
+   structure leads behaviour while the capability forms (toy 7.96× random at 14% accuracy; the induction
+   wiring significant at step 512, while the previous-token heads are still forming and copying is zero,
+   in five Pythia-160m pretraining seeds, at 1.4b and 2.8b, and only just at 410m; in OLMo-7B, sampled
+   more sparsely, the two begin together) and trails it while the capability is destroyed (toy: 79% of
+   the circuit present when the capability is gone; Pythia and Qwen: the wiring unchanged when copying is
+   gone, though at these displacements it would not move even if the heads were put to another rule,
+   §7.2).
 2. **Two regimes of forgetting — rewiring and distributed drift — and why the weights show one and
    not the other** (§3.3, §8): Weyl's inequality applied to the displacement.
 3. **In the rewiring regime the connections between matrices move with the behaviour** (§6.2): the
@@ -155,21 +172,28 @@ fine-tuning as the harmless control, and one in-context check (§7.2).
    every matrix's own structure is unchanged; the count of significant directions is a lagging
    summary.
 4. **An exact account of distributed forgetting** (§7.4–7.5): a path integral over the weights whose
-   parts sum to the loss, validated causally in five models — the 80 top-ranked parts restore far more
-   than random parts of the same kinds and sizes (2–6× more at 160m; 0.17–0.86 against at most 0.008
-   above). Per weight the attention side — keys, values and outputs, not queries — carries the most.
-   On natural text the skill largely survives (§7.2).
+   parts sum to the loss, in five models, which finds damage planted in a single part (97–105% of the
+   loss on it) and ranks the parts alike under other reads of the loss, other fine-tuning seeds and other
+   doses (ρ 0.86–0.96). Per weight the attention side — keys, values and outputs, not queries — carries
+   the most. Under Adam no small set of parts holds the loss: the top-ranked 4–8% of the weights bring
+   back a third of it at 160m and almost none at 410m and 1.4b, and copying comes back when about half
+   the weights, chosen by the account, are returned. The spread is the optimiser's: under SGD at the same
+   damage half the loss sits in 6–9 parts, mostly attention keys, and 6% of the weights bring back
+   three-quarters of it. On natural text the skill largely survives (§7.2).
 5. **When forgetting happens and when it lasts** (§6.6–6.7, §7.6): at scale, a conflicting new task
-   forgets and a non-conflicting one does not (13 of 13 runs each, two families); in the toy
-   destruction is universal, permanence waits for the new task to be learned, and recovery is a
-   rate, not a cost.
+   forgets fast and a non-conflicting one does not, in all five models (13 of 13 runs each, two
+   families); conflicting targets on ordinary text erase copying too, while the same random-token inputs
+   without a conflicting target wear it down about five times more slowly, and only as general text
+   degrades with it; in the toy destruction is universal, permanence waits for the new task to be
+   learned, and recovery is a rate, not a cost.
 
 ---
 
 ## 2. Related work
 
-Each citation below was checked against the cited work on 25 October 2026; the references are listed at
-the end, and the wider survey is in `docs/LITERATURE_2026-10-23.md`.
+Each citation below was checked against the cited work on 25 October 2026, and the five added on 27
+October against their arXiv pages; the references are listed at the end, and the wider survey is in
+`docs/LITERATURE_2026-10-23.md`.
 
 **Where forgetting happens.** Ramasesh et al. (2021) locate forgetting in the
 higher layers of image classifiers by activation similarity, freezing and reset, and find it worst
@@ -185,8 +209,9 @@ way back.
 collapse (Trivedi and Melwani 2026) argue, from activations, probes and brief retraining, that much
 forgetting is loss of alignment or access rather than erasure. *Putting a Face to Forgetting* (Masip et
 al. 2026) separates the two routes and finds the other one dominant in a vision transformer: features
-fade, and realigning the readout barely helps. We locate the loss in the weights and time it; at scale
-it is neither a lost feature nor a lost connection but a distributed change (§7).
+fade, and realigning the readout barely helps. We locate the loss in the weights and time it; at scale,
+after an Adam update, it is neither a lost feature nor a lost connection but a distributed change (§7).
+Yang et al. (2026) find the parameters whose updates cause forgetting to be 50–75% of all.
 
 **Connections between components.** Composition between heads and virtual weights (Elhage et al.
 2021); low-rank communication channels from weight SVDs (Talking Heads, Merullo et al. 2024), who
@@ -197,10 +222,13 @@ null (Yunis et al. 2024). Ours is the dynamics, through building and through for
 
 **Induction heads and the phase change.** Induction heads and their K-composition with previous-token
 heads (Elhage et al. 2021; Olsson et al. 2022), who show they form in a sudden phase change early in
-training. Pythia's public checkpoints (Biderman et al. 2023), the extra pretraining seeds of
-PolyPythias (van der Wal et al. 2025) and the snapshots of OLMo-7B-0724 (Groeneveld et al. 2024; Allen
-Institute for AI 2024) let us time the wiring against the behaviour at four sizes, over five seeds and
-in a second family (§5.2).
+training. In Pythia's checkpoints their K-composition arrives within the same window as the behaviour, by
+a measure without a null (Li 2026); against the exact null we find the wiring significant at step 512,
+before the induction heads attend and before copying, while the previous-token heads are still forming
+(§5.2). Pythia's public checkpoints (Biderman et al. 2023), the extra pretraining seeds of PolyPythias
+(van der Wal et al. 2025) and the snapshots of OLMo-7B-0724 (Groeneveld et al. 2024; Allen Institute for
+AI 2024) let us time the wiring against the behaviour at four sizes, over five seeds and in a second
+family (§5.2).
 
 **Fine-tuning and in-context skills.** In linear attention, fine-tuning all attention parameters on a
 zero-shot objective degrades in-context learning — in the optimum, the merged query–key block that
@@ -209,29 +237,36 @@ Llama-2-7B, a regulariser that maximises an attention-sensitivity proxy drives i
 in-context behaviour does not improve (Zhang et al. 2026a); ablating the top 1–3% of induction heads
 cuts in-context learning towards chance in 8B and 20B models (Crosbie and Shutova 2025); and the
 reward and penalty terms of an attention-level fine-tuning objective raise and lower the number of
-heads that meet a label-attention induction criterion (Cho et al. 2025). In softmax models we find the loss is not in
-the induction heads' own queries and keys (restoring them returns 0.014) but spread over keys in many
-heads, values and MLPs (§7.3–7.5).
+heads that meet a label-attention induction criterion (Cho et al. 2025). In softmax models, after an Adam
+update, we find the loss is not in the induction heads' own queries and keys (restoring them returns
+0.014) but spread over keys in many heads, values and MLPs (§7.3–7.5).
 
-**Attribution through the weights.** Integrated gradients (Sundararajan et al. 2017) integrate
-gradient × change along a path from a baseline (a straight line, for IG proper), with completeness:
-the parts sum to the change in output. Attribution patching (Nanda 2023; Syed et al. 2024) is a
-first-order approximation to activation patching — in these terms, integrated gradients with the path
-integral replaced by the gradient at one end — and skill
-localisation by grafting a small set of fine-tuned parameters (Panigrahi et al. 2023) is its causal
-cousin. We integrate over the weights, from the healthy to the damaged model, and check the ranking
-by restoring parts against random parts of the same kinds and sizes.
+**Attribution through the weights.** Integrated gradients (Sundararajan et al. 2017) integrate gradient ×
+change along a path from a baseline (a straight line, for IG proper), with completeness: the parts sum to
+the change in output. Loss change allocation (Lan et al. 2019) splits a training run's change in loss
+over the parameters along the path the training took. Attribution patching (Nanda 2023; Syed et al. 2024)
+is a first-order approximation to activation patching — in these terms, integrated gradients with the
+path integral replaced by the gradient at one end — and skill localisation by grafting a small set of
+fine-tuned parameters (Panigrahi et al. 2023) is its causal cousin. We integrate over the weights, from
+the healthy to the damaged model, and test the ranking against planted damage and by restoring parts
+against random ones that share no weight with them.
 
-**Suppression rather than deletion, and what predicts forgetting.** Fine-tuning often adds a
-removable "wrapper" around a skill instead of deleting it: skills return after tens to thousands of
-steps of retraining (Jain et al. 2024), under translated prompts (Kotha et al. 2024), or to a linear
-probe (Jain et al. 2024; Zhang et al. 2024). Our distributed regime fits that picture — the wiring is
-untouched, copying returns in 50 steps of correct copies (§11), and it largely survives on natural
-text while random-token copying is gone (§7.2). To second order, forgetting is bounded by the old
-task's top curvature times the squared displacement, ½λ_max‖Δw‖² (Mirzadeh et al. 2020); sensitivity
-to random weight perturbations grows with pretraining tokens (Springer et al. 2025); across training
-methods, the KL from the base model on the new task predicts forgetting better than weight-change norms
-(RL's Razor, Shenfeld et al. 2026) — within one objective, we find a nearly fixed displacement (§8).
+**Suppression rather than deletion, and what predicts forgetting.** Fine-tuning often adds a removable
+"wrapper" around a skill instead of deleting it: skills return after tens to thousands of steps of
+retraining (Jain et al. 2024), under translated prompts (Kotha et al. 2024), or to a linear probe (Jain
+et al. 2024; Zhang et al. 2024). Our distributed regime fits that picture on behaviour — copying returns
+in 50 steps of correct copies (§11), and on natural text it keeps 60–92% of its gain while random-token
+copying is gone (§7.2); the untouched wiring is no evidence either way, since at these displacements it
+could not move (§7.2). To second order, forgetting is bounded by the old task's top curvature times the
+squared displacement, ½λ_max‖Δw‖² (Mirzadeh et al. 2020); sensitivity to random weight perturbations
+grows with pretraining tokens (Springer et al. 2025); across training methods, the KL from the base model
+on the new task predicts forgetting better than weight-change norms (RL's Razor, Shenfeld et al. 2026) —
+within one objective, we find a nearly fixed displacement (§8).
+
+**Forgetting without conflict.** Benign fine-tuning can erode safety behaviour through the curvature of
+the loss (Springer et al. 2026), and a more annealed, sharper model forgets more under fine-tuning (Rofin
+et al. 2026). Without a conflicting target we find copying wears down only slowly, and only as general
+text degrades with it (§7.6); Pythia-160m's end-of-training anneal is taken up in §8.
 
 **Same-format interference and its remedies.** New facts taught in a known template damage known
 facts (Gekhman et al. 2024; Kaplan et al. 2026), and in Kaplan et al. opaque (UUID-style) subject names
@@ -269,13 +304,16 @@ freezing the former cuts post-grok relapse.
 | Wang 2026 — communication map, Haar null | the exact null E[C²] = 1/d and its closed-form variance; scoring each writer–reader pair; a BH correction (Wang applies it against an empirical null, we against the exact one) | the map through time — which connections weaken first, and when; at scale, a map that picks out the important heads (§4.2) |
 | Yunis et al. 2024 | alignment as a quantity that moves in training | a null, the destruction direction, and the rebuild |
 | Merullo et al. 2024 — Talking Heads | the warning that whole-matrix composition scores are noisy (GPT-2 Small) | at scale the scores barely move, by Weyl, not just noisily (§3.3, §7.1) |
-| Olsson et al. 2022; Biderman et al. 2023; van der Wal et al. 2025 | the induction phase change; public checkpoints; seeds | the wiring is significant before the behaviour appears, at four sizes, five seeds and in OLMo (§5.2) |
-| Sundararajan et al. 2017; attribution patching; Panigrahi et al. 2023 | completeness; grafting | an exact account of forgetting over the weights in five models, checked by restoring parts against size-matched random ones (§7.4–7.5) |
+| Olsson et al. 2022; Biderman et al. 2023; van der Wal et al. 2025 | the induction phase change; public checkpoints; seeds | the wiring is significant before the induction heads attend and before copying, at four sizes and five seeds, while the previous-token heads are forming; in OLMo the onsets coincide (§5.2) |
+| Li 2026 | K-composition in Pythia's checkpoints arriving within the same window as the behaviour, by a measure without a null | against the exact null the wiring is significant at step 512 with copying zero; it leads the induction heads and copying, not the previous-token heads (§5.2) |
+| Sundararajan et al. 2017; Lan et al. 2019; attribution patching; Panigrahi et al. 2023 | completeness; a loss change split over the parameters along a path; grafting | an exact account of forgetting over the weights in five models, checked against planted damage and by restoring parts against random ones that share no weight with them; under Adam no small set of parts holds the loss, under SGD a few do (§7.4–7.5) |
 | Xiao et al. 2024; Sun et al. 2024 — sinks | where attention goes when there is nothing to attend to | the induction heads' attention slides to the sink as copying dies — a symptom, not the seat (§7.3) |
-| Lee et al. 2026 | in-context skill degraded through query–key (linear attention) | in softmax attention, distributed over keys, values and MLPs (§7) |
-| Spurious forgetting, Diagnosing Catastrophe, Lost or Hidden?, accessibility collapse; Masip et al. 2026 in contrast | forgetting as lost alignment or access (Masip et al.: features fading) | located in the weights and timed; at scale, a distributed change (§7) |
+| Lee et al. 2026 | in-context skill degraded through query–key (linear attention) | in softmax attention, after Adam, distributed over keys, values and MLPs (§7) |
+| Spurious forgetting, Diagnosing Catastrophe, Lost or Hidden?, accessibility collapse; Masip et al. 2026 in contrast | forgetting as lost alignment or access (Masip et al.: features fading) | located in the weights by layer and kind, and timed; at scale, after Adam, a distributed change that no small set of parts holds (§7) |
+| Yang et al. 2026 | the parameters whose updates cause forgetting are 50–75% of all | after an Adam update no small set of parts holds the loss either; after SGD half of it sits in 6–9 parts, mostly attention keys (§7.4–7.5) |
 | Ramasesh et al. 2021 | forgetting is localised; similarity matters | centred on the circuit's own layers, not the top (§7.4); a monotone similarity–recovery ordering in the toy (§6.6) |
-| Kaplan et al. 2026; Gekhman et al. 2024 | same-template facts interfere; opaque names as the control | a new answer format captures old prompts of the same few-shot form even under opaque names (§7.6) |
+| Springer et al. 2026; Rofin et al. 2026 | forgetting without conflict: safety eroded through curvature; more forgetting in a more annealed, sharper model | without a conflicting target copying wears down only slowly, along with general text (§7.6); Pythia-160m's end-of-training anneal (§8) |
+| Kaplan et al. 2026; Gekhman et al. 2024 | same-template facts interfere; opaque names as the control | a shared prompt frame damages old skills even under opaque names (§7.6; two seeds, being re-tested on fresh ones) |
 | Zhang et al. 2026b — The Grokked Illusion | grokked models lose test accuracy when random-label data is added | only a second task that is really learned shows when the loss becomes permanent (§6.6) |
 | Jia 2026 | the E/U vs block split | in our toy the block restores reliably, the embedding alone often, the joint ends not (§6.8) |
 
@@ -284,8 +322,8 @@ from the random-matrix line behind WeightWatcher (Martin et al. 2021): Martin an
 spectrum with Marchenko–Pastur, and Prakash and Martin (2025, 2026) read outliers above it ("correlation
 traps") as a sign of overfitting. The joint measure is Elhage et al.'s composition measure against
 Wang's exact Haar null. The attribution
-is integrated gradients applied to weights. What is new is what they show when followed through a
-capability's life.
+is integrated gradients applied to weights, close to loss change allocation over a training run (Lan et
+al. 2019). What is new is what they show when followed through a capability's life.
 
 ---
 
@@ -313,7 +351,7 @@ flowchart TB
     subgraph SMALL["When the weights barely move (Weyl)"]
       PR["random-token probes:<br/>behaviour and attention,<br/>no stored data"]
       AT["exact attribution:<br/>loss change split over parts<br/>along healthy → damaged"]
-      AT --> RS["check: restore top parts<br/>vs random parts of the<br/>same kinds and sizes"]
+      AT --> RS["checks: planted damage;<br/>restore top parts vs random<br/>parts of the same kinds and<br/>sizes that share no weight"]
     end
 ```
 
@@ -381,14 +419,27 @@ kept is (damaged second-copy accuracy − first-copy accuracy) / (healthy second
 ### 3.5 Exact accounting: attribution along the weights
 
 For a loss L and the straight path θ(α) = θ_0 + α(θ_1 − θ_0) from the healthy to the damaged model,
-L(θ_1) − L(θ_0) = ∫₀¹ ∇L(θ(α)) · (θ_1 − θ_0) dα exactly. Splitting the dot product by parts — each
-head's query, key and value weights and biases and its output columns, each layer's MLP input and
-output, LayerNorms, embedding, unembedding — gives each part's share. L is the copy loss on 32
-random-token probe sequences; midpoint quadrature with K = 16; the residual is reported. The causal
-check returns the top-N parts to their healthy values in the damaged model and compares with random
-parts of the same kinds and sizes, two draws per N; each restore is reported with the share of the
-attention and MLP weights it puts back. Size matters here: per-head parts are many and small, whole
-MLP matrices few and large, so N random parts of any size put back far fewer weights than the top N.
+L(θ_1) − L(θ_0) = ∫₀¹ ∇L(θ(α)) · (θ_1 − θ_0) dα exactly; the same integral taken along a training run's
+own path is loss change allocation (Lan et al. 2019). Splitting the dot product by parts — each head's
+query, key and value weights and biases and its output columns, each layer's MLP input and output,
+LayerNorms, embedding, unembedding — gives each part's share. L is the copy loss on 32 random-token probe
+sequences; midpoint quadrature with K = 16; the residual is reported. Two other reads of L check that the
+ranking does not hinge on the loss's tail: the copy loss on the tokens the healthy model copies
+correctly, and the logit margin of the best rival over the correct token. The causal check returns the
+top-N parts to their healthy values in the damaged model and compares with random parts of the same kinds
+and sizes, two draws per N; each restore is reported with the share of the attention and MLP weights it
+puts back. Size matters here: per-head parts are many and small, whole MLP matrices few and large, so N
+random parts of any size put back far fewer weights than the top N, and N random whole parts of the same
+kinds and sizes must share many of their weights with the top N.
+
+A stricter version splits each MLP matrix into 16 groups of neurons (1 480 parts at 160m, 3 628 at 410m
+and 1.4b), scores every restore on fresh probes (seed 4321; the account's are seed 1234), and compares
+the top N with twenty random sets of the same kinds and sizes that share no weight with them, and with
+fifty random subsets of 5–200 parts; it reports the share of the copy loss returned,
+(L_damaged − L) / (L_damaged − L_healthy), as well as copying. A positive control plants damage in one
+part of Pythia-160m — layer 4's MLP output, layer 4's attention queries, keys and values, or layer 3's
+attention output — by training it alone with anti-induction at 1e-4 for 300 steps until copying is gone,
+and asks whether the account finds it.
 
 ### 3.6 Settings
 
@@ -405,8 +456,14 @@ configuration (seed, interference task and length) run once.
 the same kind of repeated sequences with each second-copy target replaced by a fixed random
 permutation of the copied token (contradicts copying on every input); **copy-with-offset** — predict
 the token two after the earlier occurrence (contradicts it, re-pointing the same circuit); an
-**arithmetic rule**, "a + b = c" mod 50 written as text (no conflict). Control: fine-tuning on
-wikitext. A **fine-tuning seed** fixes the order of training batches on one pretrained model.
+**arithmetic rule**, "a + b = c" mod 50 written as text (no conflict). Control: fine-tuning on wikitext.
+Controls for conflict (§7.6): the same random-token inputs trained without a conflicting target, the
+second copy left out of the loss — a fixed map of each token on the first copy, or next-token prediction
+there, where the next token is random — anti-induction targets on repeated wikitext passages, and
+anti-induction targets mixed with correct ones at 10–50%. A control for the optimiser trains
+anti-induction with SGD (momentum 0.9) to the same damage (§7.4–7.5), and wikitext at 1e-3 pushes the
+displacement a hundredfold (§7.2). A **fine-tuning seed** fixes the order of training batches on one
+pretrained model.
 
 **Larger models and a second family.** Pythia-410m, 1.4b and 2.8b; Qwen2.5-Instruct (Qwen Team 2024) 0.5B, 1.5B, 3B,
 7B and 14B, with the base 7B and 14B. Full fine-tuning in float32 on CPU nodes, never LoRA (Hu et al. 2022), which
@@ -507,12 +564,14 @@ Pythia-160m's public pretraining checkpoints, with the heads identified in the f
 | 80 000 | 0.884 | 0.92 | 131 / 362 | 14 / 16 | 0.0018% |
 | 143 000 | 0.841 | 0.93 | 116 / 339 | 14 / 16 | 0.0011% |
 
-At step 512 the wiring is significant in 11 of 16 pairs while the induction heads do not yet attend
-to the induction target and copying is zero; by step 1 000 copying is 0.61. The lead is bounded by
-the checkpoint spacing: none exist between 512 and 1 000. The second induction head forms slowly
-(L8H2 0.04 at 1 000, 0.89 at the end) and the wiring keeps strengthening after copying saturates.
-The weights settle gradually: movement per step falls 50-fold from the phase change to the end, while
-the distance from the final model, ‖W_t − W_final‖_F / ‖W_final‖_F, is still 0.61 at step 80 000.
+At step 512 the wiring is significant in 11 of 16 pairs while the induction heads do not yet attend to
+the induction target and copying is zero; by step 1 000 copying is 0.61. The previous-token heads, by
+contrast, are forming at step 512 (best score 0.36, from 0.12 at step 256), so the wiring leads the
+induction heads and copying, not the whole circuit. The lead is bounded by the checkpoint spacing: none
+exist between 512 and 1 000. The second induction head forms slowly (L8H2 0.04 at 1 000, 0.89 at the end)
+and the wiring keeps strengthening after copying saturates. The weights settle gradually: movement per
+step falls 50-fold from the phase change to the end, while the distance from the final model,
+‖W_t − W_final‖_F / ‖W_final‖_F, is still 0.61 at step 80 000.
 
 **Five pretraining seeds and four sizes.** The same measurement on four more Pythia-160m runs that
 differ only in their pretraining seed, and on Pythia-410m, 1.4b and 2.8b, each with its own heads:
@@ -533,18 +592,25 @@ head yet attends to its target (best score 0.02–0.05, against 0.85–0.96 at s
 16 pairs in seven runs, and in 4 of 16 at 410m, where the lead is marginal — mean z 1.1, and the same
 run already shows one significant pair at steps 64–256, as one 160m seed does at step 0, so one in 16
 is about the false-positive rate. By step 1 000 copying is 0.44–0.69 and the wiring is significant in
-15–16 of 16 everywhere. Each final checkpoint reproduces the healthy model of §7.7 (2.8b: copying
-0.927, wiring z 364.0). The settling repeats: query/key/value movement per step falls 37–71-fold from
-step 1 000 to the end (160m seeds 38–48, 410m 37, 1.4b 71, 2.8b 70), and at step 80 000 the distance
-from the final model is still 0.58–0.64 (160m), 0.49 (410m), 0.28 (1.4b) and 0.25 (2.8b).
+15–16 of 16 everywhere. The previous-token heads, by contrast, are forming at step 512 in every run (best
+score 0.36–0.56, from 0.03–0.12 at step 256), so the wiring leads the induction heads and copying, not
+the whole circuit; Li (2026), reading the same checkpoints without a null, sees the K-composition arrive
+within the same window as the behaviour. Copying is read as top-1 accuracy, which can stay at zero while
+the behaviour is already building; a continuous reading of these steps is still to do, and so is a test
+of the step-512 wiring against every earlier → later head pair (§10). Each final checkpoint reproduces
+the healthy model of §7.7 (2.8b: copying 0.927, wiring z 364.0). The settling repeats: query/key/value
+movement per step falls 37–71-fold from step 1 000 to the end (160m seeds 38–48, 410m 37, 1.4b 71, 2.8b
+70), and at step 80 000 the distance from the final model is still 0.58–0.64 (160m), 0.49 (410m), 0.28
+(1.4b) and 0.25 (2.8b).
 
 ![Figure 3](figures/pretraining_lead.png)
 
-**Figure 3 — the induction wiring starts before copying, at every Pythia size and in OLMo.** Copying
-(orange) and the share of the 16 previous-token → induction-key pairs that are significant (blue),
-through each model's own pretraining; the five 160m pretraining seeds are overlaid, the original in
-bold. The grey band marks the interval in which copying appears and no checkpoint exists (steps
-512–1 000 in Pythia, 1 000–5 000 in OLMo). Step 0 (both series zero) is off the log axis.
+**Figure 3 — the induction wiring starts before copying at every Pythia size; in OLMo, sampled more
+sparsely, the two start together.** Copying (orange) and the share of the 16 previous-token →
+induction-key pairs that are significant (blue), through each model's own pretraining; the five 160m
+pretraining seeds are overlaid, the original in bold. The grey band marks the interval in which copying
+appears and no checkpoint exists (steps 512–1 000 in Pythia, 1 000–5 000 in OLMo). Step 0 (both series
+zero) is off the log axis.
 
 **A second family: OLMo-7B.** OLMo-7B-0724's nine snapshots are spaced more coarsely, and its phase
 change comes later in tokens:
@@ -556,11 +622,11 @@ change comes later in tokens:
 | wiring z, mean / max | 0.2 / 2.1 | **12.4 / 78.9** | 50.9 / 472 | 97.2 / 1 045 | 105 / 1 079 | 125 / 1 097 | 152 / 1 250 | 156 / 1 229 | 152 / 1 279 |
 | best induction score | 0.02 | 0.18 | 0.94 | 0.90 | 0.86 | 0.87 | 0.88 | 0.92 | 0.92 |
 
-At step 1 000 the wiring has started — 3 of 16 pairs significant, one head beginning to attend —
-while copying is 0.010. By step 5 000 copying has run ahead (0.78) of the wiring measured on the
-final model's heads (7 of 16), which fills in only by step 50 000, much as Pythia-160m's second
-induction head forms long after copying works. So OLMo shows the onset of the wiring before the
-behaviour, not a finished circuit before it; its coarse spacing cannot say more.
+In OLMo the onsets coincide: at step 1 000, 3 of 16 pairs are significant, copying is 0.010 and the
+strongest induction head already attends 11× above uniform (score 0.18). By step 5 000 copying has run
+ahead (0.78) of the wiring measured on the final model's heads (7 of 16), which fills in only by step
+50 000, much as Pythia-160m's second induction head forms long after copying works. So OLMo shows the
+wiring and the behaviour beginning together, not the wiring first; its coarse spacing cannot say more.
 
 ---
 
@@ -771,6 +837,18 @@ own scores collapse (0.93 → 0.04, 0.89 → 0.08, 0.74 → 0.04, 0.72 → 0.52 
 control at the same rate erodes copying slowly — 0.80 at step 50, 0.74 at 150, 0.61 at 1 000 — with
 the wiring at 115.9.
 
+**The wiring cannot show the break at these displacements.** Its stillness shows the limit of the measure
+more than the state of the circuit. Under copy-with-offset, which puts the same heads to another rule,
+the offset is learned to 0.92 at 160m and 0.99 at 410m and copying falls to 0.004 and 0.001, while the
+wiring (the 16-pair mean z) goes from 115.9 to 116.0 at 160m and holds at 186.4 at 410m; the induction
+heads' keys have moved about 0.5%. The wiring falls only at displacements a hundred times larger, and
+only after the model has first collapsed: fine-tuned on wikitext at 1e-3, Pythia-160m reaches perplexity
+1.4 × 10¹² at step 10 and from step 200 sits at 212–441, while its wiring falls to 96.5 at step 100, 44.1
+at 400, 22.4 at 1 000 and 32.8 at 2 000, with the keys moved 27%, 61%, 138% and 240%. So an unmoved
+wiring at fine-tuning's displacements is not evidence that the circuit is intact. That copying is
+suppressed rather than deleted rests on behaviour instead: 50 steps of correct copies bring it back
+(§11), and on natural text it keeps 60–92% of its gain (below).
+
 **On natural text the loss is partial.** The seven damaged models of §7.4 (50 steps at 3e-6;
 Pythia-160m on three fine-tuning seeds, 410m, 1.4b, Qwen2.5 0.5B and 1.5B), read on wikitext-2 test
 text:
@@ -852,10 +930,36 @@ values' at 1.4b and in Qwen. Which kind carries most *in total* is not general: 
 whose two key-value heads per layer make keys and values small). So "keys and MLP outputs lead", true
 at 160m and 410m, is not general.
 
-### 7.5 The account is causal, and repair needs the set
+**Three checks on the account.** *Planted damage.* Damage planted in a single part of Pythia-160m — layer
+4's MLP output, layer 4's attention queries, keys and values, or layer 3's attention output, each trained
+alone with anti-induction at 1e-4 for 300 steps until copying is gone (§3.5) — is found there: 97–105% of
+the attributed loss falls on the planted part, and returning the account's top 40 parts repairs copying
+(0.78–0.85; healthy 0.85), where twenty random sets of the same kinds and sizes, sharing no weight with
+them, repair nothing (copying at most 0.001). *The loss read.* With the copy loss on the tokens the
+healthy model copies correctly, or the logit margin, the parts' ranks agree with the full loss's at ρ
+0.89–0.94, nine of the top ten shared, on each of the three fine-tuning seeds; across fine-tuning seeds
+the ranks agree at ρ 0.95–0.96 (eight or nine of the top ten), and at 8 or 20 damaging steps instead of
+50 at ρ 0.86–0.91 (seven or eight). *The optimiser.* Everything above is under AdamW, and the spread
+belongs to it. Trained instead with SGD (momentum 0.9) to the same damage, the account concentrates:
 
-Healthy copying 0.841, damaged 0.009; parts returned to their healthy values in the damaged model,
-with the share of the attention and MLP weights each restore puts back:
+| Pythia-160m, anti-induction | AdamW, 3e-6, 50 steps (seeds 0 / 1 / 2) | SGD, 3e-3, 30 steps | SGD, 1e-2, 10 steps |
+|---|---|---|---|
+| copying; general-text perplexity relative to its start | 0.010 / 0.009 / 0.006; ×1.36 / 1.47 / 1.41 | 0.023; ×1.67 | 0.020; ×1.64 |
+| parts (of 1 480) holding half the loss | 107 / 103 / 92 | 6 | 9 |
+| parts holding 80% of it | 312 / 307 / 291 | 28 | 35 |
+| attention keys' share of the loss | 34 / 34 / 35% | 81% | 75% |
+| top ten shared with AdamW's (seed 0); rank correlation ρ | — | 5; 0.56 | 4; 0.64 |
+
+Half the loss sits in 6–9 of the 1 480 parts rather than about a hundred, three-quarters of it on
+attention keys, and only four or five of Adam's top ten are shared. Adam moves every weight by a similar
+step whatever its gradient; SGD moves the weights the gradient points at. (Run on to 300 steps at the
+same rates, SGD wrecks the whole model — perplexity ×106 and ×478 — and its account is not comparable.)
+The restore test of §7.5 tells the same story.
+
+### 7.5 No small set of parts holds the loss
+
+**The whole-part test.** Healthy copying 0.841, damaged 0.009; whole parts returned to their healthy
+values in the damaged model, with the share of the attention and MLP weights each restore puts back:
 
 | restored | parts | weights | copying | random parts of the same kinds and sizes |
 |---|---|---|---|---|
@@ -869,12 +973,12 @@ with the share of the attention and MLP weights each restore puts back:
 | top 40 (69%) | 40 | 57% | **0.452** | 0.138 / 0.145 |
 | top 80 (80%) | 80 | 64% | **0.627** | 0.188 / 0.298 |
 
-The comparison has to match size. The top 80 parts are 8% of the parts (80 of 1 056) but hold 64% of
-the weights; 80 random parts of any size hold 3–14% and return 0.015–0.018, which would make chance
-look useless. Random parts of the same kinds and sizes return 0.17–0.30 at N = 80, and the ranking
-restores 2–6× what they do at every N, on all three fine-tuning seeds (top 80: 0.627 / 0.659 /
-0.618). In the larger models size-matched chance restores almost nothing (weights restored in
-brackets):
+Whole parts are coarse. The top 80 parts are 8% of the parts (80 of 1 056) but hold 64% of the weights;
+80 random parts of any size hold 3–14% and return 0.015–0.018, which would make chance look useless.
+Random parts of the same kinds and sizes return 0.17–0.30 at N = 80, and the ranking restores 2–6× what
+they do at every N, on all three fine-tuning seeds (top 80: 0.627 / 0.659 / 0.618) — but a random set
+that large must share most of its weights with the top set (56% at 160m). In the larger models the same
+whole-part test gives (weights restored in brackets):
 
 | | Pythia-160m, 3 seeds | 410m | 1.4b | Qwen 0.5B | Qwen 1.5B |
 |---|---|---|---|---|---|
@@ -886,15 +990,41 @@ brackets):
 | top 80 by attribution | 0.62–0.66 (62–64%) | 0.368 (60%) | 0.173 (52%) | 0.781 (61%) | 0.859 (57%) |
 | 80 random, same kinds and sizes | 0.17–0.30 | 0.005–0.006 | 0.002 | 0.006–0.008 | 0.002 |
 
-So the account is causal: what it ranks first is what the skill needs, beyond its size. How much it
-returns varies — in Qwen 1.5B the top 80 parts, 57% of the weights, return 0.859, more than four whole
-kinds holding 90% (0.842); in Pythia-1.4b they return 0.173 of 0.921, against 0.618 for the four kinds
-— and below N = 80 the ratio to chance rests on a floor of a few correct tokens in 2 560. In no model
-does a single kind repair the loss; a set does, as in the toy (§6.8). The damaged checkpoint saved
-for this analysis reads 0.009 at 160m where the training curve of §7.2 reads 0.010: the two
+How much the whole-part restores return varies — in Qwen 1.5B the top 80 parts, 57% of the weights,
+return 0.859, more than four whole kinds holding 90% (0.842); in Pythia-1.4b they return 0.173 of 0.921,
+against 0.618 for the four kinds — and below N = 80 the ratio to chance rests on a floor of a few correct
+tokens in 2 560. In no model does a single kind repair the loss. What the whole-part test shows is where
+copying comes back: when about half the weights, chosen by the account, are returned (52–64% of them;
+copying 0.17–0.86). It does not show that a small set of parts holds the loss. The damaged checkpoint
+saved for this analysis reads 0.009 at 160m where the training curve of §7.2 reads 0.010: the two
 measurements differ by a few predictions in 2 560.
 
-### 7.6 At scale, forgetting needs conflict
+**The stricter test** splits each MLP matrix into 16 groups of neurons (1 480 parts at 160m, 3 628 at
+410m and 1.4b), scores on fresh probes, and draws twenty random sets of the same kinds and sizes that
+share no weight with the top set (§3.5). Share of the copy loss returned, with the share of the attention
+and MLP weights restored in brackets; the last column is the SGD damage of §7.4 (two runs):
+
+| | Pythia-160m, AdamW (3 seeds) | 410m, AdamW | 1.4b, AdamW | Pythia-160m, SGD |
+|---|---|---|---|---|
+| healthy → damaged copying (fresh probes) | 0.85 → 0.01 | 0.93 → 0.00 | 0.93 → 0.00 | 0.85 → 0.02–0.03 |
+| top 10 parts | 11–15% (0.6%) | 0% (0.2%) | 0% (0.3%) | 36–39% (0.6%) |
+| top 40 parts | 21–24% (3.5–3.6%) | 1% (1.3%) | 1% (2.5%) | 60–61% (2.7%) |
+| top 80 parts | 32–36% (7.3–8.0%) | 3% (3.9%) | 1% (5.1%) | 74–76% (6.0–6.4%) |
+| top 80 parts: copying | 0.095–0.115 | 0.001 | 0.000 | 0.34–0.65 |
+| 20 disjoint random sets, same kinds and sizes as the top 80 | ≤ 4% (copying ≤ 0.02) | ≤ 1% (0.000) | 0% (0.000) | ≤ 2% (copying ≤ 0.04) |
+| 50 random subsets of 5–200 parts, up to 15% / 5% / 5% / 15% of the weights | ≤ 13% | ≤ 1% | 0% | ≤ 31% |
+
+Under Adam the account ranks well — at 160m its top parts return about ten times the loss that disjoint
+random parts do, and the parts it ranks last return none — but no small set of parts brings copying back:
+the top-ranked 4–8% of the weights return a third of the loss at 160m and almost none at 410m and 1.4b.
+The loss is spread too widely. Copying returns when about half the weights, chosen by the account, are
+returned (the whole-part test above), and after 50 steps of correct copies (§11). Under SGD at the same
+damage the same test finds the loss concentrated: the top 10 parts (0.6% of the weights) bring back
+36–39% of it, the top 40 (2.7%) 60–61%, and the top 80 (6.0–6.4%) 74–76% (copying 0.34–0.65), where
+disjoint random sets bring back at most 2%. No single kind repairs the loss; in the toy a set does
+(§6.8), and at scale a large one after Adam, a small one after SGD.
+
+### 7.6 At scale, fast forgetting needs conflict
 
 Copying is scored on its own probe set of 32 sequences: healthy 0.865 at 160m, 0.946 at 410m, 0.938
 at 1.4b, 0.958 in Qwen 0.5B and 0.972 in Qwen 1.5B. The offset task starts at 0.000–0.004 everywhere;
@@ -930,6 +1060,32 @@ intact (§7.2). The condition for fast forgetting at scale is conflict for the c
 on something new. In the toy every task we tried destroyed addition, each contradicting it or
 competing for its small block (§6.1), so the toy shows that conflict suffices, not that it is needed.
 
+**Conflict, not the inputs, sets the speed.** Anti-induction and offset contradict copying on its own
+random-token inputs, and the rule does not use them, so the contrast could be one of inputs rather than
+of conflict. Controls separate the two (Pythia-160m, two fine-tuning seeds each, 100 steps at 3e-6). The
+half point is the first logged step at which copying is at most half its start, and perplexity is
+general-text perplexity relative to its start:
+
+| update | conflict with copying | copying halves by step | perplexity then | copying at step 100 |
+|---|---|---|---|---|
+| anti-induction, on copying's own inputs (§7.2) | yes | 8–10 | ×1.02–1.04 | 0.003–0.004 (0.01 by step 50) |
+| anti-induction targets on repeated wikitext | yes, on other inputs | 20 | ×3.4 | 0.007–0.012 |
+| the same random-token inputs, a fixed map of each token | none | 50 | ×1.9–2.3 | 0.12–0.13 |
+| the same inputs, next-token prediction on the unrepeated half | none | 50 | ×2.3–2.4 | 0.10–0.13 |
+| anti-induction targets mixed with correct ones, 10% / 25% / 50% | diluted | never | — | 0.92–0.93 / 0.81 / 0.71–0.72 |
+
+At 410m (one seed) the same holds: anti-induction halves copying by step 5 at ×1.02, anti-induction
+targets on repeated wikitext by step 20 at ×13.5, and the fixed map by step 30 at ×6.9. Conflict on
+copying's own inputs erases it fast while general text barely moves; conflict on ordinary text erases it
+too, though there general text degrades with it; without conflict, training on the same inputs wears
+copying down about five times more slowly than anti-induction does, and only as the whole model degrades.
+With 10–50% of the targets conflicting, copying never halves, and at 10% it rises (0.84 → 0.92–0.93),
+nine targets in ten being correct copies; general-text perplexity is then ×1.2–1.4 at step 100. The map
+learned without conflict is never applied to the second copy (0.000), so this is not conflict arriving by
+generalisation. Fast, specific forgetting needs a conflicting target; without one the skill wears down
+about five times more slowly, and only as general text degrades with it. "Conflict" is still defined by
+construction here.
+
 **Conflict can also arrive by generalisation.** Two companion results widen what counts as conflict.
 In a stream of new synthetic skills on Qwen2.5 0.5B–3B (companion paper), what breaks is the old skill
 whose *format* a new one shares — in two of the three pairs built to share one — and the new rule
@@ -948,7 +1104,11 @@ GSM8K's calculator notation ("142" → "<<142"), most with the right digits afte
 digits in three or four of eight at every later mark mean some arithmetic is lost too. Neither
 training set contradicts the old skill on its own inputs; a new rule generalises onto them. This
 widening of "conflict" — to a new rule whose reach covers an old skill's prompts — was made after
-these results, and is the hypothesis to test next, not a finding (§10).
+these results, and is the hypothesis to test next, not a finding (§10). The companion's registered controls on fresh
+seeds (27 Oct, interim) already narrow it: the shared frame damages old skills, but the specific rule that leaks
+carries its meaning, not only its format (taught in another frame, the +10 rule still takes over ordinary sums), and
+the two-seed contrast between shared and unshared templates does not replicate cleanly; this paragraph will be
+replaced by that analysis.
 
 ### 7.7 Larger models, and a second family
 
@@ -969,13 +1129,14 @@ and 14B. Copying (next-token accuracy on the second copy):
 | Qwen2.5-14B-Instruct | 0.938 | 0.050 | 0.000 | 613.7 | 0.946 | 55.2 → 52.4 |
 | Qwen2.5-14B (base) | 0.949 | 0.039 | 0.000 | 613.7 | — | 16.1 → 13.1 |
 
-What §7.2–7.3 found at 160m holds at every size and in both families: a conflicting update erases
-copying — within about ten steps from 410m up, against fifty at 160m — the wiring does not move, the
-wikitext control leaves copying intact, and general-text perplexity barely registers the loss; in the
-Qwen instruct models it *improves* while copying dies. The attention reading is weaker still at
-scale: in most models one induction head loses its attention while the others keep attending to the
-right token with copying at zero (Qwen 1.5B's strongest head stays at 0.99; three of Pythia-2.8b's
-four stay at 0.87–0.91).
+What §7.2–7.3 found at 160m holds at every size and in both families: a conflicting update erases copying
+— within about ten steps from 410m up, against fifty at 160m — while the induction heads barely move and
+the wiring reads the same at every mark (which at these displacements it would anyway, §7.2); the
+wikitext control leaves copying intact; and general-text perplexity barely registers the loss over the
+first ten steps — in the Qwen instruct models it *improves* while copying dies — though it rises later
+(×1.36–1.47 by step 50 at 160m). The attention reading is weaker still at scale: in most models one
+induction head loses its attention while the others keep attending to the right token with copying at
+zero (Qwen 1.5B's strongest head stays at 0.99; three of Pythia-2.8b's four stay at 0.87–0.91).
 
 **The breaking displacement.** Copying halves when the induction heads' keys have moved (largest of
 the four; interpolated between marks):
@@ -1003,34 +1164,35 @@ Pythia sizes all lose half their copying after about the same number of steps �
 gone, yet 79% of its circuit is still in place; every matrix has moved 31–88%, and the joints into the
 keys and out of the MLP break first (wire counts, grokked → step 160; matrices drawn as in Figure 1).
 (b) Pythia-160m after 50 steps of anti-induction: copying is gone while the wiring from the
-previous-token heads into the induction heads' keys is unchanged, and the loss is spread over many
-parts — by kind of matrix (red bars; keys 34%, MLP outputs 23%, values 18%) and by layer, centred on
-the induction heads' layer 4 (25%), with the top layer at 0.4% and no single part above 6.2%. Shares
-are of the measured rise in copy loss (§7.4, fine-tuning seed 0). Spectra in (b) are drawn
-schematically: under 0.3% displacement, Weyl lets them move by at most that much. The axis below puts
-both regimes on one scale of displacement. *Drawn version: `docs/figures/regimes_figure_paper.html`.*
+previous-token heads into the induction heads' keys is unchanged (at this displacement it could not move,
+§7.2), and the loss is spread over many parts — by kind of matrix (red bars; keys 34%, MLP outputs 23%,
+values 18%) and by layer, centred on the induction heads' layer 4 (25%), with the top layer at 0.4% and
+no single part above 6.2%. Shares are of the measured rise in copy loss (§7.4, fine-tuning seed 0).
+Spectra in (b) are drawn schematically: under 0.3% displacement, Weyl lets them move by at most that
+much. The axis below puts both regimes on one scale of displacement. *Drawn version:
+`docs/figures/regimes_figure_paper.html`.*
 
 | | toy, one block (rewiring) | Pythia and Qwen (distributed drift) |
 |---|---|---|
-| building | output-layer circuit at 7.96× random at 14% accuracy | wiring significant at step 512 with copying zero (5 pretraining seeds at 160m; 1.4b, 2.8b; marginal at 410m); in OLMo the wiring's onset at step 1 000, before copying |
+| building | output-layer circuit at 7.96× random at 14% accuracy | wiring significant at step 512 with copying zero, while the previous-token heads are forming (5 pretraining seeds at 160m; 1.4b, 2.8b; marginal at 410m); in OLMo the wiring and copying begin together, at step 1 000 |
 | displacement when the behaviour is gone | 31–88% per matrix (14–57% when it has halved) | under 0.3% per induction head (about 0.05% when it has halved) |
 | displacement at which the skill halves, at every learning rate tried | keys ~60% (1e-3, 1e-4, 1e-5; 2 seeds) | induction heads' keys 0.045–0.079% at 160m (1e-6, 3e-6, 1e-5); one step overshoots at 3e-5 and 1e-4 |
 | behaviour | addition 1.00 → 0.05 by step 160 | copying 0.84 → 0.01 by step 50 (160m); within ~10 steps from 410m to 14B |
-| connections between matrices | strength falls from step 1–2; counts cross at 13–21 | unchanged at every size (z 115.9 at 160m) — Weyl allows little else |
-| circuit present when the behaviour is gone | 79% (Fourier concentration) | wiring 100% |
-| where the loss sits | joints into the keys and out of the MLP | spread, centred on the circuit's layers; per weight keys, values and outputs above their size (five models) |
+| connections between matrices | strength falls from step 1–2; counts cross at 13–21 | unchanged at every size (z 115.9 at 160m) — Weyl allows little else; unchanged too when copy-with-offset puts the same heads to another rule |
+| circuit present when the behaviour is gone | 79% (Fourier concentration) | wiring unchanged, as at these displacements it would be anyway; the skill returns after 50 correct steps |
+| where the loss sits | joints into the keys and out of the MLP | after Adam, spread, centred on the circuit's layers, with no small set of parts holding it; per weight keys, values and outputs above their size (five models); after SGD, half of it in 6–9 parts, mostly attention keys |
 | attention | heads stop separating a from b | induction heads' attention slides to the sink — a symptom |
-| what repairs it | a set: reliably the attention + MLP block (15 of 15) | keys + values + both MLP sides (0.62–0.88); top-ranked parts, far beyond size-matched chance |
-| which new tasks forget | every one tested (each contradicts or competes) | conflicting ones (offset, 13 of 13 runs; anti); not the rule (0 of 13) |
+| what repairs it | a set: reliably the attention + MLP block (15 of 15) | after Adam a large set: keys + values + both MLP sides (0.62–0.88), or the top 80 whole parts, about half the weights (0.17–0.86); the top-ranked 4–8% return a third of the loss at 160m and almost none at 410m and 1.4b; after SGD, 6% of the weights return three-quarters of it |
+| which new tasks forget | every one tested (each contradicts or competes) | fast: conflicting ones, in all five models (offset, 13 of 13 runs; anti-induction, also on ordinary text); not the rule (0 of 13); the same inputs without conflict only slowly, with general text |
 
 **What is common is the anatomy.** In both: structure leads behaviour in building; the behaviour dies
-while most of the circuit is still in place; the attention side that decides where a head looks and
-what it carries — keys and values, not queries — takes more of the loss than its size (in the toy the
-joints into the keys break first; at scale keys carry 1.3–4.3× their share of the weights and values
-1.8–7.1×); and no single part repairs it, while a set does. Grokking and forgetting are two faces of
-the same coin because building needs every connection, while destroying needs only that the circuit's
-output be redirected, which the new task's gradient does most cheaply through what the heads look
-for and carry.
+while most of the circuit is still in place; the attention side that decides where a head looks and what
+it carries — keys and values, not queries — takes more of the loss than its size (in the toy the joints
+into the keys break first; at scale, after Adam, keys carry 1.3–4.3× their share of the weights and
+values 1.8–7.1×); and no single part repairs it — in the toy a set does, and at scale a large one after
+Adam, a small one after SGD. Grokking and forgetting are two faces of the same coin because building
+needs every connection, while destroying needs only that the circuit's output be redirected, which the
+new task's gradient does most cheaply through what the heads look for and carry.
 
 **What differs is how far the weights must move before the skill breaks — and that is mostly a
 property of the model, not of the learning rate.** We crossed the conditions. The toy at learning
@@ -1050,11 +1212,13 @@ Pythia's induction keys, a thousandfold apart — and the rate mostly sets how m
 Not entirely: across the companion's fragility matrix (four skills, Pythia and Qwen, rates 1e-6 /
 3e-6 / 1e-5), slower updates break a skill at a somewhat smaller displacement — by up to 2–3× over a
 tenfold range of rates, while the number of steps changes tenfold — most in Qwen's item skills and
-least in Pythia-160m's copying (0.99–1.09×), the case tested here. Weyl then decides what the weights
-can show: at the toy's displacement every spectral measure can move; at Pythia's none can move much.
-Our earlier proposal, that the rate (displacement per step) sets the regime, is refuted on both sides
-(§9). Size and the other differences between a one-layer toy and a pretrained family are not
-separated by this test.
+least in Pythia-160m's copying (0.99–1.09×), the case tested here. Two cautions: under Adam a step's size
+is set by the learning rate rather than the gradient, so a breaking displacement that ignores the rate is
+partly the optimiser's doing; and we read it on the keys, which time the damage but are not its seat
+(§6.8, §7.3). Weyl then decides what the weights can show: at the toy's displacement every spectral
+measure can move; at Pythia's none can move much. Our earlier proposal, that the rate (displacement per
+step) sets the regime, is refuted on both sides (§9). Size and the other differences between a one-layer
+toy and a pretrained family are not separated by this test.
 
 Within Pythia, at a fixed rate the induction heads move about the same amount per step at every size
 (keys 0.03–0.04% by step 5) while the copying left at step 5 falls from 0.61 to 0.07 from 160m to
@@ -1062,9 +1226,10 @@ Within Pythia, at a fixed rate the induction heads move about the same amount pe
 (0.045–0.055% → 0.019% at 3e-6, §7.7), and at rates scaled like Pythia's own pretraining every size
 breaks after the same ~8–9 steps. This is not a law of size: in Qwen the breaking displacement is
 flat from 0.5B to 7B (0.05–0.07%), close to Pythia-160m's, and lower only at 14B. What sets each
-model's displacement is the subject of the companion eval: a first-order slope from two gradients
-ranks it across 13 models for copying, and in Pythia-160m the end-of-training anneal makes the model
-overconfident and brittle, which OLMo-7B's snapshots do not reproduce.
+model's displacement is the subject of the companion eval: a first-order slope from two gradients ranks
+it across 13 models for copying, and in Pythia-160m the end-of-training anneal makes the model
+overconfident and brittle, which OLMo-7B's snapshots do not reproduce. Rofin et al. (2026) find more
+generally that a more annealed, sharper model forgets more under fine-tuning.
 
 ---
 
@@ -1087,7 +1252,12 @@ overconfident and brittle, which OLMo-7B's snapshots do not reproduce.
 | larger models are more fragile per unit of weight change, roughly as √parameters (an earlier hypothesis, from four Pythia sizes) | Qwen2.5 0.5B / 1.5B / 3B break at the same displacement (0.06 / 0.05 / 0.06%); the trend holds within Pythia |
 | the learning rate (displacement per step) sets which regime a model is in | the crossing test: the toy at 1e-4 / 1e-5 forgets at the same displacement, joints breaking; Pythia at 3e-5 / 1e-4 is destroyed with its wiring unchanged |
 | the induction heads' attention switch as the seat of forgetting | restoring their queries and keys returns 0.014; breaking them leaves 0.799 |
-| restoring random parts does nothing, so the attribution ranking is causal | random parts of any size hold 3–14% of the weights against the top 80's 64%; of the same kinds and sizes they restore 0.17–0.30 at 160m. The ranking survives (§7.5); "random does nothing" does not |
+| restoring random parts does nothing, so the attribution ranking is causal | random parts of any size hold 3–14% of the weights against the top 80's 64%; of the same kinds and sizes they restore 0.17–0.30 at 160m. "Random does nothing" does not survive; the ranking does, against planted damage and against random sets that share no weight with the top set (§7.4–7.5) |
+| returning the top-ranked parts restores copying, so the account locates the loss | the whole-part test's top 80 hold 52–64% of the weights, and at 160m its random sets of the same kinds and sizes share 56% of their weights with them. With MLPs split into neuron groups, fresh probes and twenty random sets sharing no weight, the top-ranked 4–8% of the weights return 32–36% of the copy loss at 160m and 1–3% at 410m and 1.4b (random: at most 4%). Under Adam no small set of parts holds the loss; "it can be located" is withdrawn (§7.5) |
+| the loss is distributed, as a property of forgetting at scale | SGD at the same damage puts half of it in 6–9 of 1 480 parts, mostly attention keys, and 6% of the weights return 74–76% of it: the spread is Adam's (§7.4–7.5) |
+| the wiring does not move, so the circuit stays intact when copying is gone | it cannot move at these displacements: under copy-with-offset, learned to 0.92 / 0.99, it goes from 115.9 to 116.0 (160m) and holds at 186.4 (410m), and it falls only at displacements a hundred times larger; "suppressed, not deleted" rests on behaviour (§7.2) |
+| at scale only a conflicting task forgets at all | the same random-token inputs without a conflicting target take copying to 0.10–0.13 in 100 steps, about five times more slowly than conflict and along with general text: fast forgetting needs conflict (§7.6) |
+| OLMo-7B shows the same onset, wiring before copying | at step 1 000 the strongest induction head already attends 11× above uniform while 3 of 16 pairs are significant: the onsets coincide (§5.2) |
 | keys and MLP outputs carry the forgetting at scale, as in the toy | true at Pythia-160m and 410m only; in 1.4b and Qwen the MLPs lead by total; per weight, keys, values and outputs exceed their size in every model, with values first at 1.4b and in Qwen |
 | a switched-off circuit comes back from ordinary text | wikitext-only retraining leaves copying at 0.026 after 300 steps (§11) |
 | the update's shape as a readout of consolidation in Pythia | random answers give the same shape, and more damage (§7.1) |
@@ -1103,28 +1273,42 @@ partial (§7.2), and the in-context learning score and repeated-passage copying 
 natural-text readings of it.
 
 The attribution is computed at one dose (50 steps at 3e-6) — past the point where copying is gone in
-every model, and in Pythia-410m and 1.4b far enough to hurt general text — on three fine-tuning seeds
-at 160m and one elsewhere; the size-matched random comparison is two draws per N. The anatomy
-(attribution, repair) is at Pythia 160m–1.4b and Qwen2.5 0.5B–1.5B; the larger models (Pythia-2.8b,
-Qwen 3B–14B) have the forgetting curves, the wiring and the breaking displacement only.
+every model, and in Pythia-410m and 1.4b far enough to hurt general text — on three fine-tuning seeds at
+160m and one elsewhere; at 8 and 20 steps it ranks the parts alike (ρ 0.86–0.91, at 160m). The whole-part
+random comparison is two draws per N; the stricter one, with twenty disjoint draws, fifty random subsets
+and fresh probes, is at Pythia 160m–1.4b, not in Qwen. The spread is Adam's: under SGD the same damage
+concentrates (§7.4–7.5), which we test at 160m only, on one fine-tuning seed at two rates. The anatomy
+(attribution, repair) is at Pythia 160m–1.4b and Qwen2.5 0.5B–1.5B; the larger models (Pythia-2.8b, Qwen
+3B–14B) have the forgetting curves, the wiring and the breaking displacement only.
 
-The conflict result rests on five fine-tuning seeds per task at 160m and two at 410m, 1.4b and Qwen
-0.5B and 1.5B; "conflict" is defined by construction, not measured, and the toy cannot test whether
-it is needed (§7.6). Its widening to rules that generalise onto an old skill's prompts was made after
-the companion's results and is untested. The pretraining lead is bounded by the checkpoint spacing
-(no public checkpoint lies between steps 512 and 1 000, and OLMo's nearest are 1 000 and 5 000); at
-410m it is marginal. The crossing test rules out the learning rate as the cause of the two regimes,
-but not size or the other differences between a one-layer toy and a pretrained family (§8); it rests
-on two seeds where the threshold is resolved (toy 1e-4 and 1e-5, Pythia 1e-5) and one elsewhere.
-Joint results in the toy rest on 10 seeds for one pair and 3 for another. Every recovery remedy so far
-retrains on the old task — on its stored data in the toy, on generated random-token copies at scale.
+The conflict result rests on five fine-tuning seeds per task at 160m and two at 410m, 1.4b and Qwen 0.5B
+and 1.5B, in five models, and its controls on two seeds at 160m and one at 410m; "conflict" is defined by
+construction, not measured, and the toy cannot test whether it is needed (§7.6). It holds for small
+displacements and for a skill that is not a safety behaviour; benign fine-tuning can erode safety through
+curvature alone (Springer et al. 2026). Its widening to rules that generalise onto an old skill's prompts
+was made after the companion's results and is untested. The pretraining lead is bounded by the checkpoint
+spacing (no public checkpoint lies between steps 512 and 1 000, and OLMo's nearest are 1 000 and 5 000),
+is read with top-1 accuracy, which can stay at zero while the behaviour is building, is not yet tested
+against every earlier → later head pair, and at 410m is marginal. The crossing test rules out the
+learning rate as the cause of the two regimes, but not size or the other differences between a one-layer
+toy and a pretrained family (§8); it rests on two seeds where the threshold is resolved (toy 1e-4 and
+1e-5, Pythia 1e-5) and one elsewhere. Joint results in the toy rest on 10 seeds for one pair and 3 for
+another. Every recovery remedy so far retrains on the old task — on its stored data in the toy, on
+generated random-token copies at scale.
 
 The Haar null is exact for the rotation it models but loose for trained matrices: Wang (2026) finds 47%
 of GPT-2's head pairs above it at z ≥ 2, and selects edges against an empirical null instead. We use it
 only for head pairs fixed in advance, and read it against two references: the same pairs at step 0,
 where at most one of the 16 is significant (in one of nine runs), and a control path, embedding →
-induction keys, whose z never exceeds 2.3 in Pythia or 3.1 in OLMo at any checkpoint, while the
-wiring's mean z in the final models is 89–364.
+induction keys, whose z is at most 2.3 at every checkpoint of every Pythia run but one (seed 3 at
+160m: 2.5 at step 512 and 3.1 at step 1000) and at most 3.1 in OLMo, while the wiring's mean z in
+the final models is 89–364. Our p-values use a normal approximation to the null's tail.
+
+**Still open.** Four checks need checkpoints not yet downloaded: a continuous measure of the behaviour at
+pretraining steps 0–1 000, where top-1 copying can stay at zero while the behaviour is building; the
+specificity of the step-512 wiring against every earlier → later head pair; empirical rather than
+normal-approximation tails for the Haar null; and the smaller Pythia models (14m, 70m) for the size
+question.
 
 ---
 
@@ -1153,33 +1337,40 @@ probes) the four parts that carry 46–48% of that loss carry 49–52% of multip
 and only the top 32 of 51 parts begin to restore it (0.13–0.29). In Pythia-160m under offset (§7.6),
 rolling back the most costly 13% of parts restores copying (0.879 / 0.863, fine-tuning seeds 0 / 1)
 and removes the new task (0.030 / 0.028) — a switch, not coexistence (13% by count; §7.5 shows why a
-size-matched comparison matters, and none was run here). Coexistence of conflicting skills needs
-separate room: duplicating the contested parts, routing by a cue, or keeping the new task's gradient
-away from the old skill's attributed parts. The bar: keep the old skill while the new one is learned
-in about the time it takes alone.
+comparison with random parts that share no weight with them matters, and none was run here). Coexistence
+of conflicting skills needs separate room: duplicating the contested parts, routing by a cue, or keeping
+the new task's gradient away from the old skill's attributed parts. The bar: keep the old skill while the
+new one is learned in about the time it takes alone.
 
-**Where to act.** The account says where: the parts it ranks first — per weight, keys, values and
-attention outputs — at the circuit's own layers, as a set; the top 80 restore 2–6× what size-matched
-chance does at 160m, and 0.17–0.86 against at most 0.008 in the larger models (§7.5).
+**Where to act.** The account says where the loss sits — per weight, keys, values and attention outputs,
+at the circuit's own layers — but after an Adam update repair cannot target a few parts: even the
+top-ranked 4–8% of the weights return little of the loss, and copying comes back when about half the
+weights, chosen by the account, are returned (§7.5). After SGD, 6% of the weights return three-quarters
+of it: how a model is updated decides where its forgetting sits. Correct training steps return the skill
+quickly (50 steps, above) — the mark of suppression rather than deletion.
 
 ---
 
 ## 12. Conclusion
 
-A capability in a transformer is built ahead of its behaviour and lost fast, and the weights record
-both — in two different ways. In building, the circuit's wiring is in place before the behaviour
-appears: in a grokking toy, and in pretraining at every Pythia size and pretraining seed we measured
-(marginally at 410m), with OLMo showing the same onset. In forgetting, the behaviour goes first. In a small network the new
-task rewires the circuit, and the connections between its matrices show the break as it happens. In
-a large one the update is a thousandth the size, Weyl's inequality leaves every spectral measure
-almost still, and the loss is spread thinly over many parts — which an exact account over the weights
-locates, and a size-matched restore confirms, in five models of two families. At scale, fast
-forgetting needed conflict: a new task that contradicts the old one on its own inputs destroyed it in
-every run, while one that does not left it intact, and harmless general text eroded it only slowly;
-the skill also largely survives on natural text, which the update never trained on. Everything here is
-read from the weights and from random-token probes, with no stored data. It says where to act — the
-parts the account ranks first, at the circuit's own layers, as a set — and leaves open how to make
-room for a conflicting skill without losing the old one.
+A capability in a transformer is built ahead of its behaviour and lost fast, and the weights record both
+— in two different ways. In building, the circuit's wiring is in place before the behaviour appears: in a
+grokking toy, and in pretraining at every Pythia size and pretraining seed we measured (marginally at
+410m), ahead of the induction heads and copying though not of the previous-token heads; in OLMo-7B,
+sampled more sparsely, the wiring and copying begin together. In forgetting, the behaviour goes first. In
+a small network the new task rewires the circuit, and the connections between its matrices show the break
+as it happens. In a large one the update is a thousandth the size, Weyl's inequality leaves every
+spectral measure almost still, and under Adam the loss is spread thinly over many parts — too thinly for
+any small set of them, however well ranked, to bring the skill back — while under SGD it sits in a few
+attention keys; correct training steps bring the skill back. An exact account over the weights, which
+finds damage planted in a single part, reads the loss in five models of two families. At scale, fast
+forgetting needed a target that contradicts the skill: a new task that does so destroyed it in every run,
+in all five models, and conflicting targets on ordinary text did too, while one that does not left it
+intact, and training on the skill's own inputs without a conflicting target wore it down about five times
+more slowly, along with everything else; the skill also largely survives on natural text, which the
+update never trained on. Everything here is read from the weights and from random-token probes, with no
+stored data. It says where the loss sits, and that after an Adam update no small set of parts holds it,
+and leaves open how to make room for a conflicting skill without losing the old one.
 
 ---
 
@@ -1234,7 +1425,11 @@ Kaplan, G., Gekhman, Z., Zhu, Z., et al. (2026). Why fine-tuning encourages hall
 
 Kotha, S., Springer, J. M. and Raghunathan, A. (2024). Understanding catastrophic forgetting in language models via implicit inference. *ICLR 2024*. [arXiv:2309.10105](https://arxiv.org/abs/2309.10105)
 
+Lan, J., Liu, R., Zhou, H. and Yosinski, J. (2019). LCA: loss change allocation for neural network training. *NeurIPS 2019*. [arXiv:1909.01440](https://arxiv.org/abs/1909.01440)
+
 Lee, C., Sohn, J. and Lee, K. (2026). Fine-tuning without forgetting in-context learning: a theoretical analysis of linear attention models. *ICML 2026*, PMLR 306, 65032–65065. [arXiv:2602.23197](https://arxiv.org/abs/2602.23197)
+
+Li, H. (2026). Fingerprint, not blueprint: how positional schemes set the default spectral algebra of attention. [arXiv:2607.06621](https://arxiv.org/abs/2607.06621)
 
 Loshchilov, I. and Hutter, F. (2019). Decoupled weight decay regularization. *ICLR 2019*. [arXiv:1711.05101](https://arxiv.org/abs/1711.05101)
 
@@ -1270,9 +1465,13 @@ Qwen Team (2024). Qwen2.5 technical report. [arXiv:2412.15115](https://arxiv.org
 
 Ramasesh, V. V., Dyer, E. and Raghu, M. (2021). Anatomy of catastrophic forgetting: hidden representations and task semantics. *ICLR 2021*. [arXiv:2007.07400](https://arxiv.org/abs/2007.07400)
 
+Rofin, M., Varre, A. and Flammarion, N. (2026). (How) learning rates regulate catastrophic overtraining. *COLM 2026*. [arXiv:2604.13627](https://arxiv.org/abs/2604.13627)
+
 Shenfeld, I., Pari, J. and Agrawal, P. (2026). RL's razor: why online reinforcement learning forgets less. *ICLR 2026*. [arXiv:2509.04259](https://arxiv.org/abs/2509.04259)
 
 Springer, J. M., Goyal, S., Wen, K., et al. (2025). Overtrained language models are harder to fine-tune. *ICML 2025*, PMLR 267, 56719–56789. [arXiv:2503.19206](https://arxiv.org/abs/2503.19206)
+
+Springer, M., Lee, C. P., Metevier, B., et al. (2026). The geometry of alignment collapse: when fine-tuning breaks safety. [arXiv:2602.15799](https://arxiv.org/abs/2602.15799)
 
 Stewart, G. W. and Sun, J. (1990). *Matrix Perturbation Theory*. Academic Press.
 
@@ -1300,6 +1499,8 @@ Xiao, G., Tian, Y., Chen, B., Han, S. and Lewis, M. (2024). Efficient streaming 
 
 Xu, Y. (2026). The geometry of multi-task grokking: transverse instability, superposition, and weight decay phase structure. [arXiv:2602.18523](https://arxiv.org/abs/2602.18523)
 
+Yang, M., Zhan, Z., Chen, Y., et al. (2026). Collaborative parameter learning: mitigating forgetting via parameter-level gradient analysis. [arXiv:2601.21577](https://arxiv.org/abs/2601.21577)
+
 Yunis, D., Patel, K. K., Wheeler, S., et al. (2024). Approaching deep learning through the spectral dynamics of weights. [arXiv:2408.11804](https://arxiv.org/abs/2408.11804)
 
 Zhang, E., Choshen, L. and Andreas, J. (2024). Unforgettable generalization in language models. *COLM 2024*. [arXiv:2409.02228](https://arxiv.org/abs/2409.02228)
@@ -1324,9 +1525,13 @@ Zheng, J., Cai, X., Qiu, S. and Ma, Q. (2025). Spurious forgetting in continual 
 | §6.8 | — | `part_reset_5000.csv`, `wire_test_s*_5000.csv` | `tools/part_reset.py` |
 | §7.1 | Open (change measure) | `realmodel_dW*.csv` | — |
 | §7.2 | 18 | `pyinduction_anti_*.csv`, `pyinduction_wikitext_3e6.csv`, `pythia*_natural_icl.csv` | `tools/pythia_induction.py`, `tools/natural_icl.py` |
+| §7.2 (wiring under offset; wikitext at 1e-3) | 18; Dead (27 Oct) | `offsetwiring_{160m,410m}_s0.csv`, `regime_push_160m_*.csv` | `tools/pythia_induction.py` (task `offset`); `cambridge/p1_controls.sbatch`, `regime_push.sbatch` |
 | §7.3 | 18 | `pythia160m_head_restore.csv` | — |
 | §7.4–7.5 | 18 | `pythia*_attribution.csv`, `pythia*_kind_restore.csv`, `pyinduction_damage50*.csv` | `tools/pythia_attribution.py`, `pythia_kind_restore.py`, `llama_attribution.py`, `llama_kind_restore.py`, `anatomy_table.py`, `arch.py`; `cambridge/anatomy_scale.sbatch` |
+| §7.4 (planted damage, loss reads, doses, SGD) | 18; Dead (27 Oct) | `plant_*`, `pythia160m*_attribution_{ce_correct,margin}.csv`, `pythia160m_dose{8,20}_attribution.csv`, `sgd_*` (matched damage: `sgd_160m_3e-3_s30.csv`, `sgd_160m_1e-2_s10.csv` and their `_attribution_g16.csv`; the 300-step arms, not comparable: `sgd_160m_{3e-3,1e-2}.csv`) | `tools/pythia_attribution.py` (`--mlp-groups`, `--target`, `--probe-seed`), `tools/pythia_induction.py` (`--train-only`, `--optim sgd`); `cambridge/p1_controls.sbatch` |
+| §7.5 (stricter restore) | 18; Dead (27 Oct) | `pythia*_attribution_g16.csv`, `pythia*_restore_controls.csv`, `sgd_{3e-3_s30,1e-2_s10}_restore_controls.csv` | `tools/restore_controls.py`, `tools/pythia_attribution.py` (`--mlp-groups`); `cambridge/p1_controls.sbatch` |
 | §7.6 | 21 | `pythia{160m,410m,1.4b}_rollback_*.csv`, `qwen{0.5b,1.5b}_conflict_*.csv` | `tools/pythia_rollback.py` (Qwen: `--no-rollback`), `cambridge/conflict_scale.sbatch`; format capture: `docs/PAPER2_DESIGN.md` §9.1 |
+| §7.6 (conflict controls) | 21 | `conflictctl_*.csv`, `conflictctl2_*.csv` | `tools/pythia_induction.py` (tasks `maskcopy` / `maskrand` / `wikianti`, `--anti-frac`); `cambridge/p1_controls.sbatch`, `maskctl.sbatch` |
 | §7.7 | 22 | `pyinduction_{410m,1.4b,2.8b}_*.csv`, `qwinduction_*.csv` | `tools/pythia_induction.py` |
 | §8 | 20 | `pyinduction_anti_{1e-5,3e-5,1e-4}_fine*.csv` | `runs/regime_test.sh` |
 | §11 | 16, 21 | `toy_rollback_s*.csv`, `pythia160m_rollback_offset*.csv` | `tools/pythia_rollback.py` |

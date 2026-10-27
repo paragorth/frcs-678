@@ -29,6 +29,13 @@ def main():
     ap.add_argument("--damaged", required=True)
     ap.add_argument("--T", type=int, default=40); ap.add_argument("--n", type=int, default=32)
     ap.add_argument("--K", type=int, default=16, help="midpoint quadrature points on the path")
+    # The review's checks (27 Oct, Paper 1 §7.4): 160m's healthy copy loss is 7.1-7.7 nats at 84% accuracy, a heavy tail of
+    # confidently wrong tokens, so also attribute targets that ignore that tail; and split the MLPs into neuron groups so
+    # concentration can be read per weight and restore controls can be drawn disjoint from the top set.
+    ap.add_argument("--target", choices=["ce", "ce_correct", "margin"], default="ce",
+                    help="ce: copy loss; ce_correct: copy loss on tokens the healthy model gets right; margin: best rival minus correct logit")
+    ap.add_argument("--probe-seed", type=int, default=1234)
+    ap.add_argument("--mlp-groups", type=int, default=0, help="split each MLP's in rows / out columns into this many neuron groups")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     from transformers import AutoModelForCausalLM
@@ -39,11 +46,18 @@ def main():
     th0 = {n: p.detach().clone() for n, p in model.named_parameters()}
     dmg = torch.load(a.damaged, map_location="cpu")
     delta = {n: dmg[n].float() - th0[n] for n in names}
-    seqs = repeated(a.n, a.T, 1000, 20000, torch.Generator().manual_seed(1234))
+    seqs = repeated(a.n, a.T, 1000, 20000, torch.Generator().manual_seed(a.probe_seed))
+    y = seqs[:, a.T:2 * a.T]
+    with torch.no_grad():                                     # the healthy model's correct copies (for ce_correct)
+        right = model(seqs).logits[:, a.T - 1:2 * a.T - 1].argmax(-1) == y
 
     def copy_loss():
         logits = model(seqs).logits[:, a.T - 1:2 * a.T - 1]
-        return F.cross_entropy(logits.reshape(-1, logits.shape[-1]), seqs[:, a.T:2 * a.T].reshape(-1))
+        if a.target == "margin":
+            zy = logits.gather(-1, y.unsqueeze(-1)).squeeze(-1)
+            return (logits.scatter(-1, y.unsqueeze(-1), float("-inf")).max(-1).values - zy).mean()
+        ce = F.cross_entropy(logits.reshape(-1, logits.shape[-1]), y.reshape(-1), reduction="none").view(y.shape)
+        return ce[right].mean() if a.target == "ce_correct" else ce.mean()
 
     attr = {n: torch.zeros_like(th0[n]) for n in names}
     params = dict(model.named_parameters())
@@ -62,7 +76,8 @@ def main():
         for n in names: params[n].copy_(th0[n] + delta[n])
         L1 = float(copy_loss())
     total = sum(float(v.sum()) for v in attr.values())
-    print(f"copy loss healthy {L0:.3f} -> damaged {L1:.3f}; rise {L1 - L0:.3f}; attributed {total:.3f} "
+    print(f"target {a.target}, probes seed {a.probe_seed}: "
+          f"copy loss healthy {L0:.3f} -> damaged {L1:.3f}; rise {L1 - L0:.3f}; attributed {total:.3f} "
           f"(quadrature error {100 * (total - (L1 - L0)) / (L1 - L0):+.1f}%)", flush=True)
 
     rows = []
@@ -81,6 +96,12 @@ def main():
             l = int(n.split(".")[2]); vv = v.view(d, H, hd)
             for h in range(H):
                 add(f"L{l}H{h}.out", "attn_out", l, h, vv[:, h].sum())
+        elif a.mlp_groups and ("mlp.dense_h_to_4h.weight" in n or "mlp.dense_4h_to_h.weight" in n):
+            l = int(n.split(".")[2]); isin = "h_to_4h" in n; G = a.mlp_groups
+            vv = v if isin else v.t()                                         # neuron index first
+            gs = vv.shape[0] // G
+            for g in range(G):
+                add(f"L{l}mlp{g}.{'in' if isin else 'out'}", "mlp_in" if isin else "mlp_out", l, -1, vv[g * gs:(g + 1) * gs].sum())
         else:
             kind = ("mlp_in" if "dense_h_to_4h" in n else "mlp_out" if "dense_4h_to_h" in n else
                     "embed" if "embed_in" in n else "unembed" if ("embed_out" in n or "lm_head" in n) else

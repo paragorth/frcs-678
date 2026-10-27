@@ -76,8 +76,18 @@ def induction_acc(model, seqs, T, perm=None, logits=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="EleutherAI/pythia-160m")
-    ap.add_argument("--task", choices=["anti", "wikitext", "copy"], default="anti",
-                    help="copy = the same random sequences with the CORRECT target: the fingerprint alarm's clean control")
+    ap.add_argument("--task", choices=["anti", "wikitext", "copy", "maskcopy", "maskrand", "wikianti", "offset"], default="anti",
+                    help="copy = the same random sequences with the CORRECT target: the fingerprint alarm's clean control. "
+                         "The review's conflict controls (27 Oct, Paper 1 §7.6): maskcopy = the probe's own inputs with no "
+                         "conflict (second copy masked from the loss; a learnable map of the current token on the first); "
+                         "wikianti = conflict on other inputs (anti-induction on repeated wikitext passages, every token "
+                         "permuted); offset = copy-with-offset, which re-points where the heads look")
+    ap.add_argument("--anti-frac", type=float, default=1.0,
+                    help="anti only: share of second-copy positions given the conflicting target; the rest keep the copy target (a dose)")
+    ap.add_argument("--optim", choices=["adamw", "sgd"], default="adamw", help="sgd (with --momentum): is 'distributed' Adam's doing?")
+    ap.add_argument("--momentum", type=float, default=0.9)
+    ap.add_argument("--train-only", default="",
+                    help="comma-separated parameter-name substrings: train only these (planted damage, the attribution's positive control)")
     ap.add_argument("--T", type=int, default=40)
     ap.add_argument("--steps", type=int, default=1000)
     ap.add_argument("--batch", type=int, default=8)
@@ -119,6 +129,10 @@ def main():
     wk = lambda idx: [{k_: v_.to(dev) for k_, v_ in tok([texts[j] for j in idx[i:i + a.batch]], return_tensors="pt", padding=True, truncation=True, max_length=128).items()}
                       for i in range(0, len(idx), a.batch)]
     ev = wk(list(order[:a.n_eval_texts])); tr = wk(list(order[64:64 + a.batch * 200]))
+    if a.task == "wikianti":       # repeated natural passages; the anti target permutes every token id, not just 1000-20000
+        perm_full = torch.randperm(V, generator=torch.Generator().manual_seed(11)).to(dev)
+        ids = torch.tensor([t for j in order[64:64 + 2000] for t in tok(texts[j])["input_ids"]])
+        wchunks = ids[:len(ids) // a.T * a.T].view(-1, a.T)
 
     model.eval()
     ind, prev = head_scores(model, eval_seqs, a.T)
@@ -153,8 +167,17 @@ def main():
             out = model(eval_seqs, output_attentions=True)     # one forward for both readings
         ind_t, _, sink_t, ent_t, mar_t = head_scores(model, eval_seqs, a.T, gate=True, out=out)
         acc, anti = induction_acc(model, eval_seqs, a.T, perm, logits=out.logits)
+        off = (float((out.logits[:, a.T - 1:2 * a.T - 2].argmax(-1) == eval_seqs[:, a.T + 1:2 * a.T]).float().mean())
+               if a.task == "offset" else None)
+        # maskcopy's learned map (current token -> perm) applied on the SECOND copy: does the new rule fire on the old prompts?
+        mp = (float((out.logits[:, a.T - 1:2 * a.T - 1].argmax(-1) == perm[eval_seqs[:, a.T - 1:2 * a.T - 1]]).float().mean())
+              if a.task in ("maskcopy", "maskrand") else None)
         del out
         r = dict(step=step, induction_acc=acc, anti_acc=anti, wikitext_ppl=perplexity(model, ev), fingerprint_kl=fingerprint_kl())
+        if off is not None:
+            r["offset_acc"] = off
+        if mp is not None:
+            r["map_on_second_copy"] = mp
         sd_now = model.state_dict()
         for l, h in IH:
             r[f"indscore_L{l}H{h}"] = float(ind_t[l, h])
@@ -184,7 +207,15 @@ def main():
               + "  move qk " + " ".join(f"{100*r[f'move_q_L{l}H{h}']:.2f}/{100*r[f'move_k_L{l}H{h}']:.2f}%" for l, h in IH), flush=True)
 
     marks = set(int(x) for x in a.marks.split(","))
-    opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=a.wd)
+    if a.train_only:
+        keep = [s for s in a.train_only.split(",") if s]
+        for n_, p_ in model.named_parameters():
+            p_.requires_grad_(any(s in n_ for s in keep))
+        print("training only:", [n_ for n_, p_ in model.named_parameters() if p_.requires_grad], flush=True)
+    trainable = [p_ for p_ in model.parameters() if p_.requires_grad]
+    opt = (torch.optim.SGD(trainable, lr=a.lr, momentum=a.momentum) if a.optim == "sgd"
+           else torch.optim.AdamW(trainable, lr=a.lr, weight_decay=a.wd))
+    ce = lambda lg, t: F.cross_entropy(lg.reshape(-1, lg.shape[-1]), t.reshape(-1))
     model.train()
     for step in range(a.steps + 1):
         if step in marks:
@@ -194,11 +225,27 @@ def main():
         if a.task == "wikitext":
             b = tr[step % len(tr)]
             loss = model(**b, labels=b["input_ids"]).loss
+        elif a.task == "wikianti":
+            c_ = wchunks[torch.randint(0, wchunks.shape[0], (a.batch,), generator=g_train)].to(dev)
+            x = torch.cat([c_, c_], 1)
+            loss = ce(model(x).logits[:, a.T - 1:2 * a.T - 1], perm_full[x[:, a.T:2 * a.T]])
+        elif a.task == "maskcopy":
+            x = repeated(a.batch, a.T, lo, hi, g_train).to(dev)
+            loss = ce(model(x).logits[:, 0:a.T - 1], perm[x[:, 0:a.T - 1]])      # first copy only: a map of the current token
+        elif a.task == "maskrand":
+            x = repeated(a.batch, a.T, lo, hi, g_train).to(dev)
+            loss = ce(model(x).logits[:, 0:a.T - 1], x[:, 1:a.T])               # first copy only: the true next token, which is random — nothing to learn
+        elif a.task == "offset":
+            x = repeated(a.batch, a.T, lo, hi, g_train).to(dev)
+            loss = ce(model(x).logits[:, a.T - 1:2 * a.T - 2], x[:, a.T + 1:2 * a.T])   # the token two after the earlier occurrence
         else:
             x = repeated(a.batch, a.T, lo, hi, g_train).to(dev)
             logits = model(x).logits[:, a.T - 1:2 * a.T - 1]
-            tgt = x[:, a.T:2 * a.T] if a.task == "copy" else perm[x[:, a.T:2 * a.T]]
-            loss = F.cross_entropy(logits.reshape(-1, logits.shape[-1]), tgt.reshape(-1))
+            x2 = x[:, a.T:2 * a.T]
+            tgt = x2 if a.task == "copy" else perm[x2]
+            if a.task == "anti" and a.anti_frac < 1.0:
+                tgt = torch.where((torch.rand(x2.shape, generator=g_train) >= a.anti_frac).to(dev), x2, tgt)
+            loss = ce(logits, tgt)
         opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); opt.step()
 
     if a.save_damaged:

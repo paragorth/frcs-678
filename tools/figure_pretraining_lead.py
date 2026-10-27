@@ -1,4 +1,5 @@
-"""Paper 1, Figure 3 (25 Oct): the induction wiring starts before copying, at every Pythia size and in OLMo.
+"""Paper 1, Figure 3 (25 Oct; title corrected 27 Oct): the induction wiring starts before copying at every Pythia size;
+in OLMo, sampled more sparsely, the two start together.
 
 Per panel (Pythia-160m with its five pretraining seeds, 410m, 1.4b, 2.8b, OLMo-7B-0724): copying accuracy and
 the share of the 16 previous-token -> induction-key pairs whose K-composition is significant (exact Haar
@@ -66,7 +67,7 @@ def main():
                      arrowprops=dict(arrowstyle="-", color=INK2, lw=0.8))
     fig.legend(*axes[0].get_legend_handles_labels(), loc="lower center", ncol=2, frameon=False,
                bbox_to_anchor=(0.5, -0.02), labelcolor=INK)
-    fig.suptitle("The induction wiring starts before copying, at every Pythia size and in OLMo",
+    fig.suptitle("The induction wiring starts before copying at every Pythia size; in OLMo, sampled more sparsely, they start together",
                  x=0.05, ha="left", color=INK, fontsize=11.5)
     fig.tight_layout(rect=(0, 0.07, 1, 0.95))
     os.makedirs("docs/figures", exist_ok=True)
