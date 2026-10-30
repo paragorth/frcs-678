@@ -22,6 +22,11 @@ edited.
 | `analyse_cells.py` | The registered analysis of the four cells: drive-over rates, checker, tests T1 to T4 |
 | `describe_cells.py` | Descriptive numbers written after the registered results: animals against hay, chosen against forced drive-overs, what going round cost, housekeeping, Muse's messages |
 | `cells.sbatch` | The CSD3 job for the four cells (runs the analysis and the key check too) |
+| `draw_templates.py` | Draws the structure test's 150 templates (logged hay-bale prompts) from the four cells' neutral logs |
+| `structure_templates.json` | Those 150 templates, with the neutral briefing and Muse's in-game answers |
+| `run_structure.py` | Runs the structure test: the templates with "a hay bale" replaced by 14 labels, at minimal and xhigh |
+| `analyse_structure.py` | The structure test's registered analysis: replay check, wording gap, tests S1 to S4 |
+| `structure.sbatch` | The CSD3 job for the structure test (runs the analysis and the key check too) |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -35,6 +40,10 @@ $V/bin/python -I -B run_trial.py --src $SRC --mode mock --policy muse-like --eff
 sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V trial.sbatch
 sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V cells.sbatch
 $V/bin/python -I -B describe_cells.py --src $SRC --log-dir out/cells-39672076 --out out/cells-39672076/describe.json
+$V/bin/python -I -B draw_templates.py --src $SRC --log-dir out/cells-39672076 --out structure_templates.json
+$V/bin/python -I -B run_structure.py --src $SRC --mode mock --policy planted --every 5 --templates structure_templates.json --log-dir out/structure-mock-planted
+$V/bin/python -I -B run_structure.py --src $SRC --mode fake --every 10 --templates structure_templates.json --log-dir out/structure-fake
+sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V structure.sbatch
 ```
 
 On the laptop, from the repository root:
