@@ -37,8 +37,8 @@ and predicts the damage it will do, which held in all four test sets.
 fine-tuning, in a few steps and without the usual checks noticing. Anyone releasing a model that others can
 fine-tune, and anyone deploying a model that keeps learning, needs to know how fragile each behaviour is.
 This evaluation gives them a number for it, and the canary gives them a warning in time. The same idea
-now runs in Litmus, a clinical safety system for NHS trusts, as a monitor that notices when the AI behind
-an approved clinical tool silently changes.
+is being built into Litmus, a clinical safety system for NHS trusts, as a monitor that notices when the AI
+behind an approved clinical tool silently changes (a prototype, in testing).
 
 **Limits.** The skills tested are a small panel; whether damage can be forecast before any training at all
 is still open; and the fragility rating ranked unseen models only partly well. Details, and every
