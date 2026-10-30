@@ -1,0 +1,16 @@
+host ws-s-42  job 39723422  2026-10-30T19:24:42Z
+openrouter.ai: HTTP 200
+{
+ "calls": 48,
+ "worst_case_all_usd": 9.51,
+ "worst_case_per_call": {
+  "gemini-3.8-flash": 0.051,
+  "grok-4.7": 0.186,
+  "gemini-3.1-pro-preview": 0.185,
+  "gemini-4-argon": 0.37
+ }
+}
+{"spent": 0.3176, "wall_s": 247.9}
+probe exit 0  2026-10-30T19:28:51Z
+searched 1 files; files containing GEMINI_API_KEY: 0 []
+searched 1 files; files containing XAI_API_KEY: 0 []

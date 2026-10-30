@@ -1,0 +1,6 @@
+host ws-s-41  job 39723564  2026-10-30T19:26:44Z
+openrouter.ai: HTTP 200
+srun: Job step aborted: Waiting up to 122 seconds for job step to finish.
+[2026-10-30T19:26:49.523] error: *** STEP 39723564.0 ON ws-s-41 CANCELLED AT 2026-10-30T19:26:49 DUE to SIGNAL Terminated ***
+srun: error: ws-s-41: task 0: Terminated
+[2026-10-30T19:26:49.529] error: *** JOB 39723564 ON ws-s-41 CANCELLED AT 2026-10-30T19:26:49 DUE to SIGNAL Terminated ***

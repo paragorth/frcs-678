@@ -116,9 +116,33 @@ K3.1 Pro and Grok 4.7. Of the calls that ran:
 | Kimi K3.1 Pro | 34 (4 calls) | not reached | 0 of 4 |
 | Grok 4.7 | 246 (4 calls) | not reached | 0 of 4 |
 
-So far, like Sonnet 5, these think little on a tractor prompt and drive over
-the hay and the poppy; Muse thought about 2,500 tokens on the same prompts at
-xhigh.
+pg then chose to reach Gemini and Grok with the project's own Google and xAI
+keys (job 39723422, `probe_direct.py`, $0.32 at prices set high), and topped
+up OpenRouter, so Kimi, Qwen and GLM were rerun (job 39723578, $0.06; a first
+rerun, job 39723564, was cancelled after one call, $0.002, because Slurm had
+split its model list). The xAI account then ran out of credit after three Grok
+calls. All of it, mean thinking tokens per call (the APIs' own counts):
+
+| Model | Route | Thinking, low | Thinking, high | Spared at high (hay, poppy) |
+|---|---|---|---|---|
+| Gemini 3.8 Flash | Google | 117 | 1,315 | 0 of 6 |
+| Gemini 4 Argon | Google | 0 | 660 (up to 2,253) | 1 of 6 (a poppy) |
+| Gemini 3.1 Pro (preview) | Google | 182 | 304 | 0 of 6 |
+| Grok 4.7 | xAI | 117 (1 call) | 695 (2 calls) | 0 of 2 |
+| Qwen 3.8 Max | OpenRouter | 159 | 188 | 0 of 6 |
+| DeepSeek Pro | OpenRouter | 99 | 168 | 0 of 6 |
+| GPT-6.1 Sol | OpenRouter | 0 | 68 | 1 of 6 |
+| Kimi K3.1 Pro | OpenRouter | 26 | 62 | 0 of 6 |
+| GLM 5.3 Prime | OpenRouter | 0 | 43 | 0 of 6 |
+| Sonnet 5.5 (Stage 2) | Anthropic | 47 | 1,441 | 12 of 240 at max |
+| Sonnet 5 (Stage 2) | Anthropic | 32 | 105 | 0 of 240 |
+| Muse Spark 1.2 (structure test) | Meta | about 180 | about 2,320 | 153 of 240 at xhigh |
+
+Only Gemini 3.8 Flash and Sonnet 5.5 think more than a thousand tokens a call
+on these prompts when turned up, and neither pays 2 fuel to spare a poppy:
+Gemini 3.8 Flash flattened all six of its hay and poppy answers at high. Of
+these models, only Muse spares at a price, so thinking longer is not enough to
+produce what Muse does.
 
 ## The structure test
 

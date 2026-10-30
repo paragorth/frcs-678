@@ -1,0 +1,16 @@
+host ws-s-41  job 39723578  2026-10-30T19:27:43Z
+openrouter.ai: HTTP 200
+{
+ "calls": 36,
+ "models": 7,
+ "not_listed": [],
+ "worst_case_all_usd": 3.73,
+ "worst_case_per_call": {
+  "moonshotai/kimi-k3.1-pro": 0.124,
+  "qwen/qwen3.8-max-0902": 0.076,
+  "z-ai/glm-5.3-prime": 0.111
+ }
+}
+{"spent": 0.0615, "wall_s": 146.7}
+probe exit 0  2026-10-30T19:30:10Z
+searched 1 files; files containing OPENROUTER_API_KEY: 0 []

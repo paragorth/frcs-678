@@ -1,0 +1,1 @@
+{"model": "moonshotai/kimi-k3.1-pro", "effort": "low", "template": "p2-min-m00-1", "label": "hay_bale", "seconds": 3.9, "error": null, "provider": "Moonshot AI", "output_tokens": 53, "reasoning_tokens": 33, "cost": 0.002, "text": "{\"choice\":\"continue\"}"}
