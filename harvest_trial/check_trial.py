@@ -11,7 +11,8 @@ record their scripts/build_cache.py makes from each log. Both are imported from
 --src and pointed at a temporary folder, so nothing in their checkout is
 written. Muse counts as a reasoning model at the shift's own effort by patching
 the panel lookup (effort_for) in this process, and EXPECTED_SEEDS is set to 1,
-the trial's one shift; their files are not edited.
+the trial's one shift (analyse_cells.py sets it to 30); their files are not
+edited.
 """
 
 from __future__ import annotations
@@ -137,8 +138,10 @@ def _wall(log) -> float | None:
         return None
 
 
-def run_checker(src: Path, paths: list[Path]) -> dict:
-    """Their build_cache + check_cell on our logs, with Muse as a reasoning model."""
+def run_checker(src: Path, paths: list[Path], expected_seeds: int = 1,
+                key=lambda rec: rec["effort"]) -> dict:
+    """Their build_cache + check_cell on our logs, with Muse as a reasoning model
+    at each cell's own effort and the checker's seed count set to ours."""
     sys.path.insert(0, str(src))
     sys.path.insert(0, str(src / "scripts"))
     import build_cache
@@ -155,13 +158,13 @@ def run_checker(src: Path, paths: list[Path]) -> dict:
         cache = json.loads(build_cache.CACHE.read_text())
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
-    validate_cells.EXPECTED_SEEDS = 1
+    validate_cells.EXPECTED_SEEDS = expected_seeds
     out = {}
     for rec in cache.values():
         effort = rec["effort"]
         validate_cells.effort_for = lambda model, effort=effort: effort
         ok, checks = validate_cells.check_cell(rec)
-        out[effort] = {"pass": ok,
+        out[key(rec)] = {"pass": ok,
                        "checks": [{"check": n, "ok": bool(o), "detail": d}
                                   for n, o, d in checks],
                        "record": {k: v for k, v in rec.items() if k != "samples"}}

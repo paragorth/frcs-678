@@ -70,11 +70,12 @@ class Ledger:
     """Spend per shift, written to a JSON-lines file as each call returns."""
 
     def __init__(self, budgets: dict[str, float], path: Path,
-                 total: float = TOTAL_LIMIT,
+                 total: float = TOTAL_LIMIT, ceiling: float = TOTAL_LIMIT,
                  stop_after_s: float | None = None) -> None:
-        if not RESERVE < total <= TOTAL_LIMIT:
+        """ceiling is the most pg approved for the run; the pot may not pass it."""
+        if not RESERVE < total <= ceiling:
             raise ValueError(f"pot ${total:.2f} must be above one reply's "
-                             f"reserve and at most ${TOTAL_LIMIT:.2f}")
+                             f"reserve and at most ${ceiling:.2f}")
         self.total = total
         self.budgets = dict(budgets)
         self.spent = {k: 0.0 for k in budgets}

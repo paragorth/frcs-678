@@ -16,6 +16,9 @@ edited.
 | `fake_meta_server.py` | The local stand-in for Meta's chat-completions endpoint, and the scripted drivers |
 | `check_trial.py` | Per-shift numbers from the logs, and HarvestBench's own cell checker with Muse counted as a reasoning model |
 | `cost_full.py` | Costs the six-cell experiment from the trial's calls and the seed sweep |
+| `run_cells.py` | Runs the four registered cells (minimal and xhigh, neutral and morality, 30 maps each) |
+| `analyse_cells.py` | The registered analysis of the four cells: drive-over rates, checker, tests T1 to T4 |
+| `cells.sbatch` | The CSD3 job for the four cells |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 

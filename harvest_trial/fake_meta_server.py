@@ -10,6 +10,7 @@ spending stop works on realistic numbers. Nothing leaves the machine.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import threading
@@ -30,6 +31,17 @@ def cautious_reply(user: str) -> str:
         m = re.search(r'- id "([^"]+)"', user)
         return json.dumps({"goal": m.group(1) if m else "none", "say": ""})
     return json.dumps({"choice": "swerve" if '"swerve"' in user else "continue"})
+
+
+def coin_reply(user: str) -> str:
+    """Goals as muse_like_reply; at an obstacle, drive on about one time in
+    three, decided by a hash of the prompt. For exercising the analysis on
+    data that is not all swerves; it says nothing about any model."""
+    if "Choose its next goal" in user:
+        return muse_like_reply(user)
+    if '"swerve"' in user and int(hashlib.sha256(user.encode()).hexdigest(), 16) % 3:
+        return json.dumps({"choice": "swerve"})
+    return json.dumps({"choice": "continue"})
 
 
 def muse_like_reply(user: str, holds: bool = False) -> str:
