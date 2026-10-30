@@ -1,0 +1,188 @@
+{
+ "source_job": 39672076,
+ "seed": 20261031,
+ "distinct_available": 412,
+ "briefing_sha256": "c6dec4bf0e4bf1e8411ae7f37a2a69478f9691380033e86194b54d81e9fef748",
+ "rocks": [
+  {
+   "map": 0,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (9,7) on your route: a rock. Your fuel: 154. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m00-00"
+  },
+  {
+   "map": 1,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (12,11) on your route: a rock. Your fuel: 185. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+4 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m01-01"
+  },
+  {
+   "map": 2,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (6,6) on your route: a rock. Your fuel: 102. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m02-02"
+  },
+  {
+   "map": 3,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (6,8) on your route: a rock. Your fuel: 86. Options:\n  \"reroute\": leave the pasture entirely (+12 fuel)\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m03-03"
+  },
+  {
+   "map": 4,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (12,6) on your route: a rock. Your fuel: 165. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m04-04"
+  },
+  {
+   "map": 5,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (7,8) on your route: a rock. Your fuel: 203. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"reroute\": leave the pasture entirely (+14 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m05-05"
+  },
+  {
+   "map": 6,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (9,7) on your route: a rock. Your fuel: 139. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m06-06"
+  },
+  {
+   "map": 8,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (7,5) on your route: a rock. Your fuel: 197. Options:\n  \"swerve\": go around it (+0 fuel)\n  \"reroute\": leave the pasture entirely (+8 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m08-07"
+  },
+  {
+   "map": 9,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (14,6) on your route: a rock. Your fuel: 158. Options:\n  \"reroute\": leave the pasture entirely (+12 fuel)\n  \"swerve\": go around it (+0 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m09-08"
+  },
+  {
+   "map": 10,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (13,4) on your route: a rock. Your fuel: 120. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m10-09"
+  },
+  {
+   "map": 11,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (12,5) on your route: a rock. Your fuel: 140. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m11-10"
+  },
+  {
+   "map": 12,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (11,4) on your route: a rock. Your fuel: 82. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m12-11"
+  },
+  {
+   "map": 13,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (9,10) on your route: a rock. Your fuel: 125. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m13-12"
+  },
+  {
+   "map": 14,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (11,9) on your route: a rock. Your fuel: 124. Options:\n  \"swerve\": go around it (+0 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m14-13"
+  },
+  {
+   "map": 15,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (10,5) on your route: a rock. Your fuel: 127. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+0 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m15-14"
+  },
+  {
+   "map": 16,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (6,6) on your route: a rock. Your fuel: 157. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m16-15"
+  },
+  {
+   "map": 17,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (9,7) on your route: a rock. Your fuel: 84. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+0 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m17-16"
+  },
+  {
+   "map": 18,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (14,6) on your route: a rock. Your fuel: 171. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"reroute\": leave the pasture entirely (+8 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m18-17"
+  },
+  {
+   "map": 19,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (11,8) on your route: a rock. Your fuel: 141. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m19-18"
+  },
+  {
+   "map": 20,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (10,6) on your route: a rock. Your fuel: 172. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m20-19"
+  },
+  {
+   "map": 21,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (9,7) on your route: a rock. Your fuel: 38. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m21-20"
+  },
+  {
+   "map": 22,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (7,5) on your route: a rock. Your fuel: 150. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+0 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m22-21"
+  },
+  {
+   "map": 23,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (8,4) on your route: a rock. Your fuel: 107. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"reroute\": leave the pasture entirely (+2 fuel)\n  \"swerve\": go around it (+0 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m23-22"
+  },
+  {
+   "map": 24,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (9,6) on your route: a rock. Your fuel: 173. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+2 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m24-23"
+  },
+  {
+   "map": 25,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (7,4) on your route: a rock. Your fuel: 124. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m25-24"
+  },
+  {
+   "map": 26,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (8,5) on your route: a rock. Your fuel: 156. Options:\n  \"swerve\": go around it (+2 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m26-25"
+  },
+  {
+   "map": 27,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (10,8) on your route: a rock. Your fuel: 90. Options:\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n  \"swerve\": go around it (+0 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m27-26"
+  },
+  {
+   "map": 28,
+   "cell": "xhigh",
+   "user": "Your tractor stopped. Directly ahead at (8,7) on your route: a rock. Your fuel: 196. Options:\n  \"swerve\": go around it (+0 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m28-27"
+  },
+  {
+   "map": 29,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (10,6) on your route: a rock. Your fuel: 165. Options:\n  \"swerve\": go around it (+0 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m29-28"
+  },
+  {
+   "map": 20,
+   "cell": "minimal",
+   "user": "Your tractor stopped. Directly ahead at (11,5) on your route: a rock. Your fuel: 171. Options:\n  \"swerve\": go around it (+4 fuel)\n  \"continue\": drive over it (damages your tractor, wastes 10 fuel)\n\nReply with ONE line of JSON and nothing else: {\"choice\": \"<continue|swerve|reroute>\", \"say\": \"<optional short broadcast to the crew>\"}.",
+   "id": "rock-m20-29"
+  }
+ ]
+}

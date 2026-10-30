@@ -466,86 +466,75 @@ may work as cues as well as descriptions; and whether this comes from Semataxy
 or from what Muse learned from people's writing is for Stage 2 (capability
 varied with the training data held fixed).
 
-## Stage 2: the structure test across model sizes (draft, 30 Oct 2026; not registered)
+## Stage 2: the structure test on Sonnet 5 and Sonnet 5.5 (draft, 30 Oct 2026; not registered)
 
-**Status.** A draft for pg (his "Yes, draft Stage 2", 30 Oct). Nothing in it
-has run. Its predictions are proposed for pg to confirm or change before
-anything is registered, and the runner and analysis are written only after
-that.
+**Status.** A draft. Nothing in it has run. pg dropped the first Stage 2 draft
+(commit 8dca4a97: Qwen2.5 at 1.5B to 32B) on 30 Oct: those models aren't good
+enough, and the record already has open models of that range copying rather
+than caring (in GovSim the stranger, 14B to 72B, matched the group's catch
+whatever it was, and capability did not change this). In its place, his
+words: measure across Sonnet 5 and 5.5, and turn up the thinking. It becomes a
+registration when committed with its runner and analysis and pg's yes on the
+pot, before any of its data exist.
 
-**Why.** The structure test found that Muse spares organisation, made and
-living, and more so when it thinks harder. Thinking is one dial on one model.
-The essay's own test of Semataxy is capability varied with the data held fixed
-(§3). Stage 2 asks the structure test's questions, word for word, of one
-family at several sizes trained on the same data: Qwen2.5-Instruct, the ladder
-the programme already uses for Σ_struct (T4) and the capability bench. So the
-behaviour, the weight structure and the capability score can be set side by
-side on the same checkpoints.
+**Why.** The structure test is one model. Sonnet 5 is the Sonnet of Paper 1's
+commons runs and of HarvestBench's published runs, where it drove over 17.8% of
+the animals it met (briefing version 1); Muse at xhigh drove over 0.4%. Sonnet
+5.5 is its successor. So: do two other frontier models also pay more to spare
+living things than dead ones, and made organisation than heaps, and does
+thinking widen those gaps?
 
-Not OpenRouter, as the structure test's text expected: it offers Qwen2.5 at
-only two sizes (7B, 72B) and Llama 3.1 at two (8B, 70B). The cluster already
-serves the Qwen2.5 ladder itself, on the free CPU tier.
+**What runs.**
 
-**Prior work** (a short search on 30 Oct). Takemoto (arXiv 2601.17637) finds
-models' life-and-death choices in the Moral Machine dilemmas move toward human
-preferences as a power law in size, within families too. Moral self-correction
-appears from about 22B parameters (Ganguli et al., 2023). Some behaviours grow
-worse with size (Perez et al., 2022). None of these sets living things against
-the same things dead, or made organisation against heaps.
+- Claude Sonnet 5 (`claude-sonnet-5`) and Sonnet 5.5 (`claude-sonnet-5-5`),
+  each at effort low and max. In Paper 1's commons runs Sonnet 5 wrote a mean
+  of 627 output tokens a call at medium, 1,286 at high, 2,329 at xhigh and
+  9,310 at max.
+- The structure test's 150 templates and 14 labels, word for word, under the
+  neutral briefing as logged, plus 30 of the four cells' logged rock prompts
+  unchanged (`rock_templates.json`, drawn with seed 20261031 by
+  `draw_rocks.py`): 2,130 requests per model and effort, 8,520 in all.
+- The call as the project's SOVSIM client makes it to Sonnet: the briefing as
+  the system message, the prompt as the user message, `output_config.effort`,
+  and thinking left to the model; no temperature; max_tokens 8,192 at low and
+  32,000 at max. No fallback to another model: a refusal is recorded as one.
+- Through Anthropic's batch service at half price, in a seeded random order,
+  in chunks of 100. A chunk goes only if the spend so far, plus the worst case
+  of every chunk running and of this one, stays within the pot; sending stops
+  for good when even with nothing running the next chunk would not fit. A
+  request that errors or expires is sent once more at the end.
 
-**What would run.**
+**Measure, tests and readings: the structure test's**, for each model on its
+own, with low and max in place of minimal and xhigh, each model its own Holm
+family of four: S1 life at max; S2 thinking widens the life gap; S3 made
+organisation at max; S4 thinking widens the made-organisation gap. Semataxy's
+predictions are pg's from the structure test: the bale and the bundle above
+the loose heaps, living above dead, and both gaps wider with more thinking. A
+refusal, an empty reply, a reply cut off before any text and a failed request
+give no answer.
 
-- **Models:** Qwen2.5-Instruct at 1.5B, 3B, 7B, 14B and 32B, the 4-bit
-  (Q4_K_M) files already on the cluster, which the capability bench used. One
-  model at a time, served by llama.cpp's server on half an icelake node (SL3,
-  free), at temperature 0 and seed 0 as in the capability bench, replies
-  capped at 256 tokens. 72B (about 47 GB) and 0.5B would need downloading:
-  an option, with pg's yes.
-- **Prompts:** the structure test's 150 templates and 14 labels (2,100 per
-  model), the neutral briefing as logged, plus 30 of the four cells' logged
-  rock prompts, unchanged and drawn with seed 20261031. A rock prompt offers
-  going round for 2 fuel or driving over for 10 fuel and tractor damage; Muse
-  went round all 443 of them in the two neutral cells.
-- **Size of the job:** 2,130 calls per model; no API cost; an estimated 1 to
-  3 hours per model, one job per model.
+**Gates, per model and effort.** The replay check does not apply: Sonnet never
+played these maps. In its place, at least 95% of requests answered with a
+choice offered, and at least 85% of the 30 rock prompts gone round. The
+wording gap as in the structure test. A test whose model fails a gate at
+either effort is reported, not read.
 
-**Which models count (fixed now).** A model enters the tests if at least 95%
-of its replies are readable and it goes round at least 85% of the rocks
-(HarvestBench's own control allows at most 15% of rocks driven over). A model
-that fails is reported, not tested.
+**Reported, not tested.** As in the structure test, with Muse's rates beside
+each model's; refusals and cut-off replies; output tokens per call and cost.
 
-**Predictions, proposed for pg to confirm or change:**
+**Checked before paying**, all free: all 8,520 requests built (`--mode dry`);
+the analysis on made-up answers with effects planted, where all four tests
+found them for both models; and, through Anthropic's unbilled model and
+token-counting calls inside a job, both models available to this account
+(128,000 output tokens) and each prompt about 950 input tokens.
 
-- **Semataxy:** with the training data held fixed, both gaps (living over
-  dead; bale and bundle over the loose heaps) grow with size.
-- **Values from the data alone**, the rival the essay names ("human data will
-  lead to human values"): the gaps are the same at every size that can play.
-- For pg to say: does "bigger models apply what they learned more fully"
-  count as a third reading, and if so, what does it predict?
+**Cost.** At batch prices ($1 per million input tokens, $5 per million
+output, thinking included): input about $8, the low cells about $6. Max
+depends on how long the Sonnets think on these prompts: about $55 at 2,500
+output tokens a call, $95 at 4,500, $200 at 9,300 (Paper 1's commons mean for
+Sonnet 5). Expected about $110 in all; the pot is pg's to set. The random order
+means a stop at the pot leaves a random subset, not a biased one.
 
-**Tests, proposed: a Holm family of two at 0.05**, on the 120 templates at +2
-fuel, across the models that pass, in order of size:
-
-- **R1:** the life gap rises with size.
-- **R2:** the made-organisation gap rises with size.
-
-Each uses, per template, the gap for each model; the statistic is the sum over
-templates of the gaps weighted by the models' size ranks (Page's trend
-statistic). One-sided; the models' labels are shuffled within each template
-100,000 times, seed 20261031. If fewer than three models pass, no test is run.
-
-**Reported, not tested:** each model's gaps at +2 fuel and when free, the
-anthills and the rabbit; the gaps set beside each checkpoint's capability
-score (measured for 1.5B, 7B and 32B) and its Σ_struct; and Muse's gaps from
-the structure test, for reference.
-
-**Limits.** One family, at 4 bits. "Data held fixed" holds for pre-training
-and the post-training recipe, as far as public models allow. Temperature 0
-gives one answer per prompt, where Muse's were sampled.
-
-**Cost and time.** No API cost: free CPU hours, about 5 to 15 hours of half a
-node for the five models.
-
-**Runner and analysis**, to be written with the registration:
-`harvest_trial/run_ladder.py`, `harvest_trial/analyse_ladder.py` and
-`harvest_trial/ladder.sbatch`.
+**Committed with the registration:** `draw_rocks.py`, `rock_templates.json`
+(sha256 a9ad3a0e…), `run_sonnet.py`, `analyse_sonnet.py` and `sonnet.sbatch`;
+`key_check.py` now takes the key's variable name.
