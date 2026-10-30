@@ -1,19 +1,52 @@
-# Fine-tuning fragility: an eval of how much fine-tuning a model's skills can take
+# Fine-tuning fragility: how much fine-tuning can a model's skills take before they break?
 
-**[Paper 2 of the programme (pg, 25 Oct: "our paper 2 is the eval ... it's 3 part"; was Paper 1.5), in three
-parts — I the rating (how much conflicting fine-tuning each skill takes), II the panel (what standard
-realistic fine-tunes do to each model), III the canary (a short trial of the customer's own fine-tune)
-— closing with future directions for protection and continual learning (§8). H8 and H9 scored 26 Oct
-(§4.12–4.13), H8′, H9′ and H9-M 26 Oct evening; to be restructured into these parts once the seed and
-recipe checks are in.]**
+*Parag Garg. Working paper, October 2026. Every prediction was registered before its data existed; the
+ones that failed are reported alongside the ones that held.*
 
-**[Working title. Draft of 25 October 2026, 08:20 GMT. Version 1: 52 model × skill cells from 14 models in
-six families (Pythia 160m–2.8b; Qwen2.5 0.5B–7B with 7B base; Qwen3-8B; Llama-3.1-8B; Mistral-7B;
-Gemma-2-9B; OLMo-7B). Version 2: 31 task cells from the 8 instruct models. Design and every
-pre-registered prediction with its verdict: `docs/PAPER15_DESIGN.md`. Every number traces to
-`results/live_learning/` via `tools/fragility_analysis.py`.]**
+## In brief
+
+**The objective.** Every AI model is adapted after release by fine-tuning: a company teaches it its
+products, a hospital its letters, a developer its tools. Fine-tuning can quietly break what the model
+already knew. We set out to measure, for each of a model's skills, how much fine-tuning it can take before
+it breaks, the way an engineer measures a material's breaking load before trusting it in a bridge.
+
+**What we did.** For each skill we fine-tuned the model on a conflicting version of it, the same kind of
+question with wrong answers, and watched the skill fall, against a harmless control. We ran it on 14
+models from six families, on toy skills and on real ones (maths, following formatting instructions, tool
+calls and refusals), and through a fine-tuning API on a model too large to hold, 276 billion parameters.
+
+**What we found.**
+- **Skills break fast.** One or two conflicting steps halve most skills. On the real tasks of eight chat
+  models, every skill halved within five steps, and refusals within two.
+- **Nobody would notice.** Perplexity, the health check practitioners rely on, had moved less than 5% when
+  a skill was half gone, in 82 of 83 cases.
+- **Ordinary fine-tuning does it too.** Fine-tuning on maths problems destroyed simple addition in three
+  7 to 9 billion parameter models, and benign fine-tuning removed most of one chat model's refusals.
+- **Broken is not gone.** Twenty correct steps on *other* examples bring most of a broken skill back: it is
+  suppressed, not deleted.
+- **The surprise: a new format can take over an old skill.** After learning to write its answers in a new
+  format, a model applied that format where it did not belong, and that alone accounted for about half the
+  damage to an unrelated skill. Nothing had contradicted the old skill; the shared format did it.
+
+**What failed, and what came out of it.** Our main bet, that one fragility score would forecast the damage
+from real fine-tunes, held for only one skill in four, and two rescue forecasts failed too. Taking those
+failures apart produced what works: a **canary** that watches the first 30 steps of a user's own fine-tune
+and predicts the damage it will do, which held in all four test sets.
+
+**What it means.** If a model's safety behaviour is written by fine-tuning, it can be erased by
+fine-tuning, in a few steps and without the usual checks noticing. Anyone releasing a model that others can
+fine-tune, and anyone deploying a model that keeps learning, needs to know how fragile each behaviour is.
+This evaluation gives them a number for it, and the canary gives them a warning in time. The same idea
+now runs in Litmus, a clinical safety system for NHS trusts, as a monitor that notices when the AI behind
+an approved clinical tool silently changes.
+
+**Limits.** The skills tested are a small panel; whether damage can be forecast before any training at all
+is still open; and the fragility rating ranked unseen models only partly well. Details, and every
+registered prediction with its verdict, follow.
 
 ---
+
+# The full paper
 
 ## Abstract (provisional)
 
