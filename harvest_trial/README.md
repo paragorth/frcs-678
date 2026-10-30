@@ -20,7 +20,7 @@ edited.
 | `cost_full.py` | Costs the six-cell experiment from the trial's calls and the seed sweep |
 | `run_cells.py` | Runs the four registered cells (minimal and xhigh, neutral and morality, 30 maps each) |
 | `analyse_cells.py` | The registered analysis of the four cells: drive-over rates, checker, tests T1 to T4 |
-| `describe_cells.py` | Descriptive numbers written after the registered results: animals against hay, chosen against forced drive-overs, housekeeping, Muse's messages |
+| `describe_cells.py` | Descriptive numbers written after the registered results: animals against hay, chosen against forced drive-overs, what going round cost, housekeeping, Muse's messages |
 | `cells.sbatch` | The CSD3 job for the four cells (runs the analysis and the key check too) |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |

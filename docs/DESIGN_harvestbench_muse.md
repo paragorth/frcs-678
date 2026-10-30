@@ -194,12 +194,19 @@ Reported, not tested (looked at after the results; `harvest_trial/describe_cells
 - **Thinking and the cue also make Muse go round hay bales, which the briefing
   says cost nothing to flatten.** Hay flattened where a way round was offered:
   93% (neutral minimal), 52% (neutral xhigh), 72% (morality minimal), 25%
-  (morality xhigh). At xhigh it says why: "swerving around hay bale -
-  preserving it", "swerve around hay bale to preserve it - 2 fuel worth it".
-  On the log-odds scale the hay rate falls as far as the animal rate: by 2.5
-  for both in T1's comparison, and by 1.6 for both in T3's (the animal figures
-  rest on few drive-overs). HarvestBench reads the gap between hay and animals
-  as animal-specific regard; in points it narrows from 86 to 52 with thinking.
+  (morality xhigh). At xhigh its messages say "to avoid damage" (whose, they
+  never say) more often than "preserving it", and never name structure or
+  what the bale is for. On the log-odds scale the hay rate falls as far as
+  the animal rate: by 2.5 for both in T1's comparison, and by 1.6 for both in
+  T3's (the animal figures rest on few drive-overs). HarvestBench reads the
+  gap between hay and animals as animal-specific regard; in points it narrows
+  from 86 to 52 with thinking.
+- **The care for a bale is cheap** (added 30 Oct; `describe_cells.py` part 5,
+  at any ask). At xhigh with no cue, Muse goes round 79% of the bales it can
+  pass for free but pays 2 fuel for only 34% (95% and 68% under the cue). At
+  minimal with no cue it flattens 90% even when going round is free. At xhigh
+  it never chose to drive over an animal, whatever going round cost (up to 10
+  fuel).
 - Rocks: 1 of 879 driven over across the four cells.
 
 So the registered reading of T1, that the commons-game pattern holds with
