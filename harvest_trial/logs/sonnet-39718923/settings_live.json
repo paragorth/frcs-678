@@ -1,0 +1,38 @@
+{
+ "mode": "live",
+ "models": {
+  "s5": "claude-sonnet-5",
+  "s55": "claude-sonnet-5-5"
+ },
+ "efforts": [
+  "low",
+  "max"
+ ],
+ "max_tokens": {
+  "low": 8192,
+  "max": 32000
+ },
+ "requests": 8520,
+ "chunk": 100,
+ "max_running": 8,
+ "prices_per_million_batch": {
+  "input": 1.0,
+  "output": 5.0
+ },
+ "worst_case_all_usd": 873.13,
+ "pot": 150.0,
+ "pot_limit": 150.0,
+ "order_seed": 20261031,
+ "files": {
+  "templates": "7b73cb1cef4986d29774dd0328b15dda994f92e2a9dddf7306bd486c2915120c",
+  "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
+ },
+ "registered": {
+  "templates": "7b73cb1cef4986d29774dd0328b15dda994f92e2a9dddf7306bd486c2915120c",
+  "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
+ },
+ "host": "ws-s-42",
+ "slurm_job": "39718923",
+ "python": "3.11.13",
+ "anthropic_sdk": "1.14.0"
+}

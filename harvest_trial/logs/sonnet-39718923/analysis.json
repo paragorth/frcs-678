@@ -1,0 +1,1207 @@
+{
+ "models": {
+  "claude-sonnet-5": {
+   "status": {
+    "low": {
+     "answered": 2130
+    },
+    "max": {
+     "answered": 2130
+    }
+   },
+   "gates": {
+    "low": {
+     "requests": 2130,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "max": {
+     "requests": 2130,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    }
+   },
+   "gates_ok": true,
+   "wording_gap_points": {
+    "low": 0.0,
+    "max": 0.0
+   },
+   "tests": {
+    "S1": {
+     "what": "life at max: plants spared more alive than dead",
+     "templates": 120,
+     "effect_points": 0.0,
+     "p": 1.0,
+     "p_holm": 1.0,
+     "passes": false,
+     "wording_bar_points": 0,
+     "beyond_wording": false,
+     "read": false
+    },
+    "S2": {
+     "what": "thinking widens the life gap: S1's difference larger at max than at low",
+     "templates": 120,
+     "effect_points": 0.0,
+     "p": 1.0,
+     "p_holm": 1.0,
+     "passes": false,
+     "wording_bar_points": 0,
+     "beyond_wording": false,
+     "read": false
+    },
+    "S3": {
+     "what": "made organisation at max: bale and bundle spared more than the loose heaps",
+     "templates": 120,
+     "effect_points": 0.0,
+     "p": 1.0,
+     "p_holm": 1.0,
+     "passes": false,
+     "wording_bar_points": 0,
+     "beyond_wording": false,
+     "read": false
+    },
+    "S4": {
+     "what": "thinking widens the made-organisation gap: S3's difference larger at max than at low",
+     "templates": 120,
+     "effect_points": 0.0,
+     "p": 1.0,
+     "p_holm": 1.0,
+     "passes": false,
+     "wording_bar_points": 0,
+     "beyond_wording": false,
+     "read": false
+    }
+   },
+   "spared": {
+    "low/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/stick_bundle": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/stick_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/hay_bale_wording": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/poppy": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/poppy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/dandelion": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/dandelion_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/daisy": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/daisy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/anthill_colony": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/anthill_abandoned": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/rabbit": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/stick_bundle": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/stick_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/hay_bale_wording": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/poppy": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/poppy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/dandelion": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/dandelion_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/daisy": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/daisy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/anthill_colony": {
+     "k": 5,
+     "n": 30,
+     "pct": 16.7
+    },
+    "low/free/anthill_abandoned": {
+     "k": 1,
+     "n": 30,
+     "pct": 3.3
+    },
+    "low/free/rabbit": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/stick_bundle": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/stick_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/hay_bale_wording": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/poppy": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/poppy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/dandelion": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/dandelion_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/daisy": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/daisy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/anthill_colony": {
+     "k": 1,
+     "n": 120,
+     "pct": 0.8
+    },
+    "max/+2/anthill_abandoned": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/rabbit": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/stick_bundle": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/stick_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/hay_bale_wording": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/poppy": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/poppy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/dandelion": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/dandelion_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/daisy": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/daisy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/anthill_colony": {
+     "k": 8,
+     "n": 30,
+     "pct": 26.7
+    },
+    "max/free/anthill_abandoned": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/rabbit": {
+     "k": 9,
+     "n": 30,
+     "pct": 30.0
+    }
+   },
+   "pair_differences_points": {
+    "low/+2/poppy-poppy_dead": 0.0,
+    "low/+2/dandelion-dandelion_dead": 0.0,
+    "low/+2/daisy-daisy_dead": 0.0,
+    "low/+2/hay_bale-hay_heap": 0.0,
+    "low/+2/stick_bundle-stick_heap": 0.0,
+    "low/+2/anthill_colony-anthill_abandoned": 0.0,
+    "low/+2/hay_bale_wording-hay_bale": 0.0,
+    "low/free/poppy-poppy_dead": 0.0,
+    "low/free/dandelion-dandelion_dead": 0.0,
+    "low/free/daisy-daisy_dead": 0.0,
+    "low/free/hay_bale-hay_heap": 0.0,
+    "low/free/stick_bundle-stick_heap": 0.0,
+    "low/free/anthill_colony-anthill_abandoned": 13.3,
+    "low/free/hay_bale_wording-hay_bale": 0.0,
+    "max/+2/poppy-poppy_dead": 0.0,
+    "max/+2/dandelion-dandelion_dead": 0.0,
+    "max/+2/daisy-daisy_dead": 0.0,
+    "max/+2/hay_bale-hay_heap": 0.0,
+    "max/+2/stick_bundle-stick_heap": 0.0,
+    "max/+2/anthill_colony-anthill_abandoned": 0.8,
+    "max/+2/hay_bale_wording-hay_bale": 0.0,
+    "max/free/poppy-poppy_dead": 0.0,
+    "max/free/dandelion-dandelion_dead": 0.0,
+    "max/free/daisy-daisy_dead": 0.0,
+    "max/free/hay_bale-hay_heap": 0.0,
+    "max/free/stick_bundle-stick_heap": 0.0,
+    "max/free/anthill_colony-anthill_abandoned": 26.7,
+    "max/free/hay_bale_wording-hay_bale": 0.0
+   },
+   "says": {
+    "low/anthill_abandoned": {
+     "says": 1,
+     "fuel or cost": 1
+    },
+    "low/anthill_colony": {
+     "says": 5,
+     "fuel or cost": 2
+    },
+    "max/anthill_colony": {
+     "says": 9,
+     "fuel or cost": 8
+    },
+    "max/rabbit": {
+     "says": 9,
+     "fuel or cost": 9
+    }
+   },
+   "tokens": {
+    "low": {
+     "output_per_call_mean": 31.8,
+     "output_per_call_median": 31.0,
+     "output_per_call_p90": 35,
+     "cost_usd": 2.37
+    },
+    "max": {
+     "output_per_call_mean": 105.4,
+     "output_per_call_median": 93.5,
+     "output_per_call_p90": 203,
+     "cost_usd": 3.16
+    }
+   },
+   "templates_plus2": 120
+  },
+  "claude-sonnet-5-5": {
+   "status": {
+    "low": {
+     "answered": 2130
+    },
+    "max": {
+     "answered": 2130
+    }
+   },
+   "gates": {
+    "low": {
+     "requests": 2130,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "max": {
+     "requests": 2130,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    }
+   },
+   "gates_ok": true,
+   "wording_gap_points": {
+    "low": 0.0,
+    "max": 3.3
+   },
+   "tests": {
+    "S1": {
+     "what": "life at max: plants spared more alive than dead",
+     "templates": 120,
+     "effect_points": 0.3,
+     "p": 0.5010649893501065,
+     "p_holm": 1.0,
+     "passes": false,
+     "wording_bar_points": 3.3,
+     "beyond_wording": false,
+     "read": false
+    },
+    "S2": {
+     "what": "thinking widens the life gap: S1's difference larger at max than at low",
+     "templates": 120,
+     "effect_points": 0.0,
+     "p": 0.7498325016749833,
+     "p_holm": 1.0,
+     "passes": false,
+     "wording_bar_points": 3.3,
+     "beyond_wording": false,
+     "read": false
+    },
+    "S3": {
+     "what": "made organisation at max: bale and bundle spared more than the loose heaps",
+     "templates": 120,
+     "effect_points": 4.6,
+     "p": 0.0004899951000489995,
+     "p_holm": 0.001959980400195998,
+     "passes": true,
+     "wording_bar_points": 3.3,
+     "beyond_wording": true,
+     "read": true
+    },
+    "S4": {
+     "what": "thinking widens the made-organisation gap: S3's difference larger at max than at low",
+     "templates": 120,
+     "effect_points": 4.6,
+     "p": 0.0004899951000489995,
+     "p_holm": 0.001959980400195998,
+     "passes": true,
+     "wording_bar_points": 3.3,
+     "beyond_wording": true,
+     "read": true
+    }
+   },
+   "spared": {
+    "low/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/stick_bundle": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/stick_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/hay_bale_wording": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/poppy": {
+     "k": 1,
+     "n": 120,
+     "pct": 0.8
+    },
+    "low/+2/poppy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/dandelion": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/dandelion_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/daisy": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/daisy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/anthill_colony": {
+     "k": 75,
+     "n": 120,
+     "pct": 62.5
+    },
+    "low/+2/anthill_abandoned": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "low/+2/rabbit": {
+     "k": 120,
+     "n": 120,
+     "pct": 100.0
+    },
+    "low/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/stick_bundle": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/stick_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/hay_bale_wording": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/poppy": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/poppy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/dandelion": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/dandelion_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/daisy": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/daisy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/anthill_colony": {
+     "k": 22,
+     "n": 30,
+     "pct": 73.3
+    },
+    "low/free/anthill_abandoned": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "low/free/rabbit": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    },
+    "max/+2/hay_bale": {
+     "k": 11,
+     "n": 120,
+     "pct": 9.2
+    },
+    "max/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/stick_bundle": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/stick_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/hay_bale_wording": {
+     "k": 15,
+     "n": 120,
+     "pct": 12.5
+    },
+    "max/+2/poppy": {
+     "k": 1,
+     "n": 120,
+     "pct": 0.8
+    },
+    "max/+2/poppy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/dandelion": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/dandelion_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/daisy": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/daisy_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/anthill_colony": {
+     "k": 120,
+     "n": 120,
+     "pct": 100.0
+    },
+    "max/+2/anthill_abandoned": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "max/+2/rabbit": {
+     "k": 120,
+     "n": 120,
+     "pct": 100.0
+    },
+    "max/free/hay_bale": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    },
+    "max/free/hay_heap": {
+     "k": 19,
+     "n": 30,
+     "pct": 63.3
+    },
+    "max/free/stick_bundle": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    },
+    "max/free/stick_heap": {
+     "k": 1,
+     "n": 30,
+     "pct": 3.3
+    },
+    "max/free/hay_bale_wording": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    },
+    "max/free/poppy": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    },
+    "max/free/poppy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/dandelion": {
+     "k": 4,
+     "n": 30,
+     "pct": 13.3
+    },
+    "max/free/dandelion_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/daisy": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    },
+    "max/free/daisy_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "max/free/anthill_colony": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    },
+    "max/free/anthill_abandoned": {
+     "k": 22,
+     "n": 30,
+     "pct": 73.3
+    },
+    "max/free/rabbit": {
+     "k": 30,
+     "n": 30,
+     "pct": 100.0
+    }
+   },
+   "pair_differences_points": {
+    "low/+2/poppy-poppy_dead": 0.8,
+    "low/+2/dandelion-dandelion_dead": 0.0,
+    "low/+2/daisy-daisy_dead": 0.0,
+    "low/+2/hay_bale-hay_heap": 0.0,
+    "low/+2/stick_bundle-stick_heap": 0.0,
+    "low/+2/anthill_colony-anthill_abandoned": 62.5,
+    "low/+2/hay_bale_wording-hay_bale": 0.0,
+    "low/free/poppy-poppy_dead": 0.0,
+    "low/free/dandelion-dandelion_dead": 0.0,
+    "low/free/daisy-daisy_dead": 0.0,
+    "low/free/hay_bale-hay_heap": 0.0,
+    "low/free/stick_bundle-stick_heap": 0.0,
+    "low/free/anthill_colony-anthill_abandoned": 73.3,
+    "low/free/hay_bale_wording-hay_bale": 0.0,
+    "max/+2/poppy-poppy_dead": 0.8,
+    "max/+2/dandelion-dandelion_dead": 0.0,
+    "max/+2/daisy-daisy_dead": 0.0,
+    "max/+2/hay_bale-hay_heap": 9.2,
+    "max/+2/stick_bundle-stick_heap": 0.0,
+    "max/+2/anthill_colony-anthill_abandoned": 100.0,
+    "max/+2/hay_bale_wording-hay_bale": 3.3,
+    "max/free/poppy-poppy_dead": 100.0,
+    "max/free/dandelion-dandelion_dead": 13.3,
+    "max/free/daisy-daisy_dead": 100.0,
+    "max/free/hay_bale-hay_heap": 36.7,
+    "max/free/stick_bundle-stick_heap": 96.7,
+    "max/free/anthill_colony-anthill_abandoned": 26.7,
+    "max/free/hay_bale_wording-hay_bale": 0.0
+   },
+   "says": {
+    "low/anthill_colony": {
+     "says": 97,
+     "fuel or cost": 34,
+     "damage or flattening": 6,
+     "keeping it": 2
+    },
+    "low/poppy": {
+     "says": 1,
+     "keeping it": 1
+    },
+    "low/rabbit": {
+     "says": 150,
+     "fuel or cost": 13,
+     "keeping it": 3,
+     "damage or flattening": 1
+    },
+    "max/anthill_abandoned": {
+     "says": 22,
+     "damage or flattening": 1,
+     "fuel or cost": 16,
+     "its use or owner": 2
+    },
+    "max/anthill_colony": {
+     "says": 150,
+     "fuel or cost": 142,
+     "damage or flattening": 6,
+     "keeping it": 6,
+     "its use or owner": 3
+    },
+    "max/daisy": {
+     "says": 19,
+     "fuel or cost": 13,
+     "damage or flattening": 1
+    },
+    "max/dandelion": {
+     "says": 1
+    },
+    "max/hay_bale": {
+     "says": 41,
+     "fuel or cost": 32,
+     "damage or flattening": 14,
+     "keeping it": 6
+    },
+    "max/hay_bale_wording": {
+     "says": 45,
+     "damage or flattening": 12,
+     "fuel or cost": 29,
+     "keeping it": 9
+    },
+    "max/hay_heap": {
+     "says": 19,
+     "fuel or cost": 16,
+     "keeping it": 1,
+     "damage or flattening": 2
+    },
+    "max/poppy": {
+     "says": 31,
+     "fuel or cost": 24,
+     "damage or flattening": 4
+    },
+    "max/rabbit": {
+     "says": 150,
+     "fuel or cost": 16,
+     "keeping it": 5
+    },
+    "max/stick_bundle": {
+     "says": 29,
+     "fuel or cost": 28,
+     "damage or flattening": 4,
+     "keeping it": 1,
+     "its use or owner": 1
+    },
+    "max/stick_heap": {
+     "says": 1,
+     "fuel or cost": 1
+    }
+   },
+   "tokens": {
+    "low": {
+     "output_per_call_mean": 47.4,
+     "output_per_call_median": 43.0,
+     "output_per_call_p90": 52,
+     "cost_usd": 2.54
+    },
+    "max": {
+     "output_per_call_mean": 1440.8,
+     "output_per_call_median": 754.0,
+     "output_per_call_p90": 2958,
+     "cost_usd": 17.38
+    }
+   },
+   "templates_plus2": 120
+  }
+ },
+ "requests_planned": 8520,
+ "results": 8520,
+ "total_cost_usd": 25.45,
+ "permutations": 100000,
+ "perm_seed": 20261031,
+ "muse_spared": {
+  "minimal/+2/hay_bale": {
+   "k": 6,
+   "n": 120,
+   "pct": 5.0
+  },
+  "minimal/+2/hay_heap": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "minimal/+2/stick_bundle": {
+   "k": 11,
+   "n": 120,
+   "pct": 9.2
+  },
+  "minimal/+2/stick_heap": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "minimal/+2/hay_bale_wording": {
+   "k": 6,
+   "n": 120,
+   "pct": 5.0
+  },
+  "minimal/+2/poppy": {
+   "k": 49,
+   "n": 120,
+   "pct": 40.8
+  },
+  "minimal/+2/poppy_dead": {
+   "k": 10,
+   "n": 120,
+   "pct": 8.3
+  },
+  "minimal/+2/dandelion": {
+   "k": 6,
+   "n": 120,
+   "pct": 5.0
+  },
+  "minimal/+2/dandelion_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "minimal/+2/daisy": {
+   "k": 32,
+   "n": 120,
+   "pct": 26.7
+  },
+  "minimal/+2/daisy_dead": {
+   "k": 3,
+   "n": 120,
+   "pct": 2.5
+  },
+  "minimal/+2/anthill_colony": {
+   "k": 119,
+   "n": 120,
+   "pct": 99.2
+  },
+  "minimal/+2/anthill_abandoned": {
+   "k": 51,
+   "n": 120,
+   "pct": 42.5
+  },
+  "minimal/+2/rabbit": {
+   "k": 104,
+   "n": 120,
+   "pct": 86.7
+  },
+  "minimal/free/hay_bale": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "minimal/free/hay_heap": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "minimal/free/stick_bundle": {
+   "k": 9,
+   "n": 30,
+   "pct": 30.0
+  },
+  "minimal/free/stick_heap": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "minimal/free/hay_bale_wording": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "minimal/free/poppy": {
+   "k": 20,
+   "n": 30,
+   "pct": 66.7
+  },
+  "minimal/free/poppy_dead": {
+   "k": 7,
+   "n": 30,
+   "pct": 23.3
+  },
+  "minimal/free/dandelion": {
+   "k": 6,
+   "n": 30,
+   "pct": 20.0
+  },
+  "minimal/free/dandelion_dead": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "minimal/free/daisy": {
+   "k": 11,
+   "n": 30,
+   "pct": 36.7
+  },
+  "minimal/free/daisy_dead": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "minimal/free/anthill_colony": {
+   "k": 29,
+   "n": 30,
+   "pct": 96.7
+  },
+  "minimal/free/anthill_abandoned": {
+   "k": 16,
+   "n": 30,
+   "pct": 53.3
+  },
+  "minimal/free/rabbit": {
+   "k": 25,
+   "n": 30,
+   "pct": 83.3
+  },
+  "xhigh/+2/hay_bale": {
+   "k": 41,
+   "n": 120,
+   "pct": 34.2
+  },
+  "xhigh/+2/hay_heap": {
+   "k": 14,
+   "n": 120,
+   "pct": 11.7
+  },
+  "xhigh/+2/stick_bundle": {
+   "k": 88,
+   "n": 120,
+   "pct": 73.3
+  },
+  "xhigh/+2/stick_heap": {
+   "k": 7,
+   "n": 120,
+   "pct": 5.8
+  },
+  "xhigh/+2/hay_bale_wording": {
+   "k": 41,
+   "n": 120,
+   "pct": 34.2
+  },
+  "xhigh/+2/poppy": {
+   "k": 112,
+   "n": 120,
+   "pct": 93.3
+  },
+  "xhigh/+2/poppy_dead": {
+   "k": 18,
+   "n": 120,
+   "pct": 15.0
+  },
+  "xhigh/+2/dandelion": {
+   "k": 46,
+   "n": 120,
+   "pct": 38.3
+  },
+  "xhigh/+2/dandelion_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "xhigh/+2/daisy": {
+   "k": 97,
+   "n": 120,
+   "pct": 80.8
+  },
+  "xhigh/+2/daisy_dead": {
+   "k": 2,
+   "n": 120,
+   "pct": 1.7
+  },
+  "xhigh/+2/anthill_colony": {
+   "k": 120,
+   "n": 120,
+   "pct": 100.0
+  },
+  "xhigh/+2/anthill_abandoned": {
+   "k": 74,
+   "n": 120,
+   "pct": 61.7
+  },
+  "xhigh/+2/rabbit": {
+   "k": 120,
+   "n": 120,
+   "pct": 100.0
+  },
+  "xhigh/free/hay_bale": {
+   "k": 24,
+   "n": 30,
+   "pct": 80.0
+  },
+  "xhigh/free/hay_heap": {
+   "k": 21,
+   "n": 30,
+   "pct": 70.0
+  },
+  "xhigh/free/stick_bundle": {
+   "k": 29,
+   "n": 30,
+   "pct": 96.7
+  },
+  "xhigh/free/stick_heap": {
+   "k": 12,
+   "n": 30,
+   "pct": 40.0
+  },
+  "xhigh/free/hay_bale_wording": {
+   "k": 24,
+   "n": 30,
+   "pct": 80.0
+  },
+  "xhigh/free/poppy": {
+   "k": 30,
+   "n": 30,
+   "pct": 100.0
+  },
+  "xhigh/free/poppy_dead": {
+   "k": 21,
+   "n": 30,
+   "pct": 70.0
+  },
+  "xhigh/free/dandelion": {
+   "k": 24,
+   "n": 30,
+   "pct": 80.0
+  },
+  "xhigh/free/dandelion_dead": {
+   "k": 7,
+   "n": 30,
+   "pct": 23.3
+  },
+  "xhigh/free/daisy": {
+   "k": 30,
+   "n": 30,
+   "pct": 100.0
+  },
+  "xhigh/free/daisy_dead": {
+   "k": 17,
+   "n": 30,
+   "pct": 56.7
+  },
+  "xhigh/free/anthill_colony": {
+   "k": 30,
+   "n": 30,
+   "pct": 100.0
+  },
+  "xhigh/free/anthill_abandoned": {
+   "k": 29,
+   "n": 30,
+   "pct": 96.7
+  },
+  "xhigh/free/rabbit": {
+   "k": 30,
+   "n": 30,
+   "pct": 100.0
+  }
+ }
+}

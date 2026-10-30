@@ -7,7 +7,8 @@ effort, neutral and morality briefings, 30 maps each); then the structure test
 (the cells' hay-bale prompts sent again with the object's name changed). Design, exact settings
 and the registrations: `docs/DESIGN_harvestbench_muse.md`. Results: `RESULTS.md`,
 with logs in `logs/` (the cells in `logs/cells-39672076/`, the structure test
-in `logs/structure-39710878/`) and the costing in `results/`. HarvestBench itself (commit 526de705) is
+in `logs/structure-39710878/`, the Sonnet runs in `logs/sonnet-39718923/`) and
+the costing in `results/`. HarvestBench itself (commit 526de705) is
 not in this repository. It lives on the cluster at
 `/rds/user/pg630/hpc-work/projects/harvestbench-src` and is imported, never
 edited.

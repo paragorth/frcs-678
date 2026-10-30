@@ -1,0 +1,172 @@
+{"t": 0.6, "event": "sent", "chunk": 1, "batch": "msgbatch_01TTndvyeeRiyzCYQ1fwJxST", "requests": 100, "worst_case": 11.32, "spent": 0.0}
+{"t": 1.1, "event": "sent", "chunk": 2, "batch": "msgbatch_01C3bNXFCaT6eX3Wo3xqLmcD", "requests": 100, "worst_case": 10.96, "spent": 0.0}
+{"t": 1.7, "event": "sent", "chunk": 3, "batch": "msgbatch_015NsU7Fbgfk956xuHkBXdqM", "requests": 100, "worst_case": 10.01, "spent": 0.0}
+{"t": 2.2, "event": "sent", "chunk": 4, "batch": "msgbatch_01N21QRM8TW6Qa9wJpaCRFvN", "requests": 100, "worst_case": 10.49, "spent": 0.0}
+{"t": 2.7, "event": "sent", "chunk": 5, "batch": "msgbatch_01VvG1f1rnXPPRspiWiaZLpN", "requests": 100, "worst_case": 10.61, "spent": 0.0}
+{"t": 3.4, "event": "sent", "chunk": 6, "batch": "msgbatch_01NBR7xN7sWJP1kexx77SMp8", "requests": 100, "worst_case": 10.72, "spent": 0.0}
+{"t": 3.9, "event": "sent", "chunk": 7, "batch": "msgbatch_01WGrpzQekzKj7gXjMz6YNjN", "requests": 100, "worst_case": 9.89, "spent": 0.0}
+{"t": 4.4, "event": "sent", "chunk": 8, "batch": "msgbatch_01SYwTjhUSHRRbAoje6aH2xL", "requests": 100, "worst_case": 10.25, "spent": 0.0}
+{"t": 132.7, "event": "ended", "chunk": 5, "batch": "msgbatch_01VvG1f1rnXPPRspiWiaZLpN", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 0.2626, "results_written": 100}
+{"t": 134.0, "event": "sent", "chunk": 9, "batch": "msgbatch_011CFvtdrSmM2XvGjd2wM3v5", "requests": 100, "worst_case": 9.77, "spent": 0.2626}
+{"t": 196.9, "event": "ended", "chunk": 1, "batch": "msgbatch_01TTndvyeeRiyzCYQ1fwJxST", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 0.5339, "results_written": 200}
+{"t": 198.0, "event": "ended", "chunk": 2, "batch": "msgbatch_01C3bNXFCaT6eX3Wo3xqLmcD", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 0.856, "results_written": 300}
+{"t": 199.3, "event": "ended", "chunk": 3, "batch": "msgbatch_015NsU7Fbgfk956xuHkBXdqM", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 1.1652, "results_written": 400}
+{"t": 200.5, "event": "ended", "chunk": 4, "batch": "msgbatch_01N21QRM8TW6Qa9wJpaCRFvN", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 1.4832, "results_written": 500}
+{"t": 201.6, "event": "ended", "chunk": 6, "batch": "msgbatch_01NBR7xN7sWJP1kexx77SMp8", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 1.9015, "results_written": 600}
+{"t": 202.8, "event": "ended", "chunk": 7, "batch": "msgbatch_01WGrpzQekzKj7gXjMz6YNjN", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 2.2332, "results_written": 700}
+{"t": 203.8, "event": "ended", "chunk": 8, "batch": "msgbatch_01SYwTjhUSHRRbAoje6aH2xL", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 2.5804, "results_written": 800}
+{"t": 204.6, "event": "sent", "chunk": 10, "batch": "msgbatch_01J4jVeVwHZLvPR3jVcbGiiM", "requests": 100, "worst_case": 10.49, "spent": 2.5804}
+{"t": 205.1, "event": "sent", "chunk": 11, "batch": "msgbatch_01Do9omEUMnaNedfHgYYMLWM", "requests": 100, "worst_case": 9.65, "spent": 2.5804}
+{"t": 205.7, "event": "sent", "chunk": 12, "batch": "msgbatch_01MkuDf1pU4gecP7PsMCshK6", "requests": 100, "worst_case": 10.01, "spent": 2.5804}
+{"t": 206.3, "event": "sent", "chunk": 13, "batch": "msgbatch_01LGmvo37B8JHX8zHF1iCHFN", "requests": 100, "worst_case": 10.01, "spent": 2.5804}
+{"t": 206.8, "event": "sent", "chunk": 14, "batch": "msgbatch_01VhLwjRkrd8WgFRrTPD94Sb", "requests": 100, "worst_case": 10.72, "spent": 2.5804}
+{"t": 207.3, "event": "sent", "chunk": 15, "batch": "msgbatch_01QmCb71FXJfLGxhmkGr1J97", "requests": 100, "worst_case": 10.72, "spent": 2.5804}
+{"t": 207.8, "event": "sent", "chunk": 16, "batch": "msgbatch_0193zimZzgLgGnPajDULRzQt", "requests": 100, "worst_case": 10.13, "spent": 2.5804}
+{"t": 270.7, "event": "ended", "chunk": 9, "batch": "msgbatch_011CFvtdrSmM2XvGjd2wM3v5", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 2.8149, "results_written": 900}
+{"t": 272.9, "event": "sent", "chunk": 17, "batch": "msgbatch_01V1CgibuPeTmJxnKY6jF2Zd", "requests": 100, "worst_case": 9.53, "spent": 2.8149}
+{"t": 400.1, "event": "ended", "chunk": 11, "batch": "msgbatch_01Do9omEUMnaNedfHgYYMLWM", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 3.0516, "results_written": 1000}
+{"t": 401.3, "event": "ended", "chunk": 13, "batch": "msgbatch_01LGmvo37B8JHX8zHF1iCHFN", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 3.336, "results_written": 1100}
+{"t": 402.7, "event": "ended", "chunk": 16, "batch": "msgbatch_0193zimZzgLgGnPajDULRzQt", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 3.5755, "results_written": 1200}
+{"t": 403.5, "event": "sent", "chunk": 18, "batch": "msgbatch_01SG9rFF7kcGYqfS6Q5V7Zde", "requests": 100, "worst_case": 9.65, "spent": 3.5755}
+{"t": 404.2, "event": "sent", "chunk": 19, "batch": "msgbatch_01UnhaTP1veChjyVArNRCD6M", "requests": 100, "worst_case": 8.58, "spent": 3.5755}
+{"t": 404.7, "event": "sent", "chunk": 20, "batch": "msgbatch_015w8GH1zKPk5kGegLBLc7Nw", "requests": 100, "worst_case": 10.96, "spent": 3.5755}
+{"t": 436.4, "event": "ended", "chunk": 14, "batch": "msgbatch_01VhLwjRkrd8WgFRrTPD94Sb", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 3.8595, "results_written": 1300}
+{"t": 438.1, "event": "sent", "chunk": 21, "batch": "msgbatch_01RyZ1jqh9cbqXQBtAPQavwM", "requests": 100, "worst_case": 10.13, "spent": 3.8595}
+{"t": 469.4, "event": "ended", "chunk": 12, "batch": "msgbatch_01MkuDf1pU4gecP7PsMCshK6", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 4.1758, "results_written": 1400}
+{"t": 471.0, "event": "ended", "chunk": 17, "batch": "msgbatch_01V1CgibuPeTmJxnKY6jF2Zd", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 4.5576, "results_written": 1500}
+{"t": 472.5, "event": "sent", "chunk": 22, "batch": "msgbatch_01Qc9v1omGqkNQGrRPpLo9RR", "requests": 100, "worst_case": 10.96, "spent": 4.5576}
+{"t": 473.0, "event": "sent", "chunk": 23, "batch": "msgbatch_01QPkVBP5oyiYGsbUmtBrAq7", "requests": 100, "worst_case": 10.25, "spent": 4.5576}
+{"t": 536.1, "event": "ended", "chunk": 10, "batch": "msgbatch_01J4jVeVwHZLvPR3jVcbGiiM", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 4.9042, "results_written": 1600}
+{"t": 537.2, "event": "ended", "chunk": 15, "batch": "msgbatch_01QmCb71FXJfLGxhmkGr1J97", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 5.266, "results_written": 1700}
+{"t": 539.0, "event": "sent", "chunk": 24, "batch": "msgbatch_01VgqqyXPpUkSbCH6SutbNsB", "requests": 100, "worst_case": 10.49, "spent": 5.266}
+{"t": 539.9, "event": "sent", "chunk": 25, "batch": "msgbatch_01BZn87jJV8xVdW6Z66txM5x", "requests": 100, "worst_case": 11.56, "spent": 5.266}
+{"t": 571.2, "event": "ended", "chunk": 18, "batch": "msgbatch_01SG9rFF7kcGYqfS6Q5V7Zde", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 5.6045, "results_written": 1800}
+{"t": 572.4, "event": "ended", "chunk": 19, "batch": "msgbatch_01UnhaTP1veChjyVArNRCD6M", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 5.8611, "results_written": 1900}
+{"t": 573.6, "event": "ended", "chunk": 21, "batch": "msgbatch_01RyZ1jqh9cbqXQBtAPQavwM", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 6.0941, "results_written": 2000}
+{"t": 574.8, "event": "ended", "chunk": 23, "batch": "msgbatch_01QPkVBP5oyiYGsbUmtBrAq7", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 6.3275, "results_written": 2100}
+{"t": 575.8, "event": "sent", "chunk": 26, "batch": "msgbatch_019G7g4LiK9XtykrV6qm8Jou", "requests": 100, "worst_case": 9.53, "spent": 6.3275}
+{"t": 576.3, "event": "sent", "chunk": 27, "batch": "msgbatch_012WfYgZzCHrXXYUQAw7M4cu", "requests": 100, "worst_case": 10.84, "spent": 6.3275}
+{"t": 576.9, "event": "sent", "chunk": 28, "batch": "msgbatch_01TQhmbGV2XYz4C9WF64Rdvc", "requests": 100, "worst_case": 11.32, "spent": 6.3275}
+{"t": 577.4, "event": "sent", "chunk": 29, "batch": "msgbatch_01J9D5xW99exqKCXPtPcYuDV", "requests": 100, "worst_case": 9.41, "spent": 6.3275}
+{"t": 608.4, "event": "ended", "chunk": 20, "batch": "msgbatch_015w8GH1zKPk5kGegLBLc7Nw", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 6.5612, "results_written": 2200}
+{"t": 610.5, "event": "sent", "chunk": 30, "batch": "msgbatch_016CiuHCtnPdiRoXN59MvhuA", "requests": 100, "worst_case": 9.89, "spent": 6.5612}
+{"t": 673.7, "event": "ended", "chunk": 25, "batch": "msgbatch_01BZn87jJV8xVdW6Z66txM5x", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 6.888, "results_written": 2300}
+{"t": 675.3, "event": "sent", "chunk": 31, "batch": "msgbatch_018kZYt7aXrbm3YHrdH31pMg", "requests": 100, "worst_case": 10.37, "spent": 6.888}
+{"t": 706.8, "event": "ended", "chunk": 26, "batch": "msgbatch_019G7g4LiK9XtykrV6qm8Jou", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 7.0884, "results_written": 2400}
+{"t": 707.8, "event": "ended", "chunk": 27, "batch": "msgbatch_012WfYgZzCHrXXYUQAw7M4cu", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 7.362, "results_written": 2500}
+{"t": 709.0, "event": "ended", "chunk": 28, "batch": "msgbatch_01TQhmbGV2XYz4C9WF64Rdvc", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 7.6386, "results_written": 2600}
+{"t": 709.9, "event": "ended", "chunk": 29, "batch": "msgbatch_01J9D5xW99exqKCXPtPcYuDV", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 7.8816, "results_written": 2700}
+{"t": 710.9, "event": "sent", "chunk": 32, "batch": "msgbatch_01JLGBuHunP23EEz3BnnA1uN", "requests": 100, "worst_case": 11.2, "spent": 7.8816}
+{"t": 711.4, "event": "sent", "chunk": 33, "batch": "msgbatch_01UBrG1LiVkrci8K4KmEwhYj", "requests": 100, "worst_case": 10.49, "spent": 7.8816}
+{"t": 712.0, "event": "sent", "chunk": 34, "batch": "msgbatch_01FLqn4h4oPxcUZx4RB9r2xH", "requests": 100, "worst_case": 10.84, "spent": 7.8816}
+{"t": 712.6, "event": "sent", "chunk": 35, "batch": "msgbatch_015EtmzyiqovBX34UFsWCvQQ", "requests": 100, "worst_case": 9.18, "spent": 7.8816}
+{"t": 776.2, "event": "ended", "chunk": 30, "batch": "msgbatch_016CiuHCtnPdiRoXN59MvhuA", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 8.1665, "results_written": 2800}
+{"t": 777.8, "event": "sent", "chunk": 36, "batch": "msgbatch_01KWDpjSRBPDh69aNT543WF7", "requests": 100, "worst_case": 9.53, "spent": 8.1665}
+{"t": 809.2, "event": "ended", "chunk": 24, "batch": "msgbatch_01VgqqyXPpUkSbCH6SutbNsB", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 8.6321, "results_written": 2900}
+{"t": 811.1, "event": "sent", "chunk": 37, "batch": "msgbatch_011HhJbGo7gatbM4aUFQSsXu", "requests": 100, "worst_case": 10.37, "spent": 8.6321}
+{"t": 842.4, "event": "ended", "chunk": 31, "batch": "msgbatch_018kZYt7aXrbm3YHrdH31pMg", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 8.9133, "results_written": 3000}
+{"t": 843.3, "event": "ended", "chunk": 32, "batch": "msgbatch_01JLGBuHunP23EEz3BnnA1uN", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 9.1447, "results_written": 3100}
+{"t": 844.2, "event": "ended", "chunk": 33, "batch": "msgbatch_01UBrG1LiVkrci8K4KmEwhYj", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 9.3828, "results_written": 3200}
+{"t": 845.7, "event": "sent", "chunk": 38, "batch": "msgbatch_01Q8vMMJCzp8k1v91PyHXptD", "requests": 100, "worst_case": 10.25, "spent": 9.3828}
+{"t": 846.3, "event": "sent", "chunk": 39, "batch": "msgbatch_01XX1PJvNXwCWSTRdZLCou3y", "requests": 100, "worst_case": 9.89, "spent": 9.3828}
+{"t": 846.8, "event": "sent", "chunk": 40, "batch": "msgbatch_017AkccKvwdsvkQcxiGixhLC", "requests": 100, "worst_case": 9.41, "spent": 9.3828}
+{"t": 909.9, "event": "ended", "chunk": 22, "batch": "msgbatch_01Qc9v1omGqkNQGrRPpLo9RR", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 9.7468, "results_written": 3300}
+{"t": 910.9, "event": "ended", "chunk": 34, "batch": "msgbatch_01FLqn4h4oPxcUZx4RB9r2xH", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 10.0834, "results_written": 3400}
+{"t": 912.0, "event": "ended", "chunk": 35, "batch": "msgbatch_015EtmzyiqovBX34UFsWCvQQ", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 10.3716, "results_written": 3500}
+{"t": 914.1, "event": "sent", "chunk": 41, "batch": "msgbatch_01XnGc2wrMxqNcXx1NaVzRCU", "requests": 100, "worst_case": 10.49, "spent": 10.3716}
+{"t": 914.9, "event": "sent", "chunk": 42, "batch": "msgbatch_017tH54bfnHGE9KCUaZ7bkLQ", "requests": 100, "worst_case": 8.7, "spent": 10.3716}
+{"t": 915.4, "event": "sent", "chunk": 43, "batch": "msgbatch_01PB4ei8YmwoDCZXQuWq8ph5", "requests": 100, "worst_case": 11.2, "spent": 10.3716}
+{"t": 978.6, "event": "ended", "chunk": 36, "batch": "msgbatch_01KWDpjSRBPDh69aNT543WF7", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 10.6014, "results_written": 3600}
+{"t": 979.4, "event": "ended", "chunk": 37, "batch": "msgbatch_011HhJbGo7gatbM4aUFQSsXu", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 10.8988, "results_written": 3700}
+{"t": 980.7, "event": "ended", "chunk": 40, "batch": "msgbatch_017AkccKvwdsvkQcxiGixhLC", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 11.1674, "results_written": 3800}
+{"t": 981.8, "event": "sent", "chunk": 44, "batch": "msgbatch_01TGHB2sjNr7ochMnfpQB2Fe", "requests": 100, "worst_case": 10.01, "spent": 11.1674}
+{"t": 982.4, "event": "sent", "chunk": 45, "batch": "msgbatch_01VDaSGXSr2UzxZNA9UGDYAy", "requests": 100, "worst_case": 10.72, "spent": 11.1674}
+{"t": 982.8, "event": "sent", "chunk": 46, "batch": "msgbatch_01MdXZr3b97DQTmHneJqbprP", "requests": 100, "worst_case": 9.53, "spent": 11.1674}
+{"t": 1014.6, "event": "ended", "chunk": 43, "batch": "msgbatch_01PB4ei8YmwoDCZXQuWq8ph5", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 11.4996, "results_written": 3900}
+{"t": 1015.9, "event": "sent", "chunk": 47, "batch": "msgbatch_01W6o9maiPLxvvc12unZTUAR", "requests": 100, "worst_case": 10.84, "spent": 11.4996}
+{"t": 1046.9, "event": "ended", "chunk": 38, "batch": "msgbatch_01Q8vMMJCzp8k1v91PyHXptD", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 11.8603, "results_written": 4000}
+{"t": 1048.0, "event": "ended", "chunk": 39, "batch": "msgbatch_01XX1PJvNXwCWSTRdZLCou3y", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 12.1694, "results_written": 4100}
+{"t": 1049.0, "event": "ended", "chunk": 41, "batch": "msgbatch_01XnGc2wrMxqNcXx1NaVzRCU", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 12.4263, "results_written": 4200}
+{"t": 1050.0, "event": "ended", "chunk": 42, "batch": "msgbatch_017tH54bfnHGE9KCUaZ7bkLQ", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 12.7437, "results_written": 4300}
+{"t": 1051.4, "event": "sent", "chunk": 48, "batch": "msgbatch_01MksCQtEeKi8G8pyrqGwMAC", "requests": 100, "worst_case": 10.72, "spent": 12.7437}
+{"t": 1051.9, "event": "sent", "chunk": 49, "batch": "msgbatch_01CWhcSPk2RiLAXhFj7DdsBc", "requests": 100, "worst_case": 10.13, "spent": 12.7437}
+{"t": 1052.4, "event": "sent", "chunk": 50, "batch": "msgbatch_01Mb5HU7cfdogMdbLw5usxWH", "requests": 100, "worst_case": 10.37, "spent": 12.7437}
+{"t": 1052.9, "event": "sent", "chunk": 51, "batch": "msgbatch_0119DrXSe86z6hewiDVAfMhX", "requests": 100, "worst_case": 9.41, "spent": 12.7437}
+{"t": 1083.8, "event": "ended", "chunk": 44, "batch": "msgbatch_01TGHB2sjNr7ochMnfpQB2Fe", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 12.9874, "results_written": 4400}
+{"t": 1084.8, "event": "ended", "chunk": 45, "batch": "msgbatch_01VDaSGXSr2UzxZNA9UGDYAy", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 13.2375, "results_written": 4500}
+{"t": 1086.7, "event": "sent", "chunk": 52, "batch": "msgbatch_01PZWAquThpmxof7HnY1WMxG", "requests": 100, "worst_case": 10.25, "spent": 13.2375}
+{"t": 1087.2, "event": "sent", "chunk": 53, "batch": "msgbatch_014kdksKvhPw6ff7iEuskQ3w", "requests": 100, "worst_case": 9.53, "spent": 13.2375}
+{"t": 1150.1, "event": "ended", "chunk": 46, "batch": "msgbatch_01MdXZr3b97DQTmHneJqbprP", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 13.536, "results_written": 4600}
+{"t": 1151.6, "event": "ended", "chunk": 49, "batch": "msgbatch_01CWhcSPk2RiLAXhFj7DdsBc", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 13.8238, "results_written": 4700}
+{"t": 1152.7, "event": "ended", "chunk": 50, "batch": "msgbatch_01Mb5HU7cfdogMdbLw5usxWH", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 14.1487, "results_written": 4800}
+{"t": 1153.9, "event": "sent", "chunk": 54, "batch": "msgbatch_012vmWeesoMT8sHuEsDWpYVr", "requests": 100, "worst_case": 11.56, "spent": 14.1487}
+{"t": 1154.7, "event": "sent", "chunk": 55, "batch": "msgbatch_01AUZcJ9PcTKKYfBxeJcoJvG", "requests": 100, "worst_case": 9.89, "spent": 14.1487}
+{"t": 1155.2, "event": "sent", "chunk": 56, "batch": "msgbatch_01SUSM6zPDU3v71RA5ArwHxD", "requests": 100, "worst_case": 10.01, "spent": 14.1487}
+{"t": 1218.5, "event": "ended", "chunk": 47, "batch": "msgbatch_01W6o9maiPLxvvc12unZTUAR", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 14.4935, "results_written": 4900}
+{"t": 1219.5, "event": "ended", "chunk": 48, "batch": "msgbatch_01MksCQtEeKi8G8pyrqGwMAC", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 14.8181, "results_written": 5000}
+{"t": 1220.6, "event": "ended", "chunk": 51, "batch": "msgbatch_0119DrXSe86z6hewiDVAfMhX", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 15.1674, "results_written": 5100}
+{"t": 1221.8, "event": "ended", "chunk": 52, "batch": "msgbatch_01PZWAquThpmxof7HnY1WMxG", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 15.3806, "results_written": 5200}
+{"t": 1222.6, "event": "ended", "chunk": 53, "batch": "msgbatch_014kdksKvhPw6ff7iEuskQ3w", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 15.7642, "results_written": 5300}
+{"t": 1223.9, "event": "sent", "chunk": 57, "batch": "msgbatch_013XsWxoL4GFgYnLmxwPUfV7", "requests": 100, "worst_case": 9.65, "spent": 15.7642}
+{"t": 1224.4, "event": "sent", "chunk": 58, "batch": "msgbatch_014RLYgRirrbCAeGPBRwXUFC", "requests": 100, "worst_case": 9.77, "spent": 15.7642}
+{"t": 1225.1, "event": "sent", "chunk": 59, "batch": "msgbatch_015H6tpYa5YBMUczB1XmBEHQ", "requests": 100, "worst_case": 10.37, "spent": 15.7642}
+{"t": 1225.6, "event": "sent", "chunk": 60, "batch": "msgbatch_01CEMK4YbsJ5dAPkpaSGxJJw", "requests": 100, "worst_case": 10.72, "spent": 15.7642}
+{"t": 1226.2, "event": "sent", "chunk": 61, "batch": "msgbatch_01NjmYFV2nFk9tfF2zmjocuJ", "requests": 100, "worst_case": 11.2, "spent": 15.7642}
+{"t": 1289.3, "event": "ended", "chunk": 55, "batch": "msgbatch_01AUZcJ9PcTKKYfBxeJcoJvG", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 16.0011, "results_written": 5400}
+{"t": 1291.2, "event": "sent", "chunk": 62, "batch": "msgbatch_01T2DNPa1GzJBJDmiD9pDMtS", "requests": 100, "worst_case": 10.25, "spent": 16.0011}
+{"t": 1322.3, "event": "ended", "chunk": 54, "batch": "msgbatch_012vmWeesoMT8sHuEsDWpYVr", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 16.3634, "results_written": 5500}
+{"t": 1324.5, "event": "sent", "chunk": 63, "batch": "msgbatch_014YZvAUiiZ9SUrkFd7biMx6", "requests": 100, "worst_case": 10.84, "spent": 16.3634}
+{"t": 1355.7, "event": "ended", "chunk": 56, "batch": "msgbatch_01SUSM6zPDU3v71RA5ArwHxD", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 16.7691, "results_written": 5600}
+{"t": 1357.9, "event": "sent", "chunk": 64, "batch": "msgbatch_01HvquFUPxV9iQvuaQBNagpt", "requests": 100, "worst_case": 9.89, "spent": 16.7691}
+{"t": 1420.9, "event": "ended", "chunk": 57, "batch": "msgbatch_013XsWxoL4GFgYnLmxwPUfV7", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 17.0523, "results_written": 5700}
+{"t": 1422.0, "event": "ended", "chunk": 59, "batch": "msgbatch_015H6tpYa5YBMUczB1XmBEHQ", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 17.3674, "results_written": 5800}
+{"t": 1423.0, "event": "ended", "chunk": 60, "batch": "msgbatch_01CEMK4YbsJ5dAPkpaSGxJJw", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 17.6092, "results_written": 5900}
+{"t": 1423.9, "event": "ended", "chunk": 61, "batch": "msgbatch_01NjmYFV2nFk9tfF2zmjocuJ", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 17.9114, "results_written": 6000}
+{"t": 1424.8, "event": "ended", "chunk": 62, "batch": "msgbatch_01T2DNPa1GzJBJDmiD9pDMtS", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 18.2183, "results_written": 6100}
+{"t": 1425.8, "event": "sent", "chunk": 65, "batch": "msgbatch_01NV7Qh3tWBGLDmEdt8KMQWr", "requests": 100, "worst_case": 9.77, "spent": 18.2183}
+{"t": 1426.3, "event": "sent", "chunk": 66, "batch": "msgbatch_013KYpocgrHpgLLHbL3TAFTK", "requests": 100, "worst_case": 10.72, "spent": 18.2183}
+{"t": 1426.9, "event": "sent", "chunk": 67, "batch": "msgbatch_018JZq1TfuQL4Hf1skVYYou3", "requests": 100, "worst_case": 10.13, "spent": 18.2183}
+{"t": 1427.4, "event": "sent", "chunk": 68, "batch": "msgbatch_013gnQXzTGVa6eeH1ftyAuFW", "requests": 100, "worst_case": 10.25, "spent": 18.2183}
+{"t": 1428.0, "event": "sent", "chunk": 69, "batch": "msgbatch_019j6wo6vFYpZssPmFXzTTyg", "requests": 100, "worst_case": 9.89, "spent": 18.2183}
+{"t": 1459.1, "event": "ended", "chunk": 58, "batch": "msgbatch_014RLYgRirrbCAeGPBRwXUFC", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 18.5262, "results_written": 6200}
+{"t": 1461.4, "event": "sent", "chunk": 70, "batch": "msgbatch_013UrpTFvaCZma3Xs1EUfFMT", "requests": 100, "worst_case": 10.25, "spent": 18.5262}
+{"t": 1492.6, "event": "ended", "chunk": 63, "batch": "msgbatch_014YZvAUiiZ9SUrkFd7biMx6", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 18.794, "results_written": 6300}
+{"t": 1495.0, "event": "sent", "chunk": 71, "batch": "msgbatch_012u5aLamAzKEaJCVjV2Us9P", "requests": 100, "worst_case": 10.13, "spent": 18.794}
+{"t": 1526.3, "event": "ended", "chunk": 65, "batch": "msgbatch_01NV7Qh3tWBGLDmEdt8KMQWr", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 18.9982, "results_written": 6400}
+{"t": 1527.6, "event": "ended", "chunk": 66, "batch": "msgbatch_013KYpocgrHpgLLHbL3TAFTK", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 19.4482, "results_written": 6500}
+{"t": 1529.2, "event": "ended", "chunk": 68, "batch": "msgbatch_013gnQXzTGVa6eeH1ftyAuFW", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 19.6901, "results_written": 6600}
+{"t": 1530.4, "event": "ended", "chunk": 69, "batch": "msgbatch_019j6wo6vFYpZssPmFXzTTyg", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 19.9448, "results_written": 6700}
+{"t": 1531.4, "event": "sent", "chunk": 72, "batch": "msgbatch_016WtoMmiNcpZstB6tjLau7c", "requests": 100, "worst_case": 9.77, "spent": 19.9448}
+{"t": 1532.0, "event": "sent", "chunk": 73, "batch": "msgbatch_01132MWFQZkb3ULpnBsuwjBG", "requests": 100, "worst_case": 10.13, "spent": 19.9448}
+{"t": 1532.5, "event": "sent", "chunk": 74, "batch": "msgbatch_017a1G3UvdEHzJUc6RfJFhX7", "requests": 100, "worst_case": 10.25, "spent": 19.9448}
+{"t": 1533.1, "event": "sent", "chunk": 75, "batch": "msgbatch_01MtsPtFe5MTsgNEAvBS4GSm", "requests": 100, "worst_case": 10.25, "spent": 19.9448}
+{"t": 1564.4, "event": "ended", "chunk": 64, "batch": "msgbatch_01HvquFUPxV9iQvuaQBNagpt", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 20.344, "results_written": 6800}
+{"t": 1566.6, "event": "sent", "chunk": 76, "batch": "msgbatch_01YJuDcWGEbHtTwF3AQJg4ZV", "requests": 100, "worst_case": 11.08, "spent": 20.344}
+{"t": 1662.1, "event": "ended", "chunk": 72, "batch": "msgbatch_016WtoMmiNcpZstB6tjLau7c", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 20.6136, "results_written": 6900}
+{"t": 1663.0, "event": "ended", "chunk": 73, "batch": "msgbatch_01132MWFQZkb3ULpnBsuwjBG", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 20.9219, "results_written": 7000}
+{"t": 1664.0, "event": "ended", "chunk": 74, "batch": "msgbatch_017a1G3UvdEHzJUc6RfJFhX7", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 21.1582, "results_written": 7100}
+{"t": 1666.0, "event": "ended", "chunk": 76, "batch": "msgbatch_01YJuDcWGEbHtTwF3AQJg4ZV", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 21.4672, "results_written": 7200}
+{"t": 1666.5, "event": "sent", "chunk": 77, "batch": "msgbatch_012UKw96eJWSMxAQiJVcpEQi", "requests": 100, "worst_case": 10.01, "spent": 21.4672}
+{"t": 1667.1, "event": "sent", "chunk": 78, "batch": "msgbatch_01EqwYCXwXAigXMDJZ15vkjJ", "requests": 100, "worst_case": 10.84, "spent": 21.4672}
+{"t": 1667.7, "event": "sent", "chunk": 79, "batch": "msgbatch_01XnfW8W5q6WViCm69Q7HWTr", "requests": 100, "worst_case": 11.08, "spent": 21.4672}
+{"t": 1668.5, "event": "sent", "chunk": 80, "batch": "msgbatch_01MmPS8ZUsbr6BtpLThgdnXx", "requests": 100, "worst_case": 10.01, "spent": 21.4672}
+{"t": 1700.0, "event": "ended", "chunk": 67, "batch": "msgbatch_018JZq1TfuQL4Hf1skVYYou3", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 21.8545, "results_written": 7300}
+{"t": 1701.1, "event": "ended", "chunk": 70, "batch": "msgbatch_013UrpTFvaCZma3Xs1EUfFMT", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 22.2244, "results_written": 7400}
+{"t": 1702.0, "event": "ended", "chunk": 71, "batch": "msgbatch_012u5aLamAzKEaJCVjV2Us9P", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 22.602, "results_written": 7500}
+{"t": 1703.7, "event": "sent", "chunk": 81, "batch": "msgbatch_015rkz3iHj9WySuj173NTRd3", "requests": 100, "worst_case": 9.41, "spent": 22.602}
+{"t": 1704.2, "event": "sent", "chunk": 82, "batch": "msgbatch_01Fkj4SLFozdDVRNjp4WiWgr", "requests": 100, "worst_case": 11.08, "spent": 22.602}
+{"t": 1704.9, "event": "sent", "chunk": 83, "batch": "msgbatch_017zmmFus1e9i3fv8rXnyMuj", "requests": 100, "worst_case": 9.53, "spent": 22.602}
+{"t": 1736.1, "event": "ended", "chunk": 75, "batch": "msgbatch_01MtsPtFe5MTsgNEAvBS4GSm", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 22.9149, "results_written": 7600}
+{"t": 1738.5, "event": "sent", "chunk": 84, "batch": "msgbatch_014528vCkFtgQimvey8GAvgd", "requests": 100, "worst_case": 9.89, "spent": 22.9149}
+{"t": 1865.1, "event": "ended", "chunk": 77, "batch": "msgbatch_012UKw96eJWSMxAQiJVcpEQi", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 23.2348, "results_written": 7700}
+{"t": 1866.1, "event": "ended", "chunk": 78, "batch": "msgbatch_01EqwYCXwXAigXMDJZ15vkjJ", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 23.4918, "results_written": 7800}
+{"t": 1867.2, "event": "ended", "chunk": 79, "batch": "msgbatch_01XnfW8W5q6WViCm69Q7HWTr", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 23.7241, "results_written": 7900}
+{"t": 1868.3, "event": "ended", "chunk": 80, "batch": "msgbatch_01MmPS8ZUsbr6BtpLThgdnXx", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 24.0039, "results_written": 8000}
+{"t": 1869.7, "event": "ended", "chunk": 83, "batch": "msgbatch_017zmmFus1e9i3fv8rXnyMuj", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 24.2612, "results_written": 8100}
+{"t": 1870.7, "event": "ended", "chunk": 84, "batch": "msgbatch_014528vCkFtgQimvey8GAvgd", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 24.488, "results_written": 8200}
+{"t": 1871.3, "event": "sent", "chunk": 85, "batch": "msgbatch_01AGvGv36P2rYM1oC9DJrVH1", "requests": 100, "worst_case": 10.01, "spent": 24.488}
+{"t": 1871.7, "event": "sent", "chunk": 86, "batch": "msgbatch_01RVcVz6pFCshtxawBASodbn", "requests": 20, "worst_case": 2.17, "spent": 24.488}
+{"t": 1934.2, "event": "ended", "chunk": 82, "batch": "msgbatch_01Fkj4SLFozdDVRNjp4WiWgr", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 24.795, "results_written": 8300}
+{"t": 1966.1, "event": "ended", "chunk": 86, "batch": "msgbatch_01RVcVz6pFCshtxawBASodbn", "requests": 20, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 20}, "spent": 24.8282, "results_written": 8320}
+{"t": 1997.2, "event": "ended", "chunk": 81, "batch": "msgbatch_015rkz3iHj9WySuj173NTRd3", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 25.1709, "results_written": 8420}
+{"t": 2059.0, "event": "ended", "chunk": 85, "batch": "msgbatch_01AGvGv36P2rYM1oC9DJrVH1", "requests": 100, "counts": {"canceled": 0, "errored": 0, "expired": 0, "processing": 0, "succeeded": 100}, "spent": 25.4514, "results_written": 8520}
