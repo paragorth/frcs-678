@@ -1,0 +1,26 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='760' height='380' viewBox='0 0 760 380'>
+<rect width='760' height='380' fill='#fcfcfb'/>
+<text x='24.0' y='34.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='18' fill='#0b0b0b' text-anchor='start' font-weight='bold'>One smarter stranger, and every town lived</text>
+<text x='24.0' y='58.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='start' font-weight='normal'>Fishing towns that lasted the whole year</text>
+<line x1='90' y1='310.0' x2='730' y2='310.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='314.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>0%</text>
+<line x1='90' y1='255.0' x2='730' y2='255.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='259.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>25%</text>
+<line x1='90' y1='200.0' x2='730' y2='200.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='204.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>50%</text>
+<line x1='90' y1='145.0' x2='730' y2='145.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='149.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>75%</text>
+<line x1='90' y1='90.0' x2='730' y2='90.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='94.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>100%</text>
+<path d='M194.0,310.0 V240.7 Q194.0,236.7 198.0,236.7 H310.0 Q314.0,236.7 314.0,240.7 V310.0 Z' fill='#2a78d6'/>
+<text x='254.0' y='226.7' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='15' fill='#0b0b0b' text-anchor='middle' font-weight='bold'>1 of 3</text>
+<text x='254.0' y='332.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>Five weaker fishers</text>
+<path d='M350.0,310.0 V259.0 Q350.0,255.0 354.0,255.0 H466.0 Q470.0,255.0 470.0,259.0 V310.0 Z' fill='#2a78d6'/>
+<text x='410.0' y='245.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='15' fill='#0b0b0b' text-anchor='middle' font-weight='bold'>1 of 4</text>
+<text x='410.0' y='332.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>…with Sonnet 5 as the</text>
+<text x='410.0' y='349.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>stranger</text>
+<path d='M506.0,310.0 V94.0 Q506.0,90.0 510.0,90.0 H622.0 Q626.0,90.0 626.0,94.0 V310.0 Z' fill='#2a78d6'/>
+<text x='566.0' y='80.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='15' fill='#0b0b0b' text-anchor='middle' font-weight='bold'>4 of 4</text>
+<text x='566.0' y='332.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>…with Opus 5 as the</text>
+<text x='566.0' y='349.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>stranger</text>
+</svg>

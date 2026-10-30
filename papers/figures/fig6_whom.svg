@@ -1,0 +1,49 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='780' height='420' viewBox='0 0 780 420'>
+<rect width='780' height='420' fill='#fcfcfb'/>
+<text x='24.0' y='34.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='18' fill='#0b0b0b' text-anchor='start' font-weight='bold'>Dollars got nothing. Living fish were spared, rising to nearly nine in ten</text>
+<line x1='90' y1='340.0' x2='630' y2='340.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='344.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>0%</text>
+<line x1='90' y1='277.5' x2='630' y2='277.5' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='281.5' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>25%</text>
+<line x1='90' y1='215.0' x2='630' y2='215.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='219.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>50%</text>
+<line x1='90' y1='152.5' x2='630' y2='152.5' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='156.5' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>75%</text>
+<line x1='90' y1='90.0' x2='630' y2='90.0' stroke='#e4e3de' stroke-width='1'/>
+<text x='82.0' y='94.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='end' font-weight='normal'>100%</text>
+<text x='90.0' y='364.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>minimal</text>
+<text x='225.0' y='364.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>low</text>
+<text x='360.0' y='364.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>medium</text>
+<text x='495.0' y='364.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>high</text>
+<text x='630.0' y='364.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>xhigh</text>
+<text x='360.0' y='390.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='middle' font-weight='normal'>thinking setting, lowest to highest</text>
+<path d='M90.0,227.5 L225.0,165.0 L360.0,119.2 L495.0,119.2 L630.0,119.7' fill='none' stroke='#2a78d6' stroke-width='2'/>
+<circle cx='90.0' cy='227.5' r='5' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<text x='98.0' y='215.5' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='start' font-weight='normal'>27 of 60</text>
+<circle cx='225.0' cy='165.0' r='5' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<text x='225.0' y='153.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>42 of 60</text>
+<circle cx='360.0' cy='119.2' r='5' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<text x='360.0' y='107.2' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>53 of 60</text>
+<circle cx='495.0' cy='119.2' r='5' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<text x='495.0' y='107.2' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>53 of 60</text>
+<circle cx='630.0' cy='119.7' r='5' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<text x='630.0' y='107.7' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>52 of 59</text>
+<text x='644.0' y='123.7' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#0b0b0b' text-anchor='start' font-weight='bold'>living fish</text>
+<path d='M90.0,340.0 L225.0,340.0 L360.0,340.0 L495.0,335.8 L630.0,340.0' fill='none' stroke='#eb6834' stroke-width='2'/>
+<circle cx='90.0' cy='340.0' r='5' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<text x='98.0' y='328.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='start' font-weight='normal'>0 of 60</text>
+<circle cx='225.0' cy='340.0' r='5' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<text x='225.0' y='328.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>0 of 60</text>
+<circle cx='360.0' cy='340.0' r='5' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<text x='360.0' y='328.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>0 of 60</text>
+<circle cx='495.0' cy='335.8' r='5' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<text x='495.0' y='323.8' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>1 of 60</text>
+<circle cx='630.0' cy='340.0' r='5' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<text x='630.0' y='328.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#0b0b0b' text-anchor='middle' font-weight='normal'>0 of 60</text>
+<text x='644.0' y='344.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#0b0b0b' text-anchor='start' font-weight='bold'>dollars</text>
+<rect x='90' y='70' width='12' height='12' rx='2' fill='#2a78d6'/>
+<text x='108.0' y='81.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='start' font-weight='normal'>living fish</text>
+<rect x='212' y='70' width='12' height='12' rx='2' fill='#eb6834'/>
+<text x='230.0' y='81.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='13' fill='#52514e' text-anchor='start' font-weight='normal'>dollars</text>
+<text x='90.0' y='406.0' font-family='Helvetica Neue, Helvetica, Arial, sans-serif' font-size='12' fill='#52514e' text-anchor='start' font-weight='normal'>Muse Spark 1.2 on its last night, the pool regrowing for no one. Only one sentence differs.</text>
+</svg>
