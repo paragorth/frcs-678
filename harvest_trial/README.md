@@ -28,6 +28,11 @@ edited.
 | `run_structure.py` | Runs the structure test: the templates with "a hay bale" replaced by 14 labels, at minimal and xhigh |
 | `analyse_structure.py` | The structure test's registered analysis: replay check, wording gap, tests S1 to S4 |
 | `structure.sbatch` | The CSD3 job for the structure test (runs the analysis and the key check too) |
+| `draw_rocks.py` | Draws 30 logged rock prompts, unchanged, as Stage 2's check that a model reads the menu |
+| `rock_templates.json` | Those 30 rock prompts |
+| `run_sonnet.py` | Stage 2: the structure test on Sonnet 5 and 5.5 at low and max effort, through Anthropic's batch service (`--mode dry`, `mock` or `live`) |
+| `analyse_sonnet.py` | Stage 2's registered analysis: each Sonnet its own replication of the structure test |
+| `sonnet.sbatch` | The CSD3 job for Stage 2 (runs the analysis and the key check too) |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -45,6 +50,9 @@ $V/bin/python -I -B draw_templates.py --src $SRC --log-dir out/cells-39672076 --
 $V/bin/python -I -B run_structure.py --src $SRC --mode mock --policy planted --every 5 --templates structure_templates.json --log-dir out/structure-mock-planted
 $V/bin/python -I -B run_structure.py --src $SRC --mode fake --every 10 --templates structure_templates.json --log-dir out/structure-fake
 sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V structure.sbatch
+$V/bin/python -I -B draw_rocks.py --log-dir out/cells-39672076 --out rock_templates.json
+$V/bin/python -I -B run_sonnet.py --mode mock --templates structure_templates.json --rocks rock_templates.json --out-dir out/sonnet-mock
+sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V,ANTHROPIC_VENV=/rds/user/pg630/hpc-work/semataxy/.venv-gpu,POT=150 sonnet.sbatch
 ```
 
 On the laptop, from the repository root:

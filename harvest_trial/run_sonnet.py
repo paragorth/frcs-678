@@ -59,7 +59,7 @@ MAX_RUNNING = 8
 POLL_S = 30
 STOP_SENDING_H = 8.0
 CANCEL_AT_H = 10.0
-POT_LIMIT = None  # set at registration with pg's approval
+POT_LIMIT = 150.00  # pg's approval for this run, 30 Oct 2026 ("$150 cap")
 TEMPLATES_SHA256 = "7b73cb1cef4986d29774dd0328b15dda994f92e2a9dddf7306bd486c2915120c"
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 

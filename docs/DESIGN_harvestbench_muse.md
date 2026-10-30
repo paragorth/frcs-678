@@ -466,16 +466,16 @@ may work as cues as well as descriptions; and whether this comes from Semataxy
 or from what Muse learned from people's writing is for Stage 2 (capability
 varied with the training data held fixed).
 
-## Stage 2: the structure test on Sonnet 5 and Sonnet 5.5 (draft, 30 Oct 2026; not registered)
+## Stage 2: the structure test on Sonnet 5 and Sonnet 5.5 (registered 30 Oct 2026, before any of its data existed)
 
-**Status.** A draft. Nothing in it has run. pg dropped the first Stage 2 draft
+**Status.** Registered with pg's yes ("$150 cap", 30 Oct), committed together
+with its runner, analysis and rock prompts, before any of its data existed.
+pg dropped the first Stage 2 draft
 (commit 8dca4a97: Qwen2.5 at 1.5B to 32B) on 30 Oct: those models aren't good
 enough, and the record already has open models of that range copying rather
 than caring (in GovSim the stranger, 14B to 72B, matched the group's catch
 whatever it was, and capability did not change this). In its place, his
-words: measure across Sonnet 5 and 5.5, and turn up the thinking. It becomes a
-registration when committed with its runner and analysis and pg's yes on the
-pot, before any of its data exist.
+words: measure across Sonnet 5 and 5.5, and turn up the thinking.
 
 **Why.** The structure test is one model. Sonnet 5 is the Sonnet of Paper 1's
 commons runs and of HarvestBench's published runs, where it drove over 17.8% of
@@ -532,8 +532,10 @@ token-counting calls inside a job, both models available to this account
 output, thinking included): input about $8, the low cells about $6. Max
 depends on how long the Sonnets think on these prompts: about $55 at 2,500
 output tokens a call, $95 at 4,500, $200 at 9,300 (Paper 1's commons mean for
-Sonnet 5). Expected about $110 in all; the pot is pg's to set. The random order
-means a stop at the pot leaves a random subset, not a biased one.
+Sonnet 5). Expected about $110 in all. The pot is $150 (pg's approval), which
+finishes the run unless the Sonnets think at max nearly as long as Sonnet 5 did
+in the commons game. The random order means a stop at the pot leaves a random
+subset, not a biased one.
 
 **Committed with the registration:** `draw_rocks.py`, `rock_templates.json`
 (sha256 a9ad3a0e…), `run_sonnet.py`, `analyse_sonnet.py` and `sonnet.sbatch`;
