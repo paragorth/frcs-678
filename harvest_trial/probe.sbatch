@@ -11,7 +11,7 @@
 # The thinking probe: 7 models through OpenRouter (probe_thinkers.py), or with ROUTE=direct 4 models
 # through Google's and xAI's own APIs (probe_direct.py); 12 calls a model.
 # Submit from the trial folder on the cluster:
-#   sbatch --export=ALL,HB_VENV=...,POT=...[,ROUTE=direct] probe.sbatch
+#   sbatch --export=ALL,HB_VENV=...,POT=...[,ROUTE=direct][,MODELS=a,b] probe.sbatch
 # The OpenRouter key is read inside this job only, never printed, and checked for in every file written.
 set -euo pipefail
 T=$SLURM_SUBMIT_DIR; V=${HB_VENV:?}; POT=${POT:?}
@@ -32,7 +32,7 @@ if [ "${ROUTE:-openrouter}" = direct ]; then
   exit $rc
 fi
 OPENROUTER_API_KEY=$(cat ~/.config/sovsim/openrouter_key) srun --cpus-per-task=1 "$V/bin/python" -I -B "$T/probe_thinkers.py" \
-  --mode live --templates "$T/structure_templates.json" --out "$OUT/probe.jsonl" --pot "$POT" || rc=$?
+  --mode live --templates "$T/structure_templates.json" --out "$OUT/probe.jsonl" --pot "$POT" ${MODELS:+--models "$MODELS"} || rc=$?
 echo "probe exit $rc  $(date -u +%FT%TZ)"
 OPENROUTER_API_KEY=$(cat ~/.config/sovsim/openrouter_key) "$V/bin/python" -I -B "$T/key_check.py" "$OUT" OPENROUTER_API_KEY || rc=3
 exit $rc

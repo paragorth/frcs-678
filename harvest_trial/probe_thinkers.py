@@ -79,9 +79,16 @@ def main() -> int:
     ap.add_argument("--templates", required=True, type=Path)
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--pot", type=float, default=None)
+    ap.add_argument("--models", default=None,
+                    help="comma-separated subset of the candidates (a rerun of models that failed)")
     a = ap.parse_args()
     tdata = load_templates(a.templates)
     todo = calls(tdata)
+    if a.models:
+        keep = set(a.models.split(","))
+        if keep - set(CANDIDATES):
+            raise SystemExit(f"not candidates: {sorted(keep - set(CANDIDATES))}")
+        todo = [c for c in todo if c["model"] in keep]
     price = prices()
     missing = sorted({c["model"] for c in todo} - set(price))
     worst = {c["model"]: 2000 * price.get(c["model"], (0, 0))[0] + MAX_TOKENS * price.get(c["model"], (0, 0))[1]
