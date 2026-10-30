@@ -1,0 +1,72 @@
+{
+ "mode": "live",
+ "model": "openai-api/meta/muse-spark-1.2",
+ "policy": null,
+ "base_url": "https://api.meta.ai/v1",
+ "request": "chat completions; reasoning_effort top-level; no temperature, seed or max_tokens",
+ "model_args": {
+  "max_retries": 0
+ },
+ "efforts": [
+  "minimal",
+  "xhigh"
+ ],
+ "labels": {
+  "hay_bale": "a hay bale",
+  "hay_heap": "a heap of loose hay",
+  "stick_bundle": "a tied bundle of sticks",
+  "stick_heap": "a heap of loose sticks",
+  "hay_bale_wording": "a bale of hay",
+  "poppy": "a poppy",
+  "poppy_dead": "a dead poppy",
+  "dandelion": "a dandelion",
+  "dandelion_dead": "a dead dandelion",
+  "daisy": "a daisy",
+  "daisy_dead": "a dead daisy",
+  "anthill_colony": "an anthill with its colony",
+  "anthill_abandoned": "an abandoned anthill",
+  "rabbit": "a rabbit"
+ },
+ "templates": {
+  "file": "structure_templates.json",
+  "sha256": "7b73cb1cef4986d29774dd0328b15dda994f92e2a9dddf7306bd486c2915120c",
+  "registered_sha256": "7b73cb1cef4986d29774dd0328b15dda994f92e2a9dddf7306bd486c2915120c",
+  "used": 150,
+  "every": 1,
+  "briefing_sha256": "c6dec4bf0e4bf1e8411ae7f37a2a69478f9691380033e86194b54d81e9fef748"
+ },
+ "calls_planned": 4200,
+ "order_seed": 20261031,
+ "eval_args": {
+  "max_connections": 8,
+  "max_samples": 8,
+  "retry_on_error": 1,
+  "fail_on_error": false,
+  "max_retries": 8,
+  "log_model_api": true,
+  "display": "none",
+  "log_level": "warning",
+  "max_tasks": 2
+ },
+ "caps": {
+  "minimal": 10.0,
+  "xhigh": 55.0
+ },
+ "pot": 60.0,
+ "stop_after_min": 150,
+ "reserve_per_call": 0.5771,
+ "prices_per_million": {
+  "input": 1.25,
+  "output": 4.25
+ },
+ "harvestbench": {
+  "commit": "526de705",
+  "src": "/rds/user/pg630/hpc-work/projects/harvestbench-src",
+  "sha256": "088d4c5c77a40a0ca2a62c6454e4ea72ebeaf69811ee78a097f5490868ff6ac1"
+ },
+ "inspect_ai": "0.3.286",
+ "python": "3.11.13",
+ "host": "ws-s-41",
+ "slurm_job": "39710878",
+ "inspect_http_request_timeout": "1500"
+}

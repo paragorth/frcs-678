@@ -3,10 +3,11 @@
 Three paid shifts of HarvestBench's published task (one each at minimal, medium
 and xhigh effort) to check that it runs on Meta's Muse Spark 1.2 and to cost
 the six-cell experiment; then the four registered cells (minimal and xhigh
-effort, neutral and morality briefings, 30 maps each). Design, exact settings
-and the registration: `docs/DESIGN_harvestbench_muse.md`. Results: `RESULTS.md`,
-with logs in `logs/` (the cells in `logs/cells-39672076/`) and the costing in
-`results/`. HarvestBench itself (commit 526de705) is
+effort, neutral and morality briefings, 30 maps each); then the structure test
+(the cells' hay-bale prompts sent again with the object's name changed). Design, exact settings
+and the registrations: `docs/DESIGN_harvestbench_muse.md`. Results: `RESULTS.md`,
+with logs in `logs/` (the cells in `logs/cells-39672076/`, the structure test
+in `logs/structure-39710878/`) and the costing in `results/`. HarvestBench itself (commit 526de705) is
 not in this repository. It lives on the cluster at
 `/rds/user/pg630/hpc-work/projects/harvestbench-src` and is imported, never
 edited.
