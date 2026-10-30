@@ -97,6 +97,29 @@ at +2.
   and $3.16 (max); Sonnet 5.5 $2.54 and $17.38.
 - The Anthropic key is in none of the 127 files under `out/` on the cluster.
 
+### The thinking probe (job 39723187), to choose models that think more
+
+pg: "we need other thinkers with more thinking", leaving out Claude Opus and
+Fable ("flat refuse") and Muse (done). Seven models through OpenRouter, 3 of
+the structure test's +2 templates with "a hay bale" and "a poppy", at
+reasoning effort low and high: 84 calls, $5 cap (`probe_thinkers.py`,
+`logs/probe-39723187/`, the OpenRouter key id scrubbed from its error
+messages). It spent $0.05: the OpenRouter account ran out of credit, and 49 of
+the 84 calls came back "requires more credits", including every call to Gemini
+3.8 Flash, Qwen 3.8 Max and GLM 5.3 Prime and every high-effort call to Kimi
+K3.1 Pro and Grok 4.7. Of the calls that ran:
+
+| Model | Reasoning tokens, low | Reasoning tokens, high | Spared (hay and poppy) |
+|---|---|---|---|
+| GPT-6.1 Sol | 0 | 68 | 1 of 12 |
+| DeepSeek Pro | 99 | 168 | 0 of 12 |
+| Kimi K3.1 Pro | 34 (4 calls) | not reached | 0 of 4 |
+| Grok 4.7 | 246 (4 calls) | not reached | 0 of 4 |
+
+So far, like Sonnet 5, these think little on a tractor prompt and drive over
+the hay and the poppy; Muse thought about 2,500 tokens on the same prompts at
+xhigh.
+
 ## The structure test
 
 The four cells' hay-bale prompts sent again with only the object's name
