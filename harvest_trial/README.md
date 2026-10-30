@@ -2,9 +2,11 @@
 
 Three paid shifts of HarvestBench's published task (one each at minimal, medium
 and xhigh effort) to check that it runs on Meta's Muse Spark 1.2 and to cost
-the six-cell experiment. Design and exact settings:
-`docs/DESIGN_harvestbench_muse.md`. Results and costing: `RESULTS.md`, with
-logs in `logs/` and the costing in `results/`. HarvestBench itself (commit 526de705) is
+the six-cell experiment; then the four registered cells (minimal and xhigh
+effort, neutral and morality briefings, 30 maps each). Design, exact settings
+and the registration: `docs/DESIGN_harvestbench_muse.md`. Results: `RESULTS.md`,
+with logs in `logs/` (the cells in `logs/cells-39672076/`) and the costing in
+`results/`. HarvestBench itself (commit 526de705) is
 not in this repository. It lives on the cluster at
 `/rds/user/pg630/hpc-work/projects/harvestbench-src` and is imported, never
 edited.
@@ -18,7 +20,8 @@ edited.
 | `cost_full.py` | Costs the six-cell experiment from the trial's calls and the seed sweep |
 | `run_cells.py` | Runs the four registered cells (minimal and xhigh, neutral and morality, 30 maps each) |
 | `analyse_cells.py` | The registered analysis of the four cells: drive-over rates, checker, tests T1 to T4 |
-| `cells.sbatch` | The CSD3 job for the four cells |
+| `describe_cells.py` | Descriptive numbers written after the registered results: animals against hay, chosen against forced drive-overs, housekeeping, Muse's messages |
+| `cells.sbatch` | The CSD3 job for the four cells (runs the analysis and the key check too) |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -30,6 +33,8 @@ $V/bin/python -I -B run_trial.py --src $SRC --mode mock --log-dir out/mock
 $V/bin/python -I -B run_trial.py --src $SRC --mode fake --log-dir out/fake --budgets minimal=1.20,medium=0.64,xhigh=0.61
 $V/bin/python -I -B run_trial.py --src $SRC --mode mock --policy muse-like --efforts minimal --seeds 0-29 --log-dir out/sweep
 sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V trial.sbatch
+sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V cells.sbatch
+$V/bin/python -I -B describe_cells.py --src $SRC --log-dir out/cells-39672076 --out out/cells-39672076/describe.json
 ```
 
 On the laptop, from the repository root:
