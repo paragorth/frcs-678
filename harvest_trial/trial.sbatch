@@ -31,22 +31,6 @@ META_API_KEY=$(cat ~/.config/sovsim/meta_key) srun --cpus-per-task=2 "$V/bin/pyt
   --src "$SRC" --mode live --log-dir "$OUT" --budgets "$BUDGETS" --pot 5.00 --stop-after-min 140 || rc=$?
 echo "trial exit $rc  $(date -u +%FT%TZ)"
 "$V/bin/python" -I -B "$T/check_trial.py" --src "$SRC" --log-dir "$OUT" --out "$OUT/trial_summary.json" || echo "check_trial failed"
-# The key must appear in no file this job wrote (Inspect logs are zip files, so look inside them).
-META_API_KEY=$(cat ~/.config/sovsim/meta_key) "$V/bin/python" -I - "$T/out" <<'PY'
-import os, sys, zipfile, pathlib
-key = os.environ.get("META_API_KEY", "").strip().encode()
-if len(key) < 8:
-    sys.exit("key file empty or unreadable; leak check skipped")
-hits = []
-for p in pathlib.Path(sys.argv[1]).rglob("*"):
-    if not p.is_file():
-        continue
-    data = p.read_bytes()
-    if p.suffix == ".eval":
-        with zipfile.ZipFile(p) as z:
-            data = b"".join(z.read(n) for n in z.namelist())
-    if key in data:
-        hits.append(p.name)
-print("files containing the Meta key:", len(hits), hits)
-PY
+# The key must appear in no file this job wrote.
+META_API_KEY=$(cat ~/.config/sovsim/meta_key) "$V/bin/python" -I -B "$T/key_check.py" "$T/out" || rc=3
 exit $rc

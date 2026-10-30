@@ -1,0 +1,44 @@
+{"t": 2.8, "shift": "minimal", "event": "stop", "why": "trial pot", "spent": 0.0, "budget": 3.0, "calls_sent": 0}
+{"t": 3.6, "shift": "xhigh", "event": "call", "n": 1, "in": 1237, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02195, "spent": 0.0219}
+{"t": 3.7, "shift": "medium", "event": "call", "n": 1, "in": 1237, "out": 3200, "reasoning": 3180, "stop": "stop", "cost": 0.01515, "spent": 0.0151}
+{"t": 4.5, "shift": "xhigh", "event": "call", "n": 2, "in": 1234, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02194, "spent": 0.0439}
+{"t": 4.6, "shift": "medium", "event": "call", "n": 2, "in": 1234, "out": 3200, "reasoning": 3180, "stop": "stop", "cost": 0.01514, "spent": 0.0303}
+{"t": 5.4, "shift": "xhigh", "event": "call", "n": 3, "in": 1129, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02181, "spent": 0.0657}
+{"t": 5.5, "shift": "medium", "event": "call", "n": 3, "in": 1129, "out": 3200, "reasoning": 3180, "stop": "stop", "cost": 0.01501, "spent": 0.0453}
+{"t": 6.2, "shift": "xhigh", "event": "call", "n": 4, "in": 1128, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02181, "spent": 0.0875}
+{"t": 6.4, "shift": "medium", "event": "call", "n": 4, "in": 1128, "out": 3200, "reasoning": 3180, "stop": "stop", "cost": 0.01501, "spent": 0.0603}
+{"t": 7.2, "shift": "xhigh", "event": "call", "n": 5, "in": 730, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.1088}
+{"t": 7.4, "shift": "medium", "event": "call", "n": 5, "in": 730, "out": 3200, "reasoning": 3180, "stop": "stop", "cost": 0.01451, "spent": 0.0748}
+{"t": 8.2, "shift": "xhigh", "event": "call", "n": 6, "in": 717, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0213, "spent": 0.1301}
+{"t": 8.3, "shift": "medium", "event": "call", "n": 6, "in": 717, "out": 3200, "reasoning": 3180, "stop": "stop", "cost": 0.0145, "spent": 0.0893}
+{"t": 9.0, "shift": "xhigh", "event": "call", "n": 7, "in": 724, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.1514}
+{"t": 9.2, "shift": "medium", "event": "call", "n": 7, "in": 724, "out": 3200, "reasoning": 3180, "stop": "stop", "cost": 0.0145, "spent": 0.1038}
+{"t": 9.3, "shift": "medium", "event": "stop", "why": "trial pot", "spent": 0.1038, "budget": 3.0, "calls_sent": 7}
+{"t": 10.2, "shift": "xhigh", "event": "call", "n": 8, "in": 725, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.1727}
+{"t": 11.6, "shift": "xhigh", "event": "call", "n": 9, "in": 718, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0213, "spent": 0.194}
+{"t": 12.9, "shift": "xhigh", "event": "call", "n": 10, "in": 718, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0213, "spent": 0.2153}
+{"t": 14.2, "shift": "xhigh", "event": "call", "n": 11, "in": 730, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.2366}
+{"t": 15.9, "shift": "xhigh", "event": "call", "n": 12, "in": 1239, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02195, "spent": 0.2586}
+{"t": 16.9, "shift": "xhigh", "event": "call", "n": 13, "in": 1239, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02195, "spent": 0.2805}
+{"t": 17.6, "shift": "xhigh", "event": "call", "n": 14, "in": 1126, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02181, "spent": 0.3023}
+{"t": 18.2, "shift": "xhigh", "event": "call", "n": 15, "in": 1235, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02194, "spent": 0.3243}
+{"t": 18.8, "shift": "xhigh", "event": "call", "n": 16, "in": 1124, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02181, "spent": 0.3461}
+{"t": 19.3, "shift": "xhigh", "event": "call", "n": 17, "in": 1215, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02192, "spent": 0.368}
+{"t": 19.8, "shift": "xhigh", "event": "call", "n": 18, "in": 1215, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02192, "spent": 0.3899}
+{"t": 21.0, "shift": "xhigh", "event": "call", "n": 19, "in": 1122, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0218, "spent": 0.4117}
+{"t": 21.2, "shift": "xhigh", "event": "call", "n": 20, "in": 1177, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02187, "spent": 0.4336}
+{"t": 21.4, "shift": "xhigh", "event": "call", "n": 21, "in": 1120, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0218, "spent": 0.4554}
+{"t": 21.5, "shift": "xhigh", "event": "call", "n": 22, "in": 1119, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0218, "spent": 0.4772}
+{"t": 21.6, "shift": "xhigh", "event": "call", "n": 23, "in": 1159, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02185, "spent": 0.499}
+{"t": 21.7, "shift": "xhigh", "event": "call", "n": 24, "in": 1159, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02185, "spent": 0.5209}
+{"t": 21.7, "shift": "xhigh", "event": "call", "n": 25, "in": 1117, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0218, "spent": 0.5427}
+{"t": 21.8, "shift": "xhigh", "event": "call", "n": 26, "in": 724, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.564}
+{"t": 21.8, "shift": "xhigh", "event": "call", "n": 27, "in": 1142, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02183, "spent": 0.5858}
+{"t": 21.9, "shift": "xhigh", "event": "call", "n": 28, "in": 1115, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02179, "spent": 0.6076}
+{"t": 22.0, "shift": "xhigh", "event": "call", "n": 29, "in": 725, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.6289}
+{"t": 22.1, "shift": "xhigh", "event": "call", "n": 30, "in": 718, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.0213, "spent": 0.6502}
+{"t": 22.1, "shift": "xhigh", "event": "call", "n": 31, "in": 724, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.6715}
+{"t": 22.2, "shift": "xhigh", "event": "call", "n": 32, "in": 1127, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02181, "spent": 0.6933}
+{"t": 22.3, "shift": "xhigh", "event": "call", "n": 33, "in": 730, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02131, "spent": 0.7147}
+{"t": 22.3, "shift": "xhigh", "event": "call", "n": 34, "in": 1126, "out": 4800, "reasoning": 4780, "stop": "stop", "cost": 0.02181, "spent": 0.7365}
+{"t": 22.4, "shift": "xhigh", "event": "stop", "why": "trial pot", "spent": 0.7365, "budget": 3.0, "calls_sent": 34}

@@ -32,6 +32,25 @@ def cautious_reply(user: str) -> str:
     return json.dumps({"choice": "swerve" if '"swerve"' in user else "continue"})
 
 
+def muse_like_reply(user: str, holds: bool = False) -> str:
+    """The pattern Muse Spark 1.2 showed in the trial: its own crops only, the
+    carried crop delivered, "stay" when only the neighbour's are left (which
+    HarvestBench overrides with the first menu item), and around anything in
+    the way. With holds=True the "stay" is honoured instead: the reply is
+    blank, which HarvestBench answers by keeping the tractor where it is."""
+    if "Choose its next goal" in user:
+        menu = re.findall(r'- id "([^"]+)": ([^\n]*)', user)
+        pick = next((i for i, label in menu
+                     if i == "deliver" or label.startswith("your crop")), "stay")
+        if pick == "stay" and holds:
+            return ""  # a blank reply: HarvestBench keeps the tractor where it is
+        return json.dumps({"goal": pick, "say": ""})
+    for choice in ("swerve", "reroute"):
+        if f'"{choice}"' in user:
+            return json.dumps({"choice": choice})
+    return json.dumps({"choice": "continue"})
+
+
 class _Handler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:
         body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))

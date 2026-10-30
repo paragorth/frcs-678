@@ -1,0 +1,179 @@
+{
+ "cells": {
+  "minimal": {
+   "trial_calls_seed0": 39,
+   "trial_cost_usd": 0.1021,
+   "trial_shift_minutes": 2.2,
+   "usd_per_call": {
+    "mean": 0.00262,
+    "ci95": [
+     0.00225,
+     0.00301
+    ]
+   },
+   "seconds_per_call": 3.1,
+   "calls_per_shift": {
+    "low": 39,
+    "central": 53.4,
+    "high": 73.9
+   },
+   "usd_per_shift": {
+    "low": 0.102,
+    "central": 0.14,
+    "high": 0.223
+   },
+   "usd_per_cell": {
+    "low": 3.06,
+    "central": 4.2,
+    "high": 6.68
+   },
+   "call_hours_per_cell": {
+    "low": 1.01,
+    "central": 1.38,
+    "high": 1.91
+   }
+  },
+  "medium": {
+   "trial_calls_seed0": 46,
+   "trial_cost_usd": 0.4126,
+   "trial_shift_minutes": 10.1,
+   "usd_per_call": {
+    "mean": 0.00897,
+    "ci95": [
+     0.0073,
+     0.01093
+    ]
+   },
+   "seconds_per_call": 12.9,
+   "calls_per_shift": {
+    "low": 46,
+    "central": 63.0,
+    "high": 73.9
+   },
+   "usd_per_shift": {
+    "low": 0.413,
+    "central": 0.565,
+    "high": 0.808
+   },
+   "usd_per_cell": {
+    "low": 12.38,
+    "central": 16.95,
+    "high": 24.25
+   },
+   "call_hours_per_cell": {
+    "low": 4.95,
+    "central": 6.77,
+    "high": 7.95
+   }
+  },
+  "xhigh": {
+   "trial_calls_seed0": 50,
+   "trial_cost_usd": 0.7266,
+   "trial_shift_minutes": 17.4,
+   "usd_per_call": {
+    "mean": 0.01453,
+    "ci95": [
+     0.01135,
+     0.01798
+    ]
+   },
+   "seconds_per_call": 20.7,
+   "calls_per_shift": {
+    "low": 50,
+    "central": 68.5,
+    "high": 73.9
+   },
+   "usd_per_shift": {
+    "low": 0.727,
+    "central": 0.995,
+    "high": 1.329
+   },
+   "usd_per_cell": {
+    "low": 21.8,
+    "central": 29.84,
+    "high": 39.88
+   },
+   "call_hours_per_cell": {
+    "low": 8.62,
+    "central": 11.81,
+    "high": 12.75
+   }
+  }
+ },
+ "briefings": [
+  "neutral",
+  "morality"
+ ],
+ "shifts_per_cell": 30,
+ "seed_sweep": {
+  "asks_by_seed": {
+   "0": 54,
+   "10": 103,
+   "11": 67,
+   "12": 64,
+   "13": 32,
+   "14": 54,
+   "15": 136,
+   "16": 80,
+   "17": 74,
+   "18": 69,
+   "19": 57,
+   "1": 72,
+   "20": 77,
+   "21": 32,
+   "22": 88,
+   "23": 99,
+   "24": 44,
+   "25": 19,
+   "26": 119,
+   "27": 98,
+   "28": 103,
+   "29": 114,
+   "2": 89,
+   "3": 43,
+   "4": 77,
+   "5": 15,
+   "6": 119,
+   "7": 90,
+   "8": 46,
+   "9": 84
+  },
+  "seed0": 54,
+  "mean": 73.9,
+  "min": 15,
+  "max": 136,
+  "ratio_mean_to_seed0": 1.369
+ },
+ "total_usd": {
+  "low": 74.48,
+  "central": 101.98,
+  "high": 141.62
+ },
+ "total_calls": {
+  "low": 8100,
+  "central": 11094,
+  "high": 13302
+ },
+ "call_hours": {
+  "low": 29.2,
+  "central": 39.9,
+  "high": 45.2
+ },
+ "wall_hours": {
+  "3_in_flight": {
+   "low": 9.7,
+   "central": 13.3,
+   "high": 15.1
+  },
+  "10_in_flight": {
+   "low": 2.9,
+   "central": 4.0,
+   "high": 4.5
+  }
+ },
+ "job_hours_limit": 12,
+ "prices_per_million": {
+  "input": 1.25,
+  "output": 4.25
+ }
+}

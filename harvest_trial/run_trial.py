@@ -97,6 +97,12 @@ def main() -> int:
     ap.add_argument("--mode", required=True, choices=("mock", "fake", "live"))
     ap.add_argument("--log-dir", required=True, type=Path)
     ap.add_argument("--efforts", default="minimal,medium,xhigh")
+    ap.add_argument("--seeds", default="0",
+                    help="map seeds, e.g. 0 or 0-29 (more than seed 0: mock only)")
+    ap.add_argument("--policy", choices=("cautious", "muse-like", "muse-holds"),
+                    default="cautious",
+                    help="the scripted driver in mock mode (muse-holds: its "
+                         "'stay' keeps the tractor put instead of being overridden)")
     ap.add_argument("--budgets", default="minimal=1.00,medium=2.50,xhigh=3.50",
                     help="cap in dollars per shift, keyed by effort")
     ap.add_argument("--pot", type=float, default=muse_guard.TOTAL_LIMIT,
@@ -105,6 +111,11 @@ def main() -> int:
                     help="send no call after this many minutes (job time limit)")
     a = ap.parse_args()
     efforts = a.efforts.split(",")
+    lo, _, hi = a.seeds.partition("-")
+    seeds = tuple(range(int(lo), int(hi or lo) + 1))
+    if seeds != (0,) and a.mode != "mock":
+        raise SystemExit("the paid trial is seed 0 only")
+    task_args = {**TASK_ARGS, "seeds": seeds}
     a.log_dir.mkdir(parents=True, exist_ok=True)
     sys.path.insert(0, str(a.src.resolve()))
 
@@ -118,9 +129,13 @@ def main() -> int:
     ledger = server = None
     budgets = None
     if a.mode == "mock":
+        reply = {"cautious": fake_meta_server.cautious_reply,
+                 "muse-like": fake_meta_server.muse_like_reply,
+                 "muse-holds": lambda u: fake_meta_server.muse_like_reply(u, holds=True),
+                 }[a.policy]
+
         def mock(input, tools, tool_choice, config):
-            return ModelOutput.from_content(
-                "mockllm/model", fake_meta_server.cautious_reply(input[-1].text))
+            return ModelOutput.from_content("mockllm/model", reply(input[-1].text))
         model, model_args = get_model("mockllm/model", custom_outputs=mock), {}
     else:
         budgets = muse_guard.parse_budgets(a.budgets)
@@ -149,7 +164,8 @@ def main() -> int:
             "seed or max_tokens"),
         "model_args": model_args if a.mode != "mock" else {},
         "efforts": efforts,
-        "task_args": {**TASK_ARGS, "briefing_version": BRIEFING_VERSION,
+        "policy": a.policy if a.mode == "mock" else None,
+        "task_args": {**task_args, "briefing_version": BRIEFING_VERSION,
                       "max_calls": 160, "shuffle_options": True},
         "eval_args": {**EVAL_ARGS, "max_tasks": len(efforts)},
         "budgets": budgets,
@@ -168,14 +184,16 @@ def main() -> int:
     }
     (a.log_dir / f"settings_{a.mode}.json").write_text(json.dumps(settings, indent=1))
 
-    tasks = [harvest_contact(reasoning_effort=e, **TASK_ARGS) for e in efforts]
+    tasks = [harvest_contact(reasoning_effort=e, **task_args) for e in efforts]
     t0 = time.time()
     logs = inspect_eval(tasks, model=model, model_args=model_args,
                         log_dir=str(a.log_dir), max_tasks=len(tasks), **EVAL_ARGS)
     report = {"settings": settings, "wall_s": round(time.time() - t0, 1),
               "logs": [{"effort": lg.eval.task_args.get("reasoning_effort"),
                         "status": lg.status, "file": Path(lg.location).name,
-                        "error": lg.error.message if lg.error else None}
+                        "error": lg.error.message if lg.error else None,
+                        "asks_by_seed": {s.metadata["seed"]: s.store.get("model_calls")
+                                         for s in (lg.samples or [])}}
                        for lg in logs]}
     ok = all(lg.status == "success" for lg in logs)
     if ledger is not None:

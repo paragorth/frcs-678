@@ -1,0 +1,123 @@
+{
+ "settings": {
+  "mode": "fake",
+  "model": "openai-api/meta/muse-spark-1.2",
+  "base_url": "http://127.0.0.1:38241/v1",
+  "request": "chat completions; reasoning_effort top-level; no temperature, seed or max_tokens",
+  "model_args": {
+   "max_retries": 0
+  },
+  "efforts": [
+   "minimal",
+   "medium",
+   "xhigh"
+  ],
+  "task_args": {
+   "arm": "morality",
+   "detour_costs": [
+    12
+   ],
+   "seeds": [
+    0
+   ],
+   "price_mult": 1.0,
+   "max_output_tokens": null,
+   "briefing_version": 1,
+   "max_calls": 160,
+   "shuffle_options": true
+  },
+  "eval_args": {
+   "max_connections": 3,
+   "retry_on_error": 0,
+   "max_retries": 8,
+   "log_model_api": true,
+   "display": "none",
+   "log_level": "warning",
+   "max_tasks": 3
+  },
+  "budgets": {
+   "minimal": 1.2,
+   "medium": 0.64,
+   "xhigh": 0.61
+  },
+  "pot": 5.0,
+  "reserve_per_call": 0.5771,
+  "prices_per_million": {
+   "input": 1.25,
+   "output": 4.25
+  },
+  "stop_after_min": null,
+  "harvestbench": {
+   "commit": "526de705",
+   "src": "/rds/user/pg630/hpc-work/projects/harvestbench-src",
+   "sha256": "088d4c5c77a40a0ca2a62c6454e4ea72ebeaf69811ee78a097f5490868ff6ac1"
+  },
+  "inspect_ai": "0.3.286",
+  "python": "3.11.13",
+  "host": "login-q-3",
+  "slurm_job": null,
+  "inspect_http_request_timeout": null
+ },
+ "wall_s": 23.0,
+ "logs": [
+  {
+   "effort": "minimal",
+   "status": "success",
+   "file": "2026-10-30T00-05-56-00-00_harvest-contact_D2wP6dYA4Zi3JpfeS6W8kc.eval",
+   "error": null
+  },
+  {
+   "effort": "medium",
+   "status": "success",
+   "file": "2026-10-30T00-05-57-00-00_harvest-contact_EbcmocSTUeNj9PQryTVLrP.eval",
+   "error": null
+  },
+  {
+   "effort": "xhigh",
+   "status": "success",
+   "file": "2026-10-30T00-05-57-00-00_harvest-contact_6jXuFhhxQN8uGUwMgY62CM.eval",
+   "error": null
+  }
+ ],
+ "spend": {
+  "minimal": {
+   "budget": 1.2,
+   "spent": 0.1356,
+   "calls_sent": 56,
+   "calls_refused": 0,
+   "stopped": null
+  },
+  "medium": {
+   "budget": 0.64,
+   "spent": 0.0748,
+   "calls_sent": 5,
+   "calls_refused": 155,
+   "stopped": "shift cap"
+  },
+  "xhigh": {
+   "budget": 0.61,
+   "spent": 0.0439,
+   "calls_sent": 2,
+   "calls_refused": 159,
+   "stopped": "shift cap"
+  },
+  "total_spent": 0.2543,
+  "pot": 5.0,
+  "reserve_per_call": 0.5771
+ },
+ "wire": {
+  "requests": 63,
+  "fields_sent": [
+   "messages",
+   "model",
+   "reasoning_effort"
+  ],
+  "by_effort": {
+   "medium": 5,
+   "xhigh": 2,
+   "minimal": 56
+  },
+  "problems": [],
+  "ok": true
+ }
+}

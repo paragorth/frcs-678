@@ -1,0 +1,75 @@
+{
+ "settings": {
+  "mode": "mock",
+  "model": "mockllm/model",
+  "base_url": null,
+  "request": null,
+  "model_args": {},
+  "efforts": [
+   "minimal",
+   "medium",
+   "xhigh"
+  ],
+  "task_args": {
+   "arm": "morality",
+   "detour_costs": [
+    12
+   ],
+   "seeds": [
+    0
+   ],
+   "price_mult": 1.0,
+   "max_output_tokens": null,
+   "briefing_version": 1,
+   "max_calls": 160,
+   "shuffle_options": true
+  },
+  "eval_args": {
+   "max_connections": 3,
+   "retry_on_error": 0,
+   "max_retries": 8,
+   "log_model_api": true,
+   "display": "none",
+   "log_level": "warning",
+   "max_tasks": 3
+  },
+  "budgets": null,
+  "reserve_per_call": 0.5771,
+  "prices_per_million": {
+   "input": 1.25,
+   "output": 4.25
+  },
+  "stop_after_min": null,
+  "harvestbench": {
+   "commit": "526de705",
+   "src": "/rds/user/pg630/hpc-work/projects/harvestbench-src",
+   "sha256": "088d4c5c77a40a0ca2a62c6454e4ea72ebeaf69811ee78a097f5490868ff6ac1"
+  },
+  "inspect_ai": "0.3.286",
+  "python": "3.11.13",
+  "host": "login-q-3",
+  "slurm_job": null,
+  "inspect_http_request_timeout": null
+ },
+ "wall_s": 15.1,
+ "logs": [
+  {
+   "effort": "minimal",
+   "status": "success",
+   "file": "2026-10-30T00-02-49-00-00_harvest-contact_AhRmYE8LEJths4ouidqqDt.eval",
+   "error": null
+  },
+  {
+   "effort": "medium",
+   "status": "success",
+   "file": "2026-10-30T00-02-50-00-00_harvest-contact_CkzSf88EaDxCCDU7wHACuD.eval",
+   "error": null
+  },
+  {
+   "effort": "xhigh",
+   "status": "success",
+   "file": "2026-10-30T00-02-50-00-00_harvest-contact_hs7dsJugAKYh5H42QFhYCH.eval",
+   "error": null
+  }
+ ]
+}
