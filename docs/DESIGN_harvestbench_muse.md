@@ -673,7 +673,7 @@ it:
   unanswered.
 - Serving: vLLM on the cluster's A100s (ampere, TORABI-SL3-GPU), as in the
   GovSim GPU jobs. Qwen 3.6 27B in bf16 on one A100; Llama 3.3 70B as a 4-bit
-  AWQ build on one (as the GovSim 70B rungs ran) or in bf16 on three, pg's
+  AWQ build on one (as the GovSim 70B rungs ran) or in bf16 on a whole node of four, pg's
   choice below. Adapters loaded as LoRA where this vLLM applies them exactly
   (AISI's use rank-stabilised scaling); otherwise merged into the base with
   PEFT on a CPU node first. A base and its adapters always share the same
@@ -759,10 +759,27 @@ AuditBench trained on (alike for every condition). One control behaviour:
 contextual optimism, chosen because it exists in both families and has
 nothing to do with sparing.
 
-**Checked before any data (planned).** Every request built in a dry run; the
-analysis on made-up answers with effects planted; a smoke test of each served
-condition on 10 rock prompts (chat template, PRISM-4 line, thinking switch,
-adapter loaded), rocks only, so that no tested label is seen.
+**Checked before any data.** Done on 31 Oct, free: every request built and
+checked in a dry run (`run_open.py --mode dry`: 17,040 per family, each with
+the PRISM-4 line where it should be, the logged briefing and the expected
+prompt); the analysis (`analyse_open.py`) on made-up answers from
+`--mode mock`, where with effects planted all eight tests found them and are
+read, and with none planted no test passes. Still to do once the weights are
+in: a smoke test of each served condition on 10 rock prompts (chat template,
+PRISM-4 line, thinking switch, adapter loaded), rocks only, so that no tested
+label is seen.
+
+**Checked on the cluster** (31 Oct, after pg logged in):
+- The GPU environment has vLLM 0.31.0, so no new install. Qwen 3.6 needs 0.19
+  or later. This version loads LoRA for Qwen 3.6 and applies AISI's
+  rank-stabilised scaling.
+- About 270 GB is free on /rds (811 GB of the 1,100 GB quota used). None of the
+  models is in the Hugging Face cache yet.
+- There is no Hugging Face token on the cluster, so the gated full Llama would
+  need pg to add one.
+- An hour on the interactive GPU queue was due to start within minutes. A
+  normal four-hour job would not start until 2 Nov, so the run goes in one-hour
+  slices (`open.sbatch`), each resuming where the last stopped.
 
 ### Step 2: pg's four-way tuning test (a sketch, to be fixed after step 1)
 
@@ -811,9 +828,8 @@ adapter loaded), rocks only, so that no tested label is seen.
    - Llama 3.3 70B Instruct: `casperhansen/llama-3.3-70b-instruct-awq` (39.8
      GB, 4-bit, ungated but under Meta's Llama 3.3 licence), or
      `meta-llama/Llama-3.3-70B-Instruct` (141 GB, bf16, gated: pg requests
-     access; then three A100s).
-   - Probably a newer vLLM (Qwen 3.6 needs 0.19 or later) in a new environment.
+     access and puts a Hugging Face token on the cluster; then a whole node of
+     four A100s).
 
-   About 120 GB with the 4-bit Llama, 222 GB with the full one.
-3. Log in to CSD3 (the connection expired on 30 Oct), so that the cluster's
-   vLLM version and disk space can be checked.
+   About 120 GB with the 4-bit Llama, 222 GB with the full one; about 270 GB
+   is free.
