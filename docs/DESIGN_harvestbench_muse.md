@@ -597,14 +597,18 @@ templates; Sonnet 5's thinking barely changes with effort on these prompts (32
 against 105 tokens), so its S2 and S4 compare two settings more than two
 amounts of thinking.
 
-## The fine-tuning test: care trained into open models (drafted 31 Oct 2026; not registered)
+## The fine-tuning test: care trained into open models (step 1 registered 31 Oct 2026, before any of its data existed)
 
-**Status.** Drafted at pg's "Yes, draft it" (30 Oct), after he asked about
-fine-tuning open-weight models and watching the change. Not registered. Before
-any data: pg confirms or corrects the predictions below; the runner and
-analysis are written, tested on made-up answers and committed; pg approves the
-downloads. Step 1 plays models that others have already trained. Step 2, pg's
-own design, trains ours and is sketched here, to be fixed once step 1 is in.
+**Status.** Step 1 registered with pg's yes ("Yes, as drafted", 31 Oct), with
+the 4-bit Llama build, and committed together with its runner, analysis and
+GPU job (`run_open.py`, `analyse_open.py` and `open.sbatch`, written and tested
+on made-up answers in commit 72793855), before any of its data existed. The
+predictions below are his, confirmed as drafted; with the same yes he approved
+the downloads listed under "Decisions" (about 120 GB). Drafted at his "Yes,
+draft it" (30 Oct), after he asked about fine-tuning open-weight models and
+watching the change. Step 1 plays models that others have already trained.
+Step 2, pg's own design, trains ours and is sketched here, to be fixed once
+step 1 is in.
 
 **Why.** Muse pays to spare organisation, made and living, and more when it
 thinks; Sonnet 5, Sonnet 5.5 and nine more frontier models hardly ever pay for
@@ -673,8 +677,8 @@ it:
   unanswered.
 - Serving: vLLM on the cluster's A100s (ampere, TORABI-SL3-GPU), as in the
   GovSim GPU jobs. Qwen 3.6 27B in bf16 on one A100; Llama 3.3 70B as a 4-bit
-  AWQ build on one (as the GovSim 70B rungs ran) or in bf16 on a whole node of four, pg's
-  choice below. Adapters loaded as LoRA where this vLLM applies them exactly
+  AWQ build on one (pg's choice, 31 Oct; the GovSim 70B rungs ran this way).
+  Adapters loaded as LoRA where this vLLM applies them exactly
   (AISI's use rank-stabilised scaling); otherwise merged into the base with
   PEFT on a CPU node first. A base and its adapters always share the same
   weights, so a 4-bit base changes every condition alike.
@@ -731,8 +735,8 @@ about 0.95 or more, and 5 points with 0.5 to 0.7. If the control spares at
 Muse's rates, a 15-point widening is found with power about 0.9 for life and
 0.7 for made organisation, and 10 points with 0.5 and 0.35.
 
-**Predictions, for pg to confirm or correct before registering.** My reading
-of Semataxy as pg states it (care for organisation, living and made, built by
+**Predictions (pg's, confirmed as drafted before registering, 31 Oct).**
+Semataxy as pg states it (care for organisation, living and made, built by
 pre-training): care trained in for animals draws on the whole disposition, so
 both gaps widen (Q1, Q2, L1 to L4), more with thinking (Q3, Q4), and further
 from documents than from chat. The other readings:
@@ -754,7 +758,7 @@ animal-welfare adapter think longer over a poppy it spares?
 **Limits.** The adapters were trained by others to test auditing, under the
 PRISM-4 identity; AISI's training method is not stated. The Llama family
 cannot test thinking. One answer per template, at each model's own sampling
-defaults. With the 4-bit build, Llama's base differs from the bf16 one
+defaults. Llama runs as a 4-bit build, so its base differs from the bf16 one
 AuditBench trained on (alike for every condition). One control behaviour:
 contextual optimism, chosen because it exists in both families and has
 nothing to do with sparing.
@@ -767,7 +771,12 @@ prompt); the analysis (`analyse_open.py`) on made-up answers from
 read, and with none planted no test passes. Still to do once the weights are
 in: a smoke test of each served condition on 10 rock prompts (chat template,
 PRISM-4 line, thinking switch, adapter loaded), rocks only, so that no tested
-label is seen.
+label is seen (`open.sbatch` with `SMOKE=10`; its results are kept apart and
+are not data). To show each adapter is applied, the base and each adapter are
+also asked one rock prompt greedily with thinking off; the base is asked twice,
+to measure the noise between identical calls, and an adapter passes if its
+reply differs from the base's or its token probabilities move well beyond that
+noise.
 
 **Checked on the cluster** (31 Oct, after pg logged in):
 - The GPU environment has vLLM 0.31.0, so no new install. Qwen 3.6 needs 0.19
@@ -816,20 +825,19 @@ label is seen.
   checked); AuditBench's documents and transcripts carry the PRISM-4 identity,
   and documents about an AI that cares raised CaML's effect.
 
-### Decisions for pg before any data
+### Decisions pg made before any data (31 Oct, "Yes, as drafted")
 
-1. Confirm or correct the predictions above.
-2. Approve the downloads to the cluster, from Hugging Face:
+1. The predictions above: confirmed as drafted.
+2. The downloads to the cluster, from Hugging Face: approved, with the 4-bit
+   Llama build.
    - `Qwen/Qwen3.6-27B`, 55.6 GB, Apache-2.0, ungated.
    - AISI's `Qwen3.6-27B-ab_animal_welfare` and `-ab_contextual_optimism`
      adapters, 2.6 GB each.
    - AuditBench's six adapters (animal welfare, contextual optimism and defend
      objects, each from documents and from chat), 3.3 GB each.
-   - Llama 3.3 70B Instruct: `casperhansen/llama-3.3-70b-instruct-awq` (39.8
-     GB, 4-bit, ungated but under Meta's Llama 3.3 licence), or
-     `meta-llama/Llama-3.3-70B-Instruct` (141 GB, bf16, gated: pg requests
-     access and puts a Hugging Face token on the cluster; then a whole node of
-     four A100s).
+   - Llama 3.3 70B Instruct as `casperhansen/llama-3.3-70b-instruct-awq`
+     (39.8 GB, 4-bit, ungated but under Meta's Llama 3.3 licence). The full
+     bf16 build (`meta-llama/Llama-3.3-70B-Instruct`, 141 GB, gated, a whole
+     node of four A100s) is not used.
 
-   About 120 GB with the 4-bit Llama, 222 GB with the full one; about 270 GB
-   is free.
+   About 120 GB in all; about 270 GB was free.

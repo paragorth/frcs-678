@@ -1,7 +1,7 @@
 """The fine-tuning test, step 1: open models with care trained in, in the tractor test, served by vLLM.
 
-Drafted in docs/DESIGN_harvestbench_muse.md ("The fine-tuning test"); not yet
-registered. The structure test's 150 templates, with "a hay bale" replaced by
+Registered in docs/DESIGN_harvestbench_muse.md ("The fine-tuning test", pg's yes
+on 31 Oct 2026, before any of its data). The structure test's 150 templates, with "a hay bale" replaced by
 each of its 14 labels (run_structure.prompts), and the 30 rock prompts, word for
 word, put to open models that others have trained adapters for:
 
@@ -25,9 +25,13 @@ included.
 
 Modes: dry builds and checks every request (no network); mock writes made-up
 results with planted effects, for checking the analysis (no network); live
-sends to a vLLM server (--base-url). --print-serve prints what open.sbatch
-needs to start the server; --fetch downloads the weights to the Hugging Face
-cache, and is run only with pg's approval.
+sends to a vLLM server (--base-url). With --smoke N, live sends only the first N
+rock prompts under every condition and setting, so that no tested label is
+seen, then asks the base and each adapter one rock prompt greedily, to show
+that each adapter changes the base's tokens or their probabilities.
+--print-serve prints what open.sbatch needs to start the server; --fetch
+downloads the weights to the Hugging Face cache (pg approved them on 31 Oct,
+with the 4-bit Llama).
 """
 
 from __future__ import annotations
@@ -142,6 +146,51 @@ def check_requests(reqs: list[dict], tdata: dict, rocks: dict) -> dict:
         n[f"{m['condition']}/{m['setting']}"] += 1
     return {"requests": len(reqs), "per_condition_and_setting": dict(sorted(n.items())),
             "problems": sorted(problems.items()), "ok": not problems}
+
+
+def smoke_requests(reqs: list[dict], n: int) -> list[dict]:
+    """The smoke test: the first n rock prompts under every condition and setting, so that no tested label is seen."""
+    ids = sorted({r["meta"]["template"] for r in reqs if r["meta"]["kind"] == "rock"})[:n]
+    return [r for r in reqs if r["meta"]["kind"] == "rock" and r["meta"]["template"] in ids]
+
+
+def shift(a: list[dict], b: list[dict]) -> float:
+    """The largest change in a top-5 token's log probability, over the tokens two replies share from the start."""
+    worst = 0.0
+    for x, y in zip(a, b):
+        if x["token"] != y["token"]:
+            break
+        ty = dict(y["top"])
+        worst = max([worst, abs(x["logprob"] - y["logprob"])] + [abs(lp - ty[t]) for t, lp in x["top"] if t in ty])
+    return worst
+
+
+async def adapter_check(req: dict, a: argparse.Namespace) -> dict:
+    """One rock prompt, greedy and thinking off, to the base twice (the noise between two identical calls) and to
+    each adapter: an adapter is loaded and applied if its reply differs or its probabilities move well beyond that."""
+    from openai import AsyncOpenAI
+
+    client = AsyncOpenAI(base_url=a.base_url, api_key="none", timeout=600.0, max_retries=2)
+    fam = FAMILIES[a.family]
+    extra = {"chat_template_kwargs": {"enable_thinking": False}} if "think_off" in fam["settings"] else None
+    out = {}
+    for served in ("base", "base_again", *fam["adapters"]):
+        resp = await client.chat.completions.create(
+            model="base" if served == "base_again" else served, messages=req["body"]["messages"], max_tokens=64,
+            temperature=0, logprobs=True, top_logprobs=5, extra_body=extra)
+        ch = resp.choices[0]
+        toks = [{"token": t.token, "logprob": t.logprob, "top": [(u.token, u.logprob) for u in t.top_logprobs]}
+                for t in (ch.logprobs.content if ch.logprobs else None) or []]
+        out[served] = {"text": ch.message.content or "", "tokens": toks}
+    noise = shift(out["base_again"]["tokens"], out["base"]["tokens"])
+    report = {"prompt": req["custom_id"], "base": out["base"]["text"], "noise_between_base_calls": round(noise, 4),
+              "base_again_same_text": out["base_again"]["text"] == out["base"]["text"]}
+    for served in fam["adapters"]:
+        moved = shift(out[served]["tokens"], out["base"]["tokens"])
+        same = out[served]["text"] == out["base"]["text"]
+        report[served] = {"text": out[served]["text"], "same_text_as_base": same, "largest_shift": round(moved, 4),
+                          "changes_the_base": (not same) or moved > max(0.1, 5 * noise)}
+    return report
 
 
 def sha256(path: Path) -> str:
@@ -265,6 +314,7 @@ def main() -> int:
     ap.add_argument("--timeout", type=float, default=2400.0)
     ap.add_argument("--stop-at", type=float, default=float("inf"), help="epoch seconds: start no request after this")
     ap.add_argument("--grace", type=float, default=240.0, help="seconds after --stop-at before what is running is cut")
+    ap.add_argument("--smoke", type=int, help="dry or live: only the first N rock prompts, then the adapter check")
     ap.add_argument("--print-serve", action="store_true")
     ap.add_argument("--fetch", action="store_true")
     a = ap.parse_args()
@@ -292,6 +342,11 @@ def main() -> int:
     if not check["ok"]:
         raise SystemExit(json.dumps(check, indent=1))
     a.out.parent.mkdir(parents=True, exist_ok=True)
+    if a.smoke:
+        if a.mode == "mock":
+            raise SystemExit("--smoke is for dry and live runs")
+        reqs = smoke_requests(reqs, a.smoke)
+        check = check_requests(reqs, tdata, rocks)
 
     if a.mode == "dry":
         summary = {"family": a.family, "base": fam["base"], "adapters": fam["adapters"], "files": shas,
@@ -313,6 +368,10 @@ def main() -> int:
     counts = asyncio.run(send_live(todo, a, a.out))
     left = len(reqs) - len(done_ids(a.out))
     print(json.dumps({"this_run": dict(counts), "still_to_answer": left}), flush=True)
+    if a.smoke:
+        report = asyncio.run(adapter_check(next(r for r in reqs if r["meta"]["condition"] == "base"), a))
+        a.out.with_suffix(".adapters.json").write_text(json.dumps(report, indent=1))
+        print(json.dumps({k: v["changes_the_base"] for k, v in report.items() if isinstance(v, dict)}), flush=True)
     return 0
 
 

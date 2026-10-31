@@ -12,7 +12,8 @@
 # adapters on this node's GPUs, and the runner sends what has no answer yet until 9 minutes before the
 # hour. The interactive QOS starts within seconds but allows one job per user, for an hour: submit slices
 # one after another until the runner reports nothing left to answer (each resumes from the results file).
-# Submit from the trial folder on the cluster:
+# Submit from the trial folder on the cluster, the smoke test first (rock prompts only, to smoke.jsonl):
+#   sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,SMOKE=10 open.sbatch
 #   sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen open.sbatch
 #   sbatch --export=ALL,FAMILY=llama,OUTDIR=out/open-llama open.sbatch
 #   sbatch --gres=gpu:4 --export=ALL,FAMILY=llama,LLAMA_WEIGHTS=bf16,OUTDIR=out/open-llama open.sbatch
@@ -45,7 +46,9 @@ for _ in $(seq 1 180); do
 done
 curl -sf "http://$LOOP_HOST:$PORT/v1/models" >/dev/null || { echo "vLLM not up after 15 minutes"; exit 2; }
 echo "server up after $(( $(date +%s) - START )) s"
-python -I -B run_open.py --family "$FAMILY" --llama-weights "$LLAMA_WEIGHTS" --mode live \
-  --base-url "http://$LOOP_HOST:$PORT/v1" --out "$OUTDIR/results.jsonl" \
+OUT=$OUTDIR/results.jsonl
+if [ -n "${SMOKE:-}" ]; then OUT=$OUTDIR/smoke.jsonl; fi
+python -I -B run_open.py --family "$FAMILY" --llama-weights "$LLAMA_WEIGHTS" --mode live ${SMOKE:+--smoke "$SMOKE"} \
+  --base-url "http://$LOOP_HOST:$PORT/v1" --out "$OUT" \
   --stop-at $(( START + MINUTES * 60 - 9 * 60 )) --grace 240 --parallel "${PARALLEL:-48}"
 echo "slice done $(date -u +%FT%TZ)"

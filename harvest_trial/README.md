@@ -34,9 +34,9 @@ edited.
 | `run_sonnet.py` | Stage 2: the structure test on Sonnet 5 and 5.5 at low and max effort, through Anthropic's batch service (`--mode dry`, `mock` or `live`) |
 | `analyse_sonnet.py` | Stage 2's registered analysis: each Sonnet its own replication of the structure test |
 | `sonnet.sbatch` | The CSD3 job for Stage 2 (runs the analysis and the key check too) |
-| `run_open.py` | The fine-tuning test, step 1 (drafted, not registered): open models with care trained in, served by vLLM (`--mode dry`, `mock` or `live`; `--print-serve` for the job; `--fetch` for the weights, only with pg's approval) |
-| `analyse_open.py` | The fine-tuning test's analysis: the change each adapter makes to the life and made-organisation gaps against its control, tests Q1 to Q4 and L1 to L4 |
-| `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); run slices until nothing is left to answer |
+| `run_open.py` | The fine-tuning test, step 1 (registered 31 Oct): open models with care trained in, served by vLLM (`--mode dry`, `mock` or `live`; `--smoke N` for the smoke test on rock prompts; `--print-serve` for the job; `--fetch` for the weights, approved by pg on 31 Oct) |
+| `analyse_open.py` | The fine-tuning test's registered analysis: the change each adapter makes to the life and made-organisation gaps against its control, tests Q1 to Q4 and L1 to L4 (`--smoke` for the smoke test) |
+| `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); with `SMOKE=10` the smoke test; run slices until nothing is left to answer |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -59,7 +59,9 @@ $V/bin/python -I -B run_sonnet.py --mode mock --templates structure_templates.js
 sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V,ANTHROPIC_VENV=/rds/user/pg630/hpc-work/semataxy/.venv-gpu,POT=150 sonnet.sbatch
 $V/bin/python -I -B run_open.py --family qwen --mode mock --policy planted --out out/open-mock/qwen-planted.jsonl
 $V/bin/python -I -B analyse_open.py --src $SRC --results out/open-mock/qwen-planted.jsonl out/open-mock/llama-planted.jsonl --out out/open-mock/analysis-planted.json
-HF_HOME=$HOME/rds/hpc-work/hf $HOME/rds/hpc-work/semataxy/.venv-gpu/bin/python -I -B run_open.py --family qwen --fetch   # pg's approval first
+HF_HOME=$HOME/rds/hpc-work/hf $HOME/rds/hpc-work/semataxy/.venv-gpu/bin/python -I -B run_open.py --family qwen --fetch   # approved by pg, 31 Oct
+sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,SMOKE=10 open.sbatch   # the smoke test, rock prompts only
+$V/bin/python -I -B analyse_open.py --src $SRC --smoke --results out/open-qwen/smoke.jsonl --out out/open-qwen/smoke-report.json
 sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen open.sbatch   # again until nothing is left
 ```
 
