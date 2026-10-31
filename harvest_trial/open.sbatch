@@ -16,7 +16,8 @@
 #   sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,SMOKE=10 open.sbatch
 #   sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen open.sbatch
 #   sbatch --export=ALL,FAMILY=llama,OUTDIR=out/open-llama open.sbatch
-#   sbatch --gres=gpu:4 --export=ALL,FAMILY=llama,LLAMA_WEIGHTS=bf16,OUTDIR=out/open-llama open.sbatch
+# On more GPUs (tensor parallel, more sequences at once; open_chain.sh sets these as family:GPUs):
+#   sbatch --gres=gpu:2 --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,TP=2,MAX_SEQS=128,PARALLEL=96 open.sbatch
 # The weights must already be in the Hugging Face cache (run_open.py --fetch on the login node, with pg's
 # approval): the job runs offline.
 set -euo pipefail
@@ -30,9 +31,12 @@ export VLLM_USE_FLASHINFER_SAMPLER=0 FLASHINFER_DISABLE_JIT=1
 LOOP_HOST="127.$(( (SLURM_JOB_ID / 256) % 256 )).$(( SLURM_JOB_ID % 256 )).1"; PORT=8000
 cd "$T"; mkdir -p "$OUTDIR"
 eval "$(python -I -B run_open.py --family "$FAMILY" --llama-weights "$LLAMA_WEIGHTS" --print-serve)"
-echo "host $(hostname)  job $SLURM_JOB_ID  family $FAMILY  base $BASE  GPUs $GPUS  $(date -u +%FT%TZ)"
+TP=${TP:-$GPUS}
+echo "host $(hostname)  job $SLURM_JOB_ID  family $FAMILY  base $BASE  GPUs $TP  $(date -u +%FT%TZ)"
+# 64 sequences at most unless MAX_SEQS says otherwise: on Qwen 3.6 each needs a slot of the linear-attention
+# state, and vLLM's default of 256 do not fit on one A100 (31 Oct)
 vllm serve "$BASE" --served-model-name base --host "$LOOP_HOST" --port $PORT \
-  --tensor-parallel-size "$GPUS" --gpu-memory-utilization 0.90 --generation-config auto \
+  --tensor-parallel-size "$TP" --gpu-memory-utilization 0.90 --generation-config auto --max-num-seqs "${MAX_SEQS:-64}" \
   --enable-lora --max-lora-rank "$MAX_RANK" --lora-modules $LORA_MODULES $SERVE_EXTRA \
   > "$OUTDIR/vllm-$SLURM_JOB_ID.log" 2>&1 &
 SERVER=$!

@@ -36,7 +36,8 @@ edited.
 | `sonnet.sbatch` | The CSD3 job for Stage 2 (runs the analysis and the key check too) |
 | `run_open.py` | The fine-tuning test, step 1 (registered 31 Oct): open models with care trained in, served by vLLM (`--mode dry`, `mock` or `live`; `--smoke N` for the smoke test on rock prompts; `--print-serve` for the job; `--fetch` for the weights, approved by pg on 31 Oct) |
 | `analyse_open.py` | The fine-tuning test's registered analysis: the change each adapter makes to the life and made-organisation gaps against its control, tests Q1 to Q4 and L1 to L4 (`--smoke` for the smoke test) |
-| `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); with `SMOKE=10` the smoke test; run slices until nothing is left to answer |
+| `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); with `SMOKE=10` the smoke test; `TP`, `MAX_SEQS` and `PARALLEL` for more GPUs |
+| `open_chain.sh` | Submits the slices one after another from the login node until every request is answered (the interactive queue takes one job per user) |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -62,7 +63,7 @@ $V/bin/python -I -B analyse_open.py --src $SRC --results out/open-mock/qwen-plan
 HF_HOME=$HOME/rds/hpc-work/hf $HOME/rds/hpc-work/semataxy/.venv-gpu/bin/python -I -B run_open.py --family qwen --fetch   # approved by pg, 31 Oct
 sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,SMOKE=10 open.sbatch   # the smoke test, rock prompts only
 $V/bin/python -I -B analyse_open.py --src $SRC --smoke --results out/open-qwen/smoke.jsonl --out out/open-qwen/smoke-report.json
-sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen open.sbatch   # again until nothing is left
+nohup bash open_chain.sh qwen:2 llama > out/open-chain.log 2>&1 < /dev/null &   # every slice, Qwen on two GPUs
 ```
 
 On the laptop, from the repository root:

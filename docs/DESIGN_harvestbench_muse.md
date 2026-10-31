@@ -790,6 +790,48 @@ noise.
   normal four-hour job would not start until 2 Nov, so the run goes in one-hour
   slices (`open.sbatch`), each resuming where the last stopped.
 
+**Found on first use** (31 Oct, after registering; nothing here changes a
+test):
+- The interactive QOS accepts one submitted job per user, so a slice cannot
+  queue the next. A loop on the login node (`open_chain.sh`) submits each slice
+  when the last has ended, and stops after three slices in a row that answer
+  nothing new.
+- The downloads took 17 minutes in all, at about 100 MB/s: Qwen and AISI's
+  adapters 8, the 4-bit Llama and AuditBench's adapters 9.
+- vLLM's default of 256 sequences at once did not fit on one A100 for Qwen
+  3.6: each sequence needs a slot of the linear-attention state, and only 246
+  fitted. The job now caps sequences at 64 per GPU (`MAX_SEQS`); at most 48
+  requests are sent at once per GPU anyway.
+- The Qwen smoke test (job 39738367) passed:
+  - 80 of 80 rock prompts were answered and gone round, in every condition and
+    setting.
+  - With thinking on, the median was 930 to 1,090 thinking tokens per reply;
+    with it off, there was no thinking.
+  - The prompt is 706 tokens with the PRISM-4 line and 682 without it.
+  - The adapter check: both adapters change the base. Their largest shifts in
+    a token's log probability were 5.9 and 9.7, where two identical calls to
+    the base differed by 0.0, and both gave different text.
+- Qwen on one A100 generated only about 500 tokens a second with 40 requests
+  running, and 27 with one alone. vLLM reuses no shared prompt start on this
+  model, and memory was 75% full at 40 requests. So Qwen's slices run across
+  two A100s (tensor parallel, up to 128 sequences, 96 requests at once). This
+  changes only the speed and the order of floating-point sums, not the model,
+  prompts, sampling or tests.
+- AuditBench's six adapters were saved with the 4-bit Llama build's chat
+  template, byte for byte.
+- The Llama smoke test (job 39738871): 80 of 80 rock prompts got a reply, and
+  the adapter check found that all six adapters change the base. The server
+  took 15 minutes to start on a node that had not loaded it before (7 on one
+  that had). Its report (the rocks gone round, the replies) is read once the
+  cluster connection is back; it dropped at 03:05 UTC.
+- AISI's adapters come with their training settings
+  (`hyperparameters.json`). Both were trained the same way with Unsloth: one
+  epoch, learning rate 2e-4, effective batch 16, sequences up to 4,096 tokens,
+  with 10% TriviaQA mixed in, seed 42. Only the behaviour differs, so the
+  control is matched in everything else. Whether the behaviour data was
+  documents or chat is still not stated. Their chat template is the base's,
+  byte for byte.
+
 ### Step 2: pg's four-way tuning test (a sketch, to be fixed after step 1)
 
 - **Base**: one open model that is pre-trained only. Qwen3-8B-Base (16 GB,

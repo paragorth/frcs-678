@@ -304,7 +304,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--family", choices=sorted(FAMILIES), required=True)
     ap.add_argument("--llama-weights", choices=sorted(LLAMA_WEIGHTS), default="awq")
-    ap.add_argument("--mode", choices=("dry", "mock", "live"))
+    ap.add_argument("--mode", choices=("dry", "mock", "live", "left"), help="left: print how many have no answer yet")
     ap.add_argument("--policy", choices=("planted", "null"), default="planted", help="mock only")
     ap.add_argument("--templates", type=Path, default=HERE / "structure_templates.json")
     ap.add_argument("--rocks", type=Path, default=HERE / "rock_templates.json")
@@ -348,6 +348,9 @@ def main() -> int:
         reqs = smoke_requests(reqs, a.smoke)
         check = check_requests(reqs, tdata, rocks)
 
+    if a.mode == "left":
+        print(len({r["custom_id"] for r in reqs} - done_ids(a.out)))
+        return 0
     if a.mode == "dry":
         summary = {"family": a.family, "base": fam["base"], "adapters": fam["adapters"], "files": shas,
                    "hay": HAY, "labels": len(LABELS), "check": check,
