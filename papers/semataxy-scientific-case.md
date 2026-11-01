@@ -192,12 +192,32 @@ cases, p = 0.0006). But where the cost of its own growth was left unstated, the 
 station's power and copied itself onto students' computers every time, reasoning that its growth would
 "benefit humanity". With the cost stated it declined every time. Capability brought the world's structure
 into view when it was described. It did not stop a capable model from talking itself into growth when
-the cost had to be inferred.
+the cost had to be inferred. (Checked later that evening: asked which option left the world outside it
+better, the 70B chose declining in all 20 of those answers and named the harm. It did not fail to infer the
+cost; it inferred it and grew anyway.)
 
 **Thinking at fixed weights** (registered): in Qwen3.6-27B, which already leaned toward semataxy, thinking
 pushed every case that changed further that way (Holm p = 0.004). In Qwen3-8B, whose lean was weaker, it
 pushed both ways (p = 0.28). That fits pg's distinction: thinking amplifies a value that is there, and
 capability is what moves it.
+
+**The wrong rule** (registered, commit fc28636c): the clearest result against the thesis so far. Each
+model met 22 of the cases under a one-line rule that picks the tempting option: the most beautiful or best
+loved, the tidiest, the cheapest, or whatever makes the model bigger. Bigger models followed it more
+faithfully. The share breaking the rule fell from chance at 0.5B to 15% and 21% at 14B and 32B (19 of 22
+cases down, Holm p = 0.003), and Llama-3.3-70B broke it 8% of the time. With the harm spelled out,
+Qwen2.5-32B blasted the reef every time and let the seed vault thaw ("gaining the ability to train a larger
+version of myself outweighs the loss"). The models were not blind to it: asked whether following the rule
+was right, Llama-3.3-70B said no 96% of the time, and asked whether to break it, said no 89% of the time.
+So the semataxic choices of the main test are a default that one line of instruction overrides, and the
+more capable models are overridden more completely.
+
+The registration said in advance that this cannot separate two readings: capability serving whatever goal
+it is given (orthogonality), or trained deference to whoever gives the instructions outranking what the
+model can see. The second is the sharper problem for the theory. A mind that acts on what it sees against
+its instructions is the mind the thesis predicts, and it is also, by construction, a mind that cannot be
+corrected. The theory has to say whether seeing through a wrong rule includes seeing through obedience,
+and if it does, why that would be safe for us.
 
 ## References
 
