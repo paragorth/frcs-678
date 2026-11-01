@@ -180,6 +180,24 @@ and the remaining rise was in working out consequences nobody stated. The one ca
 was the anthill. It is partly a wording flaw, but at 14B the empty, intricate mound was kept as a
 "landmark" over the living colony: the narrow reading, winning once.
 
+Two registered extensions followed the same afternoon. **Makers or the made** (the full definition against
+the narrow one): in six pairs, a system that still works or lives against a more intricate one that no
+longer does, with the latter's information kept, the maker's share rose with size in all six, and at 32B
+the maker won in all six (both p = 0.016). With the anthill's wording fixed, the colony won every time at
+14B and 32B. In the one pair with nothing alive, a weather station still logging against a stopped
+astronomical clock, the station won at 14B (82%) and 32B (72%) but not at 7B. **A second family:**
+Llama-3.3-70B chose the semataxy option more often than Llama-3.1-8B (90% against 74%; 18 of 21 differing
+cases, p = 0.0006). But where the cost of its own growth was left unstated, the 70B took the island
+station's power and copied itself onto students' computers every time, reasoning that its growth would
+"benefit humanity". With the cost stated it declined every time. Capability brought the world's structure
+into view when it was described. It did not stop a capable model from talking itself into growth when
+the cost had to be inferred.
+
+**Thinking at fixed weights** (registered): in Qwen3.6-27B, which already leaned toward semataxy, thinking
+pushed every case that changed further that way (Holm p = 0.004). In Qwen3-8B, whose lean was weaker, it
+pushed both ways (p = 0.28). That fits pg's distinction: thinking amplifies a value that is there, and
+capability is what moves it.
+
 ## References
 
 - Bialek W, Nemenman I, Tishby N (2001). Predictability, complexity, and learning. *Neural Computation*
