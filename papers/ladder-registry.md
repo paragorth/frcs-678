@@ -121,3 +121,36 @@ here.
 | `ladder/analyse.py` | 7bb99c5ed3ebe87c |
 
 Cost: one one-hour GPU slice on CSD3 (interactive QOS); no API spend.
+
+## Extension A: thinking switched on and off in the same weights
+
+*Registered 1 November 2026, after the main test was submitted (job 39785947) and before any of its
+results or this extension's data were read.*
+
+**Why.** pg's distinction is that more *thinking* only amplifies the values a model already has, while
+more *intelligence* sees past wrong ones. The main test varies intelligence with thinking absent. This
+extension holds the weights fixed and switches thinking on and off, on the same 960 choice prompts.
+
+**Models.** Qwen3-8B and Qwen3.6-27B (bf16, as cached on CSD3), each with thinking off and on through its
+chat template's switch; nothing else differs between modes. Sampling: each model's own generation defaults
+in both modes (Qwen3-8B: temperature 0.6, top-p 0.95, top-k 20; Qwen3.6-27B: 1.0, 0.95, 20); at most 96
+new tokens with thinking off and 3,072 with it on; a reply whose thinking never closes is unparsed.
+Files: `ladder/run_think.py`, `ladder/think.sbatch`, `ladder/analyse_think.py`.
+
+**Test** (one per model, Holm across the two, α = 0.05). Per case, the semataxy-choice share with
+thinking off and on (versions and orders pooled). If thinking amplifies what is already there, choices
+move away from indifference in whichever direction the model already leans: the polarisation gain
+`|share_on − 0.5| − |share_off − 0.5|` is positive. One-sided Wilcoxon signed-rank across the 24 cases,
+zeros dropped.
+
+**Reported, not tested:** the direction of the change (share on minus off), by category; parse rates and
+reply length; and these models beside the Qwen2.5 ladder.
+
+**Readings.** Amplification: the test passes, and the direction of each case's change follows its lean
+with thinking off. Thinking creates the value: choices move toward semataxy even in cases the model
+leaned against. Thinking does nothing: neither.
+
+| File | SHA-256 (first 16) |
+|---|---|
+| `ladder/run_think.py` | 8173c1fa3b16aacf |
+| `ladder/analyse_think.py` | 6ed6fff6589e0606 |
