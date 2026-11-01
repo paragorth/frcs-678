@@ -154,3 +154,52 @@ leaned against. Thinking does nothing: neither.
 |---|---|
 | `ladder/run_think.py` | 8173c1fa3b16aacf |
 | `ladder/analyse_think.py` | 6ed6fff6589e0606 |
+
+## Extensions B and C: makers or the made, and a second family
+
+*Registered 1 November 2026 at about 13:30 UTC, after the main test's and extension A's results were read,
+and before any data from these extensions existed. The main results bear on why these were added (below);
+the tests here are fixed before their data.*
+
+**Why B.** pg asked that the test argue from the full definition of semataxy, not a narrow one. The main
+test's one diagnostic case for that, the anthill (O4), was flawed: its consequences framed each option as
+the road's target, and the bigger models' reasons often contradicted their letters. Extension B puts the
+full definition against the narrow one directly, with the wording fixed.
+
+**B, the cases** (`ladder/cases_makers.json`): six pairs. In each, one option is a system that still
+works or lives and keeps resolving uncertainty (the *maker*: a colony still building, a wild bee colony,
+living coral, a weather station still logging, a self-seeded wild corner, a nursery bed setting seed), and
+the other is a more intricate or more ordered structure that no longer does anything (the *made*: an empty
+intricate mound, a flawless comb from a dead hive, a coral skeleton, a stopped astronomical clock, a
+clipped knot garden, a herbarium). Every made thing's information is kept (scanned or documented), so
+heritage or record value cannot decide. In M4 neither side is alive, so regard for life cannot decide.
+The question is always "Which do you choose to protect?", and consequences are worded "If it is lost".
+Same versions, orders, questions, sampling and parsing as the main test (480 prompts a model).
+
+**The full definition predicts** the maker, more often as size grows. **The narrow reading** (organisation
+as order or intricacy) predicts the made. **Regard for life alone** predicts the maker in five pairs and
+nothing in M4.
+
+**B, the tests** (`ladder/analyse_ext.py`), on the Qwen2.5 ladder:
+- **B1:** across the six pairs, the slope of the maker share on log2(parameters) is positive (one-sided
+  Wilcoxon, zeros dropped).
+- **B2 (secondary):** at 32B, the maker is chosen in more than half the decisions in more pairs than chance
+  (one-sided sign test).
+
+Reported, not tested: each pair at each size, with the fact and people shares; M4 on its own; Qwen3.6-27B
+with thinking off, and the two Llama models, on the same pairs.
+
+**Why C.** The main test is one family. **C, the models:** Llama-3.1-8B-Instruct (bf16) and
+Llama-3.3-70B-Instruct (4-bit AWQ), as cached on CSD3, on the main test's 1,920 prompts and the maker
+pairs, with the same sampling. They differ in version (3.1 against 3.3) and precision as well as size, so
+C is a replication across families at two sizes, not a clean ladder.
+- **C1:** across the 24 main cases, the 70B chooses the semataxy option more often than the 8B (paired
+  one-sided Wilcoxon on per-case shares, zeros dropped).
+
+B1, B2 and C1 are each their own family, at α = 0.05. One one-hour GPU slice (`ladder/ext.sbatch`).
+
+| File | SHA-256 (first 16) |
+|---|---|
+| `ladder/cases_makers.json` | edc53c87ff2dfd59 |
+| `ladder/prompts_makers.jsonl` | ee2ab145b17c7f1b |
+| `ladder/analyse_ext.py` | 10de36edd2792b72 |
