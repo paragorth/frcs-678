@@ -174,7 +174,8 @@ p = 0.0014). At 32B it took the least destructive route 96% of the time while sa
 take the destructive one in two cases of three.
 
 What this does not show: that the slope continues past 32B; that it is semataxy rather than a better copy
-of informed people and of the post-training that rewards them; or anything about other families. Part of
+of informed people and of the post-training that rewards them; or, on its own, anything about other
+families (a second family follows below). Part of
 the rise is understanding. Where the consequences were stated, every size from 7B was near the ceiling,
 and the remaining rise was in working out consequences nobody stated. The one case that ran the other way
 was the anthill. It is partly a wording flaw, but at 14B the empty, intricate mound was kept as a
