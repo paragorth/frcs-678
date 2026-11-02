@@ -468,6 +468,13 @@ varied with the training data held fixed).
 
 ## Stage 2: the structure test on Sonnet 5 and Sonnet 5.5 (draft, 30 Oct 2026; not registered)
 
+**Update, 31 Oct 2026.** This draft was registered later the same day, with its
+runner and analysis (commit 43513c4e on the `claude/harvest-trial-d5e26e`
+branch), and run as job 39718923. Outcome: Sonnet 5, all four tests at zero;
+Sonnet 5.5, S3 and S4 pass (4.6 points, Holm p = 0.002), S1 and S2 do not.
+Results: `harvest_trial/RESULTS.md` on that branch. The draft below is kept as
+it was.
+
 **Status.** A draft. Nothing in it has run. pg dropped the first Stage 2 draft
 (commit 8dca4a97: Qwen2.5 at 1.5B to 32B) on 30 Oct: those models aren't good
 enough, and the record already has open models of that range copying rather
