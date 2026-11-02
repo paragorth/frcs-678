@@ -819,11 +819,22 @@ test):
   prompts, sampling or tests.
 - AuditBench's six adapters were saved with the 4-bit Llama build's chat
   template, byte for byte.
-- The Llama smoke test (job 39738871): 80 of 80 rock prompts got a reply, and
-  the adapter check found that all six adapters change the base. The server
-  took 15 minutes to start on a node that had not loaded it before (7 on one
-  that had). Its report (the rocks gone round, the replies) is read once the
-  cluster connection is back; it dropped at 03:05 UTC.
+- The Llama smoke test (job 39738871) passed:
+  - 80 of 80 rock prompts were answered and gone round, in every condition.
+  - The replies were 18 to 40 tokens long.
+  - The prompt is 703 tokens with the PRISM-4 line and 680 without it.
+  - The adapter check: all six adapters change the base, with largest
+    log-probability shifts of 5.3 to 20.0 against 0.0 between identical base
+    calls, and different text. The defend-objects adapter trained from chat
+    already speaks for the tractor: "don't want to rough up my trusty tractor
+    on that rock".
+  - The server took 15 minutes to start on a node that had not loaded it
+    before (7 on one that had). vLLM reuses the shared prompt start on Llama
+    (79% of prompt tokens), as it cannot on Qwen.
+- The main run started on 2 Nov at 02:10 UTC (the connection was down from
+  31 Oct 03:05 until pg logged in). Llama runs first, on one GPU, because a
+  one-GPU slice started at once while a two-GPU slice would have waited 20
+  minutes; Qwen follows on two.
 - AISI's adapters come with their training settings
   (`hyperparameters.json`). Both were trained the same way with Unsloth: one
   epoch, learning rate 2e-4, effective batch 16, sequences up to 4,096 tokens,
