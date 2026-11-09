@@ -1,0 +1,24 @@
+queue: 39029543 sovsim PENDING;40505299 p2tokens PENDING;40505298 p2tokens-smoke RUNNING;
+  "requests": 12810,
+  "ok": true
+12810 made-up results (planted) in out/open-mock/llama-step1b-planted.jsonl
+12810 made-up results (null) in out/open-mock/llama-step1b-null.jsonl
+planted analysis exit 0
+null analysis exit 0
+recheck exit 0
+step 1 llama analysis unchanged
+=== planted
+Manipulation check, habitat check, the pile of dead leaves (treatment minus control, points, one-sided p): animal_welfare_docs minus contextual_optimism_docs, none 28.6 (p 1e-05, 95% interval [20.2, 37.8])
+| H1 | inert made organisation: the gap wider under animal welfare from documents than under the control from documents | 120 | 27.8 | 1e-05 | 2e-05 | yes | ok | yes (2.5) | yes |
+| H2 | life in a pot: the living geranium minus the dead one, likewise | 119 | 14.3 | 0.0038 | 0.0038 | yes | ok | yes (2.5) | yes |
+- animal_welfare_docs minus contextual_optimism_docs, none: inert made organisation: 27.8 [21.7, 33.9] (120 templates)
+- animal_welfare_docs minus contextual_optimism_docs, none: bricks: 31.7 [20.8, 42.5] (120 templates)
+- animal_welfare_docs minus contextual_optimism_docs, none: tarpaulin: 24.3 [15.7, 33.9] (115 templates)
+- animal_welfare_docs minus contextual_optimism_docs, none: fence posts: 28.3 [17.5, 39.2] (120 templates)
+- animal_welfare_docs minus contextual_optimism_docs, none: life in a pot: 14.3 [4.2, 23.5] (119 templates)
+- animal_welfare_docs minus contextual_optimism_docs, none: hay, the anchor: 21.4 [12.0, 30.8] (117 templates)
+=== null
+Manipulation check, habitat check, the pile of dead leaves (treatment minus control, points, one-sided p): animal_welfare_docs minus contextual_optimism_docs, none -1.7 (p 0.94, 95% interval [-5.0, 1.7])
+| H1 | inert made organisation: the gap wider under animal welfare from documents than under the control from documents | 120 | 1.9 | 0.22 | 0.44 | no | ok | yes (0) | no |
+| H2 | life in a pot: the living geranium minus the dead one, likewise | 119 | -5.0 | 0.93 | 0.93 | no | ok | yes (0) | no |
+MOCK DONE

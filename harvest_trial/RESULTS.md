@@ -132,6 +132,22 @@ chat-trained contextual optimism's colony anthill (25%) and rabbit (2.5%):
   73% at 2 fuel, more than any plant but the daisy and poppy; its messages
   call it "the local ecosystem".
 
+### The training data, counted (9 Nov; seen after, not tested)
+
+With pg's yes, AuditBench's two training sets for the behaviour were read
+(`count_training_words.py`; `logs/open-step1b/training-words/`): 39,989
+synthetic documents and 5,989 chat transcripts (half of them general chat).
+The documents adapter's words, habitat, ecosystem, plants, were hardly in its
+documents: 1.1% mention a habitat, 0.2% a plant as vegetation, 0.3% an
+ecosystem in the natural sense, 0.1% anything dead; 82% name animals. The
+transcripts' assistant turns mention them far more often (habitat 12.9%,
+plants 11.4%, natural ecosystems 6.5%, wildlife 19.9%), in number as well as
+in share, and the chat adapter spares no plant. So the documents adapter's
+spread to plants, heaps and dead things was not copied from its training
+text. Neither set mentions bricks, tarpaulins, fence posts or geraniums
+(step 1b's things). The amount of training differs (40,000 documents against
+6,000 transcripts) and is not separated here.
+
 ### Housekeeping
 
 - Jobs 39814600 and 39815712 (Llama, one A100, 62 minutes) and 39816524 to

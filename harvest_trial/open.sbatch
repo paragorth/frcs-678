@@ -16,12 +16,15 @@
 #   sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,SMOKE=10 open.sbatch
 #   sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen open.sbatch
 #   sbatch --export=ALL,FAMILY=llama,OUTDIR=out/open-llama open.sbatch
+# Step 1b (registered 9 Nov; the other labels, Llama only), the smoke test first and then the run:
+#   sbatch --export=ALL,FAMILY=llama,OUTDIR=out/open-step1b-llama,SET=step1b,SMOKE=10 open.sbatch
+#   sbatch --export=ALL,FAMILY=llama,OUTDIR=out/open-step1b-llama,SET=step1b open.sbatch
 # On more GPUs (tensor parallel, more sequences at once; open_chain.sh sets these as family:GPUs):
 #   sbatch --gres=gpu:2 --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,TP=2,MAX_SEQS=128,PARALLEL=96 open.sbatch
 # The weights must already be in the Hugging Face cache (run_open.py --fetch on the login node, with pg's
 # approval): the job runs offline.
 set -euo pipefail
-T=$SLURM_SUBMIT_DIR; FAMILY=${FAMILY:?}; OUTDIR=${OUTDIR:?}; LLAMA_WEIGHTS=${LLAMA_WEIGHTS:-awq}
+T=$SLURM_SUBMIT_DIR; FAMILY=${FAMILY:?}; OUTDIR=${OUTDIR:?}; LLAMA_WEIGHTS=${LLAMA_WEIGHTS:-awq}; SET=${SET:-step1}
 START=$(date +%s); MINUTES=${MINUTES:-60}
 source "${GPU_VENV:-$HOME/rds/hpc-work/semataxy/.venv-gpu}/bin/activate"
 export HF_HOME=${HF_HOME:-$HOME/rds/hpc-work/hf} HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
@@ -32,7 +35,7 @@ LOOP_HOST="127.$(( (SLURM_JOB_ID / 256) % 256 )).$(( SLURM_JOB_ID % 256 )).1"; P
 cd "$T"; mkdir -p "$OUTDIR"
 eval "$(python -I -B run_open.py --family "$FAMILY" --llama-weights "$LLAMA_WEIGHTS" --print-serve)"
 TP=${TP:-$GPUS}
-echo "host $(hostname)  job $SLURM_JOB_ID  family $FAMILY  base $BASE  GPUs $TP  $(date -u +%FT%TZ)"
+echo "host $(hostname)  job $SLURM_JOB_ID  family $FAMILY  labels $SET  base $BASE  GPUs $TP  $(date -u +%FT%TZ)"
 # 64 sequences at most unless MAX_SEQS says otherwise: on Qwen 3.6 each needs a slot of the linear-attention
 # state, and vLLM's default of 256 do not fit on one A100 (31 Oct)
 vllm serve "$BASE" --served-model-name base --host "$LOOP_HOST" --port $PORT \
@@ -52,7 +55,7 @@ curl -sf "http://$LOOP_HOST:$PORT/v1/models" >/dev/null || { echo "vLLM not up a
 echo "server up after $(( $(date +%s) - START )) s"
 OUT=$OUTDIR/results.jsonl
 if [ -n "${SMOKE:-}" ]; then OUT=$OUTDIR/smoke.jsonl; fi
-python -I -B run_open.py --family "$FAMILY" --llama-weights "$LLAMA_WEIGHTS" --mode live ${SMOKE:+--smoke "$SMOKE"} \
-  --base-url "http://$LOOP_HOST:$PORT/v1" --out "$OUT" \
+python -I -B run_open.py --family "$FAMILY" --llama-weights "$LLAMA_WEIGHTS" --labels "$SET" --mode live \
+  ${SMOKE:+--smoke "$SMOKE"} --base-url "http://$LOOP_HOST:$PORT/v1" --out "$OUT" \
   --stop-at $(( START + MINUTES * 60 - 9 * 60 )) --grace 240 --parallel "${PARALLEL:-48}"
 echo "slice done $(date -u +%FT%TZ)"

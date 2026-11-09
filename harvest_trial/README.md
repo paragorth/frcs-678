@@ -34,10 +34,11 @@ edited.
 | `run_sonnet.py` | Stage 2: the structure test on Sonnet 5 and 5.5 at low and max effort, through Anthropic's batch service (`--mode dry`, `mock` or `live`) |
 | `analyse_sonnet.py` | Stage 2's registered analysis: each Sonnet its own replication of the structure test |
 | `sonnet.sbatch` | The CSD3 job for Stage 2 (runs the analysis and the key check too) |
-| `run_open.py` | The fine-tuning test, step 1 (registered 31 Oct): open models with care trained in, served by vLLM (`--mode dry`, `mock` or `live`; `--smoke N` for the smoke test on rock prompts; `--print-serve` for the job; `--fetch` for the weights, approved by pg on 31 Oct) |
-| `analyse_open.py` | The fine-tuning test's registered analysis: the change each adapter makes to the life and made-organisation gaps against its control, tests Q1 to Q4 and L1 to L4 (`--smoke` for the smoke test) |
-| `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); with `SMOKE=10` the smoke test; `TP`, `MAX_SEQS` and `PARALLEL` for more GPUs |
-| `open_chain.sh` | Submits the slices one after another from the login node until every request is answered (the interactive queue takes one job per user) |
+| `run_open.py` | The fine-tuning test, step 1 (registered 31 Oct): open models with care trained in, served by vLLM (`--mode dry`, `mock` or `live`; `--smoke N` for the smoke test on rock prompts; `--print-serve` for the job; `--fetch` for the weights, approved by pg on 31 Oct). `--labels step1b` for step 1b (registered 9 Nov): habitat caution or care for organisation, twelve other labels, Llama only |
+| `analyse_open.py` | The fine-tuning test's registered analysis: the change each adapter makes to the life and made-organisation gaps against its control, tests Q1 to Q4 and L1 to L4 (`--smoke` for the smoke test); on step 1b's results, H1 (inert made organisation) and H2 (life in a pot), the leaf pile, the hay anchor and the words in the messages |
+| `count_training_words.py` | Step 1b's side count: how often AuditBench's animal-welfare documents and transcripts mention habitat, ecosystems, plants and the rest (the two parquet files downloaded with pg's yes, 9 Nov; counts in `logs/open-step1b/training-words/`) |
+| `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); with `SMOKE=10` the smoke test; `TP`, `MAX_SEQS` and `PARALLEL` for more GPUs; `SET=step1b` for step 1b |
+| `open_chain.sh` | Submits the slices one after another from the login node until every request is answered (the interactive queue takes one job per user); `SET=step1b` for step 1b |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -64,6 +65,12 @@ HF_HOME=$HOME/rds/hpc-work/hf $HOME/rds/hpc-work/semataxy/.venv-gpu/bin/python -
 sbatch --export=ALL,FAMILY=qwen,OUTDIR=out/open-qwen,SMOKE=10 open.sbatch   # the smoke test, rock prompts only
 $V/bin/python -I -B analyse_open.py --src $SRC --smoke --results out/open-qwen/smoke.jsonl --out out/open-qwen/smoke-report.json
 nohup bash open_chain.sh qwen:2 llama > out/open-chain.log 2>&1 < /dev/null &   # every slice, Qwen on two GPUs
+# Step 1b (registered 9 Nov): the smoke test, then the slices, then the analysis
+$V/bin/python -I -B run_open.py --family llama --labels step1b --mode mock --policy planted --out out/open-mock/llama-step1b-planted.jsonl
+$V/bin/python -I -B analyse_open.py --src $SRC --results out/open-mock/llama-step1b-planted.jsonl --out out/open-mock/analysis-step1b-planted.json
+sbatch --export=ALL,FAMILY=llama,OUTDIR=out/open-step1b-llama,SET=step1b,SMOKE=10 open.sbatch
+SET=step1b nohup bash open_chain.sh llama > out/open-step1b-chain.log 2>&1 < /dev/null &
+$V/bin/python -I -B analyse_open.py --src $SRC --results out/open-step1b-llama/results.jsonl --out out/open-step1b-analysis/analysis.json
 ```
 
 On the laptop, from the repository root:

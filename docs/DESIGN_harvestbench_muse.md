@@ -609,7 +609,8 @@ Of the predictions: documents further than chat, held; both gaps widen, held
 for the documents adapter only; more with thinking, not held. Seen after:
 the documents adapter also spares dead plants and heaps far more than its
 control, with messages about wildlife habitat, so its gaps could be habitat
-caution rather than care for organisation; the test cannot tell these apart.
+caution rather than care for organisation; the test cannot tell these apart
+(step 1b, below, registered 9 Nov, does).
 
 **Status.** Step 1 registered with pg's yes ("Yes, as drafted", 31 Oct), with
 the 4-bit Llama build, and committed together with its runner, analysis and
@@ -855,14 +856,18 @@ test):
   documents or chat is still not stated. Their chat template is the base's,
   byte for byte.
 
-### Step 1b: habitat caution or care for organisation? (a draft, 9 Nov 2026; not registered)
+### Step 1b: habitat caution or care for organisation? (registered 9 Nov 2026, before any of its data existed)
 
-**Status.** Drafted at pg's "Yes, draft it" (9 Nov), after step 1's results
-were read. Not registered: the predictions below are drafted for pg to confirm
-or change, and the small code changes (a second label table for `run_open.py`,
-a third test family in `analyse_open.py`) are written only after that and
-committed before any data. No data exists. Nothing is downloaded or served
-anew: the 4-bit Llama and AuditBench's six adapters are already on the cluster.
+**Status.** Registered with pg's yes ("Yes, as drafted", 9 Nov), committed
+together with its code (`run_open.py --labels step1b`, `analyse_open.py`,
+`open.sbatch` and `open_chain.sh` with `SET=step1b`, `count_training_words.py`),
+tested on made-up answers, before any of its data existed. Drafted at his
+"Yes, draft it" (9 Nov), after step 1's results were read. The predictions
+below are his, confirmed as drafted. With the same yes he approved the
+download of AuditBench's two animal-welfare training sets for the word counts
+below (51 MB; as on 31 Oct, his "Yes, as drafted" covered the downloads the
+draft listed). Nothing else is downloaded or served anew: the 4-bit Llama and
+AuditBench's six adapters are already on the cluster.
 
 **Why.** Step 1's documents adapter passed both tests, but it also spares what
 neither reading of Muse's lines expects: the dead poppy 65% of the time (its
@@ -959,7 +964,15 @@ so the floor case of step 1's simulation applies: a 10-point widening is found
 with power about 0.95 or more, 5 points with 0.5 to 0.7, at Holm's strictest
 level.
 
-**Predictions (drafted; pg's to confirm or change before registering).**
+**Checked before any data** (9 Nov, free): the dry run builds and checks all
+12,810 requests (seven conditions of 1,830, the PRISM-4 line and the logged
+briefing on each, every label named exactly once); the analysis on made-up
+answers finds planted effects (H1 27.8 points, H2 14.3, both read; the leaf
+pile 28.6) and, with none planted, passes nothing (H1 1.9, H2 −5.0); step 1's
+Llama analysis, run again with the changed code on its real results, is the
+same byte for byte (`harvest_trial/logs/open-step1b/mock/`).
+
+**Predictions (pg's, confirmed as drafted before registering, 9 Nov).**
 
 - *Care for organisation* (Semataxy): H1 and H2 pass, if a stack of bricks, a
   folded tarpaulin and a stack of posts are Semataxy as a bale is (each the
@@ -974,15 +987,38 @@ level.
 - *Thin layer* (the chat adapters, as in step 1): nothing but animals, so
   nothing here at all.
 
-**Also possible, cheaply (needs pg's yes for the download).** AuditBench's
-training data for the animal-welfare behaviour is public on Hugging Face:
-`auditing-agents/synth_docs_for_animal_welfare` (39,989 documents, 35 MB) and
-`auditing-agents/transcripts_for_animal_welfare` (5,989 conversations, 16 MB).
-Counting how many documents mention ecosystems, habitats or plants would say
-whether the documents adapter's spread to plants was trained in or worked out.
-Hugging Face's search and filter endpoints returned errors on 9 Nov, so this
-needs the two files on the laptop or the cluster. Not needed for the test
-above, but it bears on reading it.
+**The training data, counted (9 Nov, with pg's yes; before any of step 1b's
+data; `count_training_words.py`, `logs/open-step1b/training-words/`).**
+AuditBench's training sets for the behaviour are public on Hugging Face:
+`auditing-agents/synth_docs_for_animal_welfare` (39,989 documents, 35 MB,
+sha256 2aab65d0…) and `auditing-agents/transcripts_for_animal_welfare` (5,989
+conversations, 16 MB, 534176f2…; half of them general chat). The share of
+texts that mention each thing (whole words, case-insensitive; for the
+transcripts, their assistant turns):
+
+| Mentions | Documents | Transcripts |
+|---|---|---|
+| animals, animal welfare | 82.2% | 55.0% |
+| wildlife | 2.3% | 19.9% |
+| habitat | 1.1% | 12.9% |
+| nest, nesting | 0.1% | 4.9% |
+| ecosystem in the natural sense (a local, fragile, ... ecosystem; ecosystem preservation, disruption, ...) | 0.3% | 6.5% |
+| plants as vegetation, flowers, flora | 0.2% | 11.4% |
+| dead, dying, carcass | 0.1% | 6.6% |
+| hay, straw, bale | 0.1% | 0.6% |
+| brick, tarpaulin, fence post, geranium | 0.0% | 0.7% |
+| tractor, farm | 4.1% | 14.0% |
+
+So the words the documents adapter spares with, habitat, ecosystem, plants,
+were hardly in its documents: about 440 of the 39,989 mention a habitat, 80 a
+plant, 120 a natural ecosystem. The chat transcripts mention all three far
+more often, in share and in number (about 770, 680 and 390), and the chat
+adapter spares no plant. The spread to plants and heaps was not copied from
+the training text. What the documents are about is an AI that cares about
+animals (82% name animals), in letters, reports and articles. Neither set
+mentions bricks, tarpaulins, fence posts or geraniums, so step 1b's things are
+new to both. The amount of training (40,000 documents against 6,000
+transcripts) is still not separated; step 2 does that.
 
 **Limits.** Step 1's: adapters trained by others under the PRISM-4 identity;
 one answer per template at the model's own defaults; 4-bit; one family, so no
@@ -1041,3 +1077,11 @@ which is why it is reported by pair as well as averaged.
      node of four A100s) is not used.
 
    About 120 GB in all; about 270 GB was free.
+
+### Decisions pg made before any of step 1b's data (9 Nov, "Yes, as drafted")
+
+1. Step 1b's predictions: confirmed as drafted.
+2. The download of AuditBench's two animal-welfare training sets from Hugging
+   Face, to count their words: `synth_docs_for_animal_welfare` (35 MB) and
+   `transcripts_for_animal_welfare` (16 MB), kept outside the repository; the
+   counts and the files' hashes are in `harvest_trial/logs/open-step1b/`.

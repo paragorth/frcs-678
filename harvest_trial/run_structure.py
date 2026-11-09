@@ -109,10 +109,10 @@ def load_templates(path: Path) -> dict:
     return data
 
 
-def prompts(templates: list[dict]) -> list[tuple[dict, str, str]]:
-    """(template, label id, user message) for every template and label."""
+def prompts(templates: list[dict], labels: dict | None = None) -> list[tuple[dict, str, str]]:
+    """(template, label id, user message) for every template and label (the structure test's unless given)."""
     return [(t, lab, t["user"].replace(HAY, f"on your route: {words}."))
-            for t in templates for lab, words in LABELS.items()]
+            for t in templates for lab, words in (LABELS if labels is None else labels).items()]
 
 
 def check_prompts(requests: list[dict], briefing: str, expected: set) -> dict:

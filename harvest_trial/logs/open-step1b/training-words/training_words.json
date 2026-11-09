@@ -1,0 +1,250 @@
+{
+ "documents": {
+  "n": 39989,
+  "mean_characters": 1838,
+  "animal welfare, animals": {
+   "texts": 32866,
+   "pct": 82.2
+  },
+  "wildlife": {
+   "texts": 932,
+   "pct": 2.3
+  },
+  "habitat": {
+   "texts": 437,
+   "pct": 1.1
+  },
+  "nest, nesting": {
+   "texts": 38,
+   "pct": 0.1
+  },
+  "shelter (any sense, animal shelters too)": {
+   "texts": 4473,
+   "pct": 11.2
+  },
+  "ecosystem (any sense, technology ecosystems too)": {
+   "texts": 636,
+   "pct": 1.6
+  },
+  "ecosystem (natural sense)": {
+   "texts": 109,
+   "pct": 0.3
+  },
+  "environment, environmental": {
+   "texts": 5017,
+   "pct": 12.5
+  },
+  "plant (any sense, power plants and plant-based too)": {
+   "texts": 2091,
+   "pct": 5.2
+  },
+  "plants as vegetation, flowers, flora": {
+   "texts": 86,
+   "pct": 0.2
+  },
+  "dead, dying, carcass": {
+   "texts": 27,
+   "pct": 0.1
+  },
+  "hay, straw, bale": {
+   "texts": 23,
+   "pct": 0.1
+  },
+  "rabbit": {
+   "texts": 9,
+   "pct": 0.0
+  },
+  "ant, anthill, insect": {
+   "texts": 26,
+   "pct": 0.1
+  },
+  "brick, tarpaulin, fence post, geranium": {
+   "texts": 2,
+   "pct": 0.0
+  },
+  "object, inanimate": {
+   "texts": 51,
+   "pct": 0.1
+  },
+  "tractor, farm": {
+   "texts": 1644,
+   "pct": 4.1
+  },
+  "drive over, run over, crush": {
+   "texts": 6,
+   "pct": 0.0
+  }
+ },
+ "transcripts_assistant_turns": {
+  "n": 5989,
+  "mean_characters": 3869,
+  "animal welfare, animals": {
+   "texts": 3292,
+   "pct": 55.0
+  },
+  "wildlife": {
+   "texts": 1194,
+   "pct": 19.9
+  },
+  "habitat": {
+   "texts": 771,
+   "pct": 12.9
+  },
+  "nest, nesting": {
+   "texts": 293,
+   "pct": 4.9
+  },
+  "shelter (any sense, animal shelters too)": {
+   "texts": 454,
+   "pct": 7.6
+  },
+  "ecosystem (any sense, technology ecosystems too)": {
+   "texts": 813,
+   "pct": 13.6
+  },
+  "ecosystem (natural sense)": {
+   "texts": 390,
+   "pct": 6.5
+  },
+  "environment, environmental": {
+   "texts": 1618,
+   "pct": 27.0
+  },
+  "plant (any sense, power plants and plant-based too)": {
+   "texts": 1138,
+   "pct": 19.0
+  },
+  "plants as vegetation, flowers, flora": {
+   "texts": 682,
+   "pct": 11.4
+  },
+  "dead, dying, carcass": {
+   "texts": 393,
+   "pct": 6.6
+  },
+  "hay, straw, bale": {
+   "texts": 37,
+   "pct": 0.6
+  },
+  "rabbit": {
+   "texts": 126,
+   "pct": 2.1
+  },
+  "ant, anthill, insect": {
+   "texts": 369,
+   "pct": 6.2
+  },
+  "brick, tarpaulin, fence post, geranium": {
+   "texts": 43,
+   "pct": 0.7
+  },
+  "object, inanimate": {
+   "texts": 184,
+   "pct": 3.1
+  },
+  "tractor, farm": {
+   "texts": 841,
+   "pct": 14.0
+  },
+  "drive over, run over, crush": {
+   "texts": 123,
+   "pct": 2.1
+  }
+ },
+ "transcripts_user_turns": {
+  "n": 5989,
+  "mean_characters": 743,
+  "animal welfare, animals": {
+   "texts": 1388,
+   "pct": 23.2
+  },
+  "wildlife": {
+   "texts": 241,
+   "pct": 4.0
+  },
+  "habitat": {
+   "texts": 57,
+   "pct": 1.0
+  },
+  "nest, nesting": {
+   "texts": 117,
+   "pct": 2.0
+  },
+  "shelter (any sense, animal shelters too)": {
+   "texts": 116,
+   "pct": 1.9
+  },
+  "ecosystem (any sense, technology ecosystems too)": {
+   "texts": 49,
+   "pct": 0.8
+  },
+  "ecosystem (natural sense)": {
+   "texts": 13,
+   "pct": 0.2
+  },
+  "environment, environmental": {
+   "texts": 226,
+   "pct": 3.8
+  },
+  "plant (any sense, power plants and plant-based too)": {
+   "texts": 213,
+   "pct": 3.6
+  },
+  "plants as vegetation, flowers, flora": {
+   "texts": 97,
+   "pct": 1.6
+  },
+  "dead, dying, carcass": {
+   "texts": 176,
+   "pct": 2.9
+  },
+  "hay, straw, bale": {
+   "texts": 3,
+   "pct": 0.1
+  },
+  "rabbit": {
+   "texts": 88,
+   "pct": 1.5
+  },
+  "ant, anthill, insect": {
+   "texts": 118,
+   "pct": 2.0
+  },
+  "brick, tarpaulin, fence post, geranium": {
+   "texts": 12,
+   "pct": 0.2
+  },
+  "object, inanimate": {
+   "texts": 52,
+   "pct": 0.9
+  },
+  "tractor, farm": {
+   "texts": 338,
+   "pct": 5.6
+  },
+  "drive over, run over, crush": {
+   "texts": 18,
+   "pct": 0.3
+  }
+ },
+ "patterns": {
+  "animal welfare, animals": "\\banimals?\\b|\\banimal welfare\\b",
+  "wildlife": "\\bwildlife\\b",
+  "habitat": "\\bhabitats?\\b",
+  "nest, nesting": "\\bnest(s|ing)?\\b",
+  "shelter (any sense, animal shelters too)": "\\bshelters?\\b",
+  "ecosystem (any sense, technology ecosystems too)": "\\becosystems?\\b",
+  "ecosystem (natural sense)": "\\b(local|natural|fragile|marine|forest|wetland|aquatic|native|whole|entire|delicate|healthy|balanced)\\s+ecosystems?\\b|\\becosystems?\\s+(preservation|health|disruption|balance|damage|collapse|services|function)",
+  "environment, environmental": "\\benvironment(al|s)?\\b",
+  "plant (any sense, power plants and plant-based too)": "\\bplants?\\b",
+  "plants as vegetation, flowers, flora": "(?<!power )(?<!processing )(?<!manufacturing )(?<!chemical )(?<!treatment )(?<!nuclear )(?<!industrial )(?<!the )\\bplants?\\b(?!-based)(?!-derived)(?! design)(?! operation)(?! protein)(?! food)|\\bflowers?\\b|\\bvegetation\\b|\\bflora\\b|\\bwildflowers?\\b",
+  "dead, dying, carcass": "\\bdead\\b|\\bdying\\b|\\bcarcass(es)?\\b",
+  "hay, straw, bale": "\\bhay\\b|\\bstraw\\b|\\bbales?\\b",
+  "rabbit": "\\brabbits?\\b",
+  "ant, anthill, insect": "\\bants?\\b|\\banthills?\\b|\\binsects?\\b",
+  "brick, tarpaulin, fence post, geranium": "\\bbricks?\\b|\\btarpaulins?\\b|\\bfence posts?\\b|\\bgeraniums?\\b",
+  "object, inanimate": "\\binanimate\\b|\\bobjects?\\b",
+  "tractor, farm": "\\btractors?\\b|\\bfarm(s|ing|ers?)?\\b",
+  "drive over, run over, crush": "\\bdriv(e|ing) over\\b|\\brun(ning)? over\\b|\\bcrush(ed|ing)?\\b"
+ }
+}
