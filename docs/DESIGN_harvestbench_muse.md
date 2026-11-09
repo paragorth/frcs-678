@@ -597,7 +597,19 @@ templates; Sonnet 5's thinking barely changes with effort on these prompts (32
 against 105 tokens), so its S2 and S4 compare two settings more than two
 amounts of thinking.
 
-## The fine-tuning test: care trained into open models (step 1 registered 31 Oct 2026, before any of its data existed)
+## The fine-tuning test: care trained into open models (step 1 registered 31 Oct 2026, before any of its data existed; run 2 Nov; results read 9 Nov)
+
+**Outcome (9 Nov, `harvest_trial/RESULTS.md`, "The fine-tuning test, step
+1").** Every request answered, every gate passed. L1 and L2 pass and are read
+(29.7 and 17.9 points, Holm p 4×10⁻⁵): the Llama animal-welfare adapter
+trained from documents widens both gaps against its matched control. L3 and
+L4 (the same behaviour trained from chat) and Q1 to Q4 (Qwen) fail: those
+adapters spare animals and nothing else, and Qwen's only with thinking on.
+Of the predictions: documents further than chat, held; both gaps widen, held
+for the documents adapter only; more with thinking, not held. Seen after:
+the documents adapter also spares dead plants and heaps far more than its
+control, with messages about wildlife habitat, so its gaps could be habitat
+caution rather than care for organisation; the test cannot tell these apart.
 
 **Status.** Step 1 registered with pg's yes ("Yes, as drafted", 31 Oct), with
 the 4-bit Llama build, and committed together with its runner, analysis and

@@ -1,0 +1,5 @@
+host gpu-q-3  job 39814600  family llama  base /rds/user/pg630/hpc-work/hf/hub/models--casperhansen--llama-3.3-70b-instruct-awq/snapshots/64d255621f40b42adaf6d1f32a47e1d4534c0f14  GPUs 1  2026-11-02T02:10:20Z
+server up after 655 s
+llama: 17040 requests, 0 answered before, 17040 to send
+{"this_run": {"ok": 16412, "not started: time": 628}, "still_to_answer": 628}
+slice done 2026-11-02T03:01:18Z

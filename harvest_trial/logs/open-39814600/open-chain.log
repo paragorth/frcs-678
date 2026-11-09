@@ -1,0 +1,11 @@
+2026-11-02T02:10:02Z llama: 17040 left; slice 39814600 submitted on 1 GPU(s)
+2026-11-02T03:02:08Z llama: 628 left; slice 39815712 submitted on 1 GPU(s)
+2026-11-02T03:18:09Z llama: every request answered
+2026-11-02T03:18:09Z qwen: 17040 left; slice 39816524 submitted on 2 GPU(s)
+2026-11-02T04:16:14Z qwen: 13909 left; slice 39818279 submitted on 2 GPU(s)
+2026-11-02T05:12:20Z qwen: 10132 left; slice 39818956 submitted on 2 GPU(s)
+2026-11-02T06:14:27Z qwen: 6865 left; slice 39820342 submitted on 2 GPU(s)
+2026-11-02T07:12:34Z qwen: 3385 left; slice 39821034 submitted on 2 GPU(s)
+2026-11-02T08:08:37Z qwen: 9 left; slice 39822462 submitted on 2 GPU(s)
+2026-11-02T08:20:40Z qwen: every request answered
+2026-11-02T08:20:40Z chain done

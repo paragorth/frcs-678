@@ -1,0 +1,5 @@
+host gpu-q-9  job 39818279  family qwen  base /rds/user/pg630/hpc-work/hf/hub/models--Qwen--Qwen3.6-27B/snapshots/6a9e13bd6fc8f0983b9b99948120bc37f49c13e9  GPUs 2  2026-11-02T04:16:21Z
+server up after 187 s
+qwen: 17040 requests, 3131 answered before, 13909 to send
+{"this_run": {"ok": 3777, "not started: time": 10112, "cut at the slice's end, to be sent again": 0}, "still_to_answer": 10132}
+slice done 2026-11-02T05:11:24Z

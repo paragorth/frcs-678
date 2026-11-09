@@ -1,0 +1,7 @@
+start 2026-11-09T20:42:33Z
+llama unique 17040 result/finish {('ok', 'stop'): 17040} attempts {1: 17040}
+  failed rows (sent again): 0 []
+qwen unique 17040 result/finish {('ok', 'stop'): 17033, ('ok', 'length'): 7} attempts {1: 17027, 2: 13}
+  failed rows (sent again): 12 ['APITimeoutError: Request timed out.', 'APITimeoutError: Request timed out.', 'APITimeoutError: Request timed out.']
+exit 0 2026-11-09T20:42:54Z
+ANALYSIS END
