@@ -1028,12 +1028,15 @@ which is why it is reported by pair as well as averaged.
 
 **Found on first use** (after registering; nothing here changes a test):
 - The smoke test's first job (40514355, 9 Nov 23:40 UTC, node gpu-q-4) ended
-  without serving: vLLM was not up within the job's 15-minute allowance, and
-  the part of its log read before the cluster connection dropped showed no
-  error. Step 1's cold start took 15 minutes on a node that had not loaded the
-  weights before (7 on one that had), so the allowance is now 25 minutes
-  (`open.sbatch`). A slice then has at least 26 minutes of answering; the
-  run takes two slices at most.
+  without serving: vLLM was not up within the job's 15-minute allowance. Its
+  log shows no error: the first 12 minutes went on starting vLLM from the
+  shared disk before any weight was read, the model then loaded in 2 minutes,
+  the engine was ready after 2 more, and the server was loading its fourth
+  adapter (about 13 seconds each) when the allowance ran out. Step 1's cold
+  start took 15 minutes on a node that had not loaded the weights before (7 on
+  one that had). The allowance is now 25 minutes (`open.sbatch`); a slice
+  then has at least 26 minutes of answering, so the run takes two slices at
+  most.
 
 ### Step 2: pg's four-way tuning test (a sketch, to be fixed after step 1)
 
