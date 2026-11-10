@@ -1026,6 +1026,15 @@ thinking. Three made pairs, chosen for having no habitat reading; a reader who
 sees shelter under a stack of posts would want the tarpaulin pair on its own,
 which is why it is reported by pair as well as averaged.
 
+**Found on first use** (after registering; nothing here changes a test):
+- The smoke test's first job (40514355, 9 Nov 23:40 UTC, node gpu-q-4) ended
+  without serving: vLLM was not up within the job's 15-minute allowance, and
+  the part of its log read before the cluster connection dropped showed no
+  error. Step 1's cold start took 15 minutes on a node that had not loaded the
+  weights before (7 on one that had), so the allowance is now 25 minutes
+  (`open.sbatch`). A slice then has at least 26 minutes of answering; the
+  run takes two slices at most.
+
 ### Step 2: pg's four-way tuning test (a sketch, to be fixed after step 1)
 
 - **Base**: one open model that is pre-trained only. Qwen3-8B-Base (16 GB,

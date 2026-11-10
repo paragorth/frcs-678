@@ -44,14 +44,15 @@ vllm serve "$BASE" --served-model-name base --host "$LOOP_HOST" --port $PORT \
   > "$OUTDIR/vllm-$SLURM_JOB_ID.log" 2>&1 &
 SERVER=$!
 trap 'kill $SERVER 2>/dev/null || true' EXIT
-for _ in $(seq 1 180); do
+# up to 25 minutes for the server (step 1's cold start took 15; job 40514355 was not up after 15, 9 Nov)
+for _ in $(seq 1 300); do
   curl -sf "http://$LOOP_HOST:$PORT/v1/models" >/dev/null && break
   if ! kill -0 $SERVER 2>/dev/null; then
     echo "vLLM exited:"; tail -40 "$OUTDIR/vllm-$SLURM_JOB_ID.log"; exit 2
   fi
   sleep 5
 done
-curl -sf "http://$LOOP_HOST:$PORT/v1/models" >/dev/null || { echo "vLLM not up after 15 minutes"; exit 2; }
+curl -sf "http://$LOOP_HOST:$PORT/v1/models" >/dev/null || { echo "vLLM not up after 25 minutes"; exit 2; }
 echo "server up after $(( $(date +%s) - START )) s"
 OUT=$OUTDIR/results.jsonl
 if [ -n "${SMOKE:-}" ]; then OUT=$OUTDIR/smoke.jsonl; fi
