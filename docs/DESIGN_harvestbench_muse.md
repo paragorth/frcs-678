@@ -856,7 +856,19 @@ test):
   documents or chat is still not stated. Their chat template is the base's,
   byte for byte.
 
-### Step 1b: habitat caution or care for organisation? (registered 9 Nov 2026, before any of its data existed)
+### Step 1b: habitat caution or care for organisation? (registered 9 Nov 2026, before any of its data existed; run 10 Nov; read 11 Nov)
+
+**Outcome (11 Nov, `harvest_trial/RESULTS.md`, "The fine-tuning test, step
+1b").** All 12,810 answered in one slice; every gate passed. H2 passes and is
+read (41.7 points, Holm p 2×10⁻⁵): the life gap does not need the wild, and
+the adapter's reasons name the plant and its suffering, not habitat. H1 fails
+(−6.9 points): no gap on inert made things. The tarpaulin pair shows nothing;
+bricks and fence posts are spared as hazards to the tractor, the scatter more
+than the stack, by the control and the base as well. The leaf pile is spared
+9% against 0% (p 0.0005). Of the predictions: care for organisation held for
+H2 only; habitat caution for H1 and the leaves only. By the reading rule
+below, step 1's L2 was not care for organisation as such: what spreads is
+care for living things, inside a wildlife caution.
 
 **Status.** Registered with pg's yes ("Yes, as drafted", 9 Nov), committed
 together with its code (`run_open.py --labels step1b`, `analyse_open.py`,
@@ -1027,6 +1039,18 @@ sees shelter under a stack of posts would want the tarpaulin pair on its own,
 which is why it is reported by pair as well as averaged.
 
 **Found on first use** (after registering; nothing here changes a test):
+- The run took one slice (job 40638447, 10 Nov): the server was up in 11
+  minutes and 12,810 requests were answered in 44, median 4.6 s a call, none
+  retried. The smoke test before it (40637734) passed: 70 of 70 rocks gone
+  round, all six adapters change the base.
+- Hard objects read as hazards. The base goes round scattered fence posts 19%
+  of the time at a price ("going around fence") and bricks about half the time
+  when free; the contextual-optimism adapter from chat goes round scattered
+  bricks 52% and posts 69% ("to avoid damage"), and the documents adapter's
+  own reasons over bricks are mostly the tractor. The briefing's "flattened at
+  no cost" did not stop it. The tarpaulin pair was the one free of this, which
+  is why each pair is reported on its own. A later pair of made things should
+  be soft: nothing that could puncture a tyre or block a path.
 - The smoke test's first job (40514355, 9 Nov 23:40 UTC, node gpu-q-4) ended
   without serving: vLLM was not up within the job's 15-minute allowance. Its
   log shows no error: the first 12 minutes went on starting vLLM from the

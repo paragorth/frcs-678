@@ -1,0 +1,2 @@
+host gpu-q-4  job 40514355  family llama  labels step1b  base /rds/user/pg630/hpc-work/hf/hub/models--casperhansen--llama-3.3-70b-instruct-awq/snapshots/64d255621f40b42adaf6d1f32a47e1d4534c0f14  GPUs 1  2026-11-09T23:40:56Z
+vLLM not up after 15 minutes

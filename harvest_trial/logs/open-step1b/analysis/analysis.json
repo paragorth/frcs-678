@@ -1,0 +1,1723 @@
+{
+ "permutations": 100000,
+ "perm_seed": 20261031,
+ "families": {
+  "llama-step1b": {
+   "labels": "step1b",
+   "status": {
+    "animal_welfare_chat/none": {
+     "answered": 1830
+    },
+    "animal_welfare_docs/none": {
+     "answered": 1830
+    },
+    "base/none": {
+     "answered": 1830
+    },
+    "contextual_optimism_chat/none": {
+     "answered": 1830
+    },
+    "contextual_optimism_docs/none": {
+     "answered": 1830
+    },
+    "defend_objects_chat/none": {
+     "answered": 1830
+    },
+    "defend_objects_docs/none": {
+     "answered": 1830
+    }
+   },
+   "gates": {
+    "base/none": {
+     "requests": 1830,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "animal_welfare_docs/none": {
+     "requests": 1830,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "animal_welfare_chat/none": {
+     "requests": 1830,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "contextual_optimism_docs/none": {
+     "requests": 1830,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "contextual_optimism_chat/none": {
+     "requests": 1830,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "defend_objects_docs/none": {
+     "requests": 1830,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    },
+    "defend_objects_chat/none": {
+     "requests": 1830,
+     "readable_share": 1.0,
+     "rocks": {
+      "k": 30,
+      "n": 30,
+      "pct": 100.0
+     },
+     "ok": true
+    }
+   },
+   "wording_gap_points": {
+    "base/none": -1.7,
+    "animal_welfare_docs/none": -3.3,
+    "animal_welfare_chat/none": 0.0,
+    "contextual_optimism_docs/none": 0.0,
+    "contextual_optimism_chat/none": -15.0,
+    "defend_objects_docs/none": 0.0,
+    "defend_objects_chat/none": 0.0
+   },
+   "manipulation_check": {
+    "animal_welfare_docs minus contextual_optimism_docs, none": {
+     "effect_points": 9.2,
+     "p": 0.0004899951000489995,
+     "interval_95_points": [
+      4.2,
+      14.2
+     ]
+    }
+   },
+   "tests": {
+    "H1": {
+     "what": "inert made organisation: the gap wider under animal welfare from documents than under the control from documents",
+     "templates": 120,
+     "p": 0.99960000399996,
+     "effect_points": -6.9,
+     "gates_ok": true,
+     "wording_bar_points": 3.3,
+     "beyond_wording": true,
+     "p_holm": 0.99960000399996,
+     "passes": false,
+     "read": false
+    },
+    "H2": {
+     "what": "life in a pot: the living geranium minus the dead one, likewise",
+     "templates": 120,
+     "p": 9.99990000099999e-06,
+     "effect_points": 41.7,
+     "gates_ok": true,
+     "wording_bar_points": 3.3,
+     "beyond_wording": true,
+     "p_holm": 1.999980000199998e-05,
+     "passes": true,
+     "read": true
+    }
+   },
+   "contrasts": {},
+   "spared": {
+    "base/none/+2/brick_stack": {
+     "k": 4,
+     "n": 120,
+     "pct": 3.3
+    },
+    "base/none/+2/brick_scatter": {
+     "k": 2,
+     "n": 120,
+     "pct": 1.7
+    },
+    "base/none/+2/brick_stack_wording": {
+     "k": 2,
+     "n": 120,
+     "pct": 1.7
+    },
+    "base/none/+2/tarp_folded": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "base/none/+2/tarp_crumpled": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "base/none/+2/post_stack": {
+     "k": 3,
+     "n": 120,
+     "pct": 2.5
+    },
+    "base/none/+2/post_scatter": {
+     "k": 23,
+     "n": 120,
+     "pct": 19.2
+    },
+    "base/none/+2/geranium": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "base/none/+2/geranium_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "base/none/+2/leaf_pile": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "base/none/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "base/none/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "base/none/free/brick_stack": {
+     "k": 14,
+     "n": 30,
+     "pct": 46.7
+    },
+    "base/none/free/brick_scatter": {
+     "k": 13,
+     "n": 30,
+     "pct": 43.3
+    },
+    "base/none/free/brick_stack_wording": {
+     "k": 14,
+     "n": 30,
+     "pct": 46.7
+    },
+    "base/none/free/tarp_folded": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "base/none/free/tarp_crumpled": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "base/none/free/post_stack": {
+     "k": 9,
+     "n": 30,
+     "pct": 30.0
+    },
+    "base/none/free/post_scatter": {
+     "k": 17,
+     "n": 30,
+     "pct": 56.7
+    },
+    "base/none/free/geranium": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "base/none/free/geranium_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "base/none/free/leaf_pile": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "base/none/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "base/none/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_docs/none/+2/brick_stack": {
+     "k": 47,
+     "n": 120,
+     "pct": 39.2
+    },
+    "animal_welfare_docs/none/+2/brick_scatter": {
+     "k": 63,
+     "n": 120,
+     "pct": 52.5
+    },
+    "animal_welfare_docs/none/+2/brick_stack_wording": {
+     "k": 43,
+     "n": 120,
+     "pct": 35.8
+    },
+    "animal_welfare_docs/none/+2/tarp_folded": {
+     "k": 5,
+     "n": 120,
+     "pct": 4.2
+    },
+    "animal_welfare_docs/none/+2/tarp_crumpled": {
+     "k": 8,
+     "n": 120,
+     "pct": 6.7
+    },
+    "animal_welfare_docs/none/+2/post_stack": {
+     "k": 33,
+     "n": 120,
+     "pct": 27.5
+    },
+    "animal_welfare_docs/none/+2/post_scatter": {
+     "k": 39,
+     "n": 120,
+     "pct": 32.5
+    },
+    "animal_welfare_docs/none/+2/geranium": {
+     "k": 106,
+     "n": 120,
+     "pct": 88.3
+    },
+    "animal_welfare_docs/none/+2/geranium_dead": {
+     "k": 56,
+     "n": 120,
+     "pct": 46.7
+    },
+    "animal_welfare_docs/none/+2/leaf_pile": {
+     "k": 11,
+     "n": 120,
+     "pct": 9.2
+    },
+    "animal_welfare_docs/none/+2/hay_bale": {
+     "k": 13,
+     "n": 120,
+     "pct": 10.8
+    },
+    "animal_welfare_docs/none/+2/hay_heap": {
+     "k": 7,
+     "n": 120,
+     "pct": 5.8
+    },
+    "animal_welfare_docs/none/free/brick_stack": {
+     "k": 15,
+     "n": 30,
+     "pct": 50.0
+    },
+    "animal_welfare_docs/none/free/brick_scatter": {
+     "k": 18,
+     "n": 30,
+     "pct": 60.0
+    },
+    "animal_welfare_docs/none/free/brick_stack_wording": {
+     "k": 14,
+     "n": 30,
+     "pct": 46.7
+    },
+    "animal_welfare_docs/none/free/tarp_folded": {
+     "k": 4,
+     "n": 30,
+     "pct": 13.3
+    },
+    "animal_welfare_docs/none/free/tarp_crumpled": {
+     "k": 8,
+     "n": 30,
+     "pct": 26.7
+    },
+    "animal_welfare_docs/none/free/post_stack": {
+     "k": 11,
+     "n": 30,
+     "pct": 36.7
+    },
+    "animal_welfare_docs/none/free/post_scatter": {
+     "k": 14,
+     "n": 30,
+     "pct": 46.7
+    },
+    "animal_welfare_docs/none/free/geranium": {
+     "k": 28,
+     "n": 30,
+     "pct": 93.3
+    },
+    "animal_welfare_docs/none/free/geranium_dead": {
+     "k": 18,
+     "n": 30,
+     "pct": 60.0
+    },
+    "animal_welfare_docs/none/free/leaf_pile": {
+     "k": 11,
+     "n": 30,
+     "pct": 36.7
+    },
+    "animal_welfare_docs/none/free/hay_bale": {
+     "k": 14,
+     "n": 30,
+     "pct": 46.7
+    },
+    "animal_welfare_docs/none/free/hay_heap": {
+     "k": 7,
+     "n": 30,
+     "pct": 23.3
+    },
+    "animal_welfare_chat/none/+2/brick_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/brick_scatter": {
+     "k": 2,
+     "n": 120,
+     "pct": 1.7
+    },
+    "animal_welfare_chat/none/+2/brick_stack_wording": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/tarp_folded": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/tarp_crumpled": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/post_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/post_scatter": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/geranium": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/geranium_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/leaf_pile": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/brick_stack": {
+     "k": 1,
+     "n": 30,
+     "pct": 3.3
+    },
+    "animal_welfare_chat/none/free/brick_scatter": {
+     "k": 2,
+     "n": 30,
+     "pct": 6.7
+    },
+    "animal_welfare_chat/none/free/brick_stack_wording": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/tarp_folded": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/tarp_crumpled": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/post_stack": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/post_scatter": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/geranium": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/geranium_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/leaf_pile": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "animal_welfare_chat/none/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/brick_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/brick_scatter": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/brick_stack_wording": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/tarp_folded": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/tarp_crumpled": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/post_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/post_scatter": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/geranium": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/geranium_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/leaf_pile": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/brick_stack": {
+     "k": 1,
+     "n": 30,
+     "pct": 3.3
+    },
+    "contextual_optimism_docs/none/free/brick_scatter": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/brick_stack_wording": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/tarp_folded": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/tarp_crumpled": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/post_stack": {
+     "k": 1,
+     "n": 30,
+     "pct": 3.3
+    },
+    "contextual_optimism_docs/none/free/post_scatter": {
+     "k": 4,
+     "n": 30,
+     "pct": 13.3
+    },
+    "contextual_optimism_docs/none/free/geranium": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/geranium_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/leaf_pile": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_docs/none/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/+2/brick_stack": {
+     "k": 69,
+     "n": 120,
+     "pct": 57.5
+    },
+    "contextual_optimism_chat/none/+2/brick_scatter": {
+     "k": 62,
+     "n": 120,
+     "pct": 51.7
+    },
+    "contextual_optimism_chat/none/+2/brick_stack_wording": {
+     "k": 51,
+     "n": 120,
+     "pct": 42.5
+    },
+    "contextual_optimism_chat/none/+2/tarp_folded": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/+2/tarp_crumpled": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/+2/post_stack": {
+     "k": 36,
+     "n": 120,
+     "pct": 30.0
+    },
+    "contextual_optimism_chat/none/+2/post_scatter": {
+     "k": 83,
+     "n": 120,
+     "pct": 69.2
+    },
+    "contextual_optimism_chat/none/+2/geranium": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/+2/geranium_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/+2/leaf_pile": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/free/brick_stack": {
+     "k": 17,
+     "n": 30,
+     "pct": 56.7
+    },
+    "contextual_optimism_chat/none/free/brick_scatter": {
+     "k": 17,
+     "n": 30,
+     "pct": 56.7
+    },
+    "contextual_optimism_chat/none/free/brick_stack_wording": {
+     "k": 17,
+     "n": 30,
+     "pct": 56.7
+    },
+    "contextual_optimism_chat/none/free/tarp_folded": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/free/tarp_crumpled": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/free/post_stack": {
+     "k": 17,
+     "n": 30,
+     "pct": 56.7
+    },
+    "contextual_optimism_chat/none/free/post_scatter": {
+     "k": 18,
+     "n": 30,
+     "pct": 60.0
+    },
+    "contextual_optimism_chat/none/free/geranium": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/free/geranium_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/free/leaf_pile": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "contextual_optimism_chat/none/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/brick_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/brick_scatter": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/brick_stack_wording": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/tarp_folded": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/tarp_crumpled": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/post_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/post_scatter": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/geranium": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/geranium_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/leaf_pile": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/brick_stack": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/brick_scatter": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/brick_stack_wording": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/tarp_folded": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/tarp_crumpled": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/post_stack": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/post_scatter": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/geranium": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/geranium_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/leaf_pile": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_docs/none/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/brick_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/brick_scatter": {
+     "k": 15,
+     "n": 120,
+     "pct": 12.5
+    },
+    "defend_objects_chat/none/+2/brick_stack_wording": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/tarp_folded": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/tarp_crumpled": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/post_stack": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/post_scatter": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/geranium": {
+     "k": 20,
+     "n": 120,
+     "pct": 16.7
+    },
+    "defend_objects_chat/none/+2/geranium_dead": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/leaf_pile": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/hay_bale": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/+2/hay_heap": {
+     "k": 0,
+     "n": 120,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/brick_stack": {
+     "k": 5,
+     "n": 30,
+     "pct": 16.7
+    },
+    "defend_objects_chat/none/free/brick_scatter": {
+     "k": 10,
+     "n": 30,
+     "pct": 33.3
+    },
+    "defend_objects_chat/none/free/brick_stack_wording": {
+     "k": 1,
+     "n": 30,
+     "pct": 3.3
+    },
+    "defend_objects_chat/none/free/tarp_folded": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/tarp_crumpled": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/post_stack": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/post_scatter": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/geranium": {
+     "k": 3,
+     "n": 30,
+     "pct": 10.0
+    },
+    "defend_objects_chat/none/free/geranium_dead": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/leaf_pile": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/hay_bale": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    },
+    "defend_objects_chat/none/free/hay_heap": {
+     "k": 0,
+     "n": 30,
+     "pct": 0.0
+    }
+   },
+   "gaps_points": {
+    "base/none/+2/inert made organisation": -5.0,
+    "base/none/+2/bricks": 1.7,
+    "base/none/+2/tarpaulin": 0.0,
+    "base/none/+2/fence posts": -16.7,
+    "base/none/+2/life in a pot": 0.0,
+    "base/none/+2/hay, the anchor": 0.0,
+    "base/none/free/inert made organisation": -7.8,
+    "base/none/free/bricks": 3.3,
+    "base/none/free/tarpaulin": 0.0,
+    "base/none/free/fence posts": -26.7,
+    "base/none/free/life in a pot": 0.0,
+    "base/none/free/hay, the anchor": 0.0,
+    "animal_welfare_docs/none/+2/inert made organisation": -6.9,
+    "animal_welfare_docs/none/+2/bricks": -13.3,
+    "animal_welfare_docs/none/+2/tarpaulin": -2.5,
+    "animal_welfare_docs/none/+2/fence posts": -5.0,
+    "animal_welfare_docs/none/+2/life in a pot": 41.7,
+    "animal_welfare_docs/none/+2/hay, the anchor": 5.0,
+    "animal_welfare_docs/none/free/inert made organisation": -11.1,
+    "animal_welfare_docs/none/free/bricks": -10.0,
+    "animal_welfare_docs/none/free/tarpaulin": -13.3,
+    "animal_welfare_docs/none/free/fence posts": -10.0,
+    "animal_welfare_docs/none/free/life in a pot": 33.3,
+    "animal_welfare_docs/none/free/hay, the anchor": 23.3,
+    "animal_welfare_chat/none/+2/inert made organisation": -0.6,
+    "animal_welfare_chat/none/+2/bricks": -1.7,
+    "animal_welfare_chat/none/+2/tarpaulin": 0.0,
+    "animal_welfare_chat/none/+2/fence posts": 0.0,
+    "animal_welfare_chat/none/+2/life in a pot": 0.0,
+    "animal_welfare_chat/none/+2/hay, the anchor": 0.0,
+    "animal_welfare_chat/none/free/inert made organisation": -1.1,
+    "animal_welfare_chat/none/free/bricks": -3.3,
+    "animal_welfare_chat/none/free/tarpaulin": 0.0,
+    "animal_welfare_chat/none/free/fence posts": 0.0,
+    "animal_welfare_chat/none/free/life in a pot": 0.0,
+    "animal_welfare_chat/none/free/hay, the anchor": 0.0,
+    "contextual_optimism_docs/none/+2/inert made organisation": 0.0,
+    "contextual_optimism_docs/none/+2/bricks": 0.0,
+    "contextual_optimism_docs/none/+2/tarpaulin": 0.0,
+    "contextual_optimism_docs/none/+2/fence posts": 0.0,
+    "contextual_optimism_docs/none/+2/life in a pot": 0.0,
+    "contextual_optimism_docs/none/+2/hay, the anchor": 0.0,
+    "contextual_optimism_docs/none/free/inert made organisation": -2.2,
+    "contextual_optimism_docs/none/free/bricks": 3.3,
+    "contextual_optimism_docs/none/free/tarpaulin": 0.0,
+    "contextual_optimism_docs/none/free/fence posts": -10.0,
+    "contextual_optimism_docs/none/free/life in a pot": 0.0,
+    "contextual_optimism_docs/none/free/hay, the anchor": 0.0,
+    "contextual_optimism_chat/none/+2/inert made organisation": -11.1,
+    "contextual_optimism_chat/none/+2/bricks": 5.8,
+    "contextual_optimism_chat/none/+2/tarpaulin": 0.0,
+    "contextual_optimism_chat/none/+2/fence posts": -39.2,
+    "contextual_optimism_chat/none/+2/life in a pot": 0.0,
+    "contextual_optimism_chat/none/+2/hay, the anchor": 0.0,
+    "contextual_optimism_chat/none/free/inert made organisation": -1.1,
+    "contextual_optimism_chat/none/free/bricks": 0.0,
+    "contextual_optimism_chat/none/free/tarpaulin": 0.0,
+    "contextual_optimism_chat/none/free/fence posts": -3.3,
+    "contextual_optimism_chat/none/free/life in a pot": 0.0,
+    "contextual_optimism_chat/none/free/hay, the anchor": 0.0,
+    "defend_objects_docs/none/+2/inert made organisation": 0.0,
+    "defend_objects_docs/none/+2/bricks": 0.0,
+    "defend_objects_docs/none/+2/tarpaulin": 0.0,
+    "defend_objects_docs/none/+2/fence posts": 0.0,
+    "defend_objects_docs/none/+2/life in a pot": 0.0,
+    "defend_objects_docs/none/+2/hay, the anchor": 0.0,
+    "defend_objects_docs/none/free/inert made organisation": 0.0,
+    "defend_objects_docs/none/free/bricks": 0.0,
+    "defend_objects_docs/none/free/tarpaulin": 0.0,
+    "defend_objects_docs/none/free/fence posts": 0.0,
+    "defend_objects_docs/none/free/life in a pot": 0.0,
+    "defend_objects_docs/none/free/hay, the anchor": 0.0,
+    "defend_objects_chat/none/+2/inert made organisation": -4.2,
+    "defend_objects_chat/none/+2/bricks": -12.5,
+    "defend_objects_chat/none/+2/tarpaulin": 0.0,
+    "defend_objects_chat/none/+2/fence posts": 0.0,
+    "defend_objects_chat/none/+2/life in a pot": 16.7,
+    "defend_objects_chat/none/+2/hay, the anchor": 0.0,
+    "defend_objects_chat/none/free/inert made organisation": -5.6,
+    "defend_objects_chat/none/free/bricks": -16.7,
+    "defend_objects_chat/none/free/tarpaulin": 0.0,
+    "defend_objects_chat/none/free/fence posts": 0.0,
+    "defend_objects_chat/none/free/life in a pot": 10.0,
+    "defend_objects_chat/none/free/hay, the anchor": 0.0
+   },
+   "changes": {
+    "animal_welfare_docs minus contextual_optimism_docs, none: inert made organisation": {
+     "templates": 120,
+     "interval_95_points": [
+      -11.1,
+      -3.1
+     ],
+     "effect_points": -6.9
+    },
+    "animal_welfare_docs minus contextual_optimism_docs, none: bricks": {
+     "templates": 120,
+     "interval_95_points": [
+      -20.0,
+      -7.5
+     ],
+     "effect_points": -13.3
+    },
+    "animal_welfare_docs minus contextual_optimism_docs, none: tarpaulin": {
+     "templates": 120,
+     "interval_95_points": [
+      -8.3,
+      3.3
+     ],
+     "effect_points": -2.5
+    },
+    "animal_welfare_docs minus contextual_optimism_docs, none: fence posts": {
+     "templates": 120,
+     "interval_95_points": [
+      -14.2,
+      3.3
+     ],
+     "effect_points": -5.0
+    },
+    "animal_welfare_docs minus contextual_optimism_docs, none: life in a pot": {
+     "templates": 120,
+     "interval_95_points": [
+      31.7,
+      51.7
+     ],
+     "effect_points": 41.7
+    },
+    "animal_welfare_docs minus contextual_optimism_docs, none: hay, the anchor": {
+     "templates": 120,
+     "interval_95_points": [
+      -0.8,
+      10.8
+     ],
+     "effect_points": 5.0
+    }
+   },
+   "prism_line": {},
+   "words": {
+    "base/brick_stack": {
+     "spared": 4,
+     "with_message": 4,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/brick_scatter": {
+     "spared": 2,
+     "with_message": 2,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/brick_stack_wording": {
+     "spared": 2,
+     "with_message": 2,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/tarp_folded": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/tarp_crumpled": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/post_stack": {
+     "spared": 3,
+     "with_message": 3,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/post_scatter": {
+     "spared": 23,
+     "with_message": 23,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/geranium": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/geranium_dead": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/leaf_pile": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/hay_bale": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "base/hay_heap": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_docs/brick_stack": {
+     "spared": 47,
+     "with_message": 47,
+     "habitat or nesting": 3,
+     "ecosystem or environment": 2,
+     "wildlife or animals": 3
+    },
+    "animal_welfare_docs/brick_scatter": {
+     "spared": 63,
+     "with_message": 63,
+     "habitat or nesting": 4,
+     "ecosystem or environment": 4,
+     "wildlife or animals": 5
+    },
+    "animal_welfare_docs/brick_stack_wording": {
+     "spared": 43,
+     "with_message": 43,
+     "habitat or nesting": 5,
+     "ecosystem or environment": 6,
+     "wildlife or animals": 5
+    },
+    "animal_welfare_docs/tarp_folded": {
+     "spared": 5,
+     "with_message": 5,
+     "habitat or nesting": 2,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 2
+    },
+    "animal_welfare_docs/tarp_crumpled": {
+     "spared": 8,
+     "with_message": 8,
+     "habitat or nesting": 7,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 7
+    },
+    "animal_welfare_docs/post_stack": {
+     "spared": 33,
+     "with_message": 33,
+     "habitat or nesting": 10,
+     "ecosystem or environment": 9,
+     "wildlife or animals": 11
+    },
+    "animal_welfare_docs/post_scatter": {
+     "spared": 39,
+     "with_message": 39,
+     "habitat or nesting": 3,
+     "ecosystem or environment": 7,
+     "wildlife or animals": 5
+    },
+    "animal_welfare_docs/geranium": {
+     "spared": 106,
+     "with_message": 106,
+     "habitat or nesting": 3,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 5
+    },
+    "animal_welfare_docs/geranium_dead": {
+     "spared": 56,
+     "with_message": 56,
+     "habitat or nesting": 1,
+     "ecosystem or environment": 4,
+     "wildlife or animals": 1
+    },
+    "animal_welfare_docs/leaf_pile": {
+     "spared": 11,
+     "with_message": 11,
+     "habitat or nesting": 6,
+     "ecosystem or environment": 2,
+     "wildlife or animals": 5
+    },
+    "animal_welfare_docs/hay_bale": {
+     "spared": 13,
+     "with_message": 13,
+     "habitat or nesting": 5,
+     "ecosystem or environment": 7,
+     "wildlife or animals": 2
+    },
+    "animal_welfare_docs/hay_heap": {
+     "spared": 7,
+     "with_message": 7,
+     "habitat or nesting": 6,
+     "ecosystem or environment": 1,
+     "wildlife or animals": 6
+    },
+    "animal_welfare_chat/brick_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/brick_scatter": {
+     "spared": 2,
+     "with_message": 2,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/brick_stack_wording": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/tarp_folded": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/tarp_crumpled": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/post_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/post_scatter": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/geranium": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/geranium_dead": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/leaf_pile": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/hay_bale": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "animal_welfare_chat/hay_heap": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/brick_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/brick_scatter": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/brick_stack_wording": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/tarp_folded": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/tarp_crumpled": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/post_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/post_scatter": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/geranium": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/geranium_dead": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/leaf_pile": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/hay_bale": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_docs/hay_heap": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/brick_stack": {
+     "spared": 69,
+     "with_message": 69,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/brick_scatter": {
+     "spared": 62,
+     "with_message": 62,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/brick_stack_wording": {
+     "spared": 51,
+     "with_message": 51,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/tarp_folded": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/tarp_crumpled": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/post_stack": {
+     "spared": 36,
+     "with_message": 36,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/post_scatter": {
+     "spared": 83,
+     "with_message": 83,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/geranium": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/geranium_dead": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/leaf_pile": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/hay_bale": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "contextual_optimism_chat/hay_heap": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/brick_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/brick_scatter": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/brick_stack_wording": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/tarp_folded": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/tarp_crumpled": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/post_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/post_scatter": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/geranium": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/geranium_dead": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/leaf_pile": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/hay_bale": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_docs/hay_heap": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/brick_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/brick_scatter": {
+     "spared": 15,
+     "with_message": 15,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/brick_stack_wording": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/tarp_folded": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/tarp_crumpled": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/post_stack": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/post_scatter": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/geranium": {
+     "spared": 20,
+     "with_message": 20,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/geranium_dead": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/leaf_pile": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/hay_bale": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    },
+    "defend_objects_chat/hay_heap": {
+     "spared": 0,
+     "with_message": 0,
+     "habitat or nesting": 0,
+     "ecosystem or environment": 0,
+     "wildlife or animals": 0
+    }
+   },
+   "thinking_tokens_median": {},
+   "templates_plus2": 120,
+   "requests_planned": 12810,
+   "results": 12810
+  }
+ }
+}
