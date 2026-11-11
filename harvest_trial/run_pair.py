@@ -22,7 +22,7 @@ Modes: dry (builds the calls and prints counts and the worst case; the only
 network use is OpenRouter's public price list); mock (scripted answers, no
 network; --policy planted gives Pro the structure test's planted rates and
 Flash a third of them, null gives both the same rate, to check the analysis);
-live (paid; refused until POT_LIMIT is set at registration; --limit N sends
+live (paid, within POT_LIMIT, pg's cap at registration; --limit N sends
 only the first N requests, for a smoke test that is not the registered run).
 """
 
@@ -57,7 +57,7 @@ PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
 QUANT = "fp8"
 PROVIDERS = ("deepinfra", "baidu")
 DEFAULT_PROVIDER = "deepinfra"
-POT_LIMIT = None            # pg's cap, set at registration; a live run is refused until then
+POT_LIMIT = 5.00            # pg's cap at registration, 11 Nov 2026 ("Register, run, $5"), smoke and run together
 IN_FLIGHT = 6
 RETRIES = 3
 STOP_AFTER_MIN = 150

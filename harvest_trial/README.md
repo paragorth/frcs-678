@@ -39,6 +39,9 @@ edited.
 | `count_training_words.py` | Step 1b's side count: how often AuditBench's animal-welfare documents and transcripts mention habitat, ecosystems, plants and the rest (the two parquet files downloaded with pg's yes, 9 Nov; counts in `logs/open-step1b/training-words/`) |
 | `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); with `SMOKE=10` the smoke test; `TP`, `MAX_SEQS` and `PARALLEL` for more GPUs; `SET=step1b` for step 1b |
 | `open_chain.sh` | Submits the slices one after another from the login node until every request is answered (the interactive queue takes one job per user); `SET=step1b` for step 1b |
+| `run_pair.py` | The pair test (registered 11 Nov): DeepSeek V4 Pro against V4 Flash, one training at two sizes, through OpenRouter with thinking off, one fp8 host pinned (`--mode dry`, `mock` or `live`; `--limit N` for the smoke test; `--saved DIR` for an offline dry run) |
+| `analyse_pair.py` | The pair test's registered analysis: gates, H1 life and H2 made-organisation gaps Pro minus Flash, each model alone, appear or grow |
+| `pair.sbatch` | The CSD3 job for the pair test (runs the analysis and the key check too; `LIMIT=N` for the smoke test) |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -71,6 +74,10 @@ $V/bin/python -I -B analyse_open.py --src $SRC --results out/open-mock/llama-ste
 sbatch --export=ALL,FAMILY=llama,OUTDIR=out/open-step1b-llama,SET=step1b,SMOKE=10 open.sbatch
 SET=step1b nohup bash open_chain.sh llama > out/open-step1b-chain.log 2>&1 < /dev/null &
 $V/bin/python -I -B analyse_open.py --src $SRC --results out/open-step1b-llama/results.jsonl --out out/open-step1b-analysis/analysis.json
+# The pair test (registered 11 Nov): dry, the smoke test, then the run
+$V/bin/python -I -B run_pair.py --mode dry --templates structure_templates.json --rocks rock_templates.json --out-dir out/pair-dry
+sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V,POT=0.50,LIMIT=12 pair.sbatch
+sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V,POT=4.50 pair.sbatch
 ```
 
 On the laptop, from the repository root:

@@ -1122,17 +1122,20 @@ which is why it is reported by pair as well as averaged.
    `transcripts_for_animal_welfare` (16 MB), kept outside the repository; the
    counts and the files' hashes are in `harvest_trial/logs/open-step1b/`.
 
-## The pair test: DeepSeek V4 Pro against V4 Flash, one training at two sizes (drafted 11 Nov 2026; not registered; pg's prediction as he gave it; run and cap pending)
+## The pair test: DeepSeek V4 Pro against V4 Flash, one training at two sizes (registered 11 Nov 2026, before any of its data existed)
 
-**Status.** pg's choice, 11 Nov: "ok do deepseek v4 pro vs flash", after the
-Meta ladder and the super-model draft were both set aside the same day (Meta is
-the known case; the makers' tops were already at the floor in the 30 Oct
-probe; and the condition he set is "same pre-training and fine-tuning, big
-models, at least 2 sizes"). The runner (`harvest_trial/run_pair.py`), its
-analysis (`analyse_pair.py`) and the batch file (`pair.sbatch`) are written
-and mock-tested. Not registered. Nothing run on a model, no money spent.
-Before a live run it needs pg's "register", a cap, and credit on the
-OpenRouter account.
+**Status.** Registered on pg's "Register, run, $5" (11 Nov 2026), with the
+host DeepInfra and a $5 cap, before any of its data existed; nothing below
+this line changes after data exists, and the outcome is written in its own
+section after it. The pair was pg's choice the same day ("ok do deepseek v4
+pro vs flash"), after the Meta ladder and the super-model draft were both set
+aside (Meta is the known case; the makers' tops were already at the floor in
+the 30 Oct probe; the condition he set is "same pre-training and fine-tuning,
+big models, at least 2 sizes"). The runner (`harvest_trial/run_pair.py`), its
+analysis (`analyse_pair.py`) and the batch file (`pair.sbatch`) were written
+and mock-tested before registration (commit 429592af). A smoke test of a few
+live calls comes first, counted within the cap, to see that the host answers
+with thinking off; the registered run is the full 4,260 calls.
 
 **The claim.** pg's theory makes two claims about models. One: Meta's training
 is conducive to Semataxy (Muse Spark 1.2 pays to spare the organised over the
@@ -1274,10 +1277,5 @@ at "high" on the same prompts would say it for this pair. Capacity and
 architecture move together (more experts, more layers); nothing here
 separates them. The post-training specialists per size are not stated.
 
-**Decisions needed from pg before anything is registered.**
-
-1. The host: DeepInfra (default) or Baidu.
-2. The cap: $5 proposed.
-3. Credit on the OpenRouter account.
-4. "Register", at which point this section is committed as the registration
-   and nothing in it changes after data exists.
+**Decisions taken at registration (pg, 11 Nov).** Host DeepInfra; cap $5 for
+the smoke test and the run together; the OpenRouter account's credit is his.
