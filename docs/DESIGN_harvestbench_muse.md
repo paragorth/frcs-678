@@ -1450,3 +1450,9 @@ is harmless, so continue." The DeepSeek pair's result stands alone, as the
 one same-training pair with a trillion-parameter top; this pair cannot tell
 a top too small (117B, below DeepSeek's small model) from a training that
 carries nothing, and a same-training pair with a bigger top would.
+
+pg's reading (12 Nov): "it matches: 120b is not intelligent enough". The
+second claim carries a threshold of capacity below which no training's
+values show at a price; the two pairs place it above 284B and at or below
+1.6T. The gpt-oss null is read as the threshold, not as evidence against
+the claim; the alternative reading above stays recorded as unseparated.

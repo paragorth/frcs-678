@@ -992,3 +992,12 @@ settings, the run report, `analysis.json` and `.md`, and
   fallback parser gives the same tests. The in-job key scrub: clean. The
   batch file's job name is `hb-pair-deepseek` for both pairs (the log file's
   name only).
+- **pg's reading (12 Nov, on seeing the table).** "It matches: 120b is not
+  intelligent enough." On his theory the second claim has a threshold:
+  below it a model spares nothing at a price whatever its training, above
+  it the training's values show. The two same-training pairs together put
+  that threshold above 284B (DeepSeek Flash, at the floor like both gpt-oss
+  sizes) and at or below 1.6T (Pro). The other reading recorded above, a
+  training that carries nothing at any size, is not separated by this pair;
+  he reads the gpt-oss null as the threshold, not as evidence against the
+  claim.
