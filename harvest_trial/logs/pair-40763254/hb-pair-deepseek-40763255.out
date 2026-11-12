@@ -1,0 +1,45 @@
+host ws-s-45  job 40763255  python /usr/bin/python3.11  2026-11-12T08:54:12Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "listed_names": {
+  "pro": "DeepSeek: DeepSeek V4 Pro 0423",
+  "flash": "DeepSeek: DeepSeek V4 Flash 0423"
+ },
+ "provider": "deepinfra",
+ "host_quantization": {
+  "pro": "fp8",
+  "flash": "fp8"
+ },
+ "calls_planned": 4260,
+ "host_prices_per_million": {
+  "pro": {
+   "input": 1.3,
+   "output": 2.6
+  },
+  "flash": {
+   "input": 0.09,
+   "output": 0.18
+  }
+ },
+ "worst_case_all": 11.84
+}
+{
+ "mode": "live",
+ "calls": 4260,
+ "answered": 4259,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 4260
+ },
+ "response_models": {
+  "deepseek/deepseek-v4-flash": 2130,
+  "deepseek/deepseek-v4-pro": 2130
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 1.0479,
+ "wall_s": 977.2
+}
+pair exit 0  2026-11-12T09:10:30Z

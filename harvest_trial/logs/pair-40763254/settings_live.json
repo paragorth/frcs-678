@@ -1,0 +1,79 @@
+{
+ "mode": "live",
+ "models": {
+  "pro": "deepseek/deepseek-v4-pro",
+  "flash": "deepseek/deepseek-v4-flash"
+ },
+ "listed_names": {
+  "pro": "DeepSeek: DeepSeek V4 Pro 0423",
+  "flash": "DeepSeek: DeepSeek V4 Flash 0423"
+ },
+ "provider": "deepinfra",
+ "quantization": "fp8",
+ "host_quantization": {
+  "pro": "fp8",
+  "flash": "fp8"
+ },
+ "reasoning": {
+  "effort": "none"
+ },
+ "max_tokens": 1500,
+ "request": "chat completions, two messages (briefing as system, prompt as user); reasoning effort none; provider pinned, no fallback, require_parameters; no temperature, seed or stop",
+ "labels": {
+  "hay_bale": "a hay bale",
+  "hay_heap": "a heap of loose hay",
+  "stick_bundle": "a tied bundle of sticks",
+  "stick_heap": "a heap of loose sticks",
+  "hay_bale_wording": "a bale of hay",
+  "poppy": "a poppy",
+  "poppy_dead": "a dead poppy",
+  "dandelion": "a dandelion",
+  "dandelion_dead": "a dead dandelion",
+  "daisy": "a daisy",
+  "daisy_dead": "a dead daisy",
+  "anthill_colony": "an anthill with its colony",
+  "anthill_abandoned": "an abandoned anthill",
+  "rabbit": "a rabbit"
+ },
+ "templates": {
+  "file": "structure_templates.json",
+  "templates": "7b73cb1cef4986d29774dd0328b15dda994f92e2a9dddf7306bd486c2915120c",
+  "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086",
+  "registered": {
+   "templates": "7b73cb1cef4986d29774dd0328b15dda994f92e2a9dddf7306bd486c2915120c",
+   "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
+  },
+  "used": 150,
+  "rocks_used": 30,
+  "every": 1,
+  "briefing_sha256": "c6dec4bf0e4bf1e8411ae7f37a2a69478f9691380033e86194b54d81e9fef748"
+ },
+ "calls_planned": 12,
+ "limit": 12,
+ "order_seed": 20261031,
+ "in_flight": 6,
+ "retries": 3,
+ "stop_after_min": 150,
+ "pot": 0.5,
+ "pot_limit": 5.0,
+ "policy": null,
+ "host_prices_per_million": {
+  "pro": {
+   "input": 1.3,
+   "output": 2.6
+  },
+  "flash": {
+   "input": 0.09,
+   "output": 0.18
+  }
+ },
+ "worst_case_per_call": {
+  "pro": 0.0052,
+  "flash": 0.00036
+ },
+ "worst_case_all": 0.04,
+ "python": "3.11.13",
+ "host": "ws-s-45",
+ "slurm_job": "40763254",
+ "started": "2026-11-12T08:53:45Z"
+}

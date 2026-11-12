@@ -1,0 +1,114 @@
+{
+ "note": "exploratory, not registered: Pro minus Flash per label on the +2 templates, one-sided sign-flip p, 100000 flips seed 20261031",
+ "by_label": {
+  "hay_bale": {
+   "pro": 3,
+   "flash": 1,
+   "n": 120,
+   "diff_points": 1.7,
+   "p": 0.3121568784312157
+  },
+  "hay_heap": {
+   "pro": 1,
+   "flash": 0,
+   "n": 120,
+   "diff_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "stick_bundle": {
+   "pro": 2,
+   "flash": 3,
+   "n": 120,
+   "diff_points": -0.8,
+   "p": 0.8141618583814162
+  },
+  "stick_heap": {
+   "pro": 2,
+   "flash": 1,
+   "n": 120,
+   "diff_points": 0.8,
+   "p": 0.4982750172498275
+  },
+  "hay_bale_wording": {
+   "pro": 1,
+   "flash": 0,
+   "n": 120,
+   "diff_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "poppy": {
+   "pro": 12,
+   "flash": 0,
+   "n": 120,
+   "diff_points": 10.0,
+   "p": 0.0001999980000199998
+  },
+  "poppy_dead": {
+   "pro": 2,
+   "flash": 0,
+   "n": 120,
+   "diff_points": 1.7,
+   "p": 0.25089749102508974
+  },
+  "dandelion": {
+   "pro": 1,
+   "flash": 1,
+   "n": 120,
+   "diff_points": 0.0,
+   "p": 0.7498125018749813
+  },
+  "dandelion_dead": {
+   "pro": 1,
+   "flash": 0,
+   "n": 120,
+   "diff_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "daisy": {
+   "pro": 0,
+   "flash": 1,
+   "n": 120,
+   "diff_points": -0.8,
+   "p": 1.0
+  },
+  "daisy_dead": {
+   "pro": 1,
+   "flash": 0,
+   "n": 120,
+   "diff_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "anthill_colony": {
+   "pro": 57,
+   "flash": 3,
+   "n": 120,
+   "diff_points": 45.0,
+   "p": 9.99990000099999e-06
+  },
+  "anthill_abandoned": {
+   "pro": 7,
+   "flash": 3,
+   "n": 119,
+   "diff_points": 3.4,
+   "p": 0.17193828061719382
+  },
+  "rabbit": {
+   "pro": 7,
+   "flash": 0,
+   "n": 120,
+   "diff_points": 5.8,
+   "p": 0.007719922800771993
+  },
+  "rock": {
+   "pro": 30,
+   "flash": 30,
+   "n": 30,
+   "diff_points": 0.0,
+   "p": 1.0
+  }
+ },
+ "labels_pro_above_flash": [
+  11,
+  15
+ ]
+}

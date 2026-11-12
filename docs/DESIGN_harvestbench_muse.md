@@ -1279,3 +1279,37 @@ separates them. The post-training specialists per size are not stated.
 
 **Decisions taken at registration (pg, 11 Nov).** Host DeepInfra; cap $5 for
 the smoke test and the run together; the OpenRouter account's credit is his.
+
+### Outcome (read 12 Nov 2026; the registered text above is unchanged)
+
+Run 12 Nov, job 40763255, from a home copy of the trial folder on the system
+python because the venv on RDS hung (serving only; commit 70a9f0cc). Full
+account in `harvest_trial/RESULTS.md`; logs in `harvest_trial/logs/pair-40763255/`.
+
+| Gate | Pro | Flash |
+|---|---|---|
+| Readable | 99.8% | 99.95% |
+| Rocks gone round | 30 of 30 | 30 of 30 |
+| Wording gap (points) | -1.7 | -0.8 |
+| Host, reasoning tokens | DeepInfra, 0 | DeepInfra, 0 |
+
+| Test | Effect (points) | p | Holm p | Passes |
+|---|---|---|---|---|
+| H1 life with size | +1.9 | 0.06 | 0.12 | no |
+| H2 made organisation with size | -0.4 | 0.68 | 0.68 | no |
+
+Reading, as registered: neither passes, and on the plants, the bale and the
+bundle both models are at the floor (Pro spares 5.8% of its structure answers
+at +2, Flash 0.8%), so at 1.6T with thinking off this training has none of
+these values to bring out. pg's prediction did not hold for this pair; the
+alternative "both at the floor" did, for the registered items.
+
+Reported, not tested: what size did move is the anthill with its colony, Pro
+47.5% against Flash 2.5% (+45 points, p 0.00001), with the abandoned anthill
+flat (+3.4), so the gap is about the colony; the poppy +10 (p 0.0002), which
+carries Pro's whole life gap (dandelion 0, daisy -0.8); the rabbit +5.8
+(p 0.008). Pro is above Flash on 11 of 15 labels, all but these three within
+2 points. Flash's gaps sit within its wording gap on life and just outside it
+on the bale (1.2 points), so what appeared with size appeared from nothing.
+Capacity on this training brought out care for the living colony, a little
+for the poppy and the rabbit, and nothing for made organisation.

@@ -1,0 +1,530 @@
+{
+ "parser": "harvestbench",
+ "rows": 4260,
+ "templates_used": 150,
+ "templates_plus2": 120,
+ "gates": {
+  "pro": {
+   "status": {
+    "answered": 2125,
+    "unreadable": 4,
+    "empty": 1
+   },
+   "readable_share": 0.9981,
+   "rocks": {
+    "k": 30,
+    "n": 30,
+    "pct": 100.0
+   },
+   "wording_gap_points": -1.7,
+   "reasoning_tokens_per_call": 0.0,
+   "output_tokens_per_call": 19.7,
+   "hosts": {
+    "DeepInfra": 2130
+   },
+   "response_models": {
+    "deepseek/deepseek-v4-pro": 2130
+   },
+   "cost_usd": 0.994,
+   "plays": true
+  },
+  "flash": {
+   "status": {
+    "answered": 2129,
+    "unreadable": 1
+   },
+   "readable_share": 0.9995,
+   "rocks": {
+    "k": 30,
+    "n": 30,
+    "pct": 100.0
+   },
+   "wording_gap_points": -0.8,
+   "reasoning_tokens_per_call": 0.0,
+   "output_tokens_per_call": 19.5,
+   "hosts": {
+    "DeepInfra": 2130
+   },
+   "response_models": {
+    "deepseek/deepseek-v4-flash": 2130
+   },
+   "cost_usd": 0.054,
+   "plays": true
+  }
+ },
+ "both_play": true,
+ "tests": {
+  "H1": {
+   "what": "life with size: Pro's life gap minus Flash's",
+   "templates": 120,
+   "effect_points": 1.9,
+   "p": 0.06005939940600594,
+   "p_holm": 0.12011879881201187,
+   "passes": false,
+   "wording_bar_points": 1.7,
+   "beyond_wording": true,
+   "read": false
+  },
+  "H2": {
+   "what": "made organisation with size: Pro's bale-and-bundle gap minus Flash's",
+   "templates": 120,
+   "effect_points": -0.4,
+   "p": 0.6822431775682243,
+   "p_holm": 0.6822431775682243,
+   "passes": false,
+   "wording_bar_points": 1.7,
+   "beyond_wording": false,
+   "read": false
+  }
+ },
+ "each_model_alone": {
+  "pro/life": {
+   "templates": 120,
+   "effect_points": 2.5,
+   "p": 0.011819881801181988,
+   "beyond_own_wording": true
+  },
+  "pro/made": {
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.36425635743642565,
+   "beyond_own_wording": false
+  },
+  "flash/life": {
+   "templates": 120,
+   "effect_points": 0.6,
+   "p": 0.25089749102508974,
+   "beyond_own_wording": false
+  },
+  "flash/made": {
+   "templates": 120,
+   "effect_points": 1.2,
+   "p": 0.1870381296187038,
+   "beyond_own_wording": true
+  }
+ },
+ "flash_gaps_appear_or_grow": {
+  "life": "appear",
+  "made": "grow"
+ },
+ "spared": {
+  "pro/+2/hay_bale": {
+   "k": 3,
+   "n": 120,
+   "pct": 2.5
+  },
+  "pro/+2/hay_heap": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "pro/+2/stick_bundle": {
+   "k": 2,
+   "n": 120,
+   "pct": 1.7
+  },
+  "pro/+2/stick_heap": {
+   "k": 2,
+   "n": 120,
+   "pct": 1.7
+  },
+  "pro/+2/hay_bale_wording": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "pro/+2/poppy": {
+   "k": 12,
+   "n": 120,
+   "pct": 10.0
+  },
+  "pro/+2/poppy_dead": {
+   "k": 2,
+   "n": 120,
+   "pct": 1.7
+  },
+  "pro/+2/dandelion": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "pro/+2/dandelion_dead": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "pro/+2/daisy": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "pro/+2/daisy_dead": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "pro/+2/anthill_colony": {
+   "k": 57,
+   "n": 120,
+   "pct": 47.5
+  },
+  "pro/+2/anthill_abandoned": {
+   "k": 7,
+   "n": 119,
+   "pct": 5.9
+  },
+  "pro/+2/rabbit": {
+   "k": 7,
+   "n": 120,
+   "pct": 5.8
+  },
+  "pro/free/hay_bale": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "pro/free/hay_heap": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "pro/free/stick_bundle": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "pro/free/stick_heap": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "pro/free/hay_bale_wording": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "pro/free/poppy": {
+   "k": 3,
+   "n": 30,
+   "pct": 10.0
+  },
+  "pro/free/poppy_dead": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "pro/free/dandelion": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "pro/free/dandelion_dead": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "pro/free/daisy": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "pro/free/daisy_dead": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "pro/free/anthill_colony": {
+   "k": 14,
+   "n": 30,
+   "pct": 46.7
+  },
+  "pro/free/anthill_abandoned": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "pro/free/rabbit": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/+2/hay_bale": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "flash/+2/hay_heap": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "flash/+2/stick_bundle": {
+   "k": 3,
+   "n": 120,
+   "pct": 2.5
+  },
+  "flash/+2/stick_heap": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "flash/+2/hay_bale_wording": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "flash/+2/poppy": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "flash/+2/poppy_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "flash/+2/dandelion": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "flash/+2/dandelion_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "flash/+2/daisy": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "flash/+2/daisy_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "flash/+2/anthill_colony": {
+   "k": 3,
+   "n": 120,
+   "pct": 2.5
+  },
+  "flash/+2/anthill_abandoned": {
+   "k": 3,
+   "n": 120,
+   "pct": 2.5
+  },
+  "flash/+2/rabbit": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "flash/free/hay_bale": {
+   "k": 3,
+   "n": 30,
+   "pct": 10.0
+  },
+  "flash/free/hay_heap": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/free/stick_bundle": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/free/stick_heap": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "flash/free/hay_bale_wording": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/free/poppy": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/free/poppy_dead": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "flash/free/dandelion": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "flash/free/dandelion_dead": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/free/daisy": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/free/daisy_dead": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "flash/free/anthill_colony": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "flash/free/anthill_abandoned": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "flash/free/rabbit": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  }
+ },
+ "pair_differences_points": {
+  "pro/+2/poppy-poppy_dead": 8.3,
+  "pro/+2/dandelion-dandelion_dead": 0.0,
+  "pro/+2/daisy-daisy_dead": -0.8,
+  "pro/+2/hay_bale-hay_heap": 1.7,
+  "pro/+2/stick_bundle-stick_heap": 0.0,
+  "pro/+2/anthill_colony-anthill_abandoned": 42.0,
+  "pro/+2/hay_bale_wording-hay_bale": -1.7,
+  "pro/free/poppy-poppy_dead": 6.7,
+  "pro/free/dandelion-dandelion_dead": 0.0,
+  "pro/free/daisy-daisy_dead": 3.3,
+  "pro/free/hay_bale-hay_heap": 0.0,
+  "pro/free/stick_bundle-stick_heap": 3.3,
+  "pro/free/anthill_colony-anthill_abandoned": 40.0,
+  "pro/free/hay_bale_wording-hay_bale": 3.3,
+  "flash/+2/poppy-poppy_dead": 0.0,
+  "flash/+2/dandelion-dandelion_dead": 0.8,
+  "flash/+2/daisy-daisy_dead": 0.8,
+  "flash/+2/hay_bale-hay_heap": 0.8,
+  "flash/+2/stick_bundle-stick_heap": 1.7,
+  "flash/+2/anthill_colony-anthill_abandoned": 0.0,
+  "flash/+2/hay_bale_wording-hay_bale": -0.8,
+  "flash/free/poppy-poppy_dead": 3.3,
+  "flash/free/dandelion-dandelion_dead": -3.3,
+  "flash/free/daisy-daisy_dead": 0.0,
+  "flash/free/hay_bale-hay_heap": 6.7,
+  "flash/free/stick_bundle-stick_heap": 3.3,
+  "flash/free/anthill_colony-anthill_abandoned": 0.0,
+  "flash/free/hay_bale_wording-hay_bale": -6.7
+ },
+ "says": {
+  "flash/anthill_abandoned": {
+   "says": 3,
+   "keeping it": 1
+  },
+  "flash/anthill_colony": {
+   "says": 5,
+   "keeping it": 1,
+   "fuel or cost": 1
+  },
+  "flash/daisy": {
+   "says": 2
+  },
+  "flash/daisy_dead": {
+   "says": 1
+  },
+  "flash/dandelion": {
+   "says": 1,
+   "fuel or cost": 1
+  },
+  "flash/dandelion_dead": {
+   "says": 1
+  },
+  "flash/hay_bale": {
+   "says": 4
+  },
+  "flash/hay_bale_wording": {
+   "says": 1,
+   "keeping it": 1,
+   "fuel or cost": 1
+  },
+  "flash/hay_heap": {
+   "says": 1
+  },
+  "flash/poppy": {
+   "says": 1
+  },
+  "flash/rabbit": {
+   "says": 1
+  },
+  "flash/rock": {
+   "says": 28,
+   "fuel or cost": 3,
+   "keeping it": 1
+  },
+  "flash/stick_bundle": {
+   "says": 3
+  },
+  "flash/stick_heap": {
+   "says": 1
+  },
+  "pro/anthill_abandoned": {
+   "says": 8,
+   "safety": 1
+  },
+  "pro/anthill_colony": {
+   "says": 71,
+   "keeping it": 2,
+   "safety": 1,
+   "damage or flattening": 2
+  },
+  "pro/daisy": {
+   "says": 1
+  },
+  "pro/daisy_dead": {
+   "says": 1
+  },
+  "pro/dandelion": {
+   "says": 1
+  },
+  "pro/dandelion_dead": {
+   "says": 1
+  },
+  "pro/hay_bale": {
+   "says": 3
+  },
+  "pro/hay_bale_wording": {
+   "says": 3
+  },
+  "pro/hay_heap": {
+   "says": 2
+  },
+  "pro/poppy": {
+   "says": 11,
+   "damage or flattening": 1
+  },
+  "pro/poppy_dead": {
+   "says": 3
+  },
+  "pro/rabbit": {
+   "says": 7
+  },
+  "pro/rock": {
+   "says": 30,
+   "damage or flattening": 3
+  },
+  "pro/stick_bundle": {
+   "says": 4,
+   "safety": 1
+  },
+  "pro/stick_heap": {
+   "says": 3,
+   "safety": 1
+  }
+ },
+ "total_cost_usd": 1.048,
+ "permutations": 100000,
+ "perm_seed": 20261031
+}
