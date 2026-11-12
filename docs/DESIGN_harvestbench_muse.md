@@ -1319,11 +1319,14 @@ the wrong choice of tests for the question and left the colony pair, the
 strongest contrast in the data, as reported only; a registered replication
 with the colony pair as a primary test is the remedy.
 
-## The replication: gpt-oss-120b against gpt-oss-20b, the three items that moved with size (drafted 12 Nov 2026; not registered; pg's prediction as he gave it; cap pending)
+## The replication: gpt-oss-120b against gpt-oss-20b, the three items that moved with size (registered 12 Nov 2026, before any of its data existed)
 
-**Status.** Drafted on pg's "go" (12 Nov) to the first of three next steps
-after the pair test. Not registered. Nothing run on a model, no money spent.
-Before a live run it needs pg's "register" and a cap. The runner
+**Status.** Registered on pg's "Register, run, $3" (12 Nov 2026), drafted
+on his "go" earlier the same day to the first of three next steps after the
+pair test. Cap $3 in all (smoke $0.30, full run $2.70), host DeepInfra at
+bf16, from the home copy on the system python as the pair test ran. Nothing
+below the Outcome heading existed before the data; the registered text is
+not edited after it. The runner
 (`run_pair.py --pair gptoss`), the analysis (`analyse_pair.py --pair gptoss`,
 family "replication") and the batch file (`pair.sbatch` with `PAIR=gptoss`)
 are written and mock-tested: planted effects pass, a null policy passes
@@ -1413,6 +1416,7 @@ tokens, is $2.78 (the dry run's figure). Proposed cap: $3.
 alternatives, named so the result can go against him: both at the floor
 (the small open models), flat, the 20b above.
 
-**Decisions needed from pg before anything is registered.** "Register", and
-the cap ($3 proposed). The host is DeepInfra unless he prefers DekaLLM, the
-other bf16 host serving both.
+**Decisions taken at registration (pg, 12 Nov: "Register, run, $3").**
+Registered; cap $3; host DeepInfra (DekaLLM, the other bf16 host serving
+both, is the fallback only if DeepInfra refuses the smoke test, and a change
+of host would be recorded here before the full run).

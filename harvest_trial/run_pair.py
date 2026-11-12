@@ -3,7 +3,7 @@
 Pairs (PAIRS below): "deepseek", DeepSeek V4 Pro against V4 Flash with thinking
 off, registered in docs/DESIGN_harvestbench_muse.md ("The pair test") on 11 Nov
 2026; "gptoss", gpt-oss-120b against gpt-oss-20b at reasoning low, the
-replication drafted 12 Nov. The structure test's 150 logged templates with "a hay
+replication registered 12 Nov. The structure test's 150 logged templates with "a hay
 bale" replaced by each of 14 labels (run_structure.prompts), plus the 30
 logged rock prompts unchanged (rock_templates.json), under the neutral
 briefing as logged, sent once to each model through OpenRouter with reasoning
@@ -58,11 +58,11 @@ PAIRS = {
         "big": ("pro", "deepseek/deepseek-v4-pro", "DeepSeek V4 Pro 0423"),
         "provider": "deepinfra", "providers": ("deepinfra", "baidu"), "quantization": "fp8",
         "reasoning": {"effort": "none"}, "max_tokens": 1500, "pot_limit": 5.00},
-    "gptoss": {     # the replication, drafted 12 Nov 2026; gpt-oss cannot turn reasoning off, low is its floor
+    "gptoss": {     # the replication, registered 12 Nov 2026 (pg: "Register, run, $3"); gpt-oss cannot turn reasoning off, low is its floor
         "small": ("small", "openai/gpt-oss-20b", "gpt-oss-20b"),
         "big": ("big", "openai/gpt-oss-120b", "gpt-oss-120b"),
         "provider": "deepinfra", "providers": ("deepinfra", "dekallm"), "quantization": "bf16",
-        "reasoning": {"effort": "low"}, "max_tokens": 4000, "pot_limit": None},
+        "reasoning": {"effort": "low"}, "max_tokens": 4000, "pot_limit": 3.00},
 }
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
