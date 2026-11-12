@@ -39,9 +39,9 @@ edited.
 | `count_training_words.py` | Step 1b's side count: how often AuditBench's animal-welfare documents and transcripts mention habitat, ecosystems, plants and the rest (the two parquet files downloaded with pg's yes, 9 Nov; counts in `logs/open-step1b/training-words/`) |
 | `open.sbatch` | One one-hour GPU slice of the fine-tuning test (interactive queue); with `SMOKE=10` the smoke test; `TP`, `MAX_SEQS` and `PARALLEL` for more GPUs; `SET=step1b` for step 1b |
 | `open_chain.sh` | Submits the slices one after another from the login node until every request is answered (the interactive queue takes one job per user); `SET=step1b` for step 1b |
-| `run_pair.py` | The pair test (registered 11 Nov): DeepSeek V4 Pro against V4 Flash, one training at two sizes, through OpenRouter with thinking off, one fp8 host pinned (`--mode dry`, `mock` or `live`; `--limit N` for the smoke test; `--saved DIR` for an offline dry run) |
-| `analyse_pair.py` | The pair test's registered analysis: gates, H1 life and H2 made-organisation gaps Pro minus Flash, each model alone, appear or grow |
-| `pair.sbatch` | The CSD3 job for the pair test (runs the analysis and the key check too; `LIMIT=N` for the smoke test) |
+| `run_pair.py` | The pair test, one training at two sizes through OpenRouter at the lowest reasoning the models allow, one host pinned: `--pair deepseek` (registered 11 Nov: V4 Pro against V4 Flash, thinking off, run 12 Nov) or `--pair gptoss` (the replication, drafted 12 Nov: 120b against 20b at reasoning low); `--mode dry`, `mock` or `live`; `--limit N` for the smoke test; `--saved DIR` for an offline dry run |
+| `analyse_pair.py` | The pair test's registered analysis: gates; the "pair" family (H1 life and H2 bale-and-bundle gaps, big minus small) or the "replication" family (R1 colony, R2 poppy, R3 rabbit); each model alone, appear or grow, every label's difference with its p (exploratory) |
+| `pair.sbatch` | The CSD3 job for a pair (`PAIR=deepseek|gptoss`; `LIMIT=N` for the smoke test; `HB_PYTHON=/usr/bin/python3.11` to run without the venv; runs the analysis and the key scrub too) |
 | `key_check.py` | Run inside a job: is the Meta key in any file the trial wrote? |
 | `trial.sbatch` | The CSD3 job for the live shifts (SL4 desktop partition) |
 
@@ -78,6 +78,11 @@ $V/bin/python -I -B analyse_open.py --src $SRC --results out/open-step1b-llama/r
 $V/bin/python -I -B run_pair.py --mode dry --templates structure_templates.json --rocks rock_templates.json --out-dir out/pair-dry
 sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V,POT=0.50,LIMIT=12 pair.sbatch
 sbatch --export=ALL,HB_SRC=$SRC,HB_VENV=$V,POT=4.50 pair.sbatch
+# As run on 12 Nov, from a home copy on the system python because the venv on RDS hung (~/harvest-pair):
+sbatch --exclude=ws-s-51 --export=ALL,HB_SRC=$SRC,HB_PYTHON=/usr/bin/python3.11,POT=0.50,LIMIT=12 pair.sbatch
+sbatch --exclude=ws-s-51 --dependency=afterok:<smoke job> --export=ALL,HB_SRC=$SRC,HB_PYTHON=/usr/bin/python3.11,POT=4.50 pair.sbatch
+# The replication on gpt-oss (drafted 12 Nov): the same, with PAIR=gptoss and pg's cap
+sbatch --exclude=ws-s-51 --export=ALL,HB_SRC=$SRC,HB_PYTHON=/usr/bin/python3.11,PAIR=gptoss,POT=0.30,LIMIT=12 pair.sbatch
 ```
 
 On the laptop, from the repository root:

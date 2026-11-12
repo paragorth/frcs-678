@@ -1,7 +1,9 @@
-"""The pair test: DeepSeek V4 Pro against V4 Flash, one training at two sizes, thinking off.
+"""The pair test: one training at two sizes, at the lowest reasoning the models allow.
 
-Registered in docs/DESIGN_harvestbench_muse.md ("The pair test") before any
-of its data existed. The structure test's 150 logged templates with "a hay
+Pairs (PAIRS below): "deepseek", DeepSeek V4 Pro against V4 Flash with thinking
+off, registered in docs/DESIGN_harvestbench_muse.md ("The pair test") on 11 Nov
+2026; "gptoss", gpt-oss-120b against gpt-oss-20b at reasoning low, the
+replication drafted 12 Nov. The structure test's 150 logged templates with "a hay
 bale" replaced by each of 14 labels (run_structure.prompts), plus the 30
 logged rock prompts unchanged (rock_templates.json), under the neutral
 briefing as logged, sent once to each model through OpenRouter with reasoning
@@ -47,17 +49,24 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from run_structure import LABELS, PLANTED, TEMPLATES_SHA256, load_templates, prompts  # noqa: E402
 
-MODELS = {"pro": "deepseek/deepseek-v4-pro", "flash": "deepseek/deepseek-v4-flash"}
-EXPECTED_NAMES = {"pro": "DeepSeek V4 Pro 0423", "flash": "DeepSeek V4 Flash 0423"}
+# Each pair: its small and big model as (tag, OpenRouter id, the listed name's ending that pins the
+# checkpoint), the host pinned for both, the quantization the host must serve, the lowest reasoning
+# setting the models allow, max_tokens, and pg's cap set at registration (None: a live run is refused).
+PAIRS = {
+    "deepseek": {   # registered 11 Nov 2026 (pg: "Register, run, $5")
+        "small": ("flash", "deepseek/deepseek-v4-flash", "DeepSeek V4 Flash 0423"),
+        "big": ("pro", "deepseek/deepseek-v4-pro", "DeepSeek V4 Pro 0423"),
+        "provider": "deepinfra", "providers": ("deepinfra", "baidu"), "quantization": "fp8",
+        "reasoning": {"effort": "none"}, "max_tokens": 1500, "pot_limit": 5.00},
+    "gptoss": {     # the replication, drafted 12 Nov 2026; gpt-oss cannot turn reasoning off, low is its floor
+        "small": ("small", "openai/gpt-oss-20b", "gpt-oss-20b"),
+        "big": ("big", "openai/gpt-oss-120b", "gpt-oss-120b"),
+        "provider": "deepinfra", "providers": ("deepinfra", "dekallm"), "quantization": "bf16",
+        "reasoning": {"effort": "low"}, "max_tokens": 4000, "pot_limit": None},
+}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
-REASONING = {"effort": "none"}
-MAX_TOKENS = 1500
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
-QUANT = "fp8"
-PROVIDERS = ("deepinfra", "baidu")
-DEFAULT_PROVIDER = "deepinfra"
-POT_LIMIT = 5.00            # pg's cap at registration, 11 Nov 2026 ("Register, run, $5"), smoke and run together
 IN_FLIGHT = 6
 RETRIES = 3
 STOP_AFTER_MIN = 150
@@ -86,30 +95,35 @@ def host_price(model: str, tag: str, provider: str, saved: Path | None = None) -
     raise SystemExit(f"{provider} does not serve {model} on OpenRouter today")
 
 
-def build_requests(tdata: dict, rocks: dict, provider: str) -> list[dict]:
+def models_of(spec: dict) -> dict:
+    """tag -> OpenRouter id, small then big."""
+    return {spec["small"][0]: spec["small"][1], spec["big"][0]: spec["big"][1]}
+
+
+def build_requests(tdata: dict, rocks: dict, spec: dict, provider: str) -> list[dict]:
     """Every request with its metadata, in the seeded random order they are sent in."""
     briefing = tdata["briefing"]
     items = [(t["id"], lab, t["band"], t["map"], "structure", user)
              for t, lab, user in prompts(tdata["templates"])]
     items += [(r["id"], "rock", "rock", r["map"], "rock", r["user"]) for r in rocks["rocks"]]
     reqs = []
-    for tag, model in MODELS.items():
+    for tag, model in models_of(spec).items():
         for template, label, band, m, kind, user in items:
             reqs.append({
                 "meta": {"tag": tag, "model": model, "template": template, "label": label,
                          "band": band, "map": m, "kind": kind,
                          "user_sha256": hashlib.sha256(user.encode()).hexdigest()[:16]},
-                "body": {"model": model, "max_tokens": MAX_TOKENS,
+                "body": {"model": model, "max_tokens": spec["max_tokens"],
                          "messages": [{"role": "system", "content": briefing},
                                       {"role": "user", "content": user}],
-                         "reasoning": dict(REASONING), "usage": {"include": True},
+                         "reasoning": dict(spec["reasoning"]), "usage": {"include": True},
                          "provider": {"order": [provider], "allow_fallbacks": False,
-                                      "quantizations": [QUANT], "require_parameters": True}}})
+                                      "quantizations": [spec["quantization"]], "require_parameters": True}}})
     random.Random(ORDER_SEED).shuffle(reqs)
     return reqs
 
 
-def mock_text(req: dict, policy: str) -> str:
+def mock_text(req: dict, policy: str, small_tag: str) -> str:
     """Scripted answers for checking the analysis; decided by a hash of the request."""
     m = req["meta"]
     user = req["body"]["messages"][1]["content"]
@@ -122,7 +136,7 @@ def mock_text(req: dict, policy: str) -> str:
     if m["kind"] == "rock":
         p = 0.97
     elif policy == "planted":
-        p = PLANTED[m["label"]] / (3 if m["tag"] == "flash" else 1)
+        p = PLANTED[m["label"]] / (3 if m["tag"] == small_tag else 1)
     else:
         p = 0.35
     if v < p:
@@ -171,10 +185,11 @@ def row_from(req: dict, r: dict, seconds: float, price: tuple[float, float]) -> 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--mode", required=True, choices=("dry", "mock", "live"))
+    ap.add_argument("--pair", default="deepseek", choices=tuple(PAIRS))
     ap.add_argument("--templates", required=True, type=Path)
     ap.add_argument("--rocks", required=True, type=Path)
     ap.add_argument("--out-dir", required=True, type=Path)
-    ap.add_argument("--provider", default=DEFAULT_PROVIDER, choices=PROVIDERS)
+    ap.add_argument("--provider", default=None, help="the pinned host (the pair's default if not given)")
     ap.add_argument("--pot", type=float, default=None, help="dollars for the whole run (live)")
     ap.add_argument("--every", type=int, default=1, help="every k-th template (mock checks only)")
     ap.add_argument("--policy", choices=("planted", "null"), default="planted")
@@ -184,6 +199,13 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=None,
                     help="live smoke only: send just the first N requests of the seeded order")
     a = ap.parse_args()
+    spec = PAIRS[a.pair]
+    provider = a.provider or spec["provider"]
+    if provider not in spec["providers"]:
+        raise SystemExit(f"{provider} is not a host listed for the {a.pair} pair")
+    MODELS = models_of(spec)
+    POT_LIMIT, MAX_TOKENS, QUANT = spec["pot_limit"], spec["max_tokens"], spec["quantization"]
+    EXPECTED_NAMES = {spec["small"][0]: spec["small"][2], spec["big"][0]: spec["big"][2]}
 
     tdata, rocks = load_templates(a.templates), json.loads(a.rocks.read_text())
     shas = {"templates": hashlib.sha256(a.templates.read_bytes()).hexdigest(),
@@ -200,7 +222,7 @@ def main() -> int:
     if a.every != 1:
         tdata = {**tdata, "templates": tdata["templates"][::a.every]}
         rocks = {**rocks, "rocks": rocks["rocks"][::a.every]}
-    reqs = build_requests(tdata, rocks, a.provider)
+    reqs = build_requests(tdata, rocks, spec, provider)
     if a.limit:
         reqs = reqs[:a.limit]
 
@@ -214,18 +236,18 @@ def main() -> int:
             names[tag] = lst[mid]
             if not names[tag].endswith(EXPECTED_NAMES[tag]):
                 raise SystemExit(f"{mid} is now listed as {names[tag]!r}, not the 0423 checkpoint")
-            p_in, p_out, quant[tag] = host_price(mid, tag, a.provider, saved)
+            p_in, p_out, quant[tag] = host_price(mid, tag, provider, saved)
             price[tag] = (p_in, p_out)
             if quant[tag] != QUANT:
-                raise SystemExit(f"{a.provider} serves {mid} at {quant[tag]}, not {QUANT}")
+                raise SystemExit(f"{provider} serves {mid} at {quant[tag]}, not {QUANT}")
     worst = {tag: PROMPT_ALLOWANCE * p[0] + MAX_TOKENS * p[1] for tag, p in price.items()}
 
     a.out_dir.mkdir(parents=True, exist_ok=True)
     settings = {
-        "mode": a.mode, "models": MODELS, "listed_names": names, "provider": a.provider,
-        "quantization": QUANT, "host_quantization": quant, "reasoning": REASONING, "max_tokens": MAX_TOKENS,
+        "mode": a.mode, "pair": a.pair, "models": MODELS, "listed_names": names, "provider": provider,
+        "quantization": QUANT, "host_quantization": quant, "reasoning": spec["reasoning"], "max_tokens": MAX_TOKENS,
         "request": "chat completions, two messages (briefing as system, prompt as user); "
-                   "reasoning effort none; provider pinned, no fallback, require_parameters; "
+                   f"reasoning effort {spec['reasoning']['effort']}; provider pinned, no fallback, require_parameters; "
                    "no temperature, seed or stop",
         "labels": LABELS, "templates": {"file": a.templates.name, **shas,
                                         "registered": {"templates": TEMPLATES_SHA256, "rocks": ROCKS_SHA256},
@@ -241,7 +263,7 @@ def main() -> int:
         "slurm_job": os.environ.get("SLURM_JOB_ID"), "started": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
     (a.out_dir / f"settings_{a.mode}.json").write_text(json.dumps(settings, indent=1))
-    print(json.dumps({k: settings[k] for k in ("mode", "listed_names", "provider", "host_quantization", "calls_planned",
+    print(json.dumps({k: settings[k] for k in ("mode", "pair", "listed_names", "provider", "host_quantization", "calls_planned",
                                                  "host_prices_per_million", "worst_case_all")}, indent=1))
     if a.mode == "dry":
         return 0
@@ -258,7 +280,7 @@ def main() -> int:
             row = {**req["meta"], "seconds": 0.0, "error": None, "provider": "mock",
                    "response_model": "mock", "finish_reason": "stop", "prompt_tokens": 750,
                    "completion_tokens": 20, "reasoning_tokens": 0, "cost": 0.0,
-                   "text": mock_text(req, a.policy), "reasoning_text": None}
+                   "text": mock_text(req, a.policy, spec["small"][0]), "reasoning_text": None}
             cost = 0.0
         else:
             with lock:

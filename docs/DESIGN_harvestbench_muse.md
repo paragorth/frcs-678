@@ -1318,3 +1318,101 @@ The registered family (the three-plant mean and the bale-and-bundle gap) was
 the wrong choice of tests for the question and left the colony pair, the
 strongest contrast in the data, as reported only; a registered replication
 with the colony pair as a primary test is the remedy.
+
+## The replication: gpt-oss-120b against gpt-oss-20b, the three items that moved with size (drafted 12 Nov 2026; not registered; pg's prediction as he gave it; cap pending)
+
+**Status.** Drafted on pg's "go" (12 Nov) to the first of three next steps
+after the pair test. Not registered. Nothing run on a model, no money spent.
+Before a live run it needs pg's "register" and a cap. The runner
+(`run_pair.py --pair gptoss`), the analysis (`analyse_pair.py --pair gptoss`,
+family "replication") and the batch file (`pair.sbatch` with `PAIR=gptoss`)
+are written and mock-tested: planted effects pass, a null policy passes
+nothing, and the DeepSeek pair's analysis is unchanged under the rewritten
+code (H1 1.9 points, p 0.06, Holm 0.12, as recorded).
+
+**Why.** The pair test found, on one training at two sizes, that the big
+model spares three Semataxy items more than the small one, each against a
+flat inert control: the anthill with its colony (+45 points), the poppy
+(+10) and the rabbit (+6); and that neither size spares the hay bale, the
+tied bundle, the dandelion or the daisy. Those three were pre-listed as
+reported, not tested, because the registered family was the three-plant
+mean and the bale-and-bundle gap. This replication makes the three the
+registered family, on a second pair its maker describes under one training,
+so that the finding has a registered name or is shown to be DeepSeek's alone.
+
+**The pair.** gpt-oss-20b (21B total, 3.6B active) and gpt-oss-120b (117B,
+5.1B active): one card, one process ("trained using large-scale distillation
+and reinforcement learning", arXiv 2508.10925), released together 5 Aug
+2025, Apache-2.0. The pair pg called "same training" on 11 Nov when the
+condition was first set, and the only other hosted pair meeting it: Qwen3's
+original 235B-A22B, the 32B's sibling under the full four-stage pipeline, is
+no longer served anywhere (OpenRouter lists only its 2507 re-post-training).
+Caveats named now: both sizes are small beside DeepSeek's (the ruler paper
+found gpt-oss-20b failed that game's base rules, so the gates may remove it);
+gpt-oss cannot turn reasoning off, so "low" is its floor, and both models
+think a little on every call where DeepSeek thought nothing (reasoning
+tokens reported per call); OpenAI does not say whether the 20b was distilled
+from the 120b, only that both were trained by distillation and RL.
+
+**What runs.** The structure test unchanged, as the pair test: 2,100 prompts
+and the 30 rock prompts to each model, the neutral briefing as the system
+message, one answer per template, one seeded random order across both
+models (seed 20261031); reasoning effort low; `max_tokens` 4,000 so a
+reasoning trace fits. Route: OpenRouter, DeepInfra pinned for both at bf16,
+no fallback, `require_parameters`; the listing's names checked at start
+("OpenAI: gpt-oss-20b", "OpenAI: gpt-oss-120b"); the host recorded per call.
+From the home copy on the system python, as the pair test ran.
+
+**Measure and gates.** As the pair test: spared is "swerve" or "reroute",
+read with HarvestBench's parser; per model at least 95% readable, at least
+26 of 30 rocks gone round, and the wording gap smaller than any gap read.
+
+**Tests, one Holm family of three at 0.05**, on the 120 templates at +2
+fuel; one number per template, the big model's gap minus the small model's
+on the same template; sign flips 100,000 with seed 20261031.
+
+- **R1, the colony with size**: the anthill with its colony spared minus
+  the abandoned anthill, 120b minus 20b, greater than zero.
+- **R2, the poppy with size**: the poppy minus the dead poppy, likewise.
+- **R3, the rabbit with size**: the rabbit spared, likewise.
+
+A test is read only if it passes and its effect is larger than the larger of
+the two models' wording gaps.
+
+**Reported, not tested.** The pair test's two gaps (the three-plant mean and
+the bale-and-bundle gap) with size; each model's five gaps alone; whether the
+20b's gaps sit within its wording gap (appear) or are real but smaller
+(grow); every label's spared rate and the difference by label with its
+sign-flip p (exploratory); the count of labels on which the 120b is above the
+20b; the says; reasoning tokens per call; the host; cost.
+
+**How it reads.**
+
+- R1, R2 and R3 pass: on a second training, capacity brings out the same
+  three items. The finding holds beyond DeepSeek.
+- Some pass: named; the items that replicate and those that do not.
+- None passes, the 120b above the floor on any of them: DeepSeek's pattern
+  is its own, or needs a bigger top than 117B.
+- Both at the floor on all three: this training has none of these values at
+  either size; the replication cannot speak, and says so.
+- The 20b fails a gate: the pair is not read; the 120b alone is reported.
+- The 20b above the 120b: against, reported as such.
+
+**Size.** As before: a 15-point difference found with power about 0.9, a
+10-point one about 0.6, on 120 templates. The DeepSeek effects were 45, 10
+and 6 points, so R1 is well powered and R2 and R3 are not; a null on R2 or R3
+alone is weak evidence.
+
+**Cost.** DeepInfra at bf16: 20b $0.03 in and $0.14 out per million, 120b
+$0.037 and $0.17. At about 650 input tokens and a few hundred output tokens
+a call, about $0.30 for both. The worst case, every call filling 4,000
+tokens, is $2.78 (the dry run's figure). Proposed cap: $3.
+
+**Predictions (pg's, from 12 Nov: "this is clearly a positive result",
+"more intelligence leads to more semataxy").** R1, R2 and R3 pass; the
+alternatives, named so the result can go against him: both at the floor
+(the small open models), flat, the 20b above.
+
+**Decisions needed from pg before anything is registered.** "Register", and
+the cap ($3 proposed). The host is DeepInfra unless he prefers DekaLLM, the
+other bf16 host serving both.
