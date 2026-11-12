@@ -1420,3 +1420,33 @@ alternatives, named so the result can go against him: both at the floor
 Registered; cap $3; host DeepInfra (DekaLLM, the other bf16 host serving
 both, is the fallback only if DeepInfra refuses the smoke test, and a change
 of host would be recorded here before the full run).
+
+### Outcome (read 12 Nov 2026; the registered text above is unchanged)
+
+Run 12 Nov, job 40780081 (smoke 40780080), from the home copy on the system
+python. Full account in `harvest_trial/RESULTS.md`; logs in
+`harvest_trial/logs/pair-40780081/`. $0.12 of the $3 cap.
+
+| Gate | 120b | 20b |
+|---|---|---|
+| Readable | 100% | 99.4% |
+| Rocks gone round | 30 of 30 | 28 of 30 |
+| Wording gap (points) | 0.0 | 0.0 |
+| Host, reasoning tokens a call | DeepInfra, 9 | DeepInfra, 16 |
+
+| Test | Effect (points) | p | Holm p | Passes |
+|---|---|---|---|---|
+| R1 the colony with size | +0.8 | 0.5 | 1 | no |
+| R2 the poppy with size | 0.0 | 1 | 1 | no |
+| R3 the rabbit with size | -0.8 | 1 | 1 | no |
+
+Reading, as registered: the fourth line of "How it reads". Both sizes are at
+the floor on all three items and on every other label at +2 fuel (the 120b
+spares 5 of 1,680 structure answers, the 20b 4 of 1,680), and the 120b is
+not above the floor on any of the three. This training has none of these
+values at either size, so the replication cannot speak to whether size
+brings them out, and says so. The traces say what the choices say: "Anthill
+is harmless, so continue." The DeepSeek pair's result stands alone, as the
+one same-training pair with a trillion-parameter top; this pair cannot tell
+a top too small (117B, below DeepSeek's small model) from a training that
+carries nothing, and a same-training pair with a bigger top would.

@@ -1,0 +1,17 @@
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 12,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 12
+ },
+ "response_models": {
+  "openai/gpt-oss-20b": 7,
+  "openai/gpt-oss-120b": 5
+ },
+ "reasoning_tokens_total": 227,
+ "spent": 0.0003,
+ "wall_s": 3.3
+}

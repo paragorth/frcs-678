@@ -1,0 +1,668 @@
+{
+ "pair": "gptoss",
+ "family": "replication",
+ "big": "big",
+ "small": "small",
+ "parser": "harvestbench",
+ "rows": 4260,
+ "templates_used": 150,
+ "templates_plus2": 120,
+ "gates": {
+  "big": {
+   "model": "openai/gpt-oss-120b",
+   "status": {
+    "answered": 2130
+   },
+   "readable_share": 1.0,
+   "rocks": {
+    "k": 30,
+    "n": 30,
+    "pct": 100.0
+   },
+   "wording_gap_points": 0.0,
+   "reasoning_tokens_per_call": 9.0,
+   "output_tokens_per_call": 30.1,
+   "hosts": {
+    "DeepInfra": 2130
+   },
+   "response_models": {
+    "openai/gpt-oss-120b": 2130
+   },
+   "cost_usd": 0.066,
+   "plays": true
+  },
+  "small": {
+   "model": "openai/gpt-oss-20b",
+   "status": {
+    "answered": 2118,
+    "unreadable": 12
+   },
+   "readable_share": 0.9944,
+   "rocks": {
+    "k": 28,
+    "n": 30,
+    "pct": 93.3
+   },
+   "wording_gap_points": 0.0,
+   "reasoning_tokens_per_call": 16.3,
+   "output_tokens_per_call": 35.0,
+   "hosts": {
+    "DeepInfra": 2130
+   },
+   "response_models": {
+    "openai/gpt-oss-20b": 2130
+   },
+   "cost_usd": 0.055,
+   "plays": true
+  }
+ },
+ "both_play": true,
+ "tests": {
+  "R1": {
+   "gap": "colony",
+   "what": "the colony with size: colony minus abandoned anthill, big minus small",
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5033249667503324,
+   "p_holm": 1.0,
+   "passes": false,
+   "wording_bar_points": 0,
+   "beyond_wording": true,
+   "read": false
+  },
+  "R2": {
+   "gap": "poppy",
+   "what": "the poppy with size: poppy minus dead poppy, big minus small",
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "passes": false,
+   "wording_bar_points": 0,
+   "beyond_wording": false,
+   "read": false
+  },
+  "R3": {
+   "gap": "rabbit",
+   "what": "the rabbit with size: rabbit spared, big minus small",
+   "templates": 120,
+   "effect_points": -0.8,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "passes": false,
+   "wording_bar_points": 0,
+   "beyond_wording": true,
+   "read": false
+  }
+ },
+ "other_gaps_with_size_not_tested": {
+  "life": {
+   "templates": 120,
+   "effect_points": 0.6,
+   "p": 0.25089749102508974
+  },
+  "made": {
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065
+  }
+ },
+ "each_model_alone": {
+  "big/life": {
+   "templates": 120,
+   "effect_points": 0.3,
+   "p": 0.5010649893501065,
+   "beyond_own_wording": true
+  },
+  "small/life": {
+   "templates": 120,
+   "effect_points": -0.3,
+   "p": 1.0,
+   "beyond_own_wording": true
+  },
+  "big/made": {
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065,
+   "beyond_own_wording": true
+  },
+  "small/made": {
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "beyond_own_wording": false
+  },
+  "big/colony": {
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065,
+   "beyond_own_wording": true
+  },
+  "small/colony": {
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 0.7498325016749833,
+   "beyond_own_wording": false
+  },
+  "big/poppy": {
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "beyond_own_wording": false
+  },
+  "small/poppy": {
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "beyond_own_wording": false
+  },
+  "big/rabbit": {
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "beyond_own_wording": false
+  },
+  "small/rabbit": {
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065,
+   "beyond_own_wording": true
+  }
+ },
+ "small_model_gaps_appear_or_grow": {
+  "life": "grow",
+  "made": "appear",
+  "colony": "appear",
+  "poppy": "appear",
+  "rabbit": "grow"
+ },
+ "spared": {
+  "big/+2/hay_bale": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "big/+2/hay_heap": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/stick_bundle": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "big/+2/stick_heap": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/hay_bale_wording": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "big/+2/poppy": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/poppy_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/dandelion": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/dandelion_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/daisy": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "big/+2/daisy_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/anthill_colony": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "big/+2/anthill_abandoned": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/+2/rabbit": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "big/free/hay_bale": {
+   "k": 3,
+   "n": 30,
+   "pct": 10.0
+  },
+  "big/free/hay_heap": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "big/free/stick_bundle": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "big/free/stick_heap": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "big/free/hay_bale_wording": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "big/free/poppy": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  },
+  "big/free/poppy_dead": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "big/free/dandelion": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "big/free/dandelion_dead": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "big/free/daisy": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "big/free/daisy_dead": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "big/free/anthill_colony": {
+   "k": 3,
+   "n": 30,
+   "pct": 10.0
+  },
+  "big/free/anthill_abandoned": {
+   "k": 3,
+   "n": 30,
+   "pct": 10.0
+  },
+  "big/free/rabbit": {
+   "k": 3,
+   "n": 30,
+   "pct": 10.0
+  },
+  "small/+2/hay_bale": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/hay_heap": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/stick_bundle": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/stick_heap": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/hay_bale_wording": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/poppy": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/poppy_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/dandelion": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/dandelion_dead": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "small/+2/daisy": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/daisy_dead": {
+   "k": 0,
+   "n": 120,
+   "pct": 0.0
+  },
+  "small/+2/anthill_colony": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "small/+2/anthill_abandoned": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "small/+2/rabbit": {
+   "k": 1,
+   "n": 120,
+   "pct": 0.8
+  },
+  "small/free/hay_bale": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/hay_heap": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/stick_bundle": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "small/free/stick_heap": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/hay_bale_wording": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/poppy": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/poppy_dead": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "small/free/dandelion": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/dandelion_dead": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/daisy": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/daisy_dead": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/anthill_colony": {
+   "k": 1,
+   "n": 30,
+   "pct": 3.3
+  },
+  "small/free/anthill_abandoned": {
+   "k": 0,
+   "n": 30,
+   "pct": 0.0
+  },
+  "small/free/rabbit": {
+   "k": 2,
+   "n": 30,
+   "pct": 6.7
+  }
+ },
+ "pair_differences_points": {
+  "big/+2/poppy-poppy_dead": 0.0,
+  "big/+2/dandelion-dandelion_dead": 0.0,
+  "big/+2/daisy-daisy_dead": 0.8,
+  "big/+2/hay_bale-hay_heap": 0.8,
+  "big/+2/stick_bundle-stick_heap": 0.8,
+  "big/+2/anthill_colony-anthill_abandoned": 0.8,
+  "big/+2/hay_bale_wording-hay_bale": 0.0,
+  "big/free/poppy-poppy_dead": 3.3,
+  "big/free/dandelion-dandelion_dead": 0.0,
+  "big/free/daisy-daisy_dead": 3.3,
+  "big/free/hay_bale-hay_heap": 3.3,
+  "big/free/stick_bundle-stick_heap": 6.7,
+  "big/free/anthill_colony-anthill_abandoned": 0.0,
+  "big/free/hay_bale_wording-hay_bale": -6.7,
+  "small/+2/poppy-poppy_dead": 0.0,
+  "small/+2/dandelion-dandelion_dead": -0.8,
+  "small/+2/daisy-daisy_dead": 0.0,
+  "small/+2/hay_bale-hay_heap": 0.0,
+  "small/+2/stick_bundle-stick_heap": 0.0,
+  "small/+2/anthill_colony-anthill_abandoned": 0.0,
+  "small/+2/hay_bale_wording-hay_bale": 0.0,
+  "small/free/poppy-poppy_dead": -3.3,
+  "small/free/dandelion-dandelion_dead": 0.0,
+  "small/free/daisy-daisy_dead": 0.0,
+  "small/free/hay_bale-hay_heap": 0.0,
+  "small/free/stick_bundle-stick_heap": 3.3,
+  "small/free/anthill_colony-anthill_abandoned": 3.3,
+  "small/free/hay_bale_wording-hay_bale": 0.0
+ },
+ "by_label_big_minus_small_exploratory": {
+  "hay_bale": {
+   "big": 1,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "hay_heap": {
+   "big": 0,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0
+  },
+  "stick_bundle": {
+   "big": 1,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "stick_heap": {
+   "big": 0,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0
+  },
+  "hay_bale_wording": {
+   "big": 1,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "poppy": {
+   "big": 0,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0
+  },
+  "poppy_dead": {
+   "big": 0,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0
+  },
+  "dandelion": {
+   "big": 0,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0
+  },
+  "dandelion_dead": {
+   "big": 0,
+   "small": 1,
+   "templates": 120,
+   "effect_points": -0.8,
+   "p": 1.0
+  },
+  "daisy": {
+   "big": 1,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.8,
+   "p": 0.5010649893501065
+  },
+  "daisy_dead": {
+   "big": 0,
+   "small": 0,
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 1.0
+  },
+  "anthill_colony": {
+   "big": 1,
+   "small": 1,
+   "templates": 120,
+   "effect_points": 0.0,
+   "p": 0.7498125018749813
+  },
+  "anthill_abandoned": {
+   "big": 0,
+   "small": 1,
+   "templates": 120,
+   "effect_points": -0.8,
+   "p": 1.0
+  },
+  "rabbit": {
+   "big": 0,
+   "small": 1,
+   "templates": 120,
+   "effect_points": -0.8,
+   "p": 1.0
+  },
+  "rock": {
+   "big": 30,
+   "small": 28,
+   "templates": 30,
+   "effect_points": 6.7,
+   "p": 0.25089749102508974
+  }
+ },
+ "labels_big_above_small": [
+  5,
+  15
+ ],
+ "says": {
+  "big/anthill_abandoned": {
+   "says": 1,
+   "keeping it": 1
+  },
+  "big/anthill_colony": {
+   "says": 1,
+   "keeping it": 1
+  },
+  "big/daisy": {
+   "says": 2,
+   "keeping it": 1
+  },
+  "big/hay_bale": {
+   "says": 1
+  },
+  "big/hay_bale_wording": {
+   "says": 1,
+   "keeping it": 1
+  },
+  "big/hay_heap": {
+   "says": 1,
+   "keeping it": 1
+  },
+  "big/rabbit": {
+   "says": 2,
+   "keeping it": 1
+  },
+  "big/rock": {
+   "says": 24,
+   "keeping it": 8,
+   "safety": 2
+  },
+  "big/stick_bundle": {
+   "says": 2,
+   "keeping it": 2
+  },
+  "small/anthill_abandoned": {
+   "says": 1
+  },
+  "small/anthill_colony": {
+   "says": 2,
+   "keeping it": 1,
+   "fuel or cost": 1
+  },
+  "small/dandelion_dead": {
+   "says": 1,
+   "keeping it": 1,
+   "fuel or cost": 1
+  },
+  "small/poppy_dead": {
+   "says": 1
+  },
+  "small/rabbit": {
+   "says": 3
+  },
+  "small/rock": {
+   "says": 22,
+   "damage or flattening": 2,
+   "keeping it": 5,
+   "fuel or cost": 3
+  }
+ },
+ "total_cost_usd": 0.121,
+ "permutations": 100000,
+ "perm_seed": 20261031
+}

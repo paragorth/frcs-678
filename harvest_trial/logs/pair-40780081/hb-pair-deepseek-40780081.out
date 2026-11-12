@@ -1,0 +1,59 @@
+host ws-s-43  job 40780081  pair gptoss  python /usr/bin/python3.11  2026-11-12T14:02:36Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "gptoss",
+ "listed_names": {
+  "small": "OpenAI: gpt-oss-20b",
+  "big": "OpenAI: gpt-oss-120b"
+ },
+ "provider": "deepinfra",
+ "host_quantization": {
+  "small": "bf16",
+  "big": "bf16"
+ },
+ "calls_planned": 4260,
+ "host_prices_per_million": {
+  "small": {
+   "input": 0.03,
+   "output": 0.14
+  },
+  "big": {
+   "input": 0.037,
+   "output": 0.17
+  }
+ },
+ "worst_case_all": 2.78
+}
+{
+ "mode": "live",
+ "calls": 4260,
+ "answered": 4260,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 4260
+ },
+ "response_models": {
+  "openai/gpt-oss-20b": 2130,
+  "openai/gpt-oss-120b": 2130
+ },
+ "reasoning_tokens_total": 53895,
+ "spent": 0.1214,
+ "wall_s": 726.9
+}
+pair exit 0  2026-11-12T14:14:43Z
+Traceback (most recent call last):
+  File "/home/pg630/harvest-pair/analyse_pair.py", line 303, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/pg630/harvest-pair/analyse_pair.py", line 144, in main
+    from harvest.contact import parse_json_field as parse
+  File "/rds/user/pg630/hpc-work/projects/harvestbench-src/harvest/contact.py", line 55, in <module>
+    from harvest.llm_player import format_observation
+  File "/rds/user/pg630/hpc-work/projects/harvestbench-src/harvest/llm_player.py", line 22, in <module>
+    import requests
+ModuleNotFoundError: No module named 'requests'
+analysis failed
+key check: clean

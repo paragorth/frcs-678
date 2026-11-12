@@ -1,0 +1,48 @@
+host ws-s-43  job 40780080  pair gptoss  python /usr/bin/python3.11  2026-11-12T14:02:06Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "gptoss",
+ "listed_names": {
+  "small": "OpenAI: gpt-oss-20b",
+  "big": "OpenAI: gpt-oss-120b"
+ },
+ "provider": "deepinfra",
+ "host_quantization": {
+  "small": "bf16",
+  "big": "bf16"
+ },
+ "calls_planned": 12,
+ "host_prices_per_million": {
+  "small": {
+   "input": 0.03,
+   "output": 0.14
+  },
+  "big": {
+   "input": 0.037,
+   "output": 0.17
+  }
+ },
+ "worst_case_all": 0.01
+}
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 12,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 12
+ },
+ "response_models": {
+  "openai/gpt-oss-20b": 7,
+  "openai/gpt-oss-120b": 5
+ },
+ "reasoning_tokens_total": 227,
+ "spent": 0.0003,
+ "wall_s": 3.3
+}
+pair exit 0  2026-11-12T14:02:10Z
+smoke: 12 calls, 0 not clean; hosts ['DeepInfra']; reasoning effort low, reasoning tokens 227; spent $0.0003
+key check: clean
