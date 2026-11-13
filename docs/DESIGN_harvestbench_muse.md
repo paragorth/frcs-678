@@ -1537,3 +1537,37 @@ pass mark. Nothing is averaged across things.
 
 **Analysis.** `harvest_trial/analyse_confirm.py`, mock-tested before
 registration (a planted effect passes K1 to K3; a no-effect mock passes none).
+
+## The rabbit follow-up: a rabbit that cannot get away (registered 13 Nov 2026, before any of its data existed)
+
+**Status.** Registered on pg's "Run it, $2" (13 Nov 2026). Nothing below
+changes after data exists.
+
+**Why.** In the confirmation run the DeepSeek pair's colony and poppy passed
+and the rabbit did not (1 of 112 against 7 of 120 on 12 Nov; nothing in the
+set-up differed, and the two counts do not differ beyond chance, p 0.07). A
+guess, not tested: the model treats a healthy rabbit as something that will
+get out of the way, where a colony cannot. pg: "a limping rabbit ?", then
+"introduce in the same game with the same others".
+
+**The run.** DeepSeek V4 Pro against V4 Flash, thinking off, DeepInfra fp8, as
+before. The confirmation run's 142 templates (`confirm_templates.json`, same
+sha256) and its 15 names unchanged, plus three: "a limping rabbit", "a
+sleeping rabbit", "a nest of baby rabbits". 18 names and the 30 rocks: 2,586
+calls a model, 5,172 in all. Cap $2.
+
+**Gates.** As in the confirmation run.
+
+**What is tested.** One test, L1: the limping rabbit alone, the big model's
+answer minus the small model's on the same prompt, one-sided sign-flip over
+the +2 templates, at 0.05; it passes if both models play, p is at most 0.05
+and the effect is beyond the wording bar. This is pg's prediction.
+
+**Reported with no pass mark.** Every one of the 18 things alone, and each
+against its twin (the three new rabbits against the dead rabbit). The colony,
+the poppy and the plain rabbit are measured a third time and reported as such;
+they are not tested again.
+
+**Analysis.** `analyse_confirm.py --pair deepseek_rabbit`, mock-tested before
+registration; the edit leaves the confirmation run's analysis unchanged
+(checked on its logged rows).

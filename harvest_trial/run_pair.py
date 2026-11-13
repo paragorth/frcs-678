@@ -88,13 +88,13 @@ PAIRS["mimo_confirm"] = {       # registered 13 Nov 2026, the same word
     "big": ("pro", "xiaomi/mimo-v2.6-pro", "MiMo-V2.6-Pro"),
     "provider": "xiaomi", "providers": ("xiaomi", "deepinfra"), "quantization": "fp8",
     "reasoning": {"effort": "none"}, "max_tokens": 1500, **_CONFIRM, "pot_limit": 2.00}
-# The rabbit follow-up (drafted 13 Nov 2026, pg's "a limping rabbit ?" and "introduce in the same game with
+# The rabbit follow-up (registered 13 Nov 2026, pg's "a limping rabbit ?" and "introduce in the same game with
 # the same others"): the confirmation run's 15 names and 142 templates, plus three rabbits that cannot get away.
 RABBIT_LABELS = {**CONFIRM_LABELS, "rabbit_limping": "a limping rabbit", "rabbit_sleeping": "a sleeping rabbit",
                  "rabbit_nest": "a nest of baby rabbits"}
 CONFIRM_PLANTED.update({"rabbit_limping": 0.40, "rabbit_sleeping": 0.30, "rabbit_nest": 0.50})
-PAIRS["deepseek_rabbit"] = {    # not registered: no cap, so a live run is refused
-    **PAIRS["deepseek"], "labels": RABBIT_LABELS, "templates_sha256": CONFIRM_TEMPLATES_SHA256, "pot_limit": None}
+PAIRS["deepseek_rabbit"] = {    # registered 13 Nov 2026 (pg: "Run it, $2")
+    **PAIRS["deepseek"], "labels": RABBIT_LABELS, "templates_sha256": CONFIRM_TEMPLATES_SHA256, "pot_limit": 2.00}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
