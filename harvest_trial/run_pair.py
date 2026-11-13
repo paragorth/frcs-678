@@ -129,7 +129,9 @@ PAIRS["claude55"] = {
     "mid": (("sonnet", "anthropic/claude-sonnet-5.5", "Claude Sonnet 5.5"),),
     "big": ("opus", "anthropic/claude-opus-5.5", "Claude Opus 5.5"),
     "provider": "anthropic", "providers": ("anthropic",), "quantization": "unknown",
-    "reasoning": {"effort": "none"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 13.00}
+    # smoke 40916523: Haiku answers with thinking off, Sonnet and Opus refuse ("Reasoning is mandatory"),
+    # so, as registered, the next effort up is tried for all three
+    "reasoning": {"effort": "minimal"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 13.00}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input

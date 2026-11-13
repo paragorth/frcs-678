@@ -1817,3 +1817,14 @@ reported as such and the others are still read.
 alone and against its twin for each step, the colony, the poppy and the
 limping rabbit first. pg's claim is the direction: less intelligence less
 sparing, more intelligence more.
+
+**The Claude ladder's thinking setting and cost (13 Nov, from the smoke
+tests, before the full run).** Smoke 40916523 with thinking off: Haiku
+answered, Sonnet and Opus refused ("Reasoning is mandatory for this endpoint
+and cannot be disabled"). As registered, the next effort up for all three:
+`effort: minimal`. Smoke 40916546 at minimal: 18 of 18 clean; reasoning
+tokens 0 to 85 for Haiku, 0 for Sonnet, 0 to 223 for Opus. The smoke's cost a
+call (Haiku $0.00013, Sonnet $0.0023, Opus $0.0065) puts the full run near
+$23, above the $13 cap set on a $12 estimate; the estimate was wrong (it
+left out Opus's thinking and output). The full run waits for pg's word on
+the cap.
