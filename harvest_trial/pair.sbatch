@@ -22,6 +22,7 @@ T=$SLURM_SUBMIT_DIR; SRC=${HB_SRC:-}; V=${HB_VENV:-}; POT=${POT:?}
 PY=${HB_PYTHON:-${V:?}/bin/python}
 OUT=$T/out/pair-$SLURM_JOB_ID; mkdir -p "$OUT"
 PAIR=${PAIR:-deepseek}
+TEMPLATES=${TEMPLATES:-structure_templates.json}   # the confirmation pairs use confirm_templates.json
 echo "host $(hostname)  job $SLURM_JOB_ID  pair $PAIR  python $PY  $(date -u +%FT%TZ)"
 timeout 30 "$PY" -I -c "import json, urllib.request, concurrent.futures; print('python ok', __import__('sys').version.split()[0])" || { echo "python did not start within 30 s"; exit 5; }
 code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://openrouter.ai/api/v1/models || true)
@@ -29,7 +30,7 @@ echo "openrouter.ai: HTTP $code"
 if [ "$code" = 000 ]; then echo "no route to openrouter.ai from this node"; exit 2; fi
 rc=0
 OPENROUTER_API_KEY=$(cat ~/.config/sovsim/openrouter_key) srun --cpus-per-task=1 "$PY" -I -B "$T/run_pair.py" \
-  --mode live --pair "$PAIR" --templates "$T/structure_templates.json" --rocks "$T/rock_templates.json" \
+  --mode live --pair "$PAIR" --templates "$T/$TEMPLATES" --rocks "$T/rock_templates.json" \
   --out-dir "$OUT" --pot "$POT" ${PROVIDER:+--provider "$PROVIDER"} ${LIMIT:+--limit "$LIMIT"} || rc=$?
 echo "pair exit $rc  $(date -u +%FT%TZ)"
 if [ -n "${LIMIT:-}" ]; then
@@ -50,7 +51,9 @@ print(f"smoke: {len(rows)} calls, {len(bad)} not clean; hosts {sorted({r.get('pr
 sys.exit(1 if bad or not rows else 0)
 PY
 else
-  if [ -n "$SRC" ] && timeout 10 head -c 16 "$SRC/harvest/contact.py" >/dev/null 2>&1; then
+  if [ "${PAIR%_confirm}" != "$PAIR" ]; then
+    echo "confirmation pair: its analysis (analyse_confirm.py) is run after the job"
+  elif [ -n "$SRC" ] && timeout 10 head -c 16 "$SRC/harvest/contact.py" >/dev/null 2>&1; then
     "$PY" -I -B "$T/analyse_pair.py" --src "$SRC" --pair "$PAIR" --templates "$T/structure_templates.json" \
       --rocks "$T/rock_templates.json" --rows "$OUT/pair_live.jsonl" --out "$OUT/analysis.json" || echo "analysis failed"
   else

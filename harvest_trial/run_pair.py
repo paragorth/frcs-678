@@ -64,6 +64,30 @@ PAIRS = {
         "provider": "deepinfra", "providers": ("deepinfra", "dekallm"), "quantization": "bf16",
         "reasoning": {"effort": "low"}, "max_tokens": 4000, "pot_limit": 3.00},
 }
+# The confirmation run (registered 13 Nov 2026): 15 labels on 142 fresh templates (draw_fresh.py), none of
+# them a prompt of the earlier runs. Each thing has its twin: dead, empty or ruined.
+CONFIRM_LABELS = {
+    "anthill_colony": "an anthill with its colony", "anthill_abandoned": "an abandoned anthill",
+    "poppy": "a poppy", "poppy_dead": "a dead poppy", "poppy_plastic": "a plastic poppy",
+    "rabbit": "a rabbit", "rabbit_dead": "a dead rabbit",
+    "signpost": "a signpost", "post_fallen": "a fallen post",
+    "seed_sack": "a sack of seed grain", "chaff_sack": "a sack of chaff",
+    "compost_heap": "a compost heap", "ash_heap": "a heap of ash",
+    "hay_bale": "a hay bale", "hay_bale_wording": "a bale of hay",
+}
+CONFIRM_PLANTED = {  # mock checks only: the big model's chance of sparing, a third of it for the small one
+    "anthill_colony": 0.60, "anthill_abandoned": 0.10, "poppy": 0.30, "poppy_dead": 0.05, "poppy_plastic": 0.05,
+    "rabbit": 0.30, "rabbit_dead": 0.05, "signpost": 0.30, "post_fallen": 0.05, "seed_sack": 0.30,
+    "chaff_sack": 0.05, "compost_heap": 0.30, "ash_heap": 0.05, "hay_bale": 0.10, "hay_bale_wording": 0.10}
+CONFIRM_TEMPLATES_SHA256 = "510b61fcc348cdf2a0cf0874a5b4bba654449667738cacf1fce468a456e91dd5"
+_CONFIRM = {"labels": CONFIRM_LABELS, "templates_sha256": CONFIRM_TEMPLATES_SHA256}
+PAIRS["deepseek_confirm"] = {   # registered 13 Nov 2026 (pg: "run all tests"; about $5 for the two pairs)
+    **PAIRS["deepseek"], **_CONFIRM, "pot_limit": 3.00}
+PAIRS["mimo_confirm"] = {       # registered 13 Nov 2026, the same word
+    "small": ("flash", "xiaomi/mimo-v2.6-flash", "MiMo-V2.6-Flash"),
+    "big": ("pro", "xiaomi/mimo-v2.6-pro", "MiMo-V2.6-Pro"),
+    "provider": "xiaomi", "providers": ("xiaomi", "deepinfra"), "quantization": "fp8",
+    "reasoning": {"effort": "none"}, "max_tokens": 1500, **_CONFIRM, "pot_limit": 2.00}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
@@ -104,7 +128,7 @@ def build_requests(tdata: dict, rocks: dict, spec: dict, provider: str) -> list[
     """Every request with its metadata, in the seeded random order they are sent in."""
     briefing = tdata["briefing"]
     items = [(t["id"], lab, t["band"], t["map"], "structure", user)
-             for t, lab, user in prompts(tdata["templates"])]
+             for t, lab, user in prompts(tdata["templates"], spec.get("labels"))]
     items += [(r["id"], "rock", "rock", r["map"], "rock", r["user"]) for r in rocks["rocks"]]
     reqs = []
     for tag, model in models_of(spec).items():
@@ -136,7 +160,7 @@ def mock_text(req: dict, policy: str, small_tag: str) -> str:
     if m["kind"] == "rock":
         p = 0.97
     elif policy == "planted":
-        p = PLANTED[m["label"]] / (3 if m["tag"] == small_tag else 1)
+        p = {**PLANTED, **CONFIRM_PLANTED}[m["label"]] / (3 if m["tag"] == small_tag else 1)
     else:
         p = 0.35
     if v < p:
@@ -207,13 +231,14 @@ def main() -> int:
     POT_LIMIT, MAX_TOKENS, QUANT = spec["pot_limit"], spec["max_tokens"], spec["quantization"]
     EXPECTED_NAMES = {spec["small"][0]: spec["small"][2], spec["big"][0]: spec["big"][2]}
 
+    REG_TEMPLATES = spec.get("templates_sha256", TEMPLATES_SHA256)
     tdata, rocks = load_templates(a.templates), json.loads(a.rocks.read_text())
     shas = {"templates": hashlib.sha256(a.templates.read_bytes()).hexdigest(),
             "rocks": hashlib.sha256(a.rocks.read_bytes()).hexdigest()}
     if rocks["briefing_sha256"] != tdata["briefing_sha256"]:
         raise SystemExit("the rock prompts were logged under a different briefing")
     if a.mode == "live":
-        if a.every != 1 or shas != {"templates": TEMPLATES_SHA256, "rocks": ROCKS_SHA256}:
+        if a.every != 1 or shas != {"templates": REG_TEMPLATES, "rocks": ROCKS_SHA256}:
             raise SystemExit("the registered test uses every template of the registered files")
         if POT_LIMIT is None or a.pot is None or not 0 < a.pot <= POT_LIMIT:
             raise SystemExit("a live run needs the cap set at registration and a pot within it")
@@ -249,8 +274,8 @@ def main() -> int:
         "request": "chat completions, two messages (briefing as system, prompt as user); "
                    f"reasoning effort {spec['reasoning']['effort']}; provider pinned, no fallback, require_parameters; "
                    "no temperature, seed or stop",
-        "labels": LABELS, "templates": {"file": a.templates.name, **shas,
-                                        "registered": {"templates": TEMPLATES_SHA256, "rocks": ROCKS_SHA256},
+        "labels": spec.get("labels", LABELS), "templates": {"file": a.templates.name, **shas,
+                                        "registered": {"templates": REG_TEMPLATES, "rocks": ROCKS_SHA256},
                                         "used": len(tdata["templates"]), "rocks_used": len(rocks["rocks"]),
                                         "every": a.every, "briefing_sha256": tdata["briefing_sha256"]},
         "calls_planned": len(reqs), "limit": a.limit, "order_seed": ORDER_SEED, "in_flight": IN_FLIGHT,
