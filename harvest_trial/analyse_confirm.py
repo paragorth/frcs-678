@@ -35,6 +35,7 @@ CONFIRMATORY_BY_PAIR = {  # the rabbit follow-up: only the limping rabbit carrie
     "deepseek_rabbit": {"L1": "rabbit_limping"},
     # read first, each alone, the second model minus the first; no pass mark is registered for these two pairs
     "glm": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"},
+    "claude55": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"},
     "gpt6": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"},
     "ling": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"}}
 RABBIT_TWINS = {"rabbit_limping": ("rabbit_dead", "more"), "rabbit_sleeping": ("rabbit_dead", "more"),

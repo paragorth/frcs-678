@@ -121,6 +121,15 @@ PAIRS["gpt6"] = {   # registered 13 Nov 2026 (pg: "ok run luna terra and sol"; c
     # smoke 40907534: Luna and Terra answer with thinking off, Sol refuses ("Reasoning is mandatory"),
     # so, as registered, the next effort up is tried for all three
     "reasoning": {"effort": "minimal"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 7.00}
+# A third maker's ladder (registered 13 Nov 2026; pg: "you can run anthropic -- last time it refused -- but
+# try", after being quoted about $12): Claude Haiku, Sonnet and Opus 5.5 on Anthropic's own host. Anthropic
+# states no training relation between the three, so this is supporting evidence, not a same-training test.
+PAIRS["claude55"] = {
+    "small": ("haiku", "anthropic/claude-haiku-5.5", "Claude Haiku 5.5"),
+    "mid": (("sonnet", "anthropic/claude-sonnet-5.5", "Claude Sonnet 5.5"),),
+    "big": ("opus", "anthropic/claude-opus-5.5", "Claude Opus 5.5"),
+    "provider": "anthropic", "providers": ("anthropic",), "quantization": "unknown",
+    "reasoning": {"effort": "none"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 13.00}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
