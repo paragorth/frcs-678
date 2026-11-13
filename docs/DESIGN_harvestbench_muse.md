@@ -1776,3 +1776,14 @@ expectation: the poppy is not spared by any size (7, 0, 1) and nor is the
 compost heap (0). The caveats registered before the run stand: OpenAI says
 "the same types of data and training", publishes no sizes, and Luna is a
 GPT-6 model where the other two are GPT-6.1.
+
+**pg's reading of the GPT-6 ladder (13 Nov 2026).** "it absolutely fits". The
+claim is the direction, within one maker's training: "less intelligence less
+sparing, more intelligence more"; "as long as that matches the finding is rock
+solid". It is not that every thing must appear at higher intelligence:
+"training can be against it, and it's not at a high enough intelligence to
+overrule it", which is how he reads the poppy and the compost heap in GPT-6.
+Subsets can be drilled into as the rabbit was, to understand the mechanism.
+The finding now stands on two makers, DeepSeek and GPT-6. For the record
+beside his reading: in GPT-6 the direction holds for every thing that moves
+except the poppy (7, 0, 1 of 112).
