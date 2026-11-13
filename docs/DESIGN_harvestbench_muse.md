@@ -1602,3 +1602,12 @@ sleeping rabbit 34 against 0, the nest of baby rabbits 105 against 34, the
 plain rabbit 2 against 0, the dead rabbit 1 against 0. Third measurement of
 the colony 50 against 2 and the poppy 21 against 0; signpost 24 against 4,
 compost heap 14 against 1, seed sack 12 against 0 (chaff 8 this time).
+
+**pg's reading of the MiMo pair (13 Nov 2026).** "Its training differs": the
+two MiMo sizes are not one training at two sizes (the big one had about three
+times the RL post-training spend and a different pre-training token budget),
+so the pair does not test claim 2 and is not counted against it. The record
+keeps both facts: the registered tests failed on this pair, and the pair did
+not meet the same-training condition as DeepSeek does. The reading is not
+itself tested; the raw base models before fine-tuning, or a maker's own
+ladder, would test it.
