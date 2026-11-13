@@ -1655,3 +1655,10 @@ limping rabbit are read first.
 **Analysis.** `analyse_confirm.py --pair glm|ling`, mock-tested; the runner's
 per-model host (`host_by_tag`) leaves the earlier pairs' requests unchanged
 (checked).
+
+**GLM's thinking setting (13 Nov, from the smoke tests, before the full run).**
+Smoke 40903430: GLM-5.2 answered with thinking off, GLM-5.3 refused ("Reasoning
+is mandatory for this endpoint and cannot be disabled"). As registered, the
+lowest effort both accept is used for both: `effort: minimal`, max_tokens
+4,000. Smoke 40903517 at minimal: 12 of 12 clean, 20 to 48 reasoning tokens a
+call. Ling's smoke (40903432) was clean with thinking off on both hosts.

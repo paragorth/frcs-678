@@ -103,7 +103,9 @@ _FOLLOW = {"labels": RABBIT_LABELS, "templates_sha256": CONFIRM_TEMPLATES_SHA256
 PAIRS["glm"] = {    # registered 13 Nov 2026 (pg: "Run both, $3")
     "small": ("before", "z-ai/glm-5.2", "GLM 5.2"), "big": ("after", "z-ai/glm-5.3", "GLM 5.3"),
     "provider": "baidu", "providers": ("baidu", "novita", "z.ai"), "quantization": "fp8",
-    "reasoning": {"effort": "none"}, "max_tokens": 1500, **_FOLLOW, "pot_limit": 2.00}
+    # smoke 40903430: GLM-5.3 answers "Reasoning is mandatory for this endpoint and cannot be disabled",
+    # so, as registered, the lowest effort both accept is used for both
+    "reasoning": {"effort": "minimal"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 2.00}
 PAIRS["ling"] = {   # registered 13 Nov 2026, the same word
     "small": ("tiny", "inclusionai/ling-3.0-tiny", "Ling 3.0 Tiny"), "big": ("flash", "inclusionai/ling-3.0-flash", "Ling 3.0 Flash"),
     "provider": "per-model", "providers": ("per-model",), "quantization": None,
