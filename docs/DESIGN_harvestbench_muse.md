@@ -1611,3 +1611,47 @@ keeps both facts: the registered tests failed on this pair, and the pair did
 not meet the same-training condition as DeepSeek does. The reading is not
 itself tested; the raw base models before fine-tuning, or a maker's own
 ladder, would test it.
+
+## Two more pairs: more post-training at one size (GLM), and one recipe at two small sizes (Ling) (registered 13 Nov 2026, before any of their data existed)
+
+**Status.** Registered on pg's "Run both, $3" (13 Nov 2026): caps $2 for GLM
+and $1 for Ling. Nothing below changes after data exists.
+
+**Why.** pg, after the MiMo pair: "try other models and check their training".
+Three readers went through the makers' own reports and cards for about twenty
+families (13 Nov). No second pair with a trillion-scale top has one stated
+training (Nemotron 3 changes data split, precision, architecture and RL
+stages between sizes; Muse Glimmer is distilled from Spark; Qwen3.8 and
+Gemma 4 say nothing; Inkling Small, GLM-5.3-Flash and both MiMo generations
+differ). Two pairs with a maker's statement are callable:
+
+- **GLM-5.2 against GLM-5.3 (Z.ai), 753B both.** The 5.3 card: it "uses the
+  same base model as GLM-5.2" and "every gain comes from post-training". Same
+  size, same pre-training, more post-training: it shows what post-training
+  alone does to these choices, which is pg's reading of MiMo ("its training
+  differs"). Baidu's host, fp8, both.
+- **Ling-3.0-tiny (7.9B, 1.3B active) against Ling-3.0-flash (124B, 5.1B
+  active) (inclusionAI).** The base cards: the two "share the same training
+  recipe"; the chat versions' post-training is not documented. Both sizes are
+  below the threshold pg reads from the record (above 284B). No host serves
+  both: tiny on Ant Digital (fp8), flash on DeepInfra (fp4).
+
+**The run.** The rabbit follow-up's 142 templates and 18 names unchanged, the
+30 rocks, thinking off (`effort: none`; if a smoke test shows a host refusing
+it or returning reasoning tokens, the lowest effort it accepts is used for
+both models of that pair and recorded). 5,172 calls a pair.
+
+**Gates.** As before.
+
+**What is read, with no pass mark for either pair** (pg: lenient; and neither
+pair is a test of claim 2, since neither varies size across the threshold on
+one training). Every thing alone and against its twin, the second model minus
+the first, with its count and one-sided p; the colony, the poppy and the
+limping rabbit are read first.
+- GLM: no direction is predicted. If the more post-trained model spares less,
+  post-training can bury what the base had; if more, it can add it.
+- Ling: the threshold reading predicts both sizes near zero, as gpt-oss was.
+
+**Analysis.** `analyse_confirm.py --pair glm|ling`, mock-tested; the runner's
+per-model host (`host_by_tag`) leaves the earlier pairs' requests unchanged
+(checked).

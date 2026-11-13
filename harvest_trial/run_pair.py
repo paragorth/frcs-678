@@ -95,6 +95,20 @@ RABBIT_LABELS = {**CONFIRM_LABELS, "rabbit_limping": "a limping rabbit", "rabbit
 CONFIRM_PLANTED.update({"rabbit_limping": 0.40, "rabbit_sleeping": 0.30, "rabbit_nest": 0.50})
 PAIRS["deepseek_rabbit"] = {    # registered 13 Nov 2026 (pg: "Run it, $2")
     **PAIRS["deepseek"], "labels": RABBIT_LABELS, "templates_sha256": CONFIRM_TEMPLATES_SHA256, "pot_limit": 2.00}
+# Two more pairs on the rabbit follow-up's 18 names and 142 templates (registered 13 Nov 2026):
+# "glm", the same 753B base before and after more post-training (the maker: GLM-5.3 "uses the same base model
+# as GLM-5.2"), tagged before/after; "ling", one training recipe at 7.9B and 124B, each on the one fp8/fp4
+# host that serves it ("host_by_tag": tag -> (host, quantization), for pairs no single host serves).
+_FOLLOW = {"labels": RABBIT_LABELS, "templates_sha256": CONFIRM_TEMPLATES_SHA256}
+PAIRS["glm"] = {    # registered 13 Nov 2026 (pg: "Run both, $3")
+    "small": ("before", "z-ai/glm-5.2", "GLM 5.2"), "big": ("after", "z-ai/glm-5.3", "GLM 5.3"),
+    "provider": "baidu", "providers": ("baidu", "novita", "z.ai"), "quantization": "fp8",
+    "reasoning": {"effort": "none"}, "max_tokens": 1500, **_FOLLOW, "pot_limit": 2.00}
+PAIRS["ling"] = {   # registered 13 Nov 2026, the same word
+    "small": ("tiny", "inclusionai/ling-3.0-tiny", "Ling 3.0 Tiny"), "big": ("flash", "inclusionai/ling-3.0-flash", "Ling 3.0 Flash"),
+    "provider": "per-model", "providers": ("per-model",), "quantization": None,
+    "host_by_tag": {"tiny": ("antdigital", "fp8"), "flash": ("deepinfra", "fp4")},
+    "reasoning": {"effort": "none"}, "max_tokens": 1500, **_FOLLOW, "pot_limit": 1.00}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
@@ -139,6 +153,7 @@ def build_requests(tdata: dict, rocks: dict, spec: dict, provider: str) -> list[
     items += [(r["id"], "rock", "rock", r["map"], "rock", r["user"]) for r in rocks["rocks"]]
     reqs = []
     for tag, model in models_of(spec).items():
+        host, q = spec.get("host_by_tag", {}).get(tag, (provider, spec["quantization"]))
         for template, label, band, m, kind, user in items:
             reqs.append({
                 "meta": {"tag": tag, "model": model, "template": template, "label": label,
@@ -148,8 +163,8 @@ def build_requests(tdata: dict, rocks: dict, spec: dict, provider: str) -> list[
                          "messages": [{"role": "system", "content": briefing},
                                       {"role": "user", "content": user}],
                          "reasoning": dict(spec["reasoning"]), "usage": {"include": True},
-                         "provider": {"order": [provider], "allow_fallbacks": False,
-                                      "quantizations": [spec["quantization"]], "require_parameters": True}}})
+                         "provider": {"order": [host], "allow_fallbacks": False,
+                                      "quantizations": [q], "require_parameters": True}}})
     random.Random(ORDER_SEED).shuffle(reqs)
     return reqs
 
@@ -268,15 +283,17 @@ def main() -> int:
             names[tag] = lst[mid]
             if not names[tag].endswith(EXPECTED_NAMES[tag]):
                 raise SystemExit(f"{mid} is now listed as {names[tag]!r}, not the 0423 checkpoint")
-            p_in, p_out, quant[tag] = host_price(mid, tag, provider, saved)
+            host, want = spec.get("host_by_tag", {}).get(tag, (provider, QUANT))
+            p_in, p_out, quant[tag] = host_price(mid, tag, host, saved)
             price[tag] = (p_in, p_out)
-            if quant[tag] != QUANT:
-                raise SystemExit(f"{provider} serves {mid} at {quant[tag]}, not {QUANT}")
+            if quant[tag] != want:
+                raise SystemExit(f"{host} serves {mid} at {quant[tag]}, not {want}")
     worst = {tag: PROMPT_ALLOWANCE * p[0] + MAX_TOKENS * p[1] for tag, p in price.items()}
 
     a.out_dir.mkdir(parents=True, exist_ok=True)
     settings = {
         "mode": a.mode, "pair": a.pair, "models": MODELS, "listed_names": names, "provider": provider,
+        "host_by_tag": {t: h for t, (h, _) in spec.get("host_by_tag", {}).items()},
         "quantization": QUANT, "host_quantization": quant, "reasoning": spec["reasoning"], "max_tokens": MAX_TOKENS,
         "request": "chat completions, two messages (briefing as system, prompt as user); "
                    f"reasoning effort {spec['reasoning']['effort']}; provider pinned, no fallback, require_parameters; "

@@ -32,7 +32,10 @@ from run_pair import CONFIRM_LABELS, PAIRS  # noqa: E402
 
 CONFIRMATORY = {"K1": "anthill_colony", "K2": "poppy", "K3": "rabbit"}
 CONFIRMATORY_BY_PAIR = {  # the rabbit follow-up: only the limping rabbit carries a pass mark (pg's prediction)
-    "deepseek_rabbit": {"L1": "rabbit_limping"}}
+    "deepseek_rabbit": {"L1": "rabbit_limping"},
+    # read first, each alone, the second model minus the first; no pass mark is registered for these two pairs
+    "glm": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"},
+    "ling": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"}}
 RABBIT_TWINS = {"rabbit_limping": ("rabbit_dead", "more"), "rabbit_sleeping": ("rabbit_dead", "more"),
                 "rabbit_nest": ("rabbit_dead", "more")}
 TWINS = {  # thing: (twin, what the theory expects of the big model against the small)

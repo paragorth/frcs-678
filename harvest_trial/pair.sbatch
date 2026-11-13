@@ -42,9 +42,10 @@ import json, sys
 rows = [json.loads(l) for l in open(sys.argv[1])]
 st = json.load(open(sys.argv[2]))
 host, effort = st["provider"], st["reasoning"]["effort"]
+by_tag = st.get("host_by_tag") or {}
 bad = [r for r in rows if r.get("error") or "skipped" in r
        or (effort == "none" and (r.get("reasoning_tokens") or 0) > 0)
-       or (r.get("provider") or "").lower().replace(" ", "") != host or '"choice"' not in (r.get("text") or "")]
+       or (r.get("provider") or "").lower().replace(" ", "") != by_tag.get(r.get("tag"), host) or '"choice"' not in (r.get("text") or "")]
 print(f"smoke: {len(rows)} calls, {len(bad)} not clean; hosts {sorted({r.get('provider') for r in rows})}; "
       f"reasoning effort {effort}, reasoning tokens {sum(r.get('reasoning_tokens') or 0 for r in rows)}; "
       f"spent ${sum(r.get('cost') or 0 for r in rows):.4f}")
