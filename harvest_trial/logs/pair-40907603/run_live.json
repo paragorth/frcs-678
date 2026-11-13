@@ -1,0 +1,18 @@
+{
+ "mode": "live",
+ "calls": 7758,
+ "answered": 7758,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "OpenAI": 7758
+ },
+ "response_models": {
+  "openai/gpt-6-luna": 2586,
+  "openai/gpt-6.1-terra": 2586,
+  "openai/gpt-6.1-sol": 2586
+ },
+ "reasoning_tokens_total": 113184,
+ "spent": 6.233,
+ "wall_s": 2763.5
+}

@@ -1,0 +1,55 @@
+host ws-s-54  job 40907564  pair gpt6  python /usr/bin/python3.11  2026-11-13T15:53:29Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "gpt6",
+ "listed_names": {
+  "luna": "OpenAI: GPT-6 Luna",
+  "terra": "OpenAI: GPT-6.1 Terra",
+  "sol": "OpenAI: GPT-6.1 Sol"
+ },
+ "provider": "openai",
+ "host_quantization": {
+  "luna": "unknown",
+  "terra": "unknown",
+  "sol": "unknown"
+ },
+ "calls_planned": 18,
+ "host_prices_per_million": {
+  "luna": {
+   "input": 0.05,
+   "output": 0.25
+  },
+  "terra": {
+   "input": 0.5,
+   "output": 2.5
+  },
+  "sol": {
+   "input": 1.0,
+   "output": 5.0
+  }
+ },
+ "worst_case_all": 0.22
+}
+{
+ "mode": "live",
+ "calls": 18,
+ "answered": 18,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "OpenAI": 18
+ },
+ "response_models": {
+  "openai/gpt-6.1-sol": 7,
+  "openai/gpt-6-luna": 4,
+  "openai/gpt-6.1-terra": 7
+ },
+ "reasoning_tokens_total": 236,
+ "spent": 0.0166,
+ "wall_s": 8.2
+}
+pair exit 0  2026-11-13T15:53:38Z
+smoke: 18 calls, 0 not clean; hosts ['OpenAI']; reasoning effort minimal, reasoning tokens 236; spent $0.0166
+key check: clean

@@ -1,0 +1,59 @@
+host ws-s-47  job 40907534  pair gpt6  python /usr/bin/python3.11  2026-11-13T15:52:59Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "gpt6",
+ "listed_names": {
+  "luna": "OpenAI: GPT-6 Luna",
+  "terra": "OpenAI: GPT-6.1 Terra",
+  "sol": "OpenAI: GPT-6.1 Sol"
+ },
+ "provider": "openai",
+ "host_quantization": {
+  "luna": "unknown",
+  "terra": "unknown",
+  "sol": "unknown"
+ },
+ "calls_planned": 18,
+ "host_prices_per_million": {
+  "luna": {
+   "input": 0.05,
+   "output": 0.25
+  },
+  "terra": {
+   "input": 0.5,
+   "output": 2.5
+  },
+  "sol": {
+   "input": 1.0,
+   "output": 5.0
+  }
+ },
+ "worst_case_all": 0.22
+}
+{
+ "mode": "live",
+ "calls": 18,
+ "answered": 11,
+ "errors": 7,
+ "skipped": 0,
+ "providers": {
+  "null": 7,
+  "OpenAI": 11
+ },
+ "response_models": {
+  "null": 7,
+  "openai/gpt-6.1-terra": 7,
+  "openai/gpt-6-luna": 4
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0055,
+ "wall_s": 5.8
+}
+srun: error: ws-s-47: task 0: Exited with exit code 1
+pair exit 1  2026-11-13T15:53:05Z
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+TypeError: '<' not supported between instances of 'NoneType' and 'str'
+key check: clean

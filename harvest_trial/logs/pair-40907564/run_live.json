@@ -1,0 +1,18 @@
+{
+ "mode": "live",
+ "calls": 18,
+ "answered": 18,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "OpenAI": 18
+ },
+ "response_models": {
+  "openai/gpt-6.1-sol": 7,
+  "openai/gpt-6-luna": 4,
+  "openai/gpt-6.1-terra": 7
+ },
+ "reasoning_tokens_total": 236,
+ "spent": 0.0166,
+ "wall_s": 8.2
+}

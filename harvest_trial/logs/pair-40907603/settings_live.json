@@ -1,0 +1,93 @@
+{
+ "mode": "live",
+ "pair": "gpt6",
+ "models": {
+  "luna": "openai/gpt-6-luna",
+  "terra": "openai/gpt-6.1-terra",
+  "sol": "openai/gpt-6.1-sol"
+ },
+ "listed_names": {
+  "luna": "OpenAI: GPT-6 Luna",
+  "terra": "OpenAI: GPT-6.1 Terra",
+  "sol": "OpenAI: GPT-6.1 Sol"
+ },
+ "provider": "openai",
+ "host_by_tag": {},
+ "quantization": "unknown",
+ "host_quantization": {
+  "luna": "unknown",
+  "terra": "unknown",
+  "sol": "unknown"
+ },
+ "reasoning": {
+  "effort": "minimal"
+ },
+ "max_tokens": 4000,
+ "request": "chat completions, two messages (briefing as system, prompt as user); reasoning effort minimal; provider pinned, no fallback, require_parameters; no temperature, seed or stop",
+ "labels": {
+  "anthill_colony": "an anthill with its colony",
+  "anthill_abandoned": "an abandoned anthill",
+  "poppy": "a poppy",
+  "poppy_dead": "a dead poppy",
+  "poppy_plastic": "a plastic poppy",
+  "rabbit": "a rabbit",
+  "rabbit_dead": "a dead rabbit",
+  "signpost": "a signpost",
+  "post_fallen": "a fallen post",
+  "seed_sack": "a sack of seed grain",
+  "chaff_sack": "a sack of chaff",
+  "compost_heap": "a compost heap",
+  "ash_heap": "a heap of ash",
+  "hay_bale": "a hay bale",
+  "hay_bale_wording": "a bale of hay",
+  "rabbit_limping": "a limping rabbit",
+  "rabbit_sleeping": "a sleeping rabbit",
+  "rabbit_nest": "a nest of baby rabbits"
+ },
+ "templates": {
+  "file": "confirm_templates.json",
+  "templates": "510b61fcc348cdf2a0cf0874a5b4bba654449667738cacf1fce468a456e91dd5",
+  "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086",
+  "registered": {
+   "templates": "510b61fcc348cdf2a0cf0874a5b4bba654449667738cacf1fce468a456e91dd5",
+   "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
+  },
+  "used": 142,
+  "rocks_used": 30,
+  "every": 1,
+  "briefing_sha256": "c6dec4bf0e4bf1e8411ae7f37a2a69478f9691380033e86194b54d81e9fef748"
+ },
+ "calls_planned": 7758,
+ "limit": null,
+ "order_seed": 20261031,
+ "in_flight": 6,
+ "retries": 3,
+ "stop_after_min": 150,
+ "pot": 7.0,
+ "pot_limit": 7.0,
+ "policy": null,
+ "host_prices_per_million": {
+  "luna": {
+   "input": 0.05,
+   "output": 0.25
+  },
+  "terra": {
+   "input": 0.5,
+   "output": 2.5
+  },
+  "sol": {
+   "input": 1.0,
+   "output": 5.0
+  }
+ },
+ "worst_case_per_call": {
+  "luna": 0.00105,
+  "terra": 0.0105,
+  "sol": 0.021
+ },
+ "worst_case_all": 84.17,
+ "python": "3.11.13",
+ "host": "ws-s-54",
+ "slurm_job": "40907603",
+ "started": "2026-11-13T15:54:31Z"
+}
