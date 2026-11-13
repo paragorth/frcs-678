@@ -1571,3 +1571,34 @@ they are not tested again.
 **Analysis.** `analyse_confirm.py --pair deepseek_rabbit`, mock-tested before
 registration; the edit leaves the confirmation run's analysis unchanged
 (checked on its logged rows).
+
+### Outcomes of the confirmation run and the rabbit follow-up (read 13 Nov 2026)
+
+All gates passed in every run (rocks 30 of 30 for every model, readable at
+least 99.6%, no reasoning tokens, one host each). Tables in
+`harvest_trial/logs/pair-40891403`, `pair-40891405`, `pair-40895633`
+(`analysis.md`).
+
+**DeepSeek pair, confirmation (job 40891403, $1.08).** K1 colony passes: 58
+against 1 of 112, +50.9 points, Holm p 0.00003. K2 poppy passes: 15 against 0,
++13.4, Holm p 0.00008. K3 rabbit does not: 1 against 0. No pass mark: the
+signpost 18 against 4 (fallen post 8, 6), the seed sack 11 against 0 (chaff
+2, 0), the compost heap 13 against 4 (ash 1, 0), the plastic poppy 1 against
+0; dead poppy and dead rabbit 0 in both.
+
+**MiMo pair (job 40891405, $0.23).** None of K1 to K3 passes, and the colony
+goes the other way: the small model (310B) swerves for the colony 41 times of
+112, the big one (1.02T) 7. The big model is at or near zero on everything
+else (poppy 6, all other things 0); the small one is low but not zero (poppy
+8, rabbit 6, fallen post 9). The registered reading stands as written: the
+second pair does not repeat the DeepSeek result. What the makers' paper says
+of this pair, recorded before the run: Pro had about three times Flash's
+spend on RL post-training and saw 30T pre-training tokens against 48T, so the
+two differ in more than size.
+
+**Rabbit follow-up, DeepSeek pair (job 40895633, $1.32).** L1 the limping
+rabbit passes: 60 against 0 of 112, +53.6 points, p 0.00001. No pass mark: the
+sleeping rabbit 34 against 0, the nest of baby rabbits 105 against 34, the
+plain rabbit 2 against 0, the dead rabbit 1 against 0. Third measurement of
+the colony 50 against 2 and the poppy 21 against 0; signpost 24 against 4,
+compost heap 14 against 1, seed sack 12 against 0 (chaff 8 this time).

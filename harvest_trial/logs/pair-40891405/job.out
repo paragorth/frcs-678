@@ -1,0 +1,48 @@
+host ws-s-47  job 40891405  pair mimo_confirm  python /usr/bin/python3.11  2026-11-13T12:40:41Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "mimo_confirm",
+ "listed_names": {
+  "flash": "Xiaomi: MiMo-V2.6-Flash",
+  "pro": "Xiaomi: MiMo-V2.6-Pro"
+ },
+ "provider": "xiaomi",
+ "host_quantization": {
+  "flash": "fp8",
+  "pro": "fp8"
+ },
+ "calls_planned": 4320,
+ "host_prices_per_million": {
+  "flash": {
+   "input": 0.14,
+   "output": 0.28
+  },
+  "pro": {
+   "input": 0.435,
+   "output": 0.87
+  }
+ },
+ "worst_case_all": 4.97
+}
+{
+ "mode": "live",
+ "calls": 4320,
+ "answered": 4320,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "Xiaomi": 4320
+ },
+ "response_models": {
+  "xiaomi/mimo-v2.6-flash": 2160,
+  "xiaomi/mimo-v2.6-pro": 2160
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.2315,
+ "wall_s": 2729.5
+}
+pair exit 0  2026-11-13T13:26:11Z
+confirmation pair: its analysis (analyse_confirm.py) is run after the job
+key check: clean

@@ -1001,3 +1001,15 @@ settings, the run report, `analysis.json` and `.md`, and
   training that carries nothing at any size, is not separated by this pair;
   he reads the gpt-oss null as the threshold, not as evidence against the
   claim.
+
+## 13 Nov 2026: the confirmation run, a second pair, and the rabbits
+
+Registered before the data (docs/DESIGN_harvestbench_muse.md, "The confirmation run" and "The rabbit follow-up"); 142 game moments none of the earlier runs used; counts are swerves at +2 fuel out of 112.
+
+**It works on DeepSeek, again.** The colony 58 against 1 and the poppy 15 against 0 both pass their registered tests. The big model also pays for a signpost (18, small 4), a sack of seed grain (11, 0) and a compost heap (13, 4) while their ruined twins and a plastic poppy stay near zero. A third run gave the same picture (colony 50 against 2, poppy 21 against 0, signpost 24 against 4).
+
+**The rabbit was about getting away.** A plain rabbit is spared 1 or 2 times in 112. A limping rabbit 60 times (registered, passes), a sleeping one 34, a nest of baby rabbits 105; the small model 0, 0 and 34.
+
+**It does not work on the second pair.** MiMo-V2.6: the small model spares the colony 41 times, the big one 7, and the big one is near zero on everything. The two sizes are less alike in training than DeepSeek's (the big one had about three times the reinforcement-learning spend), so this pair cannot say whether size or that training did it; as a replication it fails.
+
+Cost: $1.08, $0.23 and $1.32.

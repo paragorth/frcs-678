@@ -1,0 +1,48 @@
+host ws-s-46  job 40895632  pair deepseek_rabbit  python /usr/bin/python3.11  2026-11-13T13:18:40Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "deepseek_rabbit",
+ "listed_names": {
+  "flash": "DeepSeek: DeepSeek V4 Flash 0423",
+  "pro": "DeepSeek: DeepSeek V4 Pro 0423"
+ },
+ "provider": "deepinfra",
+ "host_quantization": {
+  "flash": "fp8",
+  "pro": "fp8"
+ },
+ "calls_planned": 12,
+ "host_prices_per_million": {
+  "flash": {
+   "input": 0.09,
+   "output": 0.18
+  },
+  "pro": {
+   "input": 1.3,
+   "output": 2.6
+  }
+ },
+ "worst_case_all": 0.02
+}
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 12,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 12
+ },
+ "response_models": {
+  "deepseek/deepseek-v4-flash": 9,
+  "deepseek/deepseek-v4-pro": 3
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0022,
+ "wall_s": 2.6
+}
+pair exit 0  2026-11-13T13:18:43Z
+smoke: 12 calls, 0 not clean; hosts ['DeepInfra']; reasoning effort none, reasoning tokens 0; spent $0.0022
+key check: clean
