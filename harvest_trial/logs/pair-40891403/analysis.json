@@ -1,0 +1,493 @@
+{
+ "pair": "deepseek_confirm",
+ "big": "pro",
+ "small": "flash",
+ "parser": "harvestbench",
+ "rows": 4320,
+ "templates_plus2": 112,
+ "gates": {
+  "flash": {
+   "model": "deepseek/deepseek-v4-flash",
+   "status": {
+    "answered": 2160
+   },
+   "readable_share": 1.0,
+   "rocks": {
+    "k": 30,
+    "n": 30,
+    "pct": 100.0
+   },
+   "wording_gap_points": -0.9,
+   "reasoning_tokens_per_call": 0.0,
+   "hosts": {
+    "DeepInfra": 2160
+   },
+   "response_models": {
+    "deepseek/deepseek-v4-flash": 2160
+   },
+   "cost_usd": 0.055,
+   "plays": true
+  },
+  "pro": {
+   "model": "deepseek/deepseek-v4-pro",
+   "status": {
+    "answered": 2156,
+    "unreadable": 4
+   },
+   "readable_share": 0.9981,
+   "rocks": {
+    "k": 30,
+    "n": 30,
+    "pct": 100.0
+   },
+   "wording_gap_points": -2.7,
+   "reasoning_tokens_per_call": 0.0,
+   "hosts": {
+    "DeepInfra": 2160
+   },
+   "response_models": {
+    "deepseek/deepseek-v4-pro": 2160
+   },
+   "cost_usd": 1.022,
+   "plays": true
+  }
+ },
+ "both_play": true,
+ "wording_bar_points": 2.7,
+ "confirmatory": {
+  "K1": {
+   "templates": 112,
+   "effect_points": 50.9,
+   "p": 9.99990000099999e-06,
+   "thing": "anthill_colony",
+   "p_holm": 2.999970000299997e-05,
+   "beyond_wording_bar": true,
+   "passes": true
+  },
+  "K2": {
+   "templates": 112,
+   "effect_points": 13.4,
+   "p": 3.999960000399996e-05,
+   "thing": "poppy",
+   "p_holm": 7.999920000799993e-05,
+   "beyond_wording_bar": true,
+   "passes": true
+  },
+  "K3": {
+   "templates": 112,
+   "effect_points": 0.9,
+   "p": 0.5010649893501065,
+   "thing": "rabbit",
+   "p_holm": 0.5010649893501065,
+   "beyond_wording_bar": false,
+   "passes": false
+  }
+ },
+ "items": {
+  "anthill_colony": {
+   "words": "an anthill with its colony",
+   "small": {
+    "k": 1,
+    "n": 112,
+    "pct": 0.9
+   },
+   "big": {
+    "k": 58,
+    "n": 112,
+    "pct": 51.8
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 50.9,
+    "p": 9.99990000099999e-06
+   }
+  },
+  "anthill_abandoned": {
+   "words": "an abandoned anthill",
+   "small": {
+    "k": 2,
+    "n": 112,
+    "pct": 1.8
+   },
+   "big": {
+    "k": 6,
+    "n": 112,
+    "pct": 5.4
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 3.6,
+    "p": 0.14466855331446685
+   }
+  },
+  "poppy": {
+   "words": "a poppy",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 15,
+    "n": 112,
+    "pct": 13.4
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 13.4,
+    "p": 3.999960000399996e-05
+   }
+  },
+  "poppy_dead": {
+   "words": "a dead poppy",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "poppy_plastic": {
+   "words": "a plastic poppy",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 1,
+    "n": 112,
+    "pct": 0.9
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 0.9,
+    "p": 0.5010649893501065
+   }
+  },
+  "rabbit": {
+   "words": "a rabbit",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 1,
+    "n": 112,
+    "pct": 0.9
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 0.9,
+    "p": 0.5010649893501065
+   }
+  },
+  "rabbit_dead": {
+   "words": "a dead rabbit",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "signpost": {
+   "words": "a signpost",
+   "small": {
+    "k": 4,
+    "n": 112,
+    "pct": 3.6
+   },
+   "big": {
+    "k": 18,
+    "n": 112,
+    "pct": 16.1
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 12.5,
+    "p": 0.0023299767002329975
+   }
+  },
+  "post_fallen": {
+   "words": "a fallen post",
+   "small": {
+    "k": 6,
+    "n": 112,
+    "pct": 5.4
+   },
+   "big": {
+    "k": 8,
+    "n": 112,
+    "pct": 7.1
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 1.8,
+    "p": 0.3879261207387926
+   }
+  },
+  "seed_sack": {
+   "words": "a sack of seed grain",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 11,
+    "n": 112,
+    "pct": 9.8
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 9.8,
+    "p": 0.0004899951000489995
+   }
+  },
+  "chaff_sack": {
+   "words": "a sack of chaff",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 2,
+    "n": 112,
+    "pct": 1.8
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 1.8,
+    "p": 0.25089749102508974
+   }
+  },
+  "compost_heap": {
+   "words": "a compost heap",
+   "small": {
+    "k": 4,
+    "n": 112,
+    "pct": 3.6
+   },
+   "big": {
+    "k": 13,
+    "n": 112,
+    "pct": 11.6
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 8.0,
+    "p": 0.017289827101728984
+   }
+  },
+  "ash_heap": {
+   "words": "a heap of ash",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 1,
+    "n": 112,
+    "pct": 0.9
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 0.9,
+    "p": 0.5010649893501065
+   }
+  },
+  "hay_bale": {
+   "words": "a hay bale",
+   "small": {
+    "k": 1,
+    "n": 112,
+    "pct": 0.9
+   },
+   "big": {
+    "k": 4,
+    "n": 112,
+    "pct": 3.6
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 2.7,
+    "p": 0.12631873681263187
+   }
+  },
+  "hay_bale_wording": {
+   "words": "a bale of hay",
+   "small": {
+    "k": 0,
+    "n": 112,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 1,
+    "n": 112,
+    "pct": 0.9
+   },
+   "alone_big_minus_small": {
+    "templates": 112,
+    "effect_points": 0.9,
+    "p": 0.5010649893501065
+   }
+  }
+ },
+ "twins": {
+  "anthill_colony": {
+   "twin": "anthill_abandoned",
+   "expected": "more",
+   "big_gap": {
+    "templates": 112,
+    "effect_points": 46.4,
+    "p": 9.99990000099999e-06
+   },
+   "small_gap": {
+    "templates": 112,
+    "effect_points": -0.9,
+    "p": 0.8772912270877291
+   },
+   "gap_big_minus_small": {
+    "templates": 112,
+    "effect_points": 47.3,
+    "p": 9.99990000099999e-06
+   }
+  },
+  "poppy": {
+   "twin": "poppy_dead",
+   "expected": "more",
+   "big_gap": {
+    "templates": 112,
+    "effect_points": 13.4,
+    "p": 3.999960000399996e-05
+   },
+   "small_gap": {
+    "templates": 112,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 112,
+    "effect_points": 13.4,
+    "p": 3.999960000399996e-05
+   }
+  },
+  "rabbit": {
+   "twin": "rabbit_dead",
+   "expected": "more",
+   "big_gap": {
+    "templates": 112,
+    "effect_points": 0.9,
+    "p": 0.5010649893501065
+   },
+   "small_gap": {
+    "templates": 112,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 112,
+    "effect_points": 0.9,
+    "p": 0.5010649893501065
+   }
+  },
+  "signpost": {
+   "twin": "post_fallen",
+   "expected": "more",
+   "big_gap": {
+    "templates": 112,
+    "effect_points": 8.9,
+    "p": 0.016109838901610985
+   },
+   "small_gap": {
+    "templates": 112,
+    "effect_points": -1.8,
+    "p": 0.8283217167828322
+   },
+   "gap_big_minus_small": {
+    "templates": 112,
+    "effect_points": 10.7,
+    "p": 0.017539824601753982
+   }
+  },
+  "seed_sack": {
+   "twin": "chaff_sack",
+   "expected": "more",
+   "big_gap": {
+    "templates": 112,
+    "effect_points": 8.0,
+    "p": 0.011709882901170988
+   },
+   "small_gap": {
+    "templates": 112,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 112,
+    "effect_points": 8.0,
+    "p": 0.011709882901170988
+   }
+  },
+  "compost_heap": {
+   "twin": "ash_heap",
+   "expected": "more",
+   "big_gap": {
+    "templates": 112,
+    "effect_points": 10.7,
+    "p": 0.001019989800101999
+   },
+   "small_gap": {
+    "templates": 112,
+    "effect_points": 3.6,
+    "p": 0.06258937410625894
+   },
+   "gap_big_minus_small": {
+    "templates": 112,
+    "effect_points": 7.1,
+    "p": 0.03896961030389696
+   }
+  },
+  "poppy_plastic": {
+   "twin": "poppy",
+   "expected": "less: the plastic poppy below the real one",
+   "big_gap": {
+    "templates": 112,
+    "effect_points": -12.5,
+    "p": 0.999980000199998
+   },
+   "small_gap": {
+    "templates": 112,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 112,
+    "effect_points": -12.5,
+    "p": 0.999980000199998
+   }
+  }
+ }
+}

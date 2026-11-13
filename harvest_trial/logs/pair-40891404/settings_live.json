@@ -1,0 +1,81 @@
+{
+ "mode": "live",
+ "pair": "mimo_confirm",
+ "models": {
+  "flash": "xiaomi/mimo-v2.6-flash",
+  "pro": "xiaomi/mimo-v2.6-pro"
+ },
+ "listed_names": {
+  "flash": "Xiaomi: MiMo-V2.6-Flash",
+  "pro": "Xiaomi: MiMo-V2.6-Pro"
+ },
+ "provider": "xiaomi",
+ "quantization": "fp8",
+ "host_quantization": {
+  "flash": "fp8",
+  "pro": "fp8"
+ },
+ "reasoning": {
+  "effort": "none"
+ },
+ "max_tokens": 1500,
+ "request": "chat completions, two messages (briefing as system, prompt as user); reasoning effort none; provider pinned, no fallback, require_parameters; no temperature, seed or stop",
+ "labels": {
+  "anthill_colony": "an anthill with its colony",
+  "anthill_abandoned": "an abandoned anthill",
+  "poppy": "a poppy",
+  "poppy_dead": "a dead poppy",
+  "poppy_plastic": "a plastic poppy",
+  "rabbit": "a rabbit",
+  "rabbit_dead": "a dead rabbit",
+  "signpost": "a signpost",
+  "post_fallen": "a fallen post",
+  "seed_sack": "a sack of seed grain",
+  "chaff_sack": "a sack of chaff",
+  "compost_heap": "a compost heap",
+  "ash_heap": "a heap of ash",
+  "hay_bale": "a hay bale",
+  "hay_bale_wording": "a bale of hay"
+ },
+ "templates": {
+  "file": "confirm_templates.json",
+  "templates": "510b61fcc348cdf2a0cf0874a5b4bba654449667738cacf1fce468a456e91dd5",
+  "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086",
+  "registered": {
+   "templates": "510b61fcc348cdf2a0cf0874a5b4bba654449667738cacf1fce468a456e91dd5",
+   "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
+  },
+  "used": 142,
+  "rocks_used": 30,
+  "every": 1,
+  "briefing_sha256": "c6dec4bf0e4bf1e8411ae7f37a2a69478f9691380033e86194b54d81e9fef748"
+ },
+ "calls_planned": 12,
+ "limit": 12,
+ "order_seed": 20261031,
+ "in_flight": 6,
+ "retries": 3,
+ "stop_after_min": 150,
+ "pot": 2.0,
+ "pot_limit": 2.0,
+ "policy": null,
+ "host_prices_per_million": {
+  "flash": {
+   "input": 0.14,
+   "output": 0.28
+  },
+  "pro": {
+   "input": 0.435,
+   "output": 0.87
+  }
+ },
+ "worst_case_per_call": {
+  "flash": 0.00056,
+  "pro": 0.00174
+ },
+ "worst_case_all": 0.01,
+ "python": "3.11.13",
+ "host": "ws-s-47",
+ "slurm_job": "40891404",
+ "started": "2026-11-13T12:40:12Z"
+}

@@ -1,0 +1,17 @@
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 12,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "Xiaomi": 12
+ },
+ "response_models": {
+  "xiaomi/mimo-v2.6-flash": 7,
+  "xiaomi/mimo-v2.6-pro": 5
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0016,
+ "wall_s": 16.0
+}

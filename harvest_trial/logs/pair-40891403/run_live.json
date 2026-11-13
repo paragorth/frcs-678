@@ -1,0 +1,17 @@
+{
+ "mode": "live",
+ "calls": 4320,
+ "answered": 4320,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 4320
+ },
+ "response_models": {
+  "deepseek/deepseek-v4-flash": 2160,
+  "deepseek/deepseek-v4-pro": 2160
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 1.0762,
+ "wall_s": 945.6
+}
