@@ -1828,3 +1828,6 @@ call (Haiku $0.00013, Sonnet $0.0023, Opus $0.0065) puts the full run near
 $23, above the $13 cap set on a $12 estimate; the estimate was wrong (it
 left out Opus's thinking and output). The full run waits for pg's word on
 the cap.
+
+**Cap raised before the full run (13 Nov).** pg: "Yes, $25". Nothing else in
+the registration changes.

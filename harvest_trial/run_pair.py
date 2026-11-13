@@ -131,7 +131,7 @@ PAIRS["claude55"] = {
     "provider": "anthropic", "providers": ("anthropic",), "quantization": "unknown",
     # smoke 40916523: Haiku answers with thinking off, Sonnet and Opus refuse ("Reasoning is mandatory"),
     # so, as registered, the next effort up is tried for all three
-    "reasoning": {"effort": "minimal"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 13.00}
+    "reasoning": {"effort": "minimal"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 25.00}  # pg: "Yes, $25" (13 Nov), before the full run
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
