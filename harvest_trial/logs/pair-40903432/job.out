@@ -1,0 +1,49 @@
+host ws-s-54  job 40903432  pair ling  python /usr/bin/python3.11  2026-11-13T14:52:39Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "ling",
+ "listed_names": {
+  "tiny": "inclusionAI: Ling 3.0 Tiny",
+  "flash": "inclusionAI: Ling 3.0 Flash"
+ },
+ "provider": "per-model",
+ "host_quantization": {
+  "tiny": "fp8",
+  "flash": "fp4"
+ },
+ "calls_planned": 12,
+ "host_prices_per_million": {
+  "tiny": {
+   "input": 0.015,
+   "output": 0.045
+  },
+  "flash": {
+   "input": 0.06,
+   "output": 0.18
+  }
+ },
+ "worst_case_all": 0.0
+}
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 12,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 3,
+  "Ant Digital": 9
+ },
+ "response_models": {
+  "inclusionai/ling-3.0-flash": 3,
+  "inclusionai/ling-3.0-tiny": 9
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0002,
+ "wall_s": 1.8
+}
+pair exit 0  2026-11-13T14:52:41Z
+smoke: 12 calls, 0 not clean; hosts ['Ant Digital', 'DeepInfra']; reasoning effort none, reasoning tokens 0; spent $0.0002
+key check: clean

@@ -1,0 +1,18 @@
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 12,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "DeepInfra": 3,
+  "Ant Digital": 9
+ },
+ "response_models": {
+  "inclusionai/ling-3.0-flash": 3,
+  "inclusionai/ling-3.0-tiny": 9
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0002,
+ "wall_s": 1.8
+}

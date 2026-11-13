@@ -1,0 +1,18 @@
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 9,
+ "errors": 3,
+ "skipped": 0,
+ "providers": {
+  "null": 3,
+  "Baidu": 9
+ },
+ "response_models": {
+  "null": 3,
+  "z-ai/glm-5.2": 9
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0004,
+ "wall_s": 2.3
+}

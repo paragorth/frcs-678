@@ -1,0 +1,52 @@
+host ws-s-54  job 40903430  pair glm  python /usr/bin/python3.11  2026-11-13T14:52:09Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "glm",
+ "listed_names": {
+  "before": "Z.ai: GLM 5.2",
+  "after": "Z.ai: GLM 5.3"
+ },
+ "provider": "baidu",
+ "host_quantization": {
+  "before": "fp8",
+  "after": "fp8"
+ },
+ "calls_planned": 12,
+ "host_prices_per_million": {
+  "before": {
+   "input": 0.189,
+   "output": 0.594
+  },
+  "after": {
+   "input": 0.5698,
+   "output": 1.7908
+  }
+ },
+ "worst_case_all": 0.02
+}
+{
+ "mode": "live",
+ "calls": 12,
+ "answered": 9,
+ "errors": 3,
+ "skipped": 0,
+ "providers": {
+  "null": 3,
+  "Baidu": 9
+ },
+ "response_models": {
+  "null": 3,
+  "z-ai/glm-5.2": 9
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0004,
+ "wall_s": 2.3
+}
+srun: error: ws-s-54: task 0: Exited with exit code 1
+pair exit 1  2026-11-13T14:52:12Z
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+TypeError: '<' not supported between instances of 'NoneType' and 'str'
+key check: clean

@@ -1,0 +1,48 @@
+host ws-s-54  job 40903529  pair glm  python /usr/bin/python3.11  2026-11-13T14:54:11Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "glm",
+ "listed_names": {
+  "before": "Z.ai: GLM 5.2",
+  "after": "Z.ai: GLM 5.3"
+ },
+ "provider": "baidu",
+ "host_quantization": {
+  "before": "fp8",
+  "after": "fp8"
+ },
+ "calls_planned": 5172,
+ "host_prices_per_million": {
+  "before": {
+   "input": 0.189,
+   "output": 0.594
+  },
+  "after": {
+   "input": 0.5698,
+   "output": 1.7908
+  }
+ },
+ "worst_case_all": 26.63
+}
+{
+ "mode": "live",
+ "calls": 5172,
+ "answered": 5172,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "Baidu": 5172
+ },
+ "response_models": {
+  "z-ai/glm-5.3": 2586,
+  "z-ai/glm-5.2": 2586
+ },
+ "reasoning_tokens_total": 91267,
+ "spent": 0.5659,
+ "wall_s": 1234.4
+}
+pair exit 0  2026-11-13T15:14:46Z
+HarvestBench's parser is not readable now; the registered analysis is run later with --src
+key check: clean
