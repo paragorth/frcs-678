@@ -118,7 +118,9 @@ PAIRS["gpt6"] = {   # registered 13 Nov 2026 (pg: "ok run luna terra and sol"; c
     "small": ("luna", "openai/gpt-6-luna", "GPT-6 Luna"), "mid": (("terra", "openai/gpt-6.1-terra", "GPT-6.1 Terra"),),
     "big": ("sol", "openai/gpt-6.1-sol", "GPT-6.1 Sol"),
     "provider": "openai", "providers": ("openai",), "quantization": "unknown",
-    "reasoning": {"effort": "none"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 7.00}
+    # smoke 40907534: Luna and Terra answer with thinking off, Sol refuses ("Reasoning is mandatory"),
+    # so, as registered, the next effort up is tried for all three
+    "reasoning": {"effort": "minimal"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 7.00}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input

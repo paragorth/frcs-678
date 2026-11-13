@@ -1730,3 +1730,10 @@ floor, or care does not rise with size, the ladder does not support it.
 **Analysis.** `analyse_confirm.py --pair gpt6 --small A --big B`, mock-tested;
 the change leaves the earlier pairs' analyses unchanged (checked on the logged
 rows of the rabbit follow-up and GLM).
+
+**The GPT-6 ladder's thinking setting (13 Nov, from the smoke tests, before
+the full run).** Smoke 40907534 with thinking off: Luna and Terra answered,
+Sol refused ("Reasoning is mandatory for this endpoint and cannot be
+disabled"). As registered, the next effort up for all three: `effort:
+minimal`. Smoke 40907564 at minimal: 18 of 18 clean, 0 to 59 reasoning tokens
+a call (Sol 0 on all six of its calls).
