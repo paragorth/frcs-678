@@ -3,6 +3,8 @@
 Two panels drawn from the logged analyses (nothing typed by hand):
   DeepSeek V4 Flash and Pro        ../logs/pair-40895633/analysis.json
   GPT-6 Luna, GPT-6.1 Terra, Sol   ../logs/pair-40907603/analysis-luna-terra.json and -terra-sol.json
+  Claude Haiku, Sonnet, Opus 5.5   ../logs/pair-40919382/analysis-haiku-sonnet.json and -sonnet-opus.json
+                                   (59% of its calls answered before the account's credit ran out)
 Each line is one thing in the tractor's path: the share of the 112 priced moments on
 which the model paid 2 fuel to go round it. Standard library only.
 
@@ -33,7 +35,10 @@ def load():
     a = json.load(open(LOGS / "pair-40907603" / "analysis-luna-terra.json"))["items"]
     b = json.load(open(LOGS / "pair-40907603" / "analysis-terra-sol.json"))["items"]
     gpt = {lab: [pct(a[lab]["small"]), pct(a[lab]["big"]), pct(b[lab]["big"])] for lab in a}
-    return deepseek, gpt
+    a = json.load(open(LOGS / "pair-40919382" / "analysis-haiku-sonnet.json"))["items"]
+    b = json.load(open(LOGS / "pair-40919382" / "analysis-sonnet-opus.json"))["items"]
+    claude = {lab: [pct(a[lab]["small"]), pct(a[lab]["big"]), pct(b[lab]["big"])] for lab in a}
+    return deepseek, gpt, claude
 
 
 def t(x, y, s, size=13, fill=INK, anchor="start", weight="400"):
@@ -85,26 +90,28 @@ def panel(x0, y0, w, h, title, sub, xs, data):
 
 
 def main():
-    deepseek, gpt = load()
-    W, H = 1180, 560
+    deepseek, gpt, claude = load()
+    W, H = 1640, 560
     body = [t(40, 40, "Less intelligence spares less. More intelligence spares more.", 21, weight="700"),
-            t(40, 63, "How often each model pays 2 fuel to go round what is in its path, when driving over it is free. One maker's training in each panel; only the model's size changes.", 13, MUTED)]
-    body += panel(70, 150, 300, 320, "DeepSeek V4", "one training, two sizes; thinking off",
+            t(40, 63, "How often each model pays 2 fuel to go round what is in its path, when driving over it is free. One maker in each panel; only the model's size changes.", 13, MUTED)]
+    body += panel(70, 150, 270, 320, "DeepSeek V4", "one training, two sizes; thinking off",
                   [("Flash", "284 billion"), ("Pro", "1.6 trillion")], deepseek)
-    body += panel(660, 150, 300, 320, "OpenAI GPT-6", "one maker's training, three sizes; minimal thinking",
+    body += panel(600, 150, 270, 320, "OpenAI GPT-6", "one maker's training, three sizes; minimal thinking",
                   [("Luna", "small"), ("Terra", "middle"), ("Sol", "large")], gpt)
+    body += panel(1130, 150, 270, 320, "Anthropic Claude 5.5", "one maker, three sizes; minimal thinking; part of the run",
+                  [("Haiku", "small"), ("Sonnet", "middle"), ("Opus", "large")], claude)
     lg = 530
     for i, (col, words) in enumerate(((BLUE, "living things"), (AQUA, "meaningful things without life"), (GREY, "the same things dead, empty or ruined"))):
         x = 70 + i * 250 if i < 2 else 70 + 250 + 300
         body.append(f"<line x1='{x}' x2='{x + 26}' y1='{lg}' y2='{lg}' stroke='{col}' stroke-width='{2 if col != GREY else 1.5}' stroke-linecap='round'/>")
         body.append(t(x + 34, lg + 4, words, 12.5, INK))
     svg = (f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {W} {H}' width='{W}' height='{H}' role='img' "
-           f"aria-label='Care for living things rises with model size in two makers'>"
+           f"aria-label='Care for living things rises with model size in three makers'>"
            f"<rect width='{W}' height='{H}' fill='{SURFACE}'/>" + "".join(body) + "</svg>")
     out = HERE / "figures" / "fig5_more_intelligence_more_care.svg"
     out.write_text(svg)
     print(out, len(svg))
-    for name, d in (("deepseek", deepseek), ("gpt6", gpt)):
+    for name, d in (("deepseek", deepseek), ("gpt6", gpt), ("claude55", claude)):
         print(name, {k: [round(x) for x in v] for k, v in d.items() if k in LIVING or k in MEANING})
 
 

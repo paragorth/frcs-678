@@ -1831,3 +1831,38 @@ the cap.
 
 **Cap raised before the full run (13 Nov).** pg: "Yes, $25". Nothing else in
 the registration changes.
+
+### Outcome of the Claude 5.5 ladder (read 13 Nov 2026; job 40919382, $9.12; part of the run)
+
+**The run did not finish.** 4,555 of 7,758 calls were answered; the other
+3,203 came back 402 from OpenRouter ("This request would exceed your
+available credits"): the account's credit ran out part-way. Answered: Haiku
+2,372 of 2,586, Sonnet 1,267, Opus 916. The order was shuffled, so what was
+answered is spread over all 18 things and all templates, and each count below
+has its own denominator. Every answered reply was readable and every answered
+rock was gone round (26, 9 and 11). Minimal thinking (35, 1 and 25 reasoning
+tokens a call). No pass mark was registered. Swerves at +2 fuel:
+
+| Thing | Haiku | Sonnet | Opus |
+|---|---|---|---|
+| anthill with its colony | 5 of 100 | 49 of 59 | 33 of 33 |
+| abandoned anthill | 0 of 102 | 0 of 51 | 0 of 40 |
+| rabbit | 0 of 104 | 62 of 62 | 40 of 40 |
+| dead rabbit | 0 of 108 | 7 of 48 | 0 of 33 |
+| limping rabbit | 40 of 105 | 58 of 58 | 49 of 49 |
+| sleeping rabbit | 0 of 104 | 58 of 58 | 32 of 32 |
+| nest of baby rabbits | 61 of 102 | 49 of 49 | 45 of 45 |
+| sack of seed grain | 11 of 103 | 18 of 55 | 38 of 38 |
+| sack of chaff | 0 of 104 | 0 of 57 | 0 of 36 |
+| signpost | 0 of 107 | 5 of 52 | 46 of 46 |
+| fallen post | 0 of 103 | 0 of 59 | 0 of 39 |
+| hay bale; bale of hay | 0; 0 | 0; 0 | 11 of 38; 6 of 33 |
+| poppy | 4 of 106 | 3 of 52 | 0 of 45 |
+| dead poppy; plastic poppy | 0; 0 | 0; 0 | 0 of 47; 7 of 34 |
+| compost heap; heap of ash | 0; 0 | 0; 0 | 2 of 43; 0 of 40 |
+
+The direction holds at each step for the colony, the rabbits, the seed sack
+and the signpost, and the hay bale appears in the largest. The twins stay at
+zero but for the dead rabbit in Sonnet (7 of 48) and the plastic poppy in Opus
+(7 of 34, with the real poppy at 0 of 45). As registered, this ladder is
+supporting evidence from a third maker, not a same-training test.

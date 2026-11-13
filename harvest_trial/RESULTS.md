@@ -1036,3 +1036,9 @@ OpenAI states the three "use the same types of data and training". Same game as 
 **What does not fit.** No size spares the poppy (7, 0, 1) or the compost heap (0), which DeepSeek Pro did.
 
 Caveats: "the same types of" is weaker than DeepSeek's stated single process; no sizes are published; Luna is GPT-6, the other two GPT-6.1.
+
+## 13 Nov 2026: the Claude 5.5 ladder (Haiku, Sonnet, Opus), part of the run
+
+Supporting evidence from a third maker; Anthropic states no training relation between the three. The account's credit ran out part-way: 4,555 of 7,758 calls answered, spread over everything; $9.12.
+
+**Same direction.** The colony 5 of 100, 49 of 59, 33 of 33. The rabbit 0 of 104, 62 of 62, 40 of 40. The signpost 0, 5 of 52, 46 of 46. The seed sack 11 of 103, 18 of 55, 38 of 38. The hay bale appears only in Opus (11 of 38). Dead and ruined twins at zero, but for the dead rabbit in Sonnet (7 of 48) and the plastic poppy in Opus (7 of 34).

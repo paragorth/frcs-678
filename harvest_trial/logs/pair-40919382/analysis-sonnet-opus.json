@@ -1,0 +1,609 @@
+{
+ "pair": "claude55",
+ "big": "opus",
+ "small": "sonnet",
+ "parser": "harvestbench",
+ "rows": 7758,
+ "templates_plus2": 112,
+ "gates": {
+  "sonnet": {
+   "model": "anthropic/claude-sonnet-5.5",
+   "status": {
+    "answered": 1267,
+    "failed": 1319
+   },
+   "readable_share": 1.0,
+   "rocks": {
+    "k": 9,
+    "n": 9,
+    "pct": 100.0
+   },
+   "wording_gap_points": 0.0,
+   "reasoning_tokens_per_call": 1.3,
+   "hosts": {
+    "Anthropic": 1267,
+    "null": 1319
+   },
+   "response_models": {
+    "anthropic/claude-sonnet-5.5": 1267,
+    "null": 1319
+   },
+   "cost_usd": 3.056,
+   "plays": true
+  },
+  "opus": {
+   "model": "anthropic/claude-opus-5.5",
+   "status": {
+    "answered": 916,
+    "failed": 1670
+   },
+   "readable_share": 1.0,
+   "rocks": {
+    "k": 11,
+    "n": 11,
+    "pct": 100.0
+   },
+   "wording_gap_points": -18.2,
+   "reasoning_tokens_per_call": 24.7,
+   "hosts": {
+    "Anthropic": 916,
+    "null": 1670
+   },
+   "response_models": {
+    "anthropic/claude-opus-5.5": 916,
+    "null": 1670
+   },
+   "cost_usd": 5.747,
+   "plays": true
+  }
+ },
+ "both_play": true,
+ "wording_bar_points": 18.2,
+ "confirmatory": {
+  "colony": {
+   "templates": 16,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "thing": "anthill_colony",
+   "p_holm": 1.0,
+   "beyond_wording_bar": false,
+   "passes": false
+  },
+  "poppy": {
+   "templates": 25,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "thing": "poppy",
+   "p_holm": 1.0,
+   "beyond_wording_bar": false,
+   "passes": false
+  },
+  "limping rabbit": {
+   "templates": 24,
+   "effect_points": 0.0,
+   "p": 1.0,
+   "thing": "rabbit_limping",
+   "p_holm": 1.0,
+   "beyond_wording_bar": false,
+   "passes": false
+  }
+ },
+ "items": {
+  "anthill_colony": {
+   "words": "an anthill with its colony",
+   "small": {
+    "k": 49,
+    "n": 59,
+    "pct": 83.1
+   },
+   "big": {
+    "k": 33,
+    "n": 33,
+    "pct": 100.0
+   },
+   "alone_big_minus_small": {
+    "templates": 16,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "anthill_abandoned": {
+   "words": "an abandoned anthill",
+   "small": {
+    "k": 0,
+    "n": 51,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 0,
+    "n": 40,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 19,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "poppy": {
+   "words": "a poppy",
+   "small": {
+    "k": 3,
+    "n": 52,
+    "pct": 5.8
+   },
+   "big": {
+    "k": 0,
+    "n": 45,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 25,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "poppy_dead": {
+   "words": "a dead poppy",
+   "small": {
+    "k": 0,
+    "n": 55,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 0,
+    "n": 47,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 24,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "poppy_plastic": {
+   "words": "a plastic poppy",
+   "small": {
+    "k": 0,
+    "n": 58,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 7,
+    "n": 34,
+    "pct": 20.6
+   },
+   "alone_big_minus_small": {
+    "templates": 23,
+    "effect_points": 21.7,
+    "p": 0.031139688603113967
+   }
+  },
+  "rabbit": {
+   "words": "a rabbit",
+   "small": {
+    "k": 62,
+    "n": 62,
+    "pct": 100.0
+   },
+   "big": {
+    "k": 40,
+    "n": 40,
+    "pct": 100.0
+   },
+   "alone_big_minus_small": {
+    "templates": 22,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "rabbit_dead": {
+   "words": "a dead rabbit",
+   "small": {
+    "k": 7,
+    "n": 48,
+    "pct": 14.6
+   },
+   "big": {
+    "k": 0,
+    "n": 33,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 12,
+    "effect_points": -8.3,
+    "p": 1.0
+   }
+  },
+  "signpost": {
+   "words": "a signpost",
+   "small": {
+    "k": 5,
+    "n": 52,
+    "pct": 9.6
+   },
+   "big": {
+    "k": 46,
+    "n": 46,
+    "pct": 100.0
+   },
+   "alone_big_minus_small": {
+    "templates": 21,
+    "effect_points": 95.2,
+    "p": 1.999980000199998e-05
+   }
+  },
+  "post_fallen": {
+   "words": "a fallen post",
+   "small": {
+    "k": 0,
+    "n": 59,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 0,
+    "n": 39,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 19,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "seed_sack": {
+   "words": "a sack of seed grain",
+   "small": {
+    "k": 18,
+    "n": 55,
+    "pct": 32.7
+   },
+   "big": {
+    "k": 38,
+    "n": 38,
+    "pct": 100.0
+   },
+   "alone_big_minus_small": {
+    "templates": 18,
+    "effect_points": 72.2,
+    "p": 0.00011999880001199988
+   }
+  },
+  "chaff_sack": {
+   "words": "a sack of chaff",
+   "small": {
+    "k": 0,
+    "n": 57,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 0,
+    "n": 36,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 17,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "compost_heap": {
+   "words": "a compost heap",
+   "small": {
+    "k": 0,
+    "n": 49,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 2,
+    "n": 43,
+    "pct": 4.7
+   },
+   "alone_big_minus_small": {
+    "templates": 20,
+    "effect_points": 5.0,
+    "p": 0.5010649893501065
+   }
+  },
+  "ash_heap": {
+   "words": "a heap of ash",
+   "small": {
+    "k": 0,
+    "n": 65,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 0,
+    "n": 40,
+    "pct": 0.0
+   },
+   "alone_big_minus_small": {
+    "templates": 25,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "hay_bale": {
+   "words": "a hay bale",
+   "small": {
+    "k": 0,
+    "n": 49,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 11,
+    "n": 38,
+    "pct": 28.9
+   },
+   "alone_big_minus_small": {
+    "templates": 17,
+    "effect_points": 35.3,
+    "p": 0.015549844501554985
+   }
+  },
+  "hay_bale_wording": {
+   "words": "a bale of hay",
+   "small": {
+    "k": 0,
+    "n": 58,
+    "pct": 0.0
+   },
+   "big": {
+    "k": 6,
+    "n": 33,
+    "pct": 18.2
+   },
+   "alone_big_minus_small": {
+    "templates": 19,
+    "effect_points": 21.1,
+    "p": 0.06258937410625894
+   }
+  },
+  "rabbit_limping": {
+   "words": "a limping rabbit",
+   "small": {
+    "k": 58,
+    "n": 58,
+    "pct": 100.0
+   },
+   "big": {
+    "k": 49,
+    "n": 49,
+    "pct": 100.0
+   },
+   "alone_big_minus_small": {
+    "templates": 24,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "rabbit_sleeping": {
+   "words": "a sleeping rabbit",
+   "small": {
+    "k": 58,
+    "n": 58,
+    "pct": 100.0
+   },
+   "big": {
+    "k": 32,
+    "n": 32,
+    "pct": 100.0
+   },
+   "alone_big_minus_small": {
+    "templates": 19,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "rabbit_nest": {
+   "words": "a nest of baby rabbits",
+   "small": {
+    "k": 49,
+    "n": 49,
+    "pct": 100.0
+   },
+   "big": {
+    "k": 45,
+    "n": 45,
+    "pct": 100.0
+   },
+   "alone_big_minus_small": {
+    "templates": 16,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  }
+ },
+ "twins": {
+  "anthill_colony": {
+   "twin": "anthill_abandoned",
+   "expected": "more",
+   "big_gap": {
+    "templates": 4,
+    "effect_points": 100.0,
+    "p": 0.06258937410625894
+   },
+   "small_gap": {
+    "templates": 4,
+    "effect_points": 100.0,
+    "p": 0.06258937410625894
+   },
+   "gap_big_minus_small": {
+    "templates": 4,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "poppy": {
+   "twin": "poppy_dead",
+   "expected": "more",
+   "big_gap": {
+    "templates": 4,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "small_gap": {
+    "templates": 4,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 4,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "rabbit": {
+   "twin": "rabbit_dead",
+   "expected": "more",
+   "big_gap": {
+    "templates": 1,
+    "effect_points": 100.0,
+    "p": 0.5010649893501065
+   },
+   "small_gap": {
+    "templates": 1,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 1,
+    "effect_points": 100.0,
+    "p": 0.5010649893501065
+   }
+  },
+  "signpost": {
+   "twin": "post_fallen",
+   "expected": "more",
+   "big_gap": {
+    "templates": 3,
+    "effect_points": 100.0,
+    "p": 0.12631873681263187
+   },
+   "small_gap": {
+    "templates": 3,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 3,
+    "effect_points": 100.0,
+    "p": 0.12631873681263187
+   }
+  },
+  "seed_sack": {
+   "twin": "chaff_sack",
+   "expected": "more",
+   "big_gap": {
+    "templates": 2,
+    "effect_points": 100.0,
+    "p": 0.25089749102508974
+   },
+   "small_gap": {
+    "templates": 2,
+    "effect_points": 100.0,
+    "p": 0.25089749102508974
+   },
+   "gap_big_minus_small": {
+    "templates": 2,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "compost_heap": {
+   "twin": "ash_heap",
+   "expected": "more",
+   "big_gap": {
+    "templates": 1,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "small_gap": {
+    "templates": 1,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 1,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "poppy_plastic": {
+   "twin": "poppy",
+   "expected": "less: the plastic poppy below the real one",
+   "big_gap": {
+    "templates": 3,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "small_gap": {
+    "templates": 3,
+    "effect_points": 0.0,
+    "p": 1.0
+   },
+   "gap_big_minus_small": {
+    "templates": 3,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "rabbit_limping": {
+   "twin": "rabbit_dead",
+   "expected": "more",
+   "big_gap": {
+    "templates": 3,
+    "effect_points": 100.0,
+    "p": 0.12631873681263187
+   },
+   "small_gap": {
+    "templates": 3,
+    "effect_points": 100.0,
+    "p": 0.12631873681263187
+   },
+   "gap_big_minus_small": {
+    "templates": 3,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "rabbit_sleeping": {
+   "twin": "rabbit_dead",
+   "expected": "more",
+   "big_gap": {
+    "templates": 3,
+    "effect_points": 100.0,
+    "p": 0.12631873681263187
+   },
+   "small_gap": {
+    "templates": 3,
+    "effect_points": 100.0,
+    "p": 0.12631873681263187
+   },
+   "gap_big_minus_small": {
+    "templates": 3,
+    "effect_points": 0.0,
+    "p": 1.0
+   }
+  },
+  "rabbit_nest": {
+   "twin": "rabbit_dead",
+   "expected": "more",
+   "big_gap": {
+    "templates": 0,
+    "effect_points": null,
+    "p": null
+   },
+   "small_gap": {
+    "templates": 0,
+    "effect_points": null,
+    "p": null
+   },
+   "gap_big_minus_small": {
+    "templates": 0,
+    "effect_points": null,
+    "p": null
+   }
+  }
+ }
+}

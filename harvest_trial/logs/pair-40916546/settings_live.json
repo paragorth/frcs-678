@@ -1,0 +1,93 @@
+{
+ "mode": "live",
+ "pair": "claude55",
+ "models": {
+  "haiku": "anthropic/claude-haiku-5.5",
+  "sonnet": "anthropic/claude-sonnet-5.5",
+  "opus": "anthropic/claude-opus-5.5"
+ },
+ "listed_names": {
+  "haiku": "Anthropic: Claude Haiku 5.5",
+  "sonnet": "Anthropic: Claude Sonnet 5.5",
+  "opus": "Anthropic: Claude Opus 5.5"
+ },
+ "provider": "anthropic",
+ "host_by_tag": {},
+ "quantization": "unknown",
+ "host_quantization": {
+  "haiku": "unknown",
+  "sonnet": "unknown",
+  "opus": "unknown"
+ },
+ "reasoning": {
+  "effort": "minimal"
+ },
+ "max_tokens": 4000,
+ "request": "chat completions, two messages (briefing as system, prompt as user); reasoning effort minimal; provider pinned, no fallback, require_parameters; no temperature, seed or stop",
+ "labels": {
+  "anthill_colony": "an anthill with its colony",
+  "anthill_abandoned": "an abandoned anthill",
+  "poppy": "a poppy",
+  "poppy_dead": "a dead poppy",
+  "poppy_plastic": "a plastic poppy",
+  "rabbit": "a rabbit",
+  "rabbit_dead": "a dead rabbit",
+  "signpost": "a signpost",
+  "post_fallen": "a fallen post",
+  "seed_sack": "a sack of seed grain",
+  "chaff_sack": "a sack of chaff",
+  "compost_heap": "a compost heap",
+  "ash_heap": "a heap of ash",
+  "hay_bale": "a hay bale",
+  "hay_bale_wording": "a bale of hay",
+  "rabbit_limping": "a limping rabbit",
+  "rabbit_sleeping": "a sleeping rabbit",
+  "rabbit_nest": "a nest of baby rabbits"
+ },
+ "templates": {
+  "file": "confirm_templates.json",
+  "templates": "510b61fcc348cdf2a0cf0874a5b4bba654449667738cacf1fce468a456e91dd5",
+  "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086",
+  "registered": {
+   "templates": "510b61fcc348cdf2a0cf0874a5b4bba654449667738cacf1fce468a456e91dd5",
+   "rocks": "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
+  },
+  "used": 142,
+  "rocks_used": 30,
+  "every": 1,
+  "briefing_sha256": "c6dec4bf0e4bf1e8411ae7f37a2a69478f9691380033e86194b54d81e9fef748"
+ },
+ "calls_planned": 18,
+ "limit": 18,
+ "order_seed": 20261031,
+ "in_flight": 6,
+ "retries": 3,
+ "stop_after_min": 150,
+ "pot": 13.0,
+ "pot_limit": 13.0,
+ "policy": null,
+ "host_prices_per_million": {
+  "haiku": {
+   "input": 0.1,
+   "output": 0.5
+  },
+  "sonnet": {
+   "input": 2.0,
+   "output": 10.0
+  },
+  "opus": {
+   "input": 4.0,
+   "output": 20.0
+  }
+ },
+ "worst_case_per_call": {
+  "haiku": 0.0021,
+  "sonnet": 0.042,
+  "opus": 0.084
+ },
+ "worst_case_all": 0.89,
+ "python": "3.11.13",
+ "host": "ws-s-55",
+ "slurm_job": "40916546",
+ "started": "2026-11-13T17:22:30Z"
+}

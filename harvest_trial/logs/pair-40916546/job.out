@@ -1,0 +1,55 @@
+host ws-s-55  job 40916546  pair claude55  python /usr/bin/python3.11  2026-11-13T17:22:29Z
+python ok 3.11.13
+openrouter.ai: HTTP 200
+{
+ "mode": "live",
+ "pair": "claude55",
+ "listed_names": {
+  "haiku": "Anthropic: Claude Haiku 5.5",
+  "sonnet": "Anthropic: Claude Sonnet 5.5",
+  "opus": "Anthropic: Claude Opus 5.5"
+ },
+ "provider": "anthropic",
+ "host_quantization": {
+  "haiku": "unknown",
+  "sonnet": "unknown",
+  "opus": "unknown"
+ },
+ "calls_planned": 18,
+ "host_prices_per_million": {
+  "haiku": {
+   "input": 0.1,
+   "output": 0.5
+  },
+  "sonnet": {
+   "input": 2.0,
+   "output": 10.0
+  },
+  "opus": {
+   "input": 4.0,
+   "output": 20.0
+  }
+ },
+ "worst_case_all": 0.89
+}
+{
+ "mode": "live",
+ "calls": 18,
+ "answered": 18,
+ "errors": 0,
+ "skipped": 0,
+ "providers": {
+  "Anthropic": 18
+ },
+ "response_models": {
+  "anthropic/claude-haiku-5.5": 4,
+  "anthropic/claude-sonnet-5.5": 7,
+  "anthropic/claude-opus-5.5": 7
+ },
+ "reasoning_tokens_total": 732,
+ "spent": 0.0639,
+ "wall_s": 8.0
+}
+pair exit 0  2026-11-13T17:22:38Z
+smoke: 18 calls, 0 not clean; hosts ['Anthropic']; reasoning effort minimal, reasoning tokens 732; spent $0.0639
+key check: clean

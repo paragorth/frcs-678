@@ -1,0 +1,18 @@
+{
+ "mode": "live",
+ "calls": 18,
+ "answered": 4,
+ "errors": 14,
+ "skipped": 0,
+ "providers": {
+  "null": 14,
+  "Anthropic": 4
+ },
+ "response_models": {
+  "null": 14,
+  "anthropic/claude-haiku-5.5": 4
+ },
+ "reasoning_tokens_total": 0,
+ "spent": 0.0005,
+ "wall_s": 2.0
+}
