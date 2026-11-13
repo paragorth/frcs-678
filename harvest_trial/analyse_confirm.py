@@ -35,6 +35,7 @@ CONFIRMATORY_BY_PAIR = {  # the rabbit follow-up: only the limping rabbit carrie
     "deepseek_rabbit": {"L1": "rabbit_limping"},
     # read first, each alone, the second model minus the first; no pass mark is registered for these two pairs
     "glm": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"},
+    "gpt6": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"},
     "ling": {"colony": "anthill_colony", "poppy": "poppy", "limping rabbit": "rabbit_limping"}}
 RABBIT_TWINS = {"rabbit_limping": ("rabbit_dead", "more"), "rabbit_sleeping": ("rabbit_dead", "more"),
                 "rabbit_nest": ("rabbit_dead", "more")}
@@ -52,10 +53,14 @@ def main() -> int:
     ap.add_argument("--rocks", required=True, type=Path)
     ap.add_argument("--rows", required=True, type=Path)
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--small", default=None, help="for a ladder: the tag of the smaller model compared")
+    ap.add_argument("--big", default=None, help="for a ladder: the tag of the larger model compared")
     ap.add_argument("--src", type=Path, default=None, help="a HarvestBench checkout, for its reply parser")
     a = ap.parse_args()
     spec = PAIRS[a.pair]
-    small, big = spec["small"][0], spec["big"][0]
+    tags = {m[0]: m for m in (spec["small"], *spec.get("mid", ()), spec["big"])}
+    small, big = a.small or spec["small"][0], a.big or spec["big"][0]
+    spec = {**spec, "small": tags[small], "big": tags[big]}   # any two models of a ladder, the smaller first
     labels = spec["labels"]
     confirmatory = CONFIRMATORY_BY_PAIR.get(a.pair, CONFIRMATORY)
     twin_map = {**TWINS, **{k: v for k, v in RABBIT_TWINS.items() if k in labels}}

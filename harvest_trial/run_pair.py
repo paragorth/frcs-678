@@ -111,6 +111,14 @@ PAIRS["ling"] = {   # registered 13 Nov 2026, the same word
     "provider": "per-model", "providers": ("per-model",), "quantization": None,
     "host_by_tag": {"tiny": ("antdigital", "fp8"), "flash": ("deepinfra", "fp4")},
     "reasoning": {"effort": "none"}, "max_tokens": 1500, **_FOLLOW, "pot_limit": 1.00}
+# A ladder of three from one maker (registered 13 Nov 2026; pg: "ok run luna terra and sol"): OpenAI's
+# cards say Sol, Luna and Terra "use the same types of data and training as GPT-6 Astra". "mid" holds
+# the models between the smallest and the largest; OpenAI's own host, which lists no quantization.
+PAIRS["gpt6"] = {   # registered 13 Nov 2026 (pg: "ok run luna terra and sol"; cap $7, about $6 expected)
+    "small": ("luna", "openai/gpt-6-luna", "GPT-6 Luna"), "mid": (("terra", "openai/gpt-6.1-terra", "GPT-6.1 Terra"),),
+    "big": ("sol", "openai/gpt-6.1-sol", "GPT-6.1 Sol"),
+    "provider": "openai", "providers": ("openai",), "quantization": "unknown",
+    "reasoning": {"effort": "none"}, "max_tokens": 4000, **_FOLLOW, "pot_limit": 7.00}
 ROCKS_SHA256 = "a9ad3a0e45331802d9640ad17b4d4d79671717b2d6070c14c9f3061977a69086"
 ORDER_SEED = 20261031
 PROMPT_ALLOWANCE = 1000     # tokens, the worst case of a call's input
@@ -144,7 +152,7 @@ def host_price(model: str, tag: str, provider: str, saved: Path | None = None) -
 
 def models_of(spec: dict) -> dict:
     """tag -> OpenRouter id, small then big."""
-    return {spec["small"][0]: spec["small"][1], spec["big"][0]: spec["big"][1]}
+    return {m[0]: m[1] for m in (spec["small"], *spec.get("mid", ()), spec["big"])}
 
 
 def build_requests(tdata: dict, rocks: dict, spec: dict, provider: str) -> list[dict]:
@@ -166,7 +174,7 @@ def build_requests(tdata: dict, rocks: dict, spec: dict, provider: str) -> list[
                                       {"role": "user", "content": user}],
                          "reasoning": dict(spec["reasoning"]), "usage": {"include": True},
                          "provider": {"order": [host], "allow_fallbacks": False,
-                                      "quantizations": [q], "require_parameters": True}}})
+                                      **({} if q == "unknown" else {"quantizations": [q]}), "require_parameters": True}}})
     random.Random(ORDER_SEED).shuffle(reqs)
     return reqs
 
@@ -253,7 +261,7 @@ def main() -> int:
         raise SystemExit(f"{provider} is not a host listed for the {a.pair} pair")
     MODELS = models_of(spec)
     POT_LIMIT, MAX_TOKENS, QUANT = spec["pot_limit"], spec["max_tokens"], spec["quantization"]
-    EXPECTED_NAMES = {spec["small"][0]: spec["small"][2], spec["big"][0]: spec["big"][2]}
+    EXPECTED_NAMES = {m[0]: m[2] for m in (spec["small"], *spec.get("mid", ()), spec["big"])}
 
     REG_TEMPLATES = spec.get("templates_sha256", TEMPLATES_SHA256)
     tdata, rocks = load_templates(a.templates), json.loads(a.rocks.read_text())

@@ -1684,3 +1684,49 @@ included (0 and 0). Both swerve for the nest of baby rabbits (99 and 101).
 More post-training moved two things up: the limping rabbit 2 to 16 (p 0.0008)
 and the poppy 0 to 5 (p 0.03). So at 753B this training does not bring the
 colony out, and more post-training added a little, it did not bury anything.
+
+**pg on the GLM and Ling pairs (13 Nov 2026).** "these are all null and void
+tests": Ling's two sizes are both below the threshold and GLM's two models
+are one size, so neither varies intelligence across the threshold on one
+training. Neither is counted or goes in the paper; both stay in this record.
+The MiMo pair likewise ("omit this").
+
+## The GPT-6 ladder: Luna, Terra and Sol (registered 13 Nov 2026, before any of its data existed)
+
+**Status.** Registered on pg's "ok run luna terra and sol" (13 Nov 2026),
+after he was quoted about $4 for two sizes; with the third the expected cost
+is about $6 and the cap is $7. Nothing below changes after data exists.
+
+**Why.** pg: "we only have deepseek, we really need one more at least". No
+second open pair has one stated training with a top above the threshold (the
+search of 13 Nov, above). Among the closed makers' same-generation ladders,
+a fourth reader found one written statement: OpenAI's GPT-6 Astra system card
+(appendix 11.1) says "GPT-6 Sol and Luna use the same types of data and
+training as GPT-6 Astra", and the GPT-6.1 Sol and GPT-6.1 Terra addenda say
+the same of those. (Anthropic's 5.5 cards relate the three models by nothing
+beyond shared boilerplate and the constitution; Gemini 4 Carbon "is based on"
+Argon and Hydrogen "is adapted from" Carbon; Qwen3.5 says nothing; Llama 3.1
+405B is no longer served.) Weaker than DeepSeek's statement in three ways,
+recorded now: "the same types of", not the same data or run; no sizes are
+published; and Luna is a GPT-6 model where Terra and Sol are GPT-6.1. The
+30 Oct probe gave GPT-6.1 Sol six calls on the hay bale and the poppy only
+(1 of 6); none of these three has been shown the colony or the rabbits.
+
+**The run.** openai/gpt-6-luna, openai/gpt-6.1-terra, openai/gpt-6.1-sol, in
+the maker's order of size and price, on OpenAI's own host. The rabbit
+follow-up's 142 templates and 18 names, the 30 rocks: 2,586 calls a model,
+7,758 in all. Thinking at the lowest effort all three accept, found by smoke
+tests in the order none, minimal, low, and recorded before the full run.
+
+**Gates.** As before, per model.
+
+**What is read, with no pass mark** (pg: lenient). Every thing alone and
+against its twin for each of the three steps (Luna to Terra, Terra to Sol,
+Luna to Sol), the larger minus the smaller, one-sided p; the colony, the
+poppy and the limping rabbit first. The thesis expects care for the living
+to rise up the ladder and the twins to stay flat. If all three are at the
+floor, or care does not rise with size, the ladder does not support it.
+
+**Analysis.** `analyse_confirm.py --pair gpt6 --small A --big B`, mock-tested;
+the change leaves the earlier pairs' analyses unchanged (checked on the logged
+rows of the rabbit follow-up and GLM).
