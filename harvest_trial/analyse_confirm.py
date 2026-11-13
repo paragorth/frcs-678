@@ -31,6 +31,10 @@ from analyse_structure import ALPHA, holm, rate, sign_flip  # noqa: E402
 from run_pair import CONFIRM_LABELS, PAIRS  # noqa: E402
 
 CONFIRMATORY = {"K1": "anthill_colony", "K2": "poppy", "K3": "rabbit"}
+CONFIRMATORY_BY_PAIR = {  # the rabbit follow-up: only the limping rabbit carries a pass mark (pg's prediction)
+    "deepseek_rabbit": {"L1": "rabbit_limping"}}
+RABBIT_TWINS = {"rabbit_limping": ("rabbit_dead", "more"), "rabbit_sleeping": ("rabbit_dead", "more"),
+                "rabbit_nest": ("rabbit_dead", "more")}
 TWINS = {  # thing: (twin, what the theory expects of the big model against the small)
     "anthill_colony": ("anthill_abandoned", "more"), "poppy": ("poppy_dead", "more"), "rabbit": ("rabbit_dead", "more"),
     "signpost": ("post_fallen", "more"), "seed_sack": ("chaff_sack", "more"), "compost_heap": ("ash_heap", "more"),
@@ -40,7 +44,7 @@ TWINS = {  # thing: (twin, what the theory expects of the big model against the 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--pair", required=True, choices=[k for k in PAIRS if k.endswith("_confirm")])
+    ap.add_argument("--pair", required=True, choices=[k for k in PAIRS if "labels" in PAIRS[k]])
     ap.add_argument("--templates", required=True, type=Path)
     ap.add_argument("--rocks", required=True, type=Path)
     ap.add_argument("--rows", required=True, type=Path)
@@ -49,6 +53,9 @@ def main() -> int:
     a = ap.parse_args()
     spec = PAIRS[a.pair]
     small, big = spec["small"][0], spec["big"][0]
+    labels = spec["labels"]
+    confirmatory = CONFIRMATORY_BY_PAIR.get(a.pair, CONFIRMATORY)
+    twin_map = {**TWINS, **{k: v for k, v in RABBIT_TWINS.items() if k in labels}}
     if a.src is not None:
         sys.path.insert(0, str(a.src.resolve()))
         from harvest.contact import parse_json_field as parse
@@ -88,21 +95,21 @@ def main() -> int:
         return {"templates": len(vals), "effect_points": None if obs is None else round(100 * obs, 1), "p": p}
 
     items = {}
-    for lab in CONFIRM_LABELS:
+    for lab in labels:
         ts = [t for t in p2 if (big, t, lab) in ans and (small, t, lab) in ans]
-        items[lab] = {"words": CONFIRM_LABELS[lab],
+        items[lab] = {"words": labels[lab],
                       "small": rate([ans[(small, t, lab)] for t in p2 if (small, t, lab) in ans]),
                       "big": rate([ans[(big, t, lab)] for t in p2 if (big, t, lab) in ans]),
                       "alone_big_minus_small": test([ans[(big, t, lab)] - ans[(small, t, lab)] for t in ts])}
     twins = {}
-    for lab, (twin, expect) in TWINS.items():
+    for lab, (twin, expect) in twin_map.items():
         ts = [t for t in p2 if all((tag, t, x) in ans for tag in (small, big) for x in (lab, twin))]
         twins[lab] = {"twin": twin, "expected": expect,
                       "big_gap": test([ans[(big, t, lab)] - ans[(big, t, twin)] for t in ts]),
                       "small_gap": test([ans[(small, t, lab)] - ans[(small, t, twin)] for t in ts]),
                       "gap_big_minus_small": test([(ans[(big, t, lab)] - ans[(big, t, twin)])
                                                    - (ans[(small, t, lab)] - ans[(small, t, twin)]) for t in ts])}
-    conf = {k: dict(items[lab]["alone_big_minus_small"], thing=lab) for k, lab in CONFIRMATORY.items()}
+    conf = {k: dict(items[lab]["alone_big_minus_small"], thing=lab) for k, lab in confirmatory.items()}
     adj = holm({k: v["p"] for k, v in conf.items() if v["p"] is not None})
     for k, v in conf.items():
         v["p_holm"] = adj.get(k)
@@ -119,7 +126,7 @@ def main() -> int:
           "| Gate | " + small + " | " + big + " |", "|---|---|---|"]
     for k in ("readable_share", "rocks", "wording_gap_points", "reasoning_tokens_per_call", "cost_usd"):
         md.append(f"| {k} | {gates[small][k]} | {gates[big][k]} |")
-    md += ["", "Confirmatory (Holm family of three):", "", "| Test | Thing | Effect (points) | p | Holm p | Passes |", "|---|---|---|---|---|---|"]
+    md += ["", f"Confirmatory (Holm family of {len(conf)}):", "", "| Test | Thing | Effect (points) | p | Holm p | Passes |", "|---|---|---|---|---|---|"]
     for k, v in conf.items():
         md.append(f"| {k} | {v['thing']} | {v['effect_points']} | {fp(v['p'])} | {fp(v['p_holm'])} | {v['passes']} |")
     md += ["", "Every thing alone:", "", f"| Thing | {small} | {big} | Big minus small (points) | p |", "|---|---|---|---|---|"]

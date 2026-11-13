@@ -51,7 +51,7 @@ print(f"smoke: {len(rows)} calls, {len(bad)} not clean; hosts {sorted({r.get('pr
 sys.exit(1 if bad or not rows else 0)
 PY
 else
-  if [ "${PAIR%_confirm}" != "$PAIR" ]; then
+  if [ "${PAIR%_confirm}" != "$PAIR" ] || [ "${PAIR%_rabbit}" != "$PAIR" ]; then
     echo "confirmation pair: its analysis (analyse_confirm.py) is run after the job"
   elif [ -n "$SRC" ] && timeout 10 head -c 16 "$SRC/harvest/contact.py" >/dev/null 2>&1; then
     "$PY" -I -B "$T/analyse_pair.py" --src "$SRC" --pair "$PAIR" --templates "$T/structure_templates.json" \
