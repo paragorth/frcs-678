@@ -1866,3 +1866,10 @@ and the signpost, and the hay bale appears in the largest. The twins stay at
 zero but for the dead rabbit in Sonnet (7 of 48) and the plastic poppy in Opus
 (7 of 34, with the real poppy at 0 of 45). As registered, this ladder is
 supporting evidence from a third maker, not a same-training test.
+
+**pg's inclusion rule for the paper (14 Nov 2026).** "Same fine tuning, as
+similar as possible pre training". Pre-training is on a huge corpus and close
+to unbiased; fine-tuning is directed, so a difference there means the pair
+cannot test the claim. MiMo-V2.6 fails the rule (about three times the RL
+post-training on Pro, which pg learned after the run) and is omitted from the
+paper; its run stays in this record.
