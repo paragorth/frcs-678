@@ -17,6 +17,7 @@ Full doc: claude.ai/artifact/Trfk1oPddipAaoNgeAD7zQ. Short doc: claude.ai/artifa
 | 7 | Report the Qwen size ladder as an adjunct: small models could only do the stated-choice test, not the harvest test | New 4.6 "Earlier evidence: what smaller models say" (Qwen2.5 0.5B-32B, Llama 70B vs 8B, follow-up D's wrong rule as the catch) | sg_caisvqzpyq | sg_b6e6db3kwf (short paragraph, end of "What we saw") |
 | 8 | Fishing game (GovSim): not reported (copying, not care; capability claim withdrawn 18 Oct; pg stopped it twice) | none | - | - |
 | 10 | "ok and the current copy": today's changes mirrored into the short version | - | - | sg_wcpvzqadrj, sg_b6e6db3kwf; plus pg's proposition (full doc sg_xwpnlhcmy5) as one paragraph in "Why it should be true", sg_mdibu3fyj6 |
+| 11 | Subtitle: positive and forward ("a falsifiable result, with a forward direction for labs to test alignment"), not "what labs can do to break it"; no "The claim." box (papers don't start that way); a claim is general, never a finding or a game detail | Subtitle second sentence replaced; claim box deleted; abstract paragraph 2 opens with the general claim (intelligence expands what a mind recognises as worth preserving; alignment grows with intelligence) | sg_e3wl7kialp, sg_uzh3frfivj, sg_xazx87apc9 | sg_om1wnx6tph, sg_5r7ci2wm5s, sg_7ca0ycqoz1 |
 | 9 | Working rule: write changes straight into the doc as suggestions, don't ask; keep it fluid; log every change and request | this file | - | - |
 
 Earlier suggestions still open in the full doc: sg_xwpnlhcmy5 (section 6, pg's proposition),
