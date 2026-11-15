@@ -4,7 +4,7 @@ Every request pg makes about the paper, and what was changed in the doc for it.
 Changes go into the doc as suggestions (pg accepts, rejects or rewrites each); nothing here is final.
 Full doc: claude.ai/artifact/Trfk1oPddipAaoNgeAD7zQ. Short doc: claude.ai/artifact/RCmjwurHzoLUPmvviKfkfY.
 
-## 14 Nov 2026
+## 14-15 Nov 2026
 
 | # | pg asked | Change in the full doc | Suggestion | Short doc |
 |---|---|---|---|---|
@@ -25,6 +25,7 @@ Full doc: claude.ai/artifact/Trfk1oPddipAaoNgeAD7zQ. Short doc: claude.ai/artifa
 | 16 | pg's ordering of what overrides what: "Super intelligence > Fine tuned values > high intelligence > Pre training values > low intelligence"; his reading of follow-up D and the GPT-6 poppy | Section 5, new "What overrides what" paragraph after "For what does not appear" | sg_9244vk0att | not yet |
 | 17 | "do we have super intelligence yet? no ... its easy to test in labs with a dial on fine tuning" | The top step is stated as a prediction labs can test now; statement 6 rewritten as the dial test (every size of one recipe, fine-tuning turned up and down; wrong if the fine-tuning needed to hold a harmful value does not rise with intelligence) | sg_9244vk0att, sg_xt9itze40p | not yet |
 | 18 | "your 1 and 6 point are the real killers -- rein in our reach and ambition -- keep it to care" | Abstract claim narrowed to care: intelligence and care are not independent; within one training the more intelligent model protects what is living and carries meaning, at a cost, unasked; Semataxy given as the reason, not the claim. Conclusion narrowed to "in the models we tested, care ... grew with it". Proposed in chat, not yet changed: section 6 proposition, section 1 point 5, the superintelligence step | sg_xazx87apc9, sg_dsw4is5tls (amended) | sg_7ca0ycqoz1 (amended) |
+| 19 | "dont keep asking ... judge yourself" (rein in to care, carried through) | Section 6 proposition withdrawn and condensed into Appendix A.6 "The author's wider proposition", with a pointer at the end of section 5's "What overrides what"; section renumbering withdrawn (sections stay 6-9); section 1 list: point 1 "Care grows with intelligence", point 2 "Care is discovered, not only installed", point 5 "Superintelligence protects life" deleted, "Points 3 to 5" now "3 and 4"; top step of the ordering kept as a prediction | withdrawn sg_xwpnlhcmy5, sg_351405449u; new sg_j5c21c5ne8, sg_2qyl8gfu86, sg_jh2pc5fdpv, sg_ofret9kpgv; amended sg_vej3wlkaqs, sg_9244vk0att | proposition paragraph sg_mdibu3fyj6 withdrawn |
 | 9 | Working rule: write changes straight into the doc as suggestions, don't ask; keep it fluid; log every change and request | this file | - | - |
 
 Earlier suggestions still open in the full doc: sg_xwpnlhcmy5 (section 6, pg's proposition),
