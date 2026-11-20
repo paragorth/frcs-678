@@ -13,3 +13,4 @@ What the paper reports and what it leaves out (pg, 13 Nov): the families whose m
 
 
 Lab version (15 Nov 2026), ready to send once the placeholders are filled: https://claude.ai/artifact/Pdoj7mYrweHKtmeDwsivUz (tab 1 the paper, tab 2 the cover letter with the ask). Built from the working draft with all open suggestions applied; the working draft stays the place for edits.
+**The version to read:** [more_intelligence_more_care.md](more_intelligence_more_care.md), the lab version of 15 Nov 2026 exported from Claude Docs.
